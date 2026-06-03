@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generador de QR · PREMIR</title>
+
+  <!-- Tipografía similar a sitios corporativos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Paleta corporativa (aprox. estilo web institucional, limpia y clara) */
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --surface-2: #fbfcfe;
+      --text: #0f172a;     /* slate-900 */
+      --muted: #64748b;    /* slate-500 */
+      --line: #e5e7eb;     /* gray-200 */
+      --shadow: 0 12px 30px rgba(15, 23, 42, .10);
+      --radius: 16px;
+
+      --brand: #0b3a53;    /* azul verdoso */
+      --brand-2: #16a34a;  /* verde */
+      --brand-soft: rgba(22,163,74,.12);
+      --focus: rgba(22,163,74,.22);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 520px at 15% -10%, rgba(22,163,74,.12), transparent 60%),
+        radial-gradient(900px 520px at 85% 0%, rgba(11,58,83,.10), transparent 60%),
+        var(--bg);
+      padding: 26px;
+    }
+
+    .wrap{
+      max-width: 1120px;
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+    }
+
+    header{
+      grid-column: 1 / -1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 280px;
+    }
+
+    .brand .logoBox{
+      width: 240px;
+      height: 112px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      padding: 8px 10px;
+    }
+
+    .brand img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size: 16px;
+      line-height: 1.15;
+      letter-spacing: .2px;
+      color: var(--brand);
+      font-weight: 750;
+    }
+    .brand p{
+      margin:0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .pill{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      border: 1px solid rgba(22,163,74,.22);
+      color: var(--brand);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .pill a{ color: var(--brand); text-decoration:none; font-weight:650; }
+    .pill a:hover{ text-decoration:underline; }
+
+    .card{
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .card .hd{
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      background: linear-gradient(180deg, #ffffff, #fbfcfe);
+    }
+
+    .card .hd .title{
+      margin:0;
+      font-weight: 750;
+      font-size: 14px;
+      color: var(--brand);
+    }
+    .card .hd .sub{
+      margin:0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .card .bd{ padding: 16px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap: 7px;
+    }
+    label{
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    input[type="text"], input[type="url"], textarea, select, input[type="color"]{
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--text);
+      padding: 11px 12px;
+      outline: none;
+      transition: box-shadow .15s ease, border-color .15s ease;
+    }
+
+    textarea{ resize: vertical; min-height: 92px; }
+
+    input[type="color"]{
+      padding: 7px;
+      height: 44px;
+    }
+
+    input:focus, textarea:focus, select:focus{
+      border-color: rgba(22,163,74,.55);
+      box-shadow: 0 0 0 4px var(--focus);
+    }
+
+    .toggle{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+    }
+    .toggle input{ width: 18px; height: 18px; accent-color: var(--brand-2); }
+
+    .rangeWrap{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+    }
+    input[type="range"]{
+      width: 100%;
+      accent-color: var(--brand-2);
+    }
+    .mini{
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 52px;
+      text-align:right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    button{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-weight: 750;
+      color: var(--brand);
+      background: #ffffff;
+      cursor:pointer;
+      transition: transform .06s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+      user-select:none;
+    }
+    button:hover{
+      background: #f8fafc;
+      border-color: #dbe1ea;
+      box-shadow: 0 10px 18px rgba(15, 23, 42, .06);
+    }
+    button:active{ transform: translateY(1px); }
+
+    .primary{
+      color: #ffffff;
+      border-color: rgba(22,163,74,.45);
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+    }
+    .primary:hover{ background: linear-gradient(135deg, #149646, #1fb458); }
+
+    .success{
+      color: #ffffff;
+      border-color: rgba(11,58,83,.45);
+      background: linear-gradient(135deg, #0b3a53, #0f5a7e);
+    }
+    .danger{
+      color: #7f1d1d;
+      border-color: #fecaca;
+      background: #fff1f2;
+    }
+
+    .divider{
+      height: 1px;
+      background: var(--line);
+      margin: 14px 0;
+    }
+
+    .qrStage{
+      display:grid;
+      place-items:center;
+      padding: 18px;
+    }
+
+    .qrFrame{
+      width: min(460px, 100%);
+      aspect-ratio: 1/1;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, .10);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      position:relative;
+    }
+
+    #qr{
+      width: 86%;
+      height: 86%;
+      display:grid;
+      place-items:center;
+    }
+
+    .hint{
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align:center;
+      max-width: 48ch;
+    }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, .92);
+      color: rgba(255,255,255,.95);
+      padding: 10px 12px;
+      border-radius: 999px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.22);
+      font-size: 12px;
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    @media (max-width: 940px){
+      .wrap{ grid-template-columns: 1fr; }
+      header{ flex-direction:column; align-items:flex-start; }
+      .brand .logoBox{ width: 320px; height: 128px; }
+    }
+  </style>
+
+  <!-- Librería QR con estilo y soporte de logo -->
+  <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <a class="logoBox" href="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894" title="">
+          <img id="brandLogo"
+               alt=""
+               src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894"
+               onerror="this.remove(); document.getElementById('logoFallback').style.display='flex';" />
+          <div id="logoFallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-weight:900; letter-spacing:.6px; color:var(--brand);">
+            PREMIR
+          </div>
+        </a>
+        <div>
+          <h1>Generador de códigos QR</h1>
+          <p>Exporta en PNG/SVG · Color configurable · Logo opcional</p>
+        </div>
+      </div>
+
+      <div class="pill">
+        <span>Acceso:</span>
+        <a href="https://premir.es/" target="_blank" rel="noopener noreferrer">premir.es</a>
+        <span style="opacity:.55">·</span>
+        <a href="https://premironline.es/" target="_blank" rel="noopener noreferrer">premironline.es</a>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="hd">
+        <div>
+          <p class="title">Contenido del QR</p>
+          <p class="sub">Introduce una URL o texto</p>
+        </div>
+      </div>
+
+      <div class="bd">
+        <div class="field">
+          <label for="data">Contenido</label>
+          <textarea id="data" placeholder="Ej: https://premir.es/"></textarea>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid">
+          <div class="field">
+            <label for="size">Tamaño</label>
+            <div class="rangeWrap">
+              <input id="size" type="range" min="220" max="900" value="420" />
+              <div class="mini"><span id="sizeVal">420</span>px</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ecc">Corrección de error</label>
+            <select id="ecc">
+              <option value="L">L (7%)</option>
+              <option value="M">M (15%)</option>
+              <option value="Q" selected>Q (25%)</option>
+              <option value="H">H (30%)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="dots">Estilo de puntos</label>
+            <select id="dots">
+              <option value="rounded" selected>Redondeado</option>
+              <option value="dots">Puntos</option>
+              <option value="classy">Classy</option>
+              <option value="classy-rounded">Classy redondeado</option>
+              <option value="square">Cuadrado</option>
+              <option value="extra-rounded">Extra redondeado</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="corners">Esquinas</label>
+            <select id="corners">
+              <option value="extra-rounded" selected>Extra redondeadas</option>
+              <option value="rounded">Redondeadas</option>
+              <option value="dot">Punto</option>
+              <option value="square">Cuadradas</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="margin">Margen</label>
+            <div class="rangeWrap">
+              <input id="margin" type="range" min="0" max="40" value="12" />
+              <div class="mini"><span id="marginVal">12</span>px</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="bg">Fondo</label>
+            <select id="bg">
+              <option value="#ffffff" selected>Blanco</option>
+              <option value="transparent">Transparente</option>
+              <option value="#f6f8fb">Gris suave</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid">
+          <div class="toggle" style="grid-column:1 / -1;">
+            <input id="singleColor" type="checkbox" checked />
+            <label for="singleColor" style="margin:0;">Usar un solo color (puntos + esquinas)</label>
+          </div>
+
+          <div class="field">
+            <label for="dotColor">Color puntos</label>
+            <input id="dotColor" type="color" value="#0b3a53" />
+          </div>
+
+          <div class="field">
+            <label for="cornerColor">Color esquinas</label>
+            <input id="cornerColor" type="color" value="#0b3a53" />
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid">
+          <!-- IMPORTANTE: ahora NO viene marcado por defecto -->
+          <div class="toggle">
+            <input id="withLogo" type="checkbox" />
+            <label for="withLogo" style="margin:0;">Incluir logo en el centro</label>
+          </div>
+
+          <div class="field">
+            <label for="logoUpload">Logo personalizado (opcional)</label>
+            <input id="logoUpload" type="file" accept="image/*" />
+          </div>
+
+          <div class="field" style="grid-column:1 / -1;">
+            <label for="logoUrl">URL del logo (si activas “Incluir logo”)</label>
+            <input id="logoUrl" type="url"
+              value="https://premironline.es/assets/logo-premir.png"
+              placeholder="Pega aquí la URL del logo (PNG/SVG)" />
+            <div style="font-size:12px;color:var(--muted);margin-top:6px">
+              Nota: si al descargar PNG hay problemas por CORS con un logo remoto, sube el logo como archivo (suele solucionarlo).
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="btnGenerate">Generar QR</button>
+          <button class="success" id="btnDownloadPng">Descargar PNG</button>
+          <button id="btnDownloadSvg">Descargar SVG</button>
+          <button id="btnCopyPng">Copiar PNG</button>
+          <button class="danger" id="btnReset">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="hd">
+        <div>
+          <p class="title">Vista previa</p>
+          <p class="sub">Actualiza automáticamente al cambiar opciones</p>
+        </div>
+      </div>
+
+      <div class="qrStage">
+        <div class="qrFrame">
+          <div id="qr"></div>
+        </div>
+        <div class="hint">
+          Si activas el logo, usa corrección <b>Q</b> o <b>H</b> para mejorar la lectura del QR.
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    // ========= Helpers =========
+    const $ = (id) => document.getElementById(id);
+
+    function toast(msg){
+      const t = $("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 1700);
+    }
+
+    function safeColorBg(value){
+      if (value === "transparent") return { color: "rgba(0,0,0,0)" };
+      return { color: value };
+    }
+
+    // Intenta convertir una URL remota a DataURL (mejora exportación PNG si CORS lo permite)
+    async function loadImageAsDataURL(url){
+      try{
+        const res = await fetch(url, { mode: "cors", cache: "force-cache" });
+        if(!res.ok) throw new Error("HTTP " + res.status);
+        const blob = await res.blob();
+
+        return await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      }catch(e){
+        return null; // fallback: usar URL directa
+      }
+    }
+
+    // ========= Defaults =========
+    const DEFAULT_DATA = "https://premir.es/";
+    const DEFAULT_LOGO_URL = "https://premironline.es/assets/logo-premir.png";
+
+    // ========= QR Instance =========
+    let qr = null;
+
+    // Logo puede ser:
+    // - DataURL de archivo subido (mejor opción para exportación)
+    // - DataURL descargado desde URL (si CORS permite)
+    // - URL directa (último recurso)
+    let currentLogoDataUrl = null;     // por upload
+    let cachedRemoteLogoDataUrl = null; // por fetch
+
+    function updateRangeLabels(){
+      $("sizeVal").textContent = $("size").value;
+      $("marginVal").textContent = $("margin").value;
+    }
+
+    function getColors(){
+      const dot = $("dotColor").value;
+      const corner = $("cornerColor").value;
+      const single = $("singleColor").checked;
+      return {
+        dotColor: dot,
+        cornerColor: single ? dot : corner
+      };
+    }
+
+    function normalizeCornersDotType(cornersSquareType){
+      // cornersDotOptions suele aceptar: "dot" | "square"
+      return cornersSquareType === "square" ? "square" : "dot";
+    }
+
+    async function resolveLogo(){
+      if(!$("withLogo").checked) return null;
+
+      // 1) logo subido: DataURL
+      if(currentLogoDataUrl) return currentLogoDataUrl;
+
+      // 2) URL remota -> intentar DataURL por fetch
+      const url = ($("logoUrl").value.trim() || DEFAULT_LOGO_URL);
+
+      if(cachedRemoteLogoDataUrl && cachedRemoteLogoDataUrl.__src === url){
+        return cachedRemoteLogoDataUrl.data;
+      }
+
+      const dataUrl = await loadImageAsDataURL(url);
+      if(dataUrl){
+        cachedRemoteLogoDataUrl = { __src: url, data: dataUrl };
+        return dataUrl;
+      }
+
+      // 3) fallback: URL directa
+      return url;
+    }
+
+    async function buildOptions(type){
+      const data = $("data").value.trim() || DEFAULT_DATA;
+      const size = parseInt($("size").value, 10);
+      const margin = parseInt($("margin").value, 10);
+      const ecc = $("ecc").value;
+      const dotsType = $("dots").value;
+      const cornersType = $("corners").value;
+      const { color: bgColor } = safeColorBg($("bg").value);
+      const { dotColor, cornerColor } = getColors();
+
+      const image = await resolveLogo();
+
+      return {
+        width: size,
+        height: size,
+        type: type || "canvas",
+        data,
+        margin,
+        qrOptions: { errorCorrectionLevel: ecc },
+        image: image || undefined,
+        imageOptions: {
+          margin: 6,
+          hideBackgroundDots: true,
+          imageSize: 0.22,
+          crossOrigin: "anonymous"
+        },
+        dotsOptions: { type: dotsType, color: dotColor },
+        cornersSquareOptions: { type: cornersType, color: cornerColor },
+        cornersDotOptions: { type: normalizeCornersDotType(cornersType), color: cornerColor },
+        backgroundOptions: { color: bgColor }
+      };
+    }
+
+    async function renderQR(){
+      const mount = $("qr");
+      mount.innerHTML = "";
+
+      const options = await buildOptions("canvas");
+      qr = new QRCodeStyling(options);
+      qr.append(mount);
+    }
+
+    // ========= Actions =========
+    $("btnGenerate").addEventListener("click", async () => {
+      await renderQR();
+      toast("QR generado ✅");
+    });
+
+    $("btnReset").addEventListener("click", async () => {
+      $("data").value = DEFAULT_DATA;
+      $("size").value = 420;
+      $("margin").value = 12;
+      $("ecc").value = "Q";
+      $("dots").value = "rounded";
+      $("corners").value = "extra-rounded";
+      $("bg").value = "#ffffff";
+
+      $("singleColor").checked = true;
+      $("dotColor").value = "#0b3a53";
+      $("cornerColor").value = "#0b3a53";
+
+      // clave: por defecto NO incluir logo
+      $("withLogo").checked = false;
+      $("logoUrl").value = DEFAULT_LOGO_URL;
+      $("logoUpload").value = "";
+
+      currentLogoDataUrl = null;
+      cachedRemoteLogoDataUrl = null;
+
+      updateRangeLabels();
+      await renderQR();
+      toast("Restablecido ↺");
+    });
+
+    $("btnDownloadPng").addEventListener("click", async () => {
+      try{
+        if(!qr) await renderQR();
+        qr.download({ name: "qr-premir", extension: "png" });
+      }catch(e){
+        console.error(e);
+        toast("No se pudo descargar PNG. Prueba a subir el logo como archivo.");
+      }
+    });
+
+    $("btnDownloadSvg").addEventListener("click", async () => {
+      try{
+        const options = await buildOptions("svg");
+        const qrSvg = new QRCodeStyling(options);
+        qrSvg.download({ name: "qr-premir", extension: "svg" });
+      }catch(e){
+        console.error(e);
+        toast("No se pudo descargar SVG.");
+      }
+    });
+
+    $("btnCopyPng").addEventListener("click", async () => {
+      try{
+        if(!qr) await renderQR();
+
+        const canvas = $("qr").querySelector("canvas");
+        if(!canvas) throw new Error("No hay canvas para copiar");
+
+        if(!navigator.clipboard || typeof ClipboardItem === "undefined"){
+          toast("Copiado no soportado en este navegador.");
+          return;
+        }
+
+        canvas.toBlob(async (blob) => {
+          try{
+            if(!blob) throw new Error("No se pudo generar el PNG");
+            await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+            toast("PNG copiado 📋");
+          }catch(err){
+            console.error(err);
+            toast("No se pudo copiar (permiso/CORS).");
+          }
+        }, "image/png");
+      }catch(err){
+        console.error(err);
+        toast("No se pudo copiar (revisa permisos del navegador).");
+      }
+    });
+
+    $("logoUpload").addEventListener("change", async (e) => {
+      const file = e.target.files?.[0];
+      if(!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        currentLogoDataUrl = reader.result;
+        cachedRemoteLogoDataUrl = null;
+
+        // si el usuario sube logo, activamos incluir
+        $("withLogo").checked = true;
+
+        await renderQR();
+        toast("Logo cargado 🖼️");
+      };
+      reader.readAsDataURL(file);
+    });
+
+    $("logoUrl").addEventListener("input", () => {
+      cachedRemoteLogoDataUrl = null;
+    });
+
+    // UX: deshabilitar color de esquinas cuando está activo "un solo color"
+    function syncCornerColorDisabled(){
+      $("cornerColor").disabled = $("singleColor").checked;
+      $("cornerColor").style.opacity = $("singleColor").checked ? ".55" : "1";
+    }
+    $("singleColor").addEventListener("change", syncCornerColorDisabled);
+
+    // Auto-regeneración con debounce
+    const autoFields = [
+      "data","size","margin","ecc","dots","corners","bg",
+      "withLogo","singleColor","dotColor","cornerColor","logoUrl"
+    ];
+
+    let debounce = null;
+    autoFields.forEach((id) => {
+      $(id).addEventListener("input", () => {
+        updateRangeLabels();
+        syncCornerColorDisabled();
+        clearTimeout(debounce);
+        debounce = setTimeout(() => renderQR(), 220);
+      });
+      $(id).addEventListener("change", () => {
+        updateRangeLabels();
+        syncCornerColorDisabled();
+        clearTimeout(debounce);
+        debounce = setTimeout(() => renderQR(), 220);
+      });
+    });
+
+    // Render inicial
+    $("data").value = DEFAULT_DATA;
+    updateRangeLabels();
+    syncCornerColorDisabled();
+    renderQR();
+  </script>
+</body>
+</html>
