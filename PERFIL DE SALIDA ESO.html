@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Relación Obxectivos - Competencias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --premir-azul-oscuro: #003865;
+      --premir-azul: #0062a8;
+      --premir-azul-claro: #e3f2fd;
+      --premir-gris-fondo: #f3f6fb;
+      --premir-gris-borde: #d0d7e2;
+      --premir-verde-ok: #2e7d32;
+      --premir-rojo-error: #c62828;
+      --premir-dorado: #fbc02d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 20px 16px;
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #1a73e8 0, #003865 40%, #001933 100%);
+      color: #13233a;
+      min-height: 100vh;
+    }
+
+    .shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell-inner { position: relative; z-index: 1; display: flex; flex-direction: column; }
+
+    /* --- MÓDULO SUPERIOR: CABECERA --- */
+    .modulo-superior {
+      background: #f8fafc;
+      padding: 20px 28px;
+      border-bottom: 2px solid var(--premir-azul-claro);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo-seccion {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .logo-seccion img { height: 70px; }
+
+    .titulo-principal h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--premir-azul-oscuro);
+      letter-spacing: -0.5px;
+    }
+
+    .profesor-tag {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    .profesor-tag strong {
+      color: var(--premir-azul);
+      margin-left: 5px;
+    }
+
+    .stats-seccion {
+      display: flex;
+      gap: 15px;
+    }
+
+    /* --- MÓDULO INFERIOR: ZONA DE JUEGO --- */
+    .modulo-inferior {
+      padding: 24px 28px 28px;
+      background: white;
+    }
+
+    .stat-box {
+      background: white;
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--premir-gris-borde);
+      text-align: center;
+      min-width: 130px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+
+    .stat-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #64748b;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--premir-azul-oscuro);
+      font-variant-numeric: tabular-nums;
+    }
+
+    #record-value { color: var(--premir-dorado); }
+
+    #contenedor-principal {
+      display: flex;
+      gap: 25px;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tabla-wrap {
+      flex: 1;
+      min-width: 750px;
+      background: #fbfdff;
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid var(--premir-gris-borde);
+    }
+
+    table {
+      border-collapse: collapse;
+      background: white;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+
+    th, td {
+      border: 1px solid #d5dcec;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    thead th {
+      background: linear-gradient(120deg, var(--premir-azul-oscuro), var(--premir-azul));
+      color: #fdfdfd;
+      padding: 12px;
+    }
+
+    .fila-obj {
+      background: #edf2ff;
+      font-weight: 700;
+      color: var(--premir-azul-oscuro);
+    }
+
+    .dropzone {
+      min-height: 40px;
+      background: #ffffff;
+      transition: all .2s ease;
+    }
+
+    .dropzone.resaltado { background: #e3f2fd; box-shadow: inset 0 0 0 2px var(--premir-azul); }
+    .dropzone.correcto { background: #e6f4ea; box-shadow: inset 0 0 0 1px var(--premir-verde-ok); }
+    .dropzone.incorrecto { background: #ffebee; box-shadow: inset 0 0 0 1px var(--premir-rojo-error); }
+
+    #banco-fichas {
+      width: 280px;
+      background: linear-gradient(145deg, #ffffff, #f8faff);
+      border: 1px solid var(--premir-gris-borde);
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.08);
+    }
+
+    #banco-fichas h2 { 
+      font-size: 15px; 
+      margin: 0 0 15px; 
+      color: var(--premir-azul-oscuro);
+      border-bottom: 2px solid var(--premir-azul-claro);
+      padding-bottom: 8px;
+    }
+
+    .ficha {
+      display: inline-block;
+      padding: 8px 14px;
+      margin: 5px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,56,101,.16);
+      background: white;
+      cursor: grab;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 2px 5px rgba(0,0,0,.1);
+      transition: all .15s ease;
+    }
+
+    .ficha:active { cursor: grabbing; }
+    .ficha:hover { transform: translateY(-2px); background: #f0f7ff; border-color: var(--premir-azul); }
+
+    #botones {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    button {
+      padding: 12px 24px;
+      cursor: pointer;
+      border-radius: 999px;
+      border: none;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: all .2s;
+    }
+
+    #btn-comprobar { background: var(--premir-azul); color: white; box-shadow: 0 4px 12px rgba(0,98,168,.3); }
+    #btn-resolver { background: var(--premir-verde-ok); color: white; }
+    #btn-reiniciar { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+
+    button:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+    #mensaje { margin-top: 15px; font-weight: 700; font-size: 14px; text-align: right; }
+    
+    .hidden-audio { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Audios de feedback -->
+  <audio id="audio-error" class="hidden-audio" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"></audio>
+  <audio id="audio-exito" class="hidden-audio" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
+
+  <div class="shell">
+    <div class="shell-inner">
+      
+      <!-- MODULO SUPERIOR: DASHBOARD -->
+      <header class="modulo-superior">
+        <div class="logo-seccion">
+          <img src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894" alt="Logo PREMIR">
+          <div class="titulo-principal">
+            <h1>PERFIL DE SAÍDA DE ESO</h1>
+            <div class="profesor-tag">Profesor: <strong>José Manuel Paredes</strong></div>
+          </div>
+        </div>
+        
+        <div class="stats-seccion">
+          <div class="stat-box">
+            <div class="stat-label">Cronómetro</div>
+            <div id="cronometro" class="stat-value">00:00</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Mellor Récord</div>
+            <div id="record-value" class="stat-value">--:--</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- MODULO INFERIOR: ZONA DE JUEGO -->
+      <main class="modulo-inferior">
+        <div id="contenedor-principal">
+          
+          <div class="tabla-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Obxectivos</th>
+                  <th colspan="8">Competencias clave</th>
+                </tr>
+                <tr>
+                  <th>CCL</th><th>CP</th><th>STEM</th><th>CD</th><th>CPSAA</th><th>CC</th><th>CE</th><th>CCEC</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-cuerpo">
+                <!-- Filas generadas por JS -->
+              </tbody>
+            </table>
+
+            <div id="botones">
+              <button id="btn-reiniciar">Reiniciar</button>
+              <button id="btn-resolver">Resolver</button>
+              <button id="btn-comprobar">Comprobar</button>
+            </div>
+            <div id="mensaje"></div>
+          </div>
+
+          <div id="banco-fichas" class="dropzone" data-cell-id="BANCO">
+            <h2>Fichas: DESCRITORES OPERATIVOS</h2>
+            <div id="contenedor-fichas-banco">
+               <!-- Fichas cargadas dinámicamente -->
+            </div>
+          </div>
+          
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    const solucion = {
+      "OBX1-CCL": "3", "OBX1-STEM": "2-5", "OBX1-CD": "4", "OBX1-CPSAA": "2-4",
+      "OBX2-CPSAA": "4-5", "OBX2-CE": "2-3",
+      "OBX3-CCL": "5", "OBX3-CP": "3", "OBX3-CPSAA": "1-3-5", "OBX3-CC": "3",
+      "OBX4-CP": "3", "OBX4-CC": "2-3", "OBX4-CCEC": "1-2-3-4",
+      "OBX5-STEM": "5", "OBX5-CC": "4", "OBX5-CE": "1-3"
+    };
+
+    const fichasData = [
+      {id: "f1", val: "3"}, {id: "f2", val: "2-5"}, {id: "f3", val: "4"}, {id: "f4", val: "2-4"},
+      {id: "f5", val: "4-5"}, {id: "f6", val: "2-3"}, {id: "f7", val: "5"}, {id: "f8", val: "3"},
+      {id: "f9", val: "1-3-5"}, {id: "f10", val: "3"}, {id: "f11", val: "3"}, {id: "f12", val: "2-3"},
+      {id: "f13", val: "1-2-3-4"}, {id: "f14", val: "5"}, {id: "f15", val: "4"}, {id: "f16", val: "1-3"}
+    ];
+
+    let startTime;
+    let timerInterval;
+    let timerStarted = false;
+
+    function startTimer() {
+      if (timerStarted) return;
+      timerStarted = true;
+      startTime = Date.now();
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      timerStarted = false;
+    }
+
+    function updateTimer() {
+      const elapsed = Math.floor((Date.now() - startTime) / 1000);
+      document.getElementById("cronometro").textContent = formatTime(elapsed);
+    }
+
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const s = (seconds % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function checkRecord(currentTimeSeconds) {
+      const storedRecord = localStorage.getItem('premir_record_eso');
+      if (!storedRecord || currentTimeSeconds < parseInt(storedRecord)) {
+        localStorage.setItem('premir_record_eso', currentTimeSeconds);
+        updateRecordDisplay();
+        return true;
+      }
+      return false;
+    }
+
+    function updateRecordDisplay() {
+      const storedRecord = localStorage.getItem('premir_record_eso');
+      const recordEl = document.getElementById("record-value");
+      recordEl.textContent = storedRecord ? formatTime(parseInt(storedRecord)) : "--:--";
+    }
+
+    function initApp() {
+      const tbody = document.getElementById("tabla-cuerpo");
+      const comps = ["CCL", "CP", "STEM", "CD", "CPSAA", "CC", "CE", "CCEC"];
+      
+      for(let i=1; i<=5; i++) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td class="fila-obj">OBX${i}</td>`;
+        comps.forEach(c => {
+          const td = document.createElement("td");
+          td.className = "dropzone";
+          td.dataset.cellId = `OBX${i}-${c}`;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      }
+
+      const banco = document.getElementById("contenedor-fichas-banco");
+      fichasData.forEach(f => {
+        const div = document.createElement("div");
+        div.className = "ficha";
+        div.draggable = true;
+        div.id = f.id;
+        div.dataset.value = f.val;
+        div.textContent = f.val;
+        div.addEventListener("dragstart", e => {
+          e.dataTransfer.setData("text", e.target.id);
+          startTimer();
+        });
+        banco.appendChild(div);
+      });
+
+      updateRecordDisplay();
+      setupDropzones();
+    }
+
+    function setupDropzones() {
+      const zones = document.querySelectorAll(".dropzone");
+      zones.forEach(zone => {
+        zone.addEventListener("dragover", e => { e.preventDefault(); zone.classList.add("resaltado"); });
+        zone.addEventListener("dragleave", () => zone.classList.remove("resaltado"));
+        zone.addEventListener("drop", e => {
+          e.preventDefault();
+          zone.classList.remove("resaltado");
+          const id = e.dataTransfer.getData("text");
+          const el = document.getElementById(id);
+          if (zone.dataset.cellId !== "BANCO" && zone.children.length > 0) return;
+          zone.appendChild(el);
+        });
+      });
+    }
+
+    document.getElementById("btn-comprobar").addEventListener("click", () => {
+      let correctCount = 0;
+      let totalNeeded = Object.keys(solucion).length;
+      let errors = false;
+      const zones = document.querySelectorAll("tbody .dropzone");
+
+      zones.forEach(z => {
+        z.classList.remove("correcto", "incorrecto");
+        const expected = solucion[z.dataset.cellId];
+        const ficha = z.querySelector(".ficha");
+        const val = ficha ? ficha.dataset.value : null;
+
+        if (expected) {
+          if (val === expected) {
+            z.classList.add("correcto");
+            correctCount++;
+          } else if (val) {
+            z.classList.add("incorrecto");
+            errors = true;
+          } else {
+            errors = true;
+          }
+        } else if (val) {
+          z.classList.add("incorrecto");
+          errors = true;
+        }
+      });
+
+      const msg = document.getElementById("mensaje");
+      if (correctCount === totalNeeded && !errors) {
+        stopTimer();
+        document.getElementById("audio-exito").play();
+        const timeTaken = Math.floor((Date.now() - startTime) / 1000);
+        const isNewRecord = checkRecord(timeTaken);
+        msg.style.color = "var(--premir-verde-ok)";
+        msg.innerHTML = `¡Excelente! Has terminado en ${formatTime(timeTaken)}. ${isNewRecord ? "¡NUEVO RÉCORD!" : ""}`;
+      } else {
+        document.getElementById("audio-error").play();
+        msg.style.color = "var(--premir-rojo-error)";
+        msg.textContent = "Hay errores o faltan fichas. ¡Sigue intentándolo!";
+      }
+    });
+
+    document.getElementById("btn-resolver").addEventListener("click", () => {
+      stopTimer();
+      const todasLasFichas = Array.from(document.querySelectorAll(".ficha"));
+      const pool = {};
+      todasLasFichas.forEach(f => {
+        if(!pool[f.dataset.value]) pool[f.dataset.value] = [];
+        pool[f.dataset.value].push(f);
+      });
+
+      Object.keys(solucion).forEach(cellId => {
+        const val = solucion[cellId];
+        const targetZone = document.querySelector(`[data-cell-id="${cellId}"]`);
+        if (targetZone.children.length === 0) {
+          const fichaParaMover = pool[val].pop();
+          if(fichaParaMover) targetZone.appendChild(fichaParaMover);
+        }
+      });
+      
+      document.getElementById("mensaje").textContent = "Tabla resuelta automáticamente.";
+      document.getElementById("mensaje").style.color = "var(--premir-azul)";
+    });
+
+    document.getElementById("btn-reiniciar").addEventListener("click", () => {
+      location.reload();
+    });
+
+    window.onload = initApp;
+  </script>
+</body>
+</html>

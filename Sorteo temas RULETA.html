@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SORTEO DE NÚMEROS</title>
+  <style>
+    :root {
+      --bg-start: #0072ff;
+      --bg-end: #00c6ff;
+      --header-start: #004085;
+      --header-mid: #0056b3;
+      --header-end: #007bff;
+      --btn-start: #0056b3;
+      --btn-end: #007bff;
+      --hist-start: #ff4d4f;
+      --hist-end: #c62828;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #f6f8fb;
+      color: #333;
+      color: #333;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 24px 40px;
+      margin: 20px;
+      box-shadow:
+        0 20px 45px rgba(15,23,42,.18),
+        0 6px 14px rgba(15,23,42,.10),
+        inset 0 1px 0 rgba(255,255,255,.9);
+      border: 1px solid #e5e7eb;
+      color: #0f172a;
+    }
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8em;
+    }
+    header img {
+      height: 100px;
+    }
+    main {
+      padding: 30px;
+      text-align: center;
+    }
+    #contenido {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: flex-start;
+    }
+    #formulario, #historialCompleto {
+      background: linear-gradient(90deg, #f1f3f5 0%, #f8fafc 60%, #ffffff 100%);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      min-width: 260px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation-duration: 0.5s;
+    }
+    .fade-out {
+      animation-name: fadeOut;
+    }
+    .fade-in {
+      animation-name: fadeIn;
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #0056b3;
+    }
+    input[type="number"] {
+      padding: 10px;
+      width: 80px;
+      margin: 5px 0 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      text-align: center;
+    }
+    button {
+      margin: 10px 5px;
+      padding: 12px 28px;
+      font-size: 17px;
+      background: #f6f8fb;
+      color: #0f172a;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    button:hover:enabled {
+      background: #f6f8fb;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+    button:disabled {
+      color: rgba(255,255,255,.8);
+      opacity: 0.6;
+      cursor: default;
+      transform: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .ruleta-container {
+      position: relative;
+      width: 400px;
+      margin: 0 auto;
+    }
+    .indicator {
+      width: 0;
+      height: 0;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      border-right: 30px solid #0056b3;
+      position: absolute;
+      right: -30px;
+      top: calc(50% + 5mm);
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+    canvas {
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: block;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-size: 2.5em;
+      color: #ffffff;
+      transition: transform 0.5s ease;
+    }
+    #resultado.animado {
+      transform: scale(1.8);
+    }
+    #ruletaSeccion {
+      display: none;
+    }
+    #historialCompleto h2 {
+      color: #0056b3;
+    }
+    #historial {
+      margin-top: 15px;
+      font-size: 1.2em;
+    }
+    .numeroHistorial {
+      animation: popIn 0.4s ease-out both;
+      display: inline-block;
+      margin: 5px;
+      padding: 12px 16px;
+      background: #f6f8fb;
+      color: #0f172a;
+      font-size: 1.8em;
+      border-radius: 12px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    .numeroHistorial:hover {
+      transform: scale(1.1);
+    }
+
+    .floating-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--btn-end);
+      color: #0f172a;
+      border: none;
+      padding: 15px;
+      border-radius: 50%;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .floating-btn:hover {
+      transform: translateY(-3px);
+      background: var(--btn-start);
+    }
+    .floating-btn.reset {
+      bottom: 20px;
+      right: 80px;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SORTEO DE NÚMEROS</h1>
+    <img src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894" alt="Logo Premir">
+  </header>
+  <main>
+    <div id="contenido">
+      <div id="formulario">
+        <p>Selecciona el rango de números:</p>
+        <label>Desde:</label>
+        <input type="number" id="desde" value="1" min="1" max="100">
+        <label>Hasta:</label>
+        <input type="number" id="hasta" value="65" min="1" max="100"><br>
+        <button id="crearBtn">Crear Ruleta</button>
+      </div>
+      <div id="ruletaSeccion">
+        <div class="ruleta-container">
+          <div class="indicator"></div>
+          <canvas id="ruleta" width="400" height="400"></canvas>
+        </div>
+        <div id="resultado">?</div>
+      </div>
+      <div id="historialCompleto">
+        <h2>Historial</h2>
+        <div id="historial">
+          <div id="listaHistorial"></div>
+        </div>
+        <div id="botones">
+          <button id="girarBtn">🎲 Girar Ruleta</button>
+          <button id="reiniciarBtn">🔄 Reiniciar</button>
+        </div>
+      </div>
+    </div>
+  
+    <button id="themeBtn" class="floating-btn">🎨</button>
+    <button id="resetBtn" class="floating-btn reset">🔄</button>
+
+  </main>
+  <audio id="sonido" src="https://www.soundjay.com/mechanical/sounds/mechanical-wheel-spin-01.mp3"></audio>
+<script>
+let canvas, ctx, sectorAngle, radio, centroX, centroY;
+let anguloActual = 0;
+let numeros = [], historial = [];
+
+document.getElementById('crearBtn').addEventListener('click', crearRuleta);
+document.getElementById('girarBtn').addEventListener('click', girarRuleta);
+document.getElementById('reiniciarBtn').addEventListener('click', reiniciarRuleta);
+
+function crearRuleta() {
+  const desde = parseInt(document.getElementById("desde").value);
+  const hasta = parseInt(document.getElementById("hasta").value);
+  if (desde >= hasta || desde < 1) {
+    alert("Rango no válido."); return;
+  }
+  numeros = [];
+  for (let i = desde; i <= hasta; i++) numeros.push(i);
+
+  const formulario = document.getElementById('formulario');
+  formulario.classList.add('fade-out');
+  formulario.addEventListener('animationend', () => {
+    formulario.style.display = 'none';
+    const ruletaSec = document.getElementById('ruletaSeccion');
+    ruletaSec.style.display = 'block';
+    ruletaSec.classList.add('fade-in');
+    ruletaSec.addEventListener('animationend', () => ruletaSec.classList.remove('fade-in'));
+  }, { once: true });
+
+  // Inicializar ruleta
+  canvas = document.getElementById("ruleta");
+  ctx = canvas.getContext("2d");
+  sectorAngle = (2 * Math.PI) / numeros.length;
+  radio = 180;
+  centroX = canvas.width / 2;
+  centroY = canvas.height / 2;
+  anguloActual = 0;
+  historial = [];
+  actualizarHistorial();
+  dibujarRuleta();
+  document.getElementById('girarBtn').disabled = false;
+}
+
+const colores = ['#007bff','#0069d9','#0056b3','#004085','#003366'];
+
+function dibujarRuleta() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for (let i = 0; i < numeros.length; i++) {
+    const start = i * sectorAngle;
+    ctx.beginPath();
+    ctx.moveTo(centroX, centroY);
+    ctx.fillStyle = colores[i % colores.length];
+    ctx.arc(centroX, centroY, radio, start, start + sectorAngle);
+    ctx.fill();
+    ctx.save();
+    ctx.translate(centroX, centroY);
+    ctx.rotate(start + sectorAngle / 2);
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 16px Roboto";
+    ctx.textAlign = "right";
+    ctx.fillText(numeros[i], radio - 10, 5);
+    ctx.restore();
+  }
+}
+
+function girarRuleta() {
+  document.getElementById("sonido").play();
+  let vueltas = Math.floor(Math.random() * 5) + 5;
+  let destino = Math.floor(Math.random() * numeros.length);
+  let angDestino = 2 * Math.PI * vueltas + destino * sectorAngle + sectorAngle / 2;
+  let inicio = Date.now(), dur = 4000;
+
+  function anim() {
+    let t = Date.now() - inicio;
+    let p = Math.min(t / dur, 1), e = 1 - Math.pow(1 - p, 3);
+    anguloActual = e * angDestino;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.save();
+    ctx.translate(centroX, centroY);
+    ctx.rotate(anguloActual);
+    ctx.translate(-centroX, -centroY);
+    dibujarRuleta();
+    ctx.restore();
+    if (p < 1) requestAnimationFrame(anim);
+    else {
+      const idx = (numeros.length - Math.floor((anguloActual % (2 * Math.PI)) / sectorAngle)) % numeros.length;
+      const numero = numeros[idx];
+      document.getElementById("resultado").textContent = "Número: " + numero;
+      document.getElementById("resultado").classList.add("animado");
+      setTimeout(() => document.getElementById("resultado").classList.remove("animado"), 1000);
+
+      // Sin reemplazo
+      numeros.splice(idx, 1);
+      if (numeros.length > 0) {
+        sectorAngle = (2 * Math.PI) / numeros.length;
+      } else {
+        document.getElementById('girarBtn').disabled = true;
+      }
+
+      historial.push(numero);
+      actualizarHistorial();
+    }
+  }
+  anim();
+}
+
+function actualizarHistorial() {
+  const cont = document.getElementById("listaHistorial");
+  cont.innerHTML = "";
+  historial.forEach(n => {
+    const span = document.createElement("span");
+    span.className = "numeroHistorial";
+    span.textContent = n;
+    cont.appendChild(span);
+  });
+}
+
+function reiniciarRuleta() {
+  location.reload();
+}
+
+// Theme change functionality
+function randomColor() {
+  const h = Math.floor(Math.random() * 360);
+  const s = Math.floor(50 + Math.random() * 30);
+  const l = Math.floor(40 + Math.random() * 20);
+  return `hsl(${h},${s}%,${l}%)`;
+}
+
+function changeTheme() {
+  document.documentElement.style.setProperty('--bg-start', randomColor());
+  document.documentElement.style.setProperty('--bg-end', randomColor());
+  document.documentElement.style.setProperty('--header-start', randomColor());
+  document.documentElement.style.setProperty('--header-mid', randomColor());
+  document.documentElement.style.setProperty('--header-end', randomColor());
+  document.documentElement.style.setProperty('--btn-start', randomColor());
+  document.documentElement.style.setProperty('--btn-end', randomColor());
+  document.documentElement.style.setProperty('--hist-start', randomColor());
+  document.documentElement.style.setProperty('--hist-end', randomColor());
+  // Randomize sector colors
+  for (let i = 0; i < colores.length; i++) {
+    colores[i] = randomColor();
+  }
+  dibujarRuleta();
+}
+
+function resetTheme() {
+  location.reload();
+}
+
+document.getElementById('themeBtn').addEventListener('click', changeTheme);
+document.getElementById('resetBtn').addEventListener('click', resetTheme);
+
+</script>
+</body>
+</html>

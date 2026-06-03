@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>Rúbrica de la Programación Didáctica</title>
+<!-- Importar tipografía Open Sans -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;display=swap" rel="stylesheet"/>
+<style>
+    /* Estilos generales */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    /* Encabezado */
+    header {
+      background: linear-gradient(135deg, #0072ff, #00c6ff);
+      color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    header .logo {
+      max-height: 60px;
+    }
+    /* Cronómetro flotante: draggable y redimensionable */
+    .floating-timer {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #fff;
+      border: 3px solid #0072ff;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 2em;
+      font-weight: bold;
+      color: #0072ff;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 260px;
+      cursor: move;
+      user-select: none;
+    }
+    .floating-timer img {
+      max-width: 100px;
+      margin-bottom: 10px;
+    }
+    .floating-timer #floating-timer-display {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    .floating-timer .floating-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .floating-timer .floating-controls button {
+      background-color: #0072ff;
+      color: white;
+      border: none;
+      padding: 8px;
+      font-size: 0.75em;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 4px 0;
+      width: 100%;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
+    }
+    .floating-timer .floating-controls button:hover {
+      background-color: #005bb5;
+    }
+    /* Botón PDF: color distinto */
+    button#pdfButton,
+    button#floatingPdfButton {
+      background-color: #FF5722;
+    }
+    button#pdfButton:hover,
+    button#floatingPdfButton:hover {
+      background-color: #E64A19;
+    }
+    /* Resizer para redimensionar */
+    .resizer {
+      width: 15px;
+      height: 15px;
+      background: #0072ff;
+      opacity: 0.5;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      cursor: se-resize;
+      border-bottom-right-radius: 7px;
+    }
+    /* Formulario y fecha/hora */
+    .user-info {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .user-info form {
+      margin-bottom: 10px;
+    }
+    .user-info label {
+      font-size: 1.2em;
+      margin-right: 10px;
+    }
+    .user-info input {
+      padding: 5px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .user-info .date-time {
+      font-size: 1.1em;
+      color: #333;
+    }
+    /* Cronómetro principal */
+    .timer-section {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    button#startButton, button#stopButton, button#continueButton {
+      background-color: #0072ff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 5px;
+    }
+    button#startButton:hover, button#stopButton:hover, button#continueButton:hover {
+      background-color: #005bb5;
+    }
+    #timerDisplay {
+      display: inline-block;
+      margin-left: 20px;
+      font-size: 40px;
+      font-weight: bold;
+      color: blue;
+    }
+    /* Checklist */
+    .linea {
+      background-color: #fff;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    .linea-check {
+      display: flex;
+      align-items: center;
+    }
+    .linea-check p {
+      margin: 0;
+      flex-grow: 1;
+      font-size: 1em;
+    }
+    .linea-check input[type="checkbox"] {
+      transform: scale(1.2);
+      margin: 0 15px;
+      cursor: pointer;
+    }
+    .resultado {
+      font-weight: 600;
+      color: #0072ff;
+      white-space: nowrap;
+    }
+    .observaciones {
+      margin-top: 8px;
+    }
+    .observaciones label {
+      font-size: 0.9em;
+      margin-right: 5px;
+    }
+    .observaciones input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      font-size: 0.9em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      color: red;
+    }
+    .apartado-description {
+      font-style: italic;
+      font-size: 11pt;
+      margin-top: 5px;
+    }
+    .time-interval {
+      color: #003366;
+      font-weight: bold;
+    }
+  
+    textarea {
+      width: 100%;
+      margin-top: 10px;
+      font-size: 15px;
+      font-family: 'Segoe UI', sans-serif;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 8px;
+      background: #fefefe;
+      overflow: hidden;
+      resize: none;
+      color: rgb(0,123,196);
+    }
+
+
+    .floating-timer {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(145deg, #ffffff, #e6e6e6);
+      border: 2px solid #0072ff;
+      border-radius: 20px;
+      padding: 20px;
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #0072ff;
+      z-index: 9999;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 280px;
+      cursor: move;
+      user-select: none;
+      backdrop-filter: blur(5px);
+    }
+    .floating-timer img {
+      max-width: 80px;
+      margin-bottom: 12px;
+    }
+    .floating-timer #floating-timer-display {
+      font-size: 3.2em;
+      margin-bottom: 12px;
+    }
+    .floating-timer .floating-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .floating-timer .floating-controls button {
+      background: linear-gradient(135deg, #0072ff, #00c6ff);
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      font-size: 0.7em;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+    .floating-timer .floating-controls button:hover {
+      transform: scale(1.05);
+    }
+    .resizer {
+      width: 18px;
+      height: 18px;
+      background: #0072ff;
+      opacity: 0.7;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      cursor: se-resize;
+      border-bottom-right-radius: 9px;
+    }
+    </style>
+</head>
+<body>
+<!-- Cronómetro flotante draggable, redimensionable, con resizer -->
+<div class="floating-timer" id="floating-timer">
+<img alt="Logo Premir" src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894"/>
+<div id="floating-timer-display">0:00</div>
+<div class="floating-controls">
+<button id="floatingStartButton" onclick="startTimer()">Iniciar</button>
+<button id="floatingStopButton" onclick="stopTimer()">Parar</button>
+<button id="floatingContinueButton" onclick="continueTimer()">Continuar</button>
+<button id="floatingResetButton" onclick="resetTimer()">Reiniciar</button>
+<button id="floatingPdfButton" onclick="generatePDF()">Convertir PDF</button>
+</div>
+<div class="resizer" id="resizer"></div>
+</div>
+<div class="container" id="pdfContent">
+<header>
+<h1>rúbrica de la Programación Didáctica</h1>
+<img alt="Logo Premir" class="logo" src="https://premironline.es/assets/logo-premir.png"/>
+</header>
+<div class="timer-section">
+<button id="startButton" onclick="startTimer()" style="background: linear-gradient(135deg, #0072ff, #00c6ff); color: white; border: none; padding: 14px 28px; font-size: 1em; border-radius: 30px; cursor: pointer; margin: 10px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.3s ease; font-family: 'Segoe UI', sans-serif;">Iniciar Cronómetro</button>
+<span id="timerDisplay">0:00</span>
+</div>
+<!-- Checklist completo -->
+<div id="checklist">
+<!-- Apartado A -->
+<div class="nombre-fecha" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 20px;">
+<div style="flex: 1;">
+<label for="nombreOpositor" style="font-weight: bold; color: #333;">Nombre del/la Opositor/a:</label>
+<input id="nombreOpositor" placeholder="Introduce tu nombre" style="width: 60%; padding: 6px; font-size: 14px; border: 1px solid #ccc; border-radius: 6px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif;" type="text"/>
+</div>
+<div style="text-align: right; font-family: 'Segoe UI', sans-serif; color: #444;">
+<div id="fechaActual" style="font-size: 14px;"></div>
+<div id="horaActual" style="font-size: 14px;"></div>
+</div>
+</div><div class="linea">
+<div class="linea-check">
+<p><strong>A. Contextualización de la programación didáctica. Hasta 0,50 puntos.</strong></p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+<div class="apartado-description">
+<em>La justificación es completa, define el contexto en el que se enmarca la PD, recogiendo las características propias del centro, del alumnado y del área que tienen relevancia en el proceso de enseñanza y de aprendizaje. Nombra otros factores relevantes que influyen en la enseñanza de esa área/materia y el nivel educativo para el cual se programa.</em>
+</div>
+</div>
+<!-- Apartado a (minúscula) -->
+<!-- Apartado b -->
+<!-- Apartado c -->
+<!-- Apartado B -->
+<div class="linea">
+<div class="linea-check">
+<p><strong>B. Objetivos del área y su contribución al desarrollo de las competencias clave. Hasta 0,75 puntos.</strong></p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+<div class="apartado-description">
+<em>Justifica los distintos elementos curriculares que integran la PD y deja clara su vinculación. Concreta la importancia que tiene cada uno de los objetivos del área/materia para el curso para el cual se programa, ejemplificando su relación con los contenidos y los criterios de evaluación del área/materia. Justifica y concreta las relaciones que se establecen entre los objetivos del área y las competencias clave, a través de los descriptores operativos que conforman el perfil de salida para el área/materia para la que se programa. (En el caso de la especialidad de Educación Infantil este párrafo queda redactado como «Justifica de manera práctica la adquisición de las competencias clave por parte del alumnado»).</em>
+</div>
+</div>
+<!-- Apartado a -->
+<!-- Apartado b -->
+<!-- Apartado C -->
+<div class="linea">
+<div class="linea-check">
+<p><strong>C. Relación de unidades didácticas, temporalización y secuenciación. Hasta 0,75 puntos.</strong></p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+<div class="apartado-description">
+<em>Justifica la temporalización de las UD, diferenciando entre UD secuenciales y/o transversales, teniendo en cuenta el calendario escolar y el número de sesiones semanales del área/materia. Establece una secuencia lógica de las UD a lo largo del curso; estas parten del nivel de desarrollo del alumnado y de sus aprendizajes previos, de las características del centro, de los conocimientos, destrezas y actitudes propias del área/materia, y las situaciones de aprendizaje propuestas desarrollan actividades competenciales relacionadas con la vida real.</em>
+</div>
+</div>
+<!-- Apartado a -->
+<!-- Apartado b -->
+<!-- Apartado D -->
+<div class="linea">
+<div class="linea-check">
+<p><strong>D. Metodología. Hasta 1,00 punto.</strong></p>
+<span class="resultado"></span>
+</div>
+<div class="apartado-description">
+<em>La metodología es concreta, coherente y tiene en cuenta las líneas de actuación recogidas en las orientaciones pedagógicas del currículo y los principios metodológicos, así como el contexto y las características del alumnado. Concreta y justifica las diferentes estrategias/técnicas/métodos de aprendizaje, tipos de agrupamientos, las formas de organización del espacio y de los tiempos, que utilizará a lo largo del curso. Los materiales y recursos didácticos utilizados son variados y adecuados, teniendo en cuenta el contexto del centro educativo y las características del alumnado.</em>
+</div>
+</div>
+<!-- Subapartado D-a -->
+<div class="linea">
+<div class="linea-check">
+<p>a. CONCRECIONES METODOLÓGICAS</p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+</div>
+<!-- Subapartado D-b -->
+<div class="linea">
+<div class="linea-check">
+<p>b. MATERIALES Y RECURSOS DIDÁCTICOS</p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+</div>
+<!-- Apartado E -->
+<div class="linea">
+<div class="linea-check">
+<p><strong>E. Evaluación. Hasta 1,00 punto</strong></p>
+<span class="resultado"></span>
+</div>
+<div class="apartado-description">
+<em>Realiza una evaluación inicial especificando el tipo de información que se desea obtener de cada alumno/a, las técnicas e instrumentos utilizados, así como los momentos y las acciones que se desarrollarán con el alumnado que se incorpore a lo largo del curso. Emplea instrumentos de evaluación variados, acordes con los criterios de evaluación y con las características del alumnado. Establece los mínimos de consecución en función de los criterios de evaluación y su redacción es precisa, clara y parte del criterio de evaluación y de los contenido/s de referencia. Los criterios de evaluación de las UD son coherentes y equilibrados en relación con los contenidos seleccionados para cada UD y el peso asignado a cada criterio dentro de cada UD es coherente con la calificación final de la UD. Justifica de manera clara los criterios de calificación que el docente emplea para construir la calificación de un alumno/a, tanto de las distintas UD como de las evaluaciones parciales y de la evaluación final. Establece unos criterios de recuperación concretos para el alumnado que obtuvo calificaciones negativas a lo largo del curso.</em>
+</div>
+</div>
+<!-- Apartado a -->
+<div class="linea">
+<div class="linea-check">
+<p>a. INICIAL</p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+</div>
+<!-- Apartado b -->
+<div class="linea">
+<div class="linea-check">
+<p>b. CALIFICACIÓN Y RECUPERACIÓN</p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+</div>
+<!-- Apartado c -->
+<div class="linea">
+<div class="linea-check">
+<p>c. MATERIAS PENDIENTES</p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+</div>
+<!-- Apartado F -->
+<div class="linea">
+<div class="linea-check">
+<p><strong>F. Medidas de atención a la diversidad. Hasta 1,00 punto.</strong></p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+<div class="apartado-description">
+<em>Concreta, de forma clara y concisa, las estrategias del diseño universal del aprendizaje que se aplicarán en el aula, justificando medidas ordinarias de atención a la diversidad para dar respuesta a las diferentes características, intereses y motivaciones de todo el alumnado, y teniendo en cuenta las características y los recursos del centro. Justifica medidas extraordinarias para atender a las necesidades del alumnado NEAE, utilizando distintos recursos y justificando la intervención educativa, según lo establecido en los distintos protocolos de atención a la diversidad. Establece medidas para la atención educativa virtual al alumnado que presenta dificultades para asistir al centro.</em>
+</div>
+</div>
+<!-- Apartado G -->
+<div class="linea">
+<div class="linea-check">
+<p><strong>G. Transversal. Hasta 0,50 puntos.</strong></p>
+<span class="resultado"></span>
+</div>
+<div class="apartado-description">
+<em>Concreta y justifica como se van a trabajar los distintos elementos transversales en relación con el contexto, las características del alumnado y a los contenidos trabajados en las distintas unidades didácticas. Concreta la realización de actividades complementarias (en horario lectivo o que abarcan parte del mismo), como complemento a lo aprendido y para facilitar los aprendizajes del alumnado, justificándolas con los elementos curriculares e indicando su carácter diferenciado por el momento, espacio y recursos que utiliza.</em>
+</div>
+</div>
+<!-- Subapartado G-a -->
+<div class="linea">
+<div class="linea-check">
+<p>a. CONCRECIÓN DE ELEMENTOS TRANSVERSALES</p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+</div>
+<!-- Subapartado G-b -->
+<div class="linea">
+<div class="linea-check">
+<p>b. ACTIVIDADES COMPLEMENTARIAS</p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+</div>
+<!-- Apartado H -->
+<div class="linea">
+<div class="linea-check">
+<p><strong>H. PRÁCTICA DOCENTE. 0,50 puntos</strong></p>
+<span class="resultado"></span>
+</div>
+<div class="apartado-description">
+<em>Concreta y justifica el procedimiento para evaluar el proceso de enseñanza y la práctica docente, así como el procedimiento de seguimiento y evaluación de la propia programación didáctica, especificando indicadores de logro medibles y realistas. Indica los instrumentos de evaluación empleados para medir los indicadores, la periodicidad de su aplicación, así como aplicaciones informáticas que emplea en el procedimiento. Concreta y justifica la puesta en común con el resto del profesorado, reflejando el grado de cumplimiento respecto a lo planificado, de cara a valorar las propuestas de modificación y/o de mejora.</em>
+</div>
+</div>
+<!-- Subapartado H-a -->
+<div class="linea">
+<div class="linea-check">
+<p>a. PROCESO DE LA PRÁCTICA DOCENTE</p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+</div>
+<!-- Subapartado H-b -->
+<div class="linea">
+<div class="linea-check">
+<p>b. SEGUIMIENTO DE LA PROGRAMACIÓN</p>
+<input onchange="recordCheckpoint(this)" type="checkbox"/>
+<span class="resultado"></span>
+</div>
+<div class="observaciones">
+<label>Observaciones:</label>
+<textarea style="width: 100%; height: auto; margin-top: 10px; color: rgb(0,123,196); font-family: 'Segoe UI', sans-serif; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fefefe; overflow: hidden; resize: none;"></textarea>
+</div>
+</div>
+</div>
+<div id="observacionesFinales" style="margin: 30px 0; padding: 15px; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);"><h2 style="font-family: 'Segoe UI', sans-serif; color: #0072ff; margin-bottom: 10px;">Observaciones Finales</h2><textarea placeholder="Escribe aquí tus observaciones finales..." style="width: 100%; height: 100px; font-size: 15px; font-family: 'Segoe UI', sans-serif; border: 1px solid #ccc; border-radius: 6px; padding: 10px; background: #fefefe; color: rgb(0,123,196); resize: vertical;"></textarea></div><div style="text-align: center; margin-top: 30px;">
+<button class="stopButton" onclick="stopTimer()" style="background: linear-gradient(135deg, #0072ff, #00c6ff); color: white; border: none; padding: 12px 24px; font-size: 1em; border-radius: 30px; cursor: pointer; margin: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-family: 'Segoe UI', sans-serif;">Parar Cronómetro</button>
+<button class="continueButton" onclick="continueTimer()" style="background: linear-gradient(135deg, #0072ff, #00c6ff); color: white; border: none; padding: 12px 24px; font-size: 1em; border-radius: 30px; cursor: pointer; margin: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-family: 'Segoe UI', sans-serif;">Continuar Cronómetro</button>
+<button id="pdfButton" onclick="generatePDF()" style="background: linear-gradient(135deg, #0072ff, #00c6ff); color: white; border: none; padding: 12px 24px; font-size: 1em; border-radius: 30px; cursor: pointer; margin: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-family: 'Segoe UI', sans-serif;">Generar PDF</button>
+</div>
+</div>
+<!-- Librería html2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script>
+    let startTime = null;
+    let accumulatedTime = 0;
+    let lastCheckpointTime = 0;
+    let timerInterval = null;
+
+    function formatTime(timeInSec) {
+      const total = Math.floor(timeInSec);
+      const minutes = Math.floor(total / 60);
+      const seconds = total % 60;
+      const secondsString = seconds < 10 ? "0" + seconds : seconds;
+      return minutes + ":" + secondsString;
+    }
+
+    function startTimer() {
+      if (timerInterval !== null) return;
+      if (startTime === null) {
+        startTime = Date.now();
+      }
+      timerInterval = setInterval(updateTimer, 100);
+    }
+
+    function updateTimer() {
+      if (startTime === null) return;
+      let elapsed = accumulatedTime + (Date.now() - startTime) / 1000;
+      const formattedTime = formatTime(elapsed);
+      document.getElementById("timerDisplay").innerText = formattedTime;
+      document.getElementById("floating-timer-display").innerText = formattedTime;
+    }
+
+    function stopTimer() {
+      if (timerInterval !== null && startTime !== null) {
+        let elapsed = (Date.now() - startTime) / 1000;
+        accumulatedTime += elapsed;
+        clearInterval(timerInterval);
+        timerInterval = null;
+        startTime = null;
+      }
+    }
+
+    function continueTimer() {
+      if (timerInterval === null && startTime === null) {
+        startTime = Date.now();
+        timerInterval = setInterval(updateTimer, 100);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      startTime = null;
+      accumulatedTime = 0;
+      lastCheckpointTime = 0;
+      const initialTime = formatTime(0);
+      document.getElementById("timerDisplay").innerText = initialTime;
+      document.getElementById("floating-timer-display").innerText = initialTime;
+    }
+
+    
+    function recordCheckpoint(checkbox) {
+      const resultadoSpan = checkbox.nextElementSibling;
+      if (checkbox.checked) {
+        if (startTime === null) {
+          alert("Por favor, inicia el cronómetro primero.");
+          checkbox.checked = false;
+          return;
+        }
+        let elapsed = accumulatedTime + (Date.now() - startTime) / 1000;
+        let delta = elapsed - lastCheckpointTime;
+        lastCheckpointTime = elapsed;
+        checkbox.dataset.timestamp = elapsed;
+        resultadoSpan.innerHTML = "Tiempo: " + formatTime(elapsed) + ", " +
+          "<span class='time-interval'>Duración de este apartado: " + formatTime(delta) + "</span>";
+      } else {
+        resultadoSpan.innerHTML = '';
+        delete checkbox.dataset.timestamp;
+        const checkedBoxes = Array.from(document.querySelectorAll('#checklist input[type="checkbox"]'))
+          .filter(cb => cb.checked && cb.dataset.timestamp);
+        const times = checkedBoxes
+          .map(cb => parseFloat(cb.dataset.timestamp))
+          .sort((a, b) => a - b);
+        lastCheckpointTime = times.length ? times[times.length - 1] : 0;
+      }
+    }
+
+
+    function generatePDF() {
+      const element = document.getElementById('pdfContent');
+      const opt = {
+        margin: 0.5,
+        filename: 'resultados.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+
+    // Redimensionable: Handle
+    const resizer = document.getElementById("resizer");
+    const floatingTimer = document.getElementById("floating-timer");
+    resizer.addEventListener("mousedown", initResize);
+    function initResize(e) {
+      e.preventDefault();
+      window.addEventListener("mousemove", startResize);
+      window.addEventListener("mouseup", stopResize);
+    }
+    function startResize(e) {
+      floatingTimer.style.width = (e.clientX - floatingTimer.offsetLeft) + "px";
+      floatingTimer.style.height = (e.clientY - floatingTimer.offsetTop) + "px";
+    }
+    function stopResize(e) {
+      window.removeEventListener("mousemove", startResize);
+      window.removeEventListener("mouseup", stopResize);
+    }
+
+    // Draggable
+    (function() {
+      const dragElem = document.getElementById("floating-timer");
+      let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+      dragElem.addEventListener("mousedown", dragMouseDown);
+      function dragMouseDown(e) {
+        if (e.target.classList.contains("resizer")) return;
+        e.preventDefault();
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        document.addEventListener("mousemove", elementDrag);
+        document.addEventListener("mouseup", closeDragElement);
+      }
+      function elementDrag(e) {
+        e.preventDefault();
+        posX = mouseX - e.clientX;
+        posY = mouseY - e.clientY;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dragElem.style.top = (dragElem.offsetTop - posY) + "px";
+        dragElem.style.left = (dragElem.offsetLeft - posX) + "px";
+      }
+      function closeDragElement() {
+        document.removeEventListener("mousemove", elementDrag);
+        document.removeEventListener("mouseup", closeDragElement);
+      }
+    })();
+  </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const autogrow = el => {
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  };
+  document.querySelectorAll("textarea").forEach(el => {
+    el.setAttribute("rows", "1");
+    el.style.overflow = "hidden";
+    el.style.resize = "none";
+    autogrow(el);
+    el.addEventListener("input", () => autogrow(el));
+  });
+});
+</script>
+<script>
+function actualizarFechaHora() {
+  const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const opcionesHora = { hour: '2-digit', minute: '2-digit' };
+  const ahora = new Date();
+  document.getElementById("fechaActual").textContent = ahora.toLocaleDateString('es-ES', opcionesFecha);
+  document.getElementById("horaActual").textContent = ahora.toLocaleTimeString('es-ES', opcionesHora);
+}
+document.addEventListener("DOMContentLoaded", () => {
+  actualizarFechaHora();
+  setInterval(actualizarFechaHora, 10000);
+});
+</script>
+<script>
+document.querySelectorAll('button').forEach(btn => {
+  btn.addEventListener('mouseenter', () => {
+    btn.style.filter = 'brightness(1.1)';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.filter = 'brightness(1)';
+  });
+});
+</script><script>
+document.querySelectorAll('#startButton').forEach(btn => {
+  btn.addEventListener('mouseenter', () => {
+    btn.style.filter = 'brightness(1.1)';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.filter = 'brightness(1)';
+  });
+});
+</script></body>
+</html>

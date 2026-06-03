@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Temporizador Minimal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Saira+Extra+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 10px 30px rgba(2, 8, 23, 0.06);
+      --radius: 16px;
+
+      --primary: #2563eb;
+      --primary-600: #1d4ed8;
+      --primary-50: #eaf1ff;
+
+      --danger: #ef4444;
+      --danger-50: #ffecec;
+      --success: #16a34a;
+      --focus: 0 0 0 4px rgba(37, 99, 235, .18);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(60% 60% at 10% 10%, #ffffff 0 40%, transparent 41%),
+        radial-gradient(60% 60% at 90% 20%, #ffffff 0 40%, transparent 41%),
+        var(--bg);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .wrap{
+      width:min(920px, 96vw);
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px clamp(18px, 4vw, 32px);
+    }
+
+    .brand{
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom: 8px;
+      gap:12px;
+    }
+    .brand .title{
+      font-weight:700; letter-spacing:.02em;
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--text);
+    }
+    .brand .hint{
+      font-size: 12px; color: var(--muted);
+    }
+
+    .mode{
+      display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; align-items:center;
+      margin: 8px 0 12px;
+    }
+    .chip{
+      border:1px solid var(--border);
+      background: #fff;
+      padding:8px 12px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight:600;
+      color: var(--text);
+      font-size: 12px;
+      letter-spacing: .02em;
+      transition: .15s ease;
+    }
+    .chip:hover{ box-shadow: var(--focus); }
+    .chip.active{
+      border-color: var(--primary);
+      background: var(--primary-50);
+      color: var(--primary-600);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, .12) inset;
+    }
+
+    .controls{
+      display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
+      margin: 8px 0 20px;
+    }
+    .field input[type="number"]{
+      width: 150px;
+      border:1px solid var(--border);
+      border-radius: 12px;
+      font-size: 16px;
+      padding: 12px 14px;
+      color: var(--text);
+      outline:none;
+      transition:.15s ease;
+      text-align:center;
+      background: #fff;
+      font-family: 'Saira Extra Condensed', Inter, sans-serif;
+      letter-spacing:.06em;
+    }
+    .field input[type="number"]::placeholder{ color: var(--muted) }
+    .field input[type="number"]:focus{ box-shadow: var(--focus); border-color: var(--primary); }
+
+    .controls.floating{
+      position: static;
+      justify-content: center;
+      gap: 10px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      box-shadow: none;
+    }
+    .btn{
+      position:relative;
+      padding:10px 18px;
+      font-size:14px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background:#fff;
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .1s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+      min-width:132px;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow); }
+    .btn:focus-visible{ outline: none; box-shadow: var(--focus); }
+    .btn:active{ transform: translateY(0); }
+    .btn.primary{
+      background: linear-gradient(180deg, #fff, #f7faff);
+      border-color: var(--primary);
+      color: var(--primary-600);
+    }
+    .btn.secondary{
+      background: #fff;
+      color: var(--text);
+    }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+
+    .timer{
+      font-family: 'Saira Extra Condensed', Inter, sans-serif;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      line-height:1;
+      letter-spacing:.06em;
+      font-size: clamp(56px, 18vw, 220px);
+      user-select:none;
+      margin: 6px 0 10px;
+      color: var(--text);
+    }
+    .timer span{ display:inline-block; }
+    .timer .hh, .timer .mm { color: #334155; }
+    .timer .ss { color: var(--primary-600); }
+    .timer .active { color: var(--text) !important; }
+    .timer .inactive { color: #94a3b8 !important; }
+    .timer.danger, .timer.danger span{ color: var(--danger) !important; }
+
+    .sep{
+      height: 2px; width: 100%;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      border-radius: 999px;
+      margin: 6px 0 8px;
+    }
+
+    @keyframes softPulse {
+      0%, 100% { background-color: transparent; }
+      50%      { background-color: var(--danger-50); }
+    }
+    body.alarm .wrap{ animation: softPulse .9s ease-in-out infinite; }
+
+    .hidden{ display:none !important; }
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main" aria-label="Temporizador">
+    <div class="brand">
+      <div class="title">Temporizador</div>
+      <img src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894" alt="Logo Premir" style="height:80px;">
+      <div class="mode" role="tablist" aria-label="Modo de funcionamiento">
+        <button id="modeCountdown" class="chip active" role="tab" aria-selected="true">Cuenta atrás</button>
+        <button id="modeStopwatch" class="chip" role="tab" aria-selected="false">Cronómetro</button>
+      </div>
+    </div>
+
+    <section id="timeInputs" class="controls" aria-label="Controles de tiempo">
+      <label class="field">
+        <input id="hours" type="number" min="0" max="99" placeholder="Horas" inputmode="numeric" />
+      </label>
+      <label class="field">
+        <input id="minutes" type="number" min="0" max="59" placeholder="Minutos" inputmode="numeric" />
+      </label>
+      <label class="field">
+        <input id="seconds" type="number" min="0" max="59" placeholder="Segundos" inputmode="numeric" />
+      </label>
+    </section>
+
+    <section class="controls floating" aria-label="Botonera">
+      <button id="startBtn" class="btn primary">Comenzar</button>
+      <button id="pauseBtn" class="btn secondary">Parar</button>
+      <button id="resumeBtn" class="btn secondary">Continuar</button>
+      <button id="resetBtn" class="btn secondary">Resetear</button>
+      <button id="floatBtn" class="btn secondary" title="Abrir ventana con el reloj">Ventana flotante</button>
+    </section>
+
+    <div id="display" class="timer" aria-live="polite" aria-atomic="true">
+      <span class="hh">00</span>:<span class="mm">00</span>:<span class="ss">00</span>
+    </div>
+    <div class="sep" aria-hidden="true"></div>
+  </main>
+
+  <script>
+    (function(){
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
+      const startBtn = document.getElementById('startBtn');
+      const pauseBtn = document.getElementById('pauseBtn');
+      const resumeBtn = document.getElementById('resumeBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const display = document.getElementById('display');
+      const modeCountdownBtn = document.getElementById('modeCountdown');
+      const modeStopwatchBtn = document.getElementById('modeStopwatch');
+      const timeInputs = document.getElementById('timeInputs');
+
+      let mode = 'countdown';
+      let totalMs = 0;
+      let remainingMs = 0;
+      let elapsedMs = 0;
+      let timerId = null;
+      let lastTick = null;
+      let paused = false;
+
+      let avisoUnaHoraDado = false;
+      let avisoTreintaMinutosDado = false;
+      let avisoUnMinutoDado = false;
+
+      function pad(n){ return String(n).padStart(2,'0'); }
+      function setDigits(hh, mm, ss){
+        display.innerHTML = `<span class="hh">${pad(hh)}</span>:<span class="mm">${pad(mm)}</span>:<span class="ss">${pad(ss)}</span>`;
+      }
+      
+      function applyActive(){
+        const hhEl = display.querySelector('.hh');
+        const mmEl = display.querySelector('.mm');
+        const ssEl = display.querySelector('.ss');
+        if(!hhEl || !mmEl || !ssEl) return;
+
+        [hhEl, mmEl, ssEl].forEach(el => { el.classList.remove('active','inactive'); });
+
+        if(mode === 'countdown'){
+          if(remainingMs >= 3600*1000) hhEl.classList.add('active'); else hhEl.classList.add('inactive');
+          if(remainingMs < 3600*1000) mmEl.classList.add('active'); else mmEl.classList.add('inactive');
+        } else {
+          if(elapsedMs >= 3600*1000) hhEl.classList.add('active'); else hhEl.classList.add('inactive');
+          if(elapsedMs >= 60*1000)   mmEl.classList.add('active'); else mmEl.classList.add('inactive');
+        }
+      }
+
+      function fromMs(ms){
+        ms = Math.max(0, Math.floor(ms));
+        const sec = Math.floor(ms / 1000);
+        const hh = Math.floor(sec / 3600);
+        const mm = Math.floor((sec % 3600) / 60);
+        const ss = sec % 60;
+        return {hh, mm, ss};
+      }
+      function paint(ms){
+        const {hh, mm, ss} = fromMs(ms);
+        setDigits(hh, mm, ss);
+        applyActive();
+      }
+
+      function setState(state){
+        switch(state){
+          case 'idle':
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            resumeBtn.disabled = true;
+            resetBtn.disabled = false;
+            break;
+          case 'running':
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+            resumeBtn.disabled = true;
+            resetBtn.disabled = false;
+            break;
+          case 'paused':
+            startBtn.disabled = true;
+            pauseBtn.disabled = true;
+            resumeBtn.disabled = false;
+            resetBtn.disabled = false;
+            break;
+          case 'finished':
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            resumeBtn.disabled = true;
+            resetBtn.disabled = false;
+            break;
+        }
+      }
+
+      function selectMode(nextMode){
+        if(nextMode === mode) return;
+        clearAlarm();
+        reset(true);
+        mode = nextMode;
+        modeCountdownBtn.classList.toggle('active', mode==='countdown');
+        modeCountdownBtn.setAttribute('aria-selected', mode==='countdown');
+        modeStopwatchBtn.classList.toggle('active', mode==='stopwatch');
+        modeStopwatchBtn.setAttribute('aria-selected', mode==='stopwatch');
+        timeInputs.classList.toggle('hidden', mode==='stopwatch');
+        display.classList.remove('danger');
+        if(mode==='stopwatch'){ paint(0); }
+        applyActive();
+      }
+
+      function clearSpeechQueue() {
+          try { window.speechSynthesis.cancel(); } catch(e) {}
+      }
+      function speak(text) {
+          try {
+              clearSpeechQueue();
+              const u = new SpeechSynthesisUtterance(text);
+              u.lang = "es-ES";
+              window.speechSynthesis.speak(u);
+          } catch(e) {}
+      }
+      function avisoUnaHora(){ speak("falta una hora"); }
+      function avisoTreintaMinutos(){ speak("faltan 30 minutos"); }
+      function avisoUnMinuto(){ speak("falta un minuto"); }
+
+      function start(){
+        clearAlarm();
+        display.classList.remove('danger');
+        paused = false;
+        lastTick = performance.now();
+
+        speak("empezamos");
+
+        avisoUnaHoraDado = false;
+        avisoTreintaMinutosDado = false;
+        avisoUnMinutoDado = false;
+
+        if(mode === 'countdown'){
+          const h = parseInt(hoursEl.value, 10) || 0;
+          const m = parseInt(minutesEl.value, 10) || 0;
+          const s = parseInt(secondsEl.value, 10) || 0;
+
+          if(h < 0 || m < 0 || s < 0){ alert('Introduce valores válidos.'); return; }
+          if(m > 59 || s > 59){ alert('Minutos y segundos deben estar entre 0 y 59.'); return; }
+          totalMs = ((h * 3600) + (m * 60) + s) * 1000;
+          if(totalMs <= 0){ alert('Establece al menos 1 segundo.'); return; }
+          remainingMs = totalMs;
+          
+          if (remainingMs <= 3600000) { avisoUnaHoraDado = true; } 
+          if (remainingMs <= 1800000) { avisoTreintaMinutosDado = true; } 
+          if (remainingMs <= 60000) { avisoUnMinutoDado = true; } 
+
+          if(timerId) cancelAnimationFrame(timerId);
+          tickCountdown();
+        } else {
+          elapsedMs = 0;
+          if(timerId) cancelAnimationFrame(timerId);
+          tickStopwatch();
+        }
+        setState('running');
+      }
+
+      function tickCountdown(now){
+        timerId = requestAnimationFrame(tickCountdown);
+        if(!now) return;
+        const dt = now - lastTick;
+        lastTick = now;
+        remainingMs -= dt;
+        
+        const prevRemaining = remainingMs + dt;
+        
+        const UMBRAL_UNA_HORA = 3600000;      
+        const UMBRAL_TREINTA_MINUTOS = 1800000; 
+        const UMBRAL_UN_MINUTO = 60000;         
+        
+        if(!avisoUnaHoraDado && prevRemaining > UMBRAL_UNA_HORA && remainingMs <= UMBRAL_UNA_HORA){
+          avisoUnaHora();
+          avisoUnaHoraDado = true;
+        }
+        if(!avisoTreintaMinutosDado && prevRemaining > UMBRAL_TREINTA_MINUTOS && remainingMs <= UMBRAL_TREINTA_MINUTOS){
+          avisoTreintaMinutos();
+          avisoTreintaMinutosDado = true;
+        }
+        if(!avisoUnMinutoDado && prevRemaining > UMBRAL_UN_MINUTO && remainingMs <= UMBRAL_UN_MINUTO){
+          avisoUnMinuto();
+          avisoUnMinutoDado = true;
+        }
+
+        if(remainingMs <= 0){
+          remainingMs = 0;
+          paint(0);
+          cancelAnimationFrame(timerId);
+          timerId = null;
+          setState('finished');
+          triggerAlarm();
+          whistle();
+          avisoUnaHoraDado = false;
+          avisoTreintaMinutosDado = false;
+          avisoUnMinutoDado = false;
+          return;
+        }
+        paint(remainingMs);
+      }
+
+      function tickStopwatch(now){
+        timerId = requestAnimationFrame(tickStopwatch);
+        if(!now) return;
+        const dt = now - lastTick;
+        lastTick = now;
+        elapsedMs += dt;
+        paint(elapsedMs);
+      }
+
+      function pause(){
+        if(timerId){
+          cancelAnimationFrame(timerId);
+          timerId = null;
+          paused = true;
+          setState('paused');
+        }
+      }
+
+      function resume(){
+        if(!paused) return;
+        paused = false;
+        lastTick = performance.now();
+        if(mode==='countdown'){ timerId = requestAnimationFrame(tickCountdown); }
+        else{ timerId = requestAnimationFrame(tickStopwatch); }
+        setState('running');
+      }
+
+      function reset(soft=false){
+        if(timerId){ cancelAnimationFrame(timerId); timerId = null; }
+        if(!soft){
+          hoursEl.value = '';
+          minutesEl.value = '';
+          secondsEl.value = '';
+        }
+        remainingMs = 0;
+        totalMs = 0;
+        elapsedMs = 0;
+        paint(0);
+        paused = false;
+        clearAlarm();
+        display.classList.remove('danger');
+        setState('idle');
+        avisoUnaHoraDado = false;
+        avisoTreintaMinutosDado = false;
+        avisoUnMinutoDado = false;
+
+        applyActive();
+      }
+
+      function triggerAlarm(){
+        if(mode !== 'countdown') return;
+        document.body.classList.add('alarm');
+        display.classList.add('danger');
+      }
+      function clearAlarm(){
+        document.body.classList.remove('alarm');
+        display.classList.remove('danger');
+      }
+
+      function whistle(){
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const duration = 0.25;
+          const gap = 0.15;
+          const freqs = [1200, 1000, 1100];
+
+          freqs.forEach((f, i) => {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.type = 'square';
+            o.frequency.setValueAtTime(f, ctx.currentTime + i*(duration+gap));
+            g.gain.setValueAtTime(0.0001, ctx.currentTime + i*(duration+gap));
+            g.gain.exponentialRampToValueAtTime(0.4, ctx.currentTime + i*(duration+gap)+0.02);
+            g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + (i+1)*duration + i*gap);
+            o.connect(g); g.connect(ctx.destination);
+            o.start(ctx.currentTime + i*(duration+gap));
+            o.stop(ctx.currentTime + i*(duration+gap) + duration);
+          });
+        } catch(e){}
+      }
+
+      startBtn.addEventListener('click', start);
+      pauseBtn.addEventListener('click', pause);
+      resumeBtn.addEventListener('click', resume);
+      resetBtn.addEventListener('click', ()=>reset(false));
+
+      modeCountdownBtn.addEventListener('click', ()=>selectMode('countdown'));
+      modeStopwatchBtn.addEventListener('click', ()=>selectMode('stopwatch'));
+
+      window.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter') start();
+        if(e.code === 'Space'){
+          e.preventDefault();
+          if(timerId) pause(); else resume();
+        }
+      });
+
+
+      // === Ventana flotante (fondo blanco + logo) ===
+      const floatBtn = document.getElementById('floatBtn');
+      let floatWindow = null;
+      let pipWindow = null;
+
+      function currentTimeText(){
+        return display.textContent.trim();
+      }
+
+      function writeFloatingMarkup(doc){
+        doc.open();
+        doc.write(`<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Temporizador flotante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  html, body { height: 100%; margin: 0; }
+  body{
+    display:flex; align-items:center; justify-content:center;
+    background:#ffffff; color:#0f172a;
+    font-family: 'Saira Extra Condensed', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .container{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding: 10px 14px;
+    gap: 8px;
+    width:100%;
+    height:100%;
+    box-sizing:border-box;
+  }
+  .logo{
+    max-height:92px;
+    width:auto;
+    display:block;
+  }
+  .timer{
+    font-weight:700; letter-spacing:.06em;
+    font-variant-numeric: tabular-nums;
+    line-height:1; user-select:none;
+    font-size: clamp(36px, 12vw, 110px);
+    color: #0f172a;
+  }
+  /* Reduce posibilidad de selección y de arrastre del logo */
+  img { -webkit-user-drag: none; user-select:none; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <img class="logo" src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894" alt="Logo Premir" />
+    <div id="floatDisplay" class="timer">--:--:--</div>
+  </div>
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    // Evita selección en algunos navegadores
+    document.addEventListener('selectstart', e => e.preventDefault());
+  <\/script>
+</body>
+</html>`);
+        doc.close();
+      }
+
+      async function openPiPWindow(){
+        try{
+          if(!('documentPictureInPicture' in window)) return null;
+          if (pipWindow && !pipWindow.closed) return pipWindow;
+          pipWindow = await documentPictureInPicture.requestWindow({ width: 400, height: 180 });
+          writeFloatingMarkup(pipWindow.document);
+          return pipWindow;
+        }catch(e){
+          return null;
+        }
+      }
+
+      function openPopupWindow(){
+        if (floatWindow && !floatWindow.closed){
+          floatWindow.focus();
+          return floatWindow;
+        }
+        floatWindow = window.open('', 'TemporizadorFlotante', 'width=480,height=220,menubar=no,toolbar=no,location=no,status=no,resizable=yes');
+        if(!floatWindow) return null;
+        writeFloatingMarkup(floatWindow.document);
+        try{
+          floatWindow.addEventListener('beforeunload', ()=>{ floatWindow = null; });
+        }catch(_){}
+        return floatWindow;
+      }
+
+      async function ensureFloating(){
+        let win = await openPiPWindow();
+        if(!win) win = openPopupWindow();
+        updateFloatingDisplay();
+        return win;
+      }
+
+      function updateFloatingDisplay(){
+        const t = currentTimeText();
+        if (pipWindow && !pipWindow.closed){
+          try{
+            const el = pipWindow.document.getElementById('floatDisplay');
+            if(el) el.textContent = t;
+          }catch(_){ }
+        }
+        if (floatWindow && !floatWindow.closed){
+          try{
+            const el = floatWindow.document.getElementById('floatDisplay');
+            if(el) el.textContent = t;
+          }catch(_){ }
+        }
+      }
+
+      const mo = new MutationObserver(()=> updateFloatingDisplay());
+      mo.observe(display, { childList: true, subtree: true, characterData: true });
+
+      if (floatBtn){
+        floatBtn.addEventListener('click', async ()=>{
+          await ensureFloating();
+        });
+      }
+      // === Fin ventana flotante ===
+
+      paint(0);
+      applyActive();
+      setState('idle');
+    })();
+  </script>
+</body>
+</html>

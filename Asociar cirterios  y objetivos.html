@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Criterios y Objetivos (Educación Física)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { color-scheme: light; }
+    .drop-zone { min-height: 3.25rem; transition: all 0.2s ease; }
+    .dragging { opacity: 0.55; cursor: grabbing; }
+    .correct-card { border-color: #22c55e; background-color: #f0fdf4; }
+    .incorrect-card { border-color: #ef4444; background-color: #fef2f2; }
+    .zone-correct { border-color: #22c55e !important; background-color: #f0fdf4 !important; }
+    .zone-wrong { border-color: #ef4444 !important; background-color: #fef2f2 !important; }
+    .pill-wrong { background-color: #ef4444 !important; }
+    .tab-active { border-bottom: 3px solid #2563eb; color: #2563eb; font-weight: 800; }
+    .course-active { background: #0f172a; color: white; border-color: #0f172a; }
+    .kbd-focus:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+  
+/* === Estética: botones de curso con efecto 3D === */
+.course-tabs,
+.course-selector,
+#courseTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  align-items: center;
+}
+
+.course-tab,
+.course-tabs button,
+.course-selector button,
+#courseTabs button {
+  position: relative;
+  border: 1px solid rgba(0,0,0,.18);
+  border-bottom-width: 2px;
+  border-radius: 14px;
+  padding: .55rem .9rem;
+  font-weight: 700;
+  letter-spacing: .2px;
+  cursor: pointer;
+  user-select: none;
+  transform: translateY(0);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease, background .12s ease;
+  /* “plástico” 3D */
+  background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(245,245,245,.92));
+  box-shadow:
+    0 7px 0 rgba(0,0,0,.18),          /* escalón */
+    0 14px 26px rgba(0,0,0,.16),      /* sombra */
+    inset 0 1px 0 rgba(255,255,255,.8); /* brillo */
+}
+
+.course-tab:hover,
+.course-tabs button:hover,
+.course-selector button:hover,
+#courseTabs button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+  box-shadow:
+    0 8px 0 rgba(0,0,0,.18),
+    0 18px 30px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.85);
+}
+
+.course-tab:active,
+.course-tabs button:active,
+.course-selector button:active,
+#courseTabs button:active {
+  transform: translateY(6px);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,.18),
+    0 6px 14px rgba(0,0,0,.12),
+    inset 0 2px 6px rgba(0,0,0,.12);
+}
+
+/* Estado seleccionado/activo del curso */
+.course-tab.active,
+.course-tabs button.active,
+.course-selector button.active,
+#courseTabs button.active,
+.course-tab[aria-selected="true"],
+.course-tabs button[aria-selected="true"],
+.course-selector button[aria-selected="true"],
+#courseTabs button[aria-selected="true"] {
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(235,235,235,.96));
+  transform: translateY(3px);
+  box-shadow:
+    0 4px 0 rgba(0,0,0,.22),
+    0 10px 18px rgba(0,0,0,.16),
+    inset 0 2px 8px rgba(0,0,0,.10);
+  border-color: rgba(0,0,0,.22);
+}
+
+/* Accesibilidad: foco visible */
+.course-tab:focus-visible,
+.course-tabs button:focus-visible,
+.course-selector button:focus-visible,
+#courseTabs button:focus-visible {
+  outline: 3px solid rgba(0,0,0,.22);
+  outline-offset: 3px;
+}
+
+
+/* === Curso seleccionado: azul moderno === */
+.course-tab.active,
+.course-tabs button.active,
+.course-selector button.active,
+#courseTabs button.active,
+.course-tab[aria-selected="true"],
+.course-tabs button[aria-selected="true"],
+.course-selector button[aria-selected="true"],
+#courseTabs button[aria-selected="true"] {
+  color: #ffffff;
+  background: linear-gradient(180deg, #3b82f6, #2563eb); /* azul moderno */
+  border-color: #1d4ed8;
+  transform: translateY(3px);
+  box-shadow:
+    0 4px 0 #1e40af,
+    0 10px 20px rgba(30,64,175,.45),
+    inset 0 1px 0 rgba(255,255,255,.35);
+}
+
+/* Hover sobre el activo */
+.course-tab.active:hover,
+.course-tabs button.active:hover,
+.course-selector button.active:hover,
+#courseTabs button.active:hover {
+  filter: brightness(1.05);
+}
+
+
+/* =========================================================
+   SKIN "Premir-like" (solo estética, sin tocar funcionalidad)
+   Inspiración: identidad visual de premir.es (alto contraste,
+   tipografía contundente, acento amarillo + negro, tarjetas limpias).
+   ========================================================= */
+
+:root{
+  --pm-bg: #f6f7fb;
+  --pm-surface: #ffffff;
+  --pm-text: #0b1220;
+  --pm-muted: #5b6474;
+  --pm-border: rgba(15, 23, 42, .14);
+
+  --pm-accent: #f4c400;      /* amarillo */
+  --pm-accent-2: #ffdd55;    /* amarillo claro */
+  --pm-ink: #111827;         /* negro-azulado */
+  --pm-danger: #dc2626;
+  --pm-ok: #16a34a;
+
+  --pm-shadow-sm: 0 6px 18px rgba(2, 6, 23, .08);
+  --pm-shadow-md: 0 14px 35px rgba(2, 6, 23, .12);
+  --pm-radius: 18px;
+}
+
+html, body{
+  background: var(--pm-bg) !important;
+  color: var(--pm-text) !important;
+}
+
+/* Tipografía: look “academy / corporate” */
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji" !important;
+  line-height: 1.45;
+}
+
+/* Contenedor principal: más “landing” */
+.container, main, .app, #app, .wrapper{
+  max-width: 1200px;
+}
+
+/* Títulos con personalidad */
+h1, h2, h3{
+  letter-spacing: .3px;
+}
+h1{
+  font-weight: 900;
+  text-transform: uppercase;
+}
+h2, h3{
+  font-weight: 800;
+}
+
+/* Barra superior / cabecera: negro con acento amarillo */
+header, .topbar, .header, .app-header{
+  background: linear-gradient(180deg, #0b1220, #0b1220) !important;
+  color: #fff !important;
+  border-bottom: 3px solid rgba(244,196,0,.85) !important;
+}
+header *,
+.topbar *,
+.header *,
+.app-header *{
+  color: #fff !important;
+}
+
+/* Si tienes un título dentro del header, resáltalo */
+header h1, .header h1, .app-header h1{
+  text-shadow: 0 8px 26px rgba(0,0,0,.35);
+}
+
+/* === Selector de cursos (tabs) estilo Premir: “pill” con acento amarillo === */
+.course-tabs,
+.course-selector,
+#courseTabs{
+  padding: .5rem;
+  background: rgba(255,255,255,.65);
+  border: 1px solid var(--pm-border);
+  border-radius: calc(var(--pm-radius) + 8px);
+  box-shadow: var(--pm-shadow-sm);
+  backdrop-filter: blur(8px);
+}
+
+/* Estado base */
+.course-tab,
+.course-tabs button,
+.course-selector button,
+#courseTabs button{
+  border-radius: 999px !important;
+  border: 1px solid rgba(17,24,39,.18) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,1)) !important;
+  color: var(--pm-ink) !important;
+  font-weight: 900 !important;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  box-shadow:
+    0 8px 0 rgba(17,24,39,.18),
+    0 18px 30px rgba(2,6,23,.14),
+    inset 0 1px 0 rgba(255,255,255,.9) !important;
+}
+
+/* Hover */
+.course-tab:hover,
+.course-tabs button:hover,
+.course-selector button:hover,
+#courseTabs button:hover{
+  transform: translateY(-1px) !important;
+  filter: brightness(1.03);
+}
+
+/* Active/selected: amarillo corporativo */
+.course-tab.active,
+.course-tabs button.active,
+.course-selector button.active,
+#courseTabs button.active,
+.course-tab[aria-selected="true"],
+.course-tabs button[aria-selected="true"],
+.course-selector button[aria-selected="true"],
+#courseTabs button[aria-selected="true"]{
+  color: #0b1220 !important;
+  background: linear-gradient(180deg, var(--pm-accent-2), var(--pm-accent)) !important;
+  border-color: rgba(17,24,39,.22) !important;
+  box-shadow:
+    0 5px 0 rgba(17,24,39,.28),
+    0 14px 26px rgba(2,6,23,.18),
+    inset 0 1px 0 rgba(255,255,255,.45) !important;
+}
+
+/* === Tarjetas / paneles === */
+.card, .panel, .box, .section, .bloque, .block, .criterio, .criterion, .drop-zone, .objective, .objetivo{
+  border-radius: var(--pm-radius) !important;
+}
+
+/* Si tu HTML usa tarjetas para bloques/criterios */
+.card, .panel, .box, .section{
+  background: var(--pm-surface) !important;
+  border: 1px solid var(--pm-border) !important;
+  box-shadow: var(--pm-shadow-sm) !important;
+}
+
+/* Drop zones: borde punteado elegante */
+.drop-zone{
+  background: rgba(255,255,255,.75) !important;
+  border: 2px dashed rgba(17,24,39,.25) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+.drop-zone.dragover, .drop-zone.is-over{
+  border-color: rgba(244,196,0,.85) !important;
+  background: rgba(244,196,0,.10) !important;
+}
+
+/* Chips/pastillas de OBJ: look “badge” */
+.obj-pill, .pill, .badge, .chip{
+  border-radius: 999px !important;
+  font-weight: 800;
+  letter-spacing: .2px;
+  border: 1px solid rgba(17,24,39,.18) !important;
+  box-shadow: 0 10px 22px rgba(2,6,23,.10);
+}
+
+/* Botones generales (verificar / reiniciar / soluciones, etc.) */
+button, .btn{
+  border-radius: 14px;
+}
+button.primary, .btn-primary, .primary-btn,
+button[data-variant="primary"]{
+  background: linear-gradient(180deg, var(--pm-accent-2), var(--pm-accent)) !important;
+  color: #0b1220 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  border: 1px solid rgba(17,24,39,.18) !important;
+  box-shadow:
+    0 8px 0 rgba(17,24,39,.22),
+    0 18px 30px rgba(2,6,23,.14);
+}
+button.primary:active, .btn-primary:active, .primary-btn:active{
+  transform: translateY(6px);
+  box-shadow:
+    0 2px 0 rgba(17,24,39,.22),
+    0 10px 20px rgba(2,6,23,.12);
+}
+
+/* Botón secundario */
+button.secondary, .btn-secondary, .secondary-btn{
+  background: linear-gradient(180deg, #ffffff, #f3f4f6) !important;
+  color: var(--pm-ink) !important;
+  border: 1px solid rgba(17,24,39,.18) !important;
+  box-shadow: 0 10px 22px rgba(2,6,23,.10);
+}
+
+/* Mensajes/alertas */
+.notice, .toast, .message, .feedback{
+  border-radius: var(--pm-radius) !important;
+  border: 1px solid var(--pm-border) !important;
+  box-shadow: var(--pm-shadow-sm);
+}
+
+/* Error en rojo (mantiene tu lógica; solo embellece) */
+.is-wrong, .wrong, .error, .fail{
+  border-color: rgba(220,38,38,.65) !important;
+  box-shadow: 0 12px 30px rgba(220,38,38,.14);
+}
+.is-wrong .obj-pill, .wrong .obj-pill, .error .obj-pill{
+  border-color: rgba(220,38,38,.55) !important;
+}
+
+/* Correcto */
+.is-correct, .correct, .ok, .success{
+  border-color: rgba(22,163,74,.55) !important;
+  box-shadow: 0 12px 30px rgba(22,163,74,.12);
+}
+
+/* Scrollbar suave (Chrome/Edge) */
+@media (pointer:fine){
+  ::-webkit-scrollbar{ height: 10px; width: 10px; }
+  ::-webkit-scrollbar-thumb{ background: rgba(15,23,42,.18); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover{ background: rgba(15,23,42,.28); }
+}
+
+
+/* === Header blanco con contraste fuerte === */
+header, .topbar, .header, .app-header{
+  background: #ffffff !important;
+  color: #0b1220 !important;
+  border-bottom: 4px solid #f4c400 !important; /* acento amarillo */
+  box-shadow: 0 10px 30px rgba(2,6,23,.12);
+}
+
+header *,
+.topbar *,
+.header *,
+.app-header *{
+  color: #0b1220 !important;
+}
+
+/* Título principal más contundente */
+header h1, .header h1, .app-header h1{
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+/* Contenido principal con contraste */
+main, .content, .app-content{
+  background: linear-gradient(180deg, #f6f7fb 0%, #eef1f7 100%) !important;
+}
+
+/* Separación visual clara del header */
+header + *{
+  margin-top: 1.2rem;
+}
+
+
+/* === Ocultar botón Modo accesible (sin tocar funcionalidad JS) === */
+#btn-toggle-mode { display: none !important; }
+
+
+/* === Encabezado como módulo flotante con esquinas redondeadas === */
+header{
+  background: #ffffff !important;
+  border: 1px solid rgba(15, 23, 42, .14) !important;
+  border-bottom: 4px solid #f4c400 !important; /* mantiene acento */
+  border-radius: 26px !important;
+  padding: 1.25rem 1.25rem !important;
+  box-shadow: 0 18px 45px rgba(2,6,23,.12) !important;
+}
+
+/* Ajustes responsivos */
+@media (min-width: 768px){
+  header{
+    padding: 1.5rem 1.75rem !important;
+    border-radius: 30px !important;
+  }
+}
+
+/* Para que no se pegue al borde del contenedor */
+header.mb-8, header.mb-8.md\:mb-10{
+  margin-bottom: 2rem !important;
+}
+
+
+/* === Ocultar subtítulo del encabezado === */
+#header-sub { display: none !important; }
+
+
+/* === Resaltar claramente el curso seleccionado === */
+.course-active{
+  position: relative;
+  background: linear-gradient(180deg, #2563eb, #1d4ed8) !important;
+  color: #ffffff !important;
+  border-color: #1e40af !important;
+  box-shadow:
+    0 0 0 3px rgba(37,99,235,.25),
+    0 10px 30px rgba(37,99,235,.45),
+    inset 0 1px 0 rgba(255,255,255,.35) !important;
+  transform: translateY(-1px) scale(1.03);
+}
+
+/* Indicador visual extra */
+.course-active::after{
+  content: "✔";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 24px;
+  height: 24px;
+  background: #22c55e;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 900;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(34,197,94,.45);
+}
+
+
+/* === Ocultar texto descriptivo bajo el título === */
+#header-desc { display: none !important; }
+
+
+/* === Modo compacto (solo estética) === */
+:root{
+  --compact-pad-1: .6rem;
+  --compact-pad-2: .85rem;
+  --compact-gap-1: .5rem;
+  --compact-gap-2: .75rem;
+}
+
+/* Reduce aire general */
+body{ line-height: 1.35; }
+
+/* Contenedor general */
+.max-w-6xl{ max-width: 1100px !important; }
+.p-4{ padding: .75rem !important; }
+.md\:p-8{ padding: 1.25rem !important; }
+
+/* Header flotante más bajo */
+header{
+  padding: .9rem 1rem !important;
+  border-radius: 22px !important;
+}
+@media (min-width:768px){
+  header{ padding: 1rem 1.2rem !important; border-radius: 24px !important; }
+}
+
+/* Grids y gaps */
+.gap-6{ gap: 1rem !important; }
+.space-y-6 > :not([hidden]) ~ :not([hidden]){ margin-top: 1rem !important; }
+.space-y-4 > :not([hidden]) ~ :not([hidden]){ margin-top: .75rem !important; }
+
+/* Navegación de bloques */
+#bloque-nav{ padding: .4rem .5rem !important; gap: .35rem !important; }
+#bloque-nav button{ padding: .45rem .7rem !important; font-size: .85rem !important; border-radius: 12px !important; }
+
+/* Selector de curso más compacto */
+[aria-label="Selector de curso"] .text-xs{ font-size: .7rem !important; }
+[aria-label="Selector de curso"] button{
+  padding: .45rem .75rem !important;
+  font-size: .8rem !important;
+  border-radius: 999px !important;
+}
+
+/* Título principal: un punto menos */
+h1.text-3xl, h1.md\:text-4xl{
+  font-size: 1.55rem !important;
+  line-height: 1.15 !important;
+}
+@media (min-width:768px){
+  h1.text-3xl, h1.md\:text-4xl{ font-size: 1.9rem !important; }
+}
+
+/* Cards (criterios y paneles) */
+.rounded-2xl{ border-radius: 18px !important; }
+.p-5{ padding: .9rem !important; }
+.md\:p-6{ padding: 1rem !important; }
+
+/* Criterios: menos padding por tarjeta */
+#criterios-container article{
+  padding: .85rem !important;
+  border-radius: 18px !important;
+}
+#criterios-container .text-sm{ font-size: .9rem !important; }
+
+/* Drop zone más compacta */
+.drop-zone{ min-height: 2.6rem !important; padding: .5rem .6rem !important; border-radius: 14px !important; }
+
+/* Botones generales */
+button{
+  padding-top: .55rem !important;
+  padding-bottom: .55rem !important;
+}
+#btn-check, #btn-show-answers{
+  padding-top: .7rem !important;
+  padding-bottom: .7rem !important;
+  border-radius: 14px !important;
+}
+#btn-reset{ padding-top: .4rem !important; padding-bottom: .4rem !important; }
+
+/* Panel objetivos */
+#objetivos-pool{ gap: .55rem !important; }
+#objetivos-pool [draggable="true"]{ padding: .55rem .7rem !important; border-radius: 16px !important; }
+
+/* Barra de progreso más fina */
+.h-3{ height: .6rem !important; }
+
+/* Modal un poco más compacto */
+#modal .p-7{ padding: 1.1rem !important; }
+#modal .rounded-3xl{ border-radius: 22px !important; }
+
+
+
+/* === Mostrar solo 1 línea del texto de los criterios === */
+.criterio-text,
+#criterios-container article p,
+#criterios-container article .text-sm{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+
+}
+
+
+/* === Drop-zone pequeña y en la misma línea del criterio === */
+
+/* Estructura en línea para cada criterio */
+#criterios-container article .criterio-row,
+#criterios-container article .flex-criterio,
+#criterios-container article > .flex{
+  display: flex !important;
+  align-items: center !important;
+  gap: .6rem !important;
+}
+
+/* Texto del criterio ocupa todo el ancho */
+#criterios-container article p,
+#criterios-container article .text-sm{
+  flex: 1 1 auto;
+  margin: 0 !important;
+}
+
+/* Zona de soltar compacta */
+.drop-zone{
+  flex: 0 0 auto;
+  min-height: 1.9rem !important;
+  min-width: 5.2rem !important;
+  padding: .25rem .4rem !important;
+  border-radius: 10px !important;
+  border-width: 2px !important;
+  font-size: .75rem !important;
+  line-height: 1.1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap;
+}
+
+/* Pastilla de objetivo dentro de la drop-zone */
+.drop-zone .obj-pill,
+.drop-zone .pill{
+  padding: .2rem .45rem !important;
+  font-size: .7rem !important;
+  border-radius: 999px !important;
+}
+
+/* Botón quitar más discreto */
+.drop-zone button,
+.drop-zone .btn-remove{
+  margin-left: .25rem !important;
+  padding: .15rem .35rem !important;
+  font-size: .65rem !important;
+}
+
+
+/* === Botón Ver más / Ver menos === */
+.ver-mas-btn{
+  flex: 0 0 auto;
+  font-size: .7rem;
+  font-weight: 700;
+  color: #2563eb;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 .25rem;
+}
+.ver-mas-btn:hover{ text-decoration: underline; }
+
+.criterio-expandido p,
+.criterio-expandido .text-sm{
+  -webkit-line-clamp: unset !important;
+  line-clamp: unset !important;
+  white-space: normal !important;
+}
+
+
+/* === Nombre del profesor en encabezado === */
+.profesor-nombre{
+  font-size: .75rem;
+  color: #6b7280; /* gris */
+  margin-top: .15rem;
+  font-weight: 500;
+}
+
+
+/* === Icono multicolor del profesor === */
+.profesor-nombre{
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.prof-icon{
+  font-size: .9rem;
+  filter: saturate(1.2);
+}
+
+
+/* === Icono premium del profesor (SVG) === */
+.prof-icon svg{
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+}
+
+</style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-slate-800">
+
+  <div class="max-w-6xl mx-auto p-4 md:p-8">
+    <header class="mb-8 md:mb-10">
+      <div class="flex flex-col gap-4">
+
+        <!-- Selector de curso -->
+        <div class="flex flex-wrap items-center gap-2" aria-label="Selector de curso">
+          <span class="text-xs uppercase tracking-wider text-slate-500 mr-2">Curso:</span>
+          <button id="course-bach" class="kbd-focus px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm hover:bg-slate-100 text-sm font-semibold">1º Bachillerato</button>
+          <button id="course-eso2" class="kbd-focus px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm hover:bg-slate-100 text-sm font-semibold">2º ESO</button>
+          <button id="course-eso1" class="kbd-focus px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm hover:bg-slate-100 text-sm font-semibold">1º ESO</button>
+          <button id="course-eso3" class="kbd-focus px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm hover:bg-slate-100 text-sm font-semibold">3º ESO</button>
+                    <button id="course-eso4" class="kbd-focus px-4 py-2 rounded-xl border border-slate-200 bg-white shadow-sm hover:bg-slate-100 text-sm font-semibold">4º ESO</button>
+<span id="saved-pill" class="hidden sm:inline-flex items-center gap-2 ml-auto text-xs font-semibold text-slate-600 bg-white border border-slate-200 rounded-xl px-3 py-2 shadow-sm">
+            <span aria-hidden="true">💾</span>
+            Progreso guardado en este navegador
+          </span>
+        </div>
+
+        <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p id="header-sub" class="text-xs uppercase tracking-wider text-slate-500">Materia de Educación Física</p>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900">Emparejar criterios con objetivos</h1>
+
+<p id="profesor-nombre" class="profesor-nombre">
+    <span class="prof-icon" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 12c2.761 0 5-2.239 5-5S14.761 2 12 2 7 4.239 7 7s2.239 5 5 5Z"
+              fill="#2563eb"/>
+        <path d="M4 22c0-4.418 3.582-8 8-8s8 3.582 8 8"
+              fill="#1e40af"/>
+      </svg>
+    </span>
+     José Manuel Paredes</p>
+
+            <p id="header-desc" class="text-slate-600 mt-1">Selecciona el curso para cargar sus bloques.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 items-center">
+            <button id="btn-help" class="kbd-focus px-4 py-2 rounded-xl bg-white border border-slate-200 shadow-sm hover:bg-slate-100 text-sm font-semibold">Instrucciones</button>
+            <button id="btn-toggle-mode" class="kbd-focus px-4 py-2 rounded-xl bg-slate-900 text-white shadow hover:bg-black text-sm font-semibold">Modo accesible: ON</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navegación de Bloques -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm">
+      <div class="flex overflow-x-auto gap-2 px-3 py-2 border-b border-slate-200" id="bloque-nav" aria-label="Navegación de bloques"></div>
+
+      <div class="p-4 md:p-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <!-- Criterios -->
+          <section class="lg:col-span-2" aria-labelledby="criterios-title">
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <h2 id="criterios-title" class="text-lg md:text-xl font-extrabold text-blue-900 flex items-center gap-2">
+                <span aria-hidden="true">📋</span>
+                <span id="bloque-title">Criterios</span>
+              </h2>
+              <div class="hidden md:flex items-center gap-2 text-xs text-slate-500">
+                <span class="inline-flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span> Correcto</span>
+                <span class="inline-flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-red-500"></span> Incorrecto</span>
+              </div>
+            </div>
+
+            <div class="space-y-4" id="criterios-container"></div>
+          </section>
+
+          <!-- Objetivos + Controles -->
+          <aside class="space-y-6">
+            <section class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200" aria-labelledby="objetivos-title">
+              <h2 id="objetivos-title" class="text-lg md:text-xl font-extrabold text-emerald-900 mb-2 flex items-center gap-2">
+                <span aria-hidden="true">🎯</span>
+                Objetivos
+              </h2>
+              <p class="text-xs text-slate-500 mb-4">
+                Arrastra un objetivo a un criterio <span class="font-semibold">o</span> selecciona un objetivo y pulsa en la zona de un criterio (modo accesible).
+              </p>
+
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <button id="btn-shuffle" class="kbd-focus text-xs font-semibold px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200">Mezclar</button>
+                <div class="text-xs text-slate-500">Se puede reutilizar un objetivo.</div>
+              </div>
+
+              <div class="grid grid-cols-1 gap-3" id="objetivos-pool" role="list"></div>
+
+              <!-- Selección accesible -->
+              <div class="mt-4 border-t border-slate-200 pt-4">
+                <p class="text-xs font-semibold text-slate-700 mb-2">Objetivo seleccionado (modo accesible)</p>
+                <div id="selected-obj" class="text-sm font-bold text-slate-500">Ninguno</div>
+              </div>
+            </section>
+
+            <section class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 sticky top-4" aria-labelledby="estado-title">
+              <h3 id="estado-title" class="font-extrabold mb-4">Estado del bloque</h3>
+
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-sm text-slate-600">Progreso:</span>
+                <span id="progress-text" class="text-sm font-extrabold">0%</span>
+              </div>
+              <div class="w-full bg-slate-200 rounded-full h-3 mb-4" aria-hidden="true">
+                <div id="progress-bar" class="bg-blue-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+              </div>
+
+              <div class="grid grid-cols-1 gap-2">
+                <button id="btn-check" class="kbd-focus w-full py-3 bg-indigo-600 text-white font-extrabold rounded-xl hover:bg-indigo-700 transition active:scale-[0.99] shadow">Verificar</button>
+                <button id="btn-show-answers" class="kbd-focus w-full py-3 bg-white border border-slate-200 text-slate-900 font-extrabold rounded-xl hover:bg-slate-100 transition">Mostrar soluciones</button>
+                <button id="btn-reset" class="kbd-focus w-full py-2 text-slate-500 hover:text-slate-900 text-sm font-semibold">Reiniciar este bloque</button>
+              </div>
+
+              <p class="text-xs text-slate-500 mt-4">
+                Consejo: puedes quitar una asignación con el botón <span class="font-semibold">Quitar</span> de cada criterio.
+              </p>
+            </section>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="bg-white rounded-3xl p-7 max-w-md w-full shadow-2xl text-center">
+      <div id="modal-icon" class="text-6xl mb-3" aria-hidden="true"></div>
+      <h2 id="modal-title" class="text-xl md:text-2xl font-extrabold mb-2"></h2>
+      <p id="modal-text" class="text-slate-600 mb-6 whitespace-pre-line"></p>
+      <div class="grid grid-cols-1 gap-2">
+        <button id="modal-close" class="kbd-focus w-full py-3 bg-slate-900 text-white rounded-xl hover:bg-black transition font-extrabold">Continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 hidden px-4 py-2 rounded-xl bg-slate-900 text-white text-sm shadow-lg"></div>
+
+  <script>
+    // =====================
+    // Datos (texto fiel a los PDFs)
+    // =====================
+
+    // 1º Bachillerato (del PDF de Bachillerato, 6 bloques)
+    const curriculumBach = [
+      {
+        nombre: "Bloque 1. Vida activa y saludable",
+        criterios: [
+          { id: "CE1.1", obj: "OBJ1", text: "Planificar, elaborar y poner en práctica de manera autónoma un programa personal de actividad física dirigido a la mejora o al mantenimiento de la salud, aplicando los diferentes sistemas de desarrollo de las capacidades físicas implicadas, según las necesidades e intereses individuales y respetando la propia realidad e identidad corporal, evaluando los resultados obtenidos." },
+          { id: "CE1.2", obj: "OBJ1", text: "Incorporar de forma autónoma, y según sus preferencias personales, los procesos de activación corporal, autorregulación y dosificación del esfuerzo, alimentación saludable, educación postural y relajación e higiene durante la práctica de actividades motrices, reflexionando sobre su relación con posibles estudios posteriores o futuros desempeños profesionales." },
+          { id: "CE1.3", obj: "OBJ1", text: "Actuar de forma crítica, comprometida y responsable ante los estereotipos sociales asociados al ámbito de lo corporal y los comportamientos que ponen en riesgo la salud, aplicando con autonomía e independencia criterios científicos de validez, fiabilidad y objetividad a la información recibida." },
+          { id: "CE1.4", obj: "OBJ1", text: "Emplear de manera autónoma aplicaciones y dispositivos digitales relacionados con la gestión de la actividad física, respetando la privacidad y las medidas básicas de seguridad vinculadas a la difusión pública de datos personales." }
+        ]
+      },
+      {
+        nombre: "Bloque 2. Organización y gestión de la actividad física",
+        criterios: [
+          { id: "CE2.1", obj: "OBJ1", text: "Conocer e implementar de manera responsable y autónoma medidas específicas para la prevención de lesiones antes, durante y después de la actividad física, así como para la aplicación de primeros auxilios ante situaciones de emergencia o accidente, poniendo en práctica normas de seguridad individuales y colectivas, identificando las posibles transferencias que estos conocimientos tienen al ámbito profesional y ocupacional." },
+          { id: "CE2.2", obj: "OBJ2", text: "Desarrollar proyectos motores de carácter individual, cooperativo o colaborativo, gestionando autónomamente cualquier imprevisto o situación que pueda ir surgiendo a lo largo del proceso de forma eficiente, creativa y ajustada a los objetivos que se pretenden alcanzar." },
+          { id: "CE2.3", obj: "OBJ3", text: "Colaborar mostrando iniciativa durante el desarrollo de proyectos y producciones motrices, solventando de forma coordinada cualquier imprevisto o situación que pueda ir surgiendo a lo largo del proceso." }
+        ]
+      },
+      {
+        nombre: "Bloque 3. Resolución de problemas en situaciones motrices",
+        criterios: [
+          { id: "CE3.1", obj: "OBJ2", text: "Desarrollar proyectos motores de carácter individual, cooperativo o colaborativo, gestionando autónomamente cualquier imprevisto o situación que pueda ir surgiendo a lo largo del proceso de forma eficiente, creativa y ajustada a los objetivos que se pretenden alcanzar." },
+          { id: "CE3.2", obj: "OBJ2", text: "Solucionar de forma autónoma situaciones de oposición, colaboración o colaboración-oposición en contextos deportivos o recreativos con fluidez, precisión y control, aplicando de manera automática procesos de percepción, decisión y ejecución en contextos reales o simulados de actuación y adaptando las estrategias a las condiciones cambiantes que se producen en la práctica." },
+          { id: "CE3.3", obj: "OBJ2", text: "Identificar, analizar y comprender los factores clave que condicionan la intervención de los componentes cualitativos y cuantitativos de la motricidad en la realización de gestos técnicos o situaciones motrices variadas, identificando errores comunes y proponiendo soluciones para estos." },
+          { id: "CE3.4", obj: "OBJ3", text: "Colaborar mostrando iniciativa durante el desarrollo de proyectos y producciones motrices, solventando de forma coordinada cualquier imprevisto o situación que pueda ir surgiendo a lo largo del proceso." }
+        ]
+      },
+      {
+        nombre: "Bloque 4. Autorregulación emocional e interacción social en situaciones motrices",
+        criterios: [
+          { id: "CE4.1", obj: "OBJ3", text: "Organizar y practicar diversas actividades motrices, valorando su potencial como posible salida profesional y analizando sus beneficios desde la perspectiva de la salud, el disfrute, la autosuperación y las posibilidades de interacción social, adoptando actitudes de interés, esfuerzo, liderazgo y empatía al asumir y desempeñar distintos roles relacionados con ellas." },
+          { id: "CE4.2", obj: "OBJ3", text: "Establecer mecanismos de relación y entendimiento con el resto de participantes durante el desarrollo de diversas prácticas motrices con autonomía y haciendo uso efectivo de habilidades sociales de diálogo en la resolución de conflictos y respeto a la diversidad de competencia motriz, y situándose activa, reflexiva y críticamente frente a los estereotipos, las actuaciones discriminatorias y la violencia, así como conocer las estrategias para su prevención, detección precoz y abordaje." },
+          { id: "CE4.3", obj: "OBJ4", text: "Comprender y contextualizar la influencia cultural y social de las manifestaciones motrices más relevantes en el panorama actual, analizando sus orígenes y su evolución hasta la actualidad y rechazando aquellos componentes que no se ajusten a los valores de una sociedad abierta, inclusiva, diversa e igualitaria." }
+        ]
+      },
+      {
+        nombre: "Bloque 5. Manifestaciones de la cultura motriz",
+        criterios: [
+          { id: "CE5.1", obj: "OBJ3", text: "Organizar y practicar diversas actividades motrices, valorando su potencial como posible salida profesional y analizando sus beneficios desde la perspectiva de la salud, el disfrute, la autosuperación y las posibilidades de interacción social, adoptando actitudes de interés, esfuerzo, liderazgo y empatía al asumir y desempeñar distintos roles relacionados con ellas." },
+          { id: "CE5.2", obj: "OBJ4", text: "Comprender y contextualizar la influencia cultural y social de las manifestaciones motrices más relevantes en el panorama actual, analizando sus orígenes y su evolución hasta la actualidad y rechazando aquellos componentes que no se ajusten a los valores de una sociedad abierta, inclusiva, diversa e igualitaria." },
+          { id: "CE5.3", obj: "OBJ4", text: "Crear y representar composiciones corporales individuales o colectivas, con y sin base musical, aplicando con precisión, idoneidad y coordinación escénica las técnicas expresivas más apropiadas a cada composición para representarlas ante sus compañeras y compañeros u otros miembros de la comunidad." }
+        ]
+      },
+      {
+        nombre: "Bloque 6. Interacción eficiente y sostenible con el entorno",
+        criterios: [
+          { id: "CE6.1", obj: "OBJ5", text: "Promover y participar en actividades físico-deportivas en entornos urbanos y naturales terrestres o acuáticos, interactuando con ellos de manera sostenible, minimizando el impacto ambiental que estas puedan producir reduciendo al máximo su huella ecológica y desarrollando actuaciones dirigidas a la conservación y mejora de las condiciones de los espacios en los que se desarrollen." },
+          { id: "CE6.2", obj: "OBJ5", text: "Practicar y organizar actividades físico-deportivas en el medio natural y urbano, asumiendo responsabilidades y aplicando normas de seguridad individuales y colectivas para prevenir y controlar los riesgos intrínsecos a la propia actividad derivados de la utilización de los equipamientos, el entorno o la propia actuación de los participantes." }
+        ]
+      }
+    ];
+
+    // 2º ESO (del PDF adjunto de 2º de ESO, 6 bloques)
+    const curriculumESO2 = [
+      {
+        nombre: "Bloque 1. Vida activa y saludable",
+        criterios: [
+          { id: "CE1.1", obj: "OBJ1", text: "Establecer y organizar secuencias sencillas de actividad física orientada al concepto integral de salud y al estilo de vida activo, a partir de una valoración del nivel inicial y respetando la propia realidad e identidad corporal." },
+          { id: "CE1.2", obj: "OBJ1", text: "Incorporar con progresiva autonomía procesos de activación corporal, dosificación del esfuerzo, alimentación saludable, educación postural, relajación e higiene durante la práctica de actividades motrices, interiorizando las rutinas propias de una práctica motriz saludable y responsable." },
+          { id: "CE1.3", obj: "OBJ1", text: "Adoptar de manera responsable y con progresiva autonomía medidas generales para la prevención de lesiones antes, durante y después de la práctica de actividad física, aprendiendo a reconocer situaciones de riesgo para actuar cautelarmente." },
+          { id: "CE1.4", obj: "OBJ1", text: "Analizar y valorar la incidencia que algunas prácticas y comportamientos sociales tienen en nuestra salud y en la convivencia, valorando su impacto y evitando activamente su reproducción." },
+          { id: "CE1.5", obj: "OBJ1", text: "Explorar diferentes recursos y aplicaciones digitales reconociendo su potencial, así como sus riesgos para su uso en el ámbito de la actividad física y del deporte." },
+          { id: "CE1.6", obj: "OBJ3", text: "Hacer uso con progresiva autonomía de las habilidades sociales, del diálogo en la resolución de conflictos y del respeto ante la diversidad de competencia motriz, mostrando una actitud crítica y un compromiso activo frente a los estereotipos y a las actuaciones discriminatorias y frente a cualquier tipo de violencia, haciendo respetar el propio cuerpo y el de los demás." },
+          { id: "CE1.7", obj: "OBJ4", text: "Analizar objetivamente las diferentes actividades y modalidades deportivas según sus características y requerimientos, evitando los posibles estereotipos de género o capacidad vinculados a dichas manifestaciones." }
+        ]
+      },
+      {
+        nombre: "Bloque 2. Organización y gestión de la actividad física",
+        criterios: [
+          { id: "CE2.1", obj: "OBJ1", text: "Adoptar de manera responsable y con autonomía medidas generales para la prevención de lesiones antes, durante y después de la práctica de actividad física, reconociendo situaciones de riesgo para actuar cautelarmente." },
+          { id: "CE2.2", obj: "OBJ1", text: "Conocer y actuar de acuerdo con los protocolos de intervención ante accidentes derivados de la práctica de actividad física, aplicando medidas básicas de primeros auxilios." },
+          { id: "CE2.3", obj: "OBJ1", text: "Explorar diferentes recursos y aplicaciones digitales reconociendo su potencial, así como sus riesgos para su uso en el ámbito de la actividad física y del deporte." },
+          { id: "CE2.4", obj: "OBJ2", text: "Desarrollar proyectos motores de carácter individual, cooperativo o colaborativo, estableciendo mecanismos para reconducir los procesos de trabajo, incluyendo estrategias de autoevaluación y coevaluación tanto del proceso como del resultado." },
+          { id: "CE2.5", obj: "OBJ3", text: "Practicar una gran variedad de actividades motrices, valorando las implicaciones éticas de las actitudes antideportivas, evitando la competitividad desmedida y actuando con deportividad al asumir los roles de público, participante u otros." },
+          { id: "CE2.6", obj: "OBJ5", text: "Conocer las normas de seguridad individuales y colectivas valorando su importancia y aplicándolas en la práctica de las actividades motrices, dentro y fuera del centro escolar." }
+        ]
+      },
+      {
+        nombre: "Bloque 3. Resolución de problemas en situaciones motrices",
+        criterios: [
+          { id: "CE3.1", obj: "OBJ1", text: "Explorar diferentes recursos y aplicaciones digitales reconociendo su potencial, así como sus riesgos para su uso en el ámbito de la actividad física y del deporte." },
+          { id: "CE3.2", obj: "OBJ2", text: "Desarrollar proyectos motores de carácter individual, cooperativo o colaborativo, estableciendo mecanismos para reconducir los procesos de trabajo, incluyendo estrategias de autoevaluación y coevaluación tanto del proceso como del resultado." },
+          { id: "CE3.3", obj: "OBJ2", text: "Interpretar contextos motrices variados y actuar correctamente aplicando principios básicos de toma de decisiones en situaciones lúdicas, juegos modificados y actividades deportivas a partir de la anticipación, adecuándose a las demandas motrices, a la actuación del compañero o de la compañera y de la persona adversaria (si la hubiese) y a la lógica interna en contextos reales o simulados de actuación, reflexionando sobre las soluciones y los resultados obtenidos." },
+          { id: "CE3.4", obj: "OBJ2", text: "Mostrar control y dominio corporal al emplear los componentes cualitativos y cuantitativos de la motricidad de manera eficiente y creativa, haciendo frente a las demandas de resolución de problemas en situaciones motrices transferibles a su espacio vivencial con progresiva autonomía." },
+          { id: "CE3.5", obj: "OBJ3", text: "Colaborar en la práctica de diferentes producciones motrices para alcanzar el logro individual y grupal, participando en la toma de decisiones y asumiendo distintos roles asignados y responsabilidades." }
+        ]
+      },
+      {
+        nombre: "Bloque 4. Autorregulación emocional e interacción social en situaciones motrices",
+        criterios: [
+          { id: "CE4.1", obj: "OBJ3", text: "Practicar una gran variedad de actividades motrices controlando las emociones y las sensaciones, valorando las implicaciones éticas de las actitudes antideportivas, evitando la competitividad desmedida y actuando con deportividad al asumir los roles de público, participante u otros." },
+          { id: "CE4.2", obj: "OBJ3", text: "Hacer uso con progresiva autonomía de las habilidades sociales, del diálogo en la resolución de conflictos y del respeto ante la diversidad de competencia motriz, mostrando una actitud crítica y un compromiso activo frente a los estereotipos y a las actuaciones discriminatorias y frente a cualquier tipo de violencia, haciendo respetar el propio cuerpo y el de los demás." },
+          { id: "CE4.3", obj: "OBJ4", text: "Analizar objetivamente las diferentes actividades y modalidades deportivas según sus características y requerimientos, evitando los posibles estereotipos de género o capacidad o los comportamientos sexistas vinculados a dichas manifestaciones." }
+        ]
+      },
+      {
+        nombre: "Bloque 5. Manifestaciones de la cultura motriz",
+        criterios: [
+          { id: "CE5.1", obj: "OBJ4", text: "Participar en juegos motores, deportes y otras manifestaciones artístico-expresivas vinculadas tanto con la cultura propia como con otras, favoreciendo su conservación y valorando sus orígenes, evolución e influencia en las sociedades contemporáneas." },
+          { id: "CE5.2", obj: "OBJ4", text: "Utilizar intencionadamente y con progresiva autonomía el cuerpo como herramienta de expresión y comunicación a través de diversas técnicas expresivas, participando activamente en la creación y representación de composiciones individuales o colectivas con y sin base musical." }
+        ]
+      },
+      {
+        nombre: "Bloque 6. Interacción eficiente y sostenible con el entorno",
+        criterios: [
+          { id: "CE6.1", obj: "OBJ1", text: "Adoptar de manera responsable y con progresiva autonomía medidas generales para la prevención de lesiones antes, durante y después de la práctica de actividad física, aprendiendo a reconocer situaciones de riesgo para actuar cautelarmente." },
+          { id: "CE6.2", obj: "OBJ1", text: "Analizar y valorar la incidencia que algunas prácticas y comportamientos incívicos tienen en nuestra salud y en la convivencia, valorando su impacto en el entorno y evitando activamente su reproducción." },
+          { id: "CE6.3", obj: "OBJ5", text: "Participar en actividades físico-deportivas en entornos urbanos y naturales, terrestres o acuáticos, disfrutando de manera sostenible, minimizando el impacto ambiental que estas puedan producir y siendo conscientes de su huella ecológica." },
+          { id: "CE6.4", obj: "OBJ5", text: "Practicar actividades físico-deportivas en el medio natural y urbano aplicando normas de seguridad individuales y colectivas." }
+        ]
+      }
+    ];
+
+    
+
+    // 1º ESO (del PDF adjunto de 1º de ESO, 6 bloques)
+    const curriculumESO1 = [
+      {
+        nombre: "Bloque 1. Vida activa y saludable",
+        criterios: [
+          { id: "CE1.1", obj: "OBJ1", text: "Establecer secuencias sencillas de actividad física orientada al concepto integral de salud y al estilo de vida activo, a partir de una valoración del nivel inicial y respetando la propia realidad e identidad corporal." },
+          { id: "CE1.2", obj: "OBJ1", text: "Comenzar a incorporar con progresiva autonomía procesos de activación corporal, dosificación del esfuerzo, alimentación saludable, educación postural, relajación e higiene durante la práctica de actividades motrices, interiorizando las rutinas propias de una práctica motriz saludable y responsable." },
+          { id: "CE1.3", obj: "OBJ1", text: "Adoptar de manera responsable y con progresiva autonomía medidas generales para la prevención de lesiones antes, durante y después de la práctica de actividad física, aprendiendo a reconocer situaciones de riesgo para actuar cautelarmente." },
+          { id: "CE1.4", obj: "OBJ1", text: "Reconocer y valorar la incidencia que algunas prácticas y comportamientos sociales tienen en nuestra salud y en la convivencia, valorando su impacto y evitando activamente su reproducción." },
+          { id: "CE1.5", obj: "OBJ1", text: "Explorar diferentes recursos y aplicaciones digitales reconociendo su potencial, así como sus riesgos para su uso en el ámbito de la actividad física y del deporte." },
+          { id: "CE1.6", obj: "OBJ3", text: "Hacer uso con progresiva autonomía de las habilidades sociales, del diálogo en la resolución de conflictos y del respeto ante la diversidad de competencia motriz, mostrando una actitud crítica y un compromiso activo frente a los estereotipos y a las actuaciones discriminatorias y frente a cualquier tipo de violencia, haciendo respetar el propio cuerpo y el de los demás." }
+        ]
+      },
+      {
+        nombre: "Bloque 2. Organización y gestión de la actividad física",
+        criterios: [
+          { id: "CE2.1", obj: "OBJ1", text: "Adoptar de manera responsable y con progresiva autonomía medidas generales para la prevención de lesiones antes, durante y después de la práctica de actividad física, aprendiendo a reconocer situaciones de riesgo para actuar cautelarmente." },
+          { id: "CE2.2", obj: "OBJ1", text: "Actuar de acuerdo con los protocolos de intervención ante accidentes derivados de la práctica de actividad física aplicando medidas básicas de primeros auxilios." },
+          { id: "CE2.3", obj: "OBJ3", text: "Practicar una gran variedad de actividades motrices valorando las implicaciones éticas de las actitudes antideportivas, evitando la competitividad desmedida y actuando con deportividad al asumir los roles de público, participante u otros." },
+          { id: "CE2.4", obj: "OBJ4", text: "Gestionar la preparación y la participación en juegos motores y otras manifestaciones artístico-expresivas vinculadas tanto con la cultura propia como con otras, favoreciendo su conservación y valorando sus orígenes, evolución e influencia en las sociedades contemporáneas." },
+          { id: "CE2.5", obj: "OBJ5", text: "Conocer y aplicar normas de seguridad individuales y colectivas en la práctica de actividades motrices." }
+        ]
+      },
+      {
+        nombre: "Bloque 3. Resolución de problemas en situaciones motrices",
+        criterios: [
+          { id: "CE3.1", obj: "OBJ1", text: "Explorar diferentes recursos y aplicaciones digitales reconociendo su potencial, así como sus riesgos para su uso en el ámbito de la actividad física y del deporte." },
+          { id: "CE3.2", obj: "OBJ2", text: "Desarrollar proyectos motores de carácter individual, cooperativo o colaborativo, estableciendo mecanismos para reconducir los procesos de trabajo." },
+          { id: "CE3.3", obj: "OBJ2", text: "Interpretar contextos motrices variados y actuar correctamente aplicando principios básicos de toma de decisiones en situaciones lúdicas, juegos modificados y actividades deportivas a partir de la anticipación, adecuándose a las demandas motrices, a la actuación de la compañera o del compañero y de la persona adversaria (si la hubiera) y a la lógica interna en contextos reales o simulados de actuación, reflexionando sobre las soluciones y los resultados obtenidos." },
+          { id: "CE3.4", obj: "OBJ2", text: "Mostrar control y dominio corporal al emplear los componentes cualitativos y cuantitativos de la motricidad de manera eficiente y creativa, haciendo frente a las demandas de resolución de problemas en situaciones motrices transferibles a su espacio vivencial con progresiva autonomía." },
+          { id: "CE3.5", obj: "OBJ3", text: "Colaborar en la práctica de diferentes producciones motrices para alcanzar el logro individual y grupal, participando en la toma de decisiones y asumiendo distintos roles asignados y responsabilidades." }
+        ]
+      },
+      {
+        nombre: "Bloque 4. Autorregulación emocional e interacción social en situaciones motrices",
+        criterios: [
+          { id: "CE4.1", obj: "OBJ3", text: "Practicar una gran variedad de actividades motrices controlando las emociones y las sensaciones, valorando las implicaciones éticas de las actitudes antideportivas, evitando la competitividad desmedida y actuando con deportividad al asumir los roles de público, participante u otros." },
+          { id: "CE4.2", obj: "OBJ3", text: "Hacer uso con progresiva autonomía de las habilidades sociales, del diálogo en la resolución de conflictos y del respeto ante la diversidad de competencia motriz, mostrando una actitud crítica y un compromiso activo frente a los estereotipos y a las actuaciones discriminatorias y frente a cualquier tipo de violencia, haciendo respetar el propio cuerpo y el de los demás." },
+          { id: "CE4.3", obj: "OBJ4", text: "Analizar objetivamente las diferentes actividades y modalidades deportivas según sus características y requerimientos, evitando los posibles estereotipos de género o capacidad o los comportamientos sexistas vinculados a dichas manifestaciones." }
+        ]
+      },
+      {
+        nombre: "Bloque 5. Manifestaciones de la cultura motriz",
+        criterios: [
+          { id: "CE5.1", obj: "OBJ4", text: "Participar en juegos motores, deportes y otras manifestaciones artístico-expresivas vinculadas tanto con la cultura propia como con otras, favoreciendo su conservación y valorando sus orígenes, evolución e influencia en las sociedades contemporáneas." },
+          { id: "CE5.2", obj: "OBJ4", text: "Utilizar intencionadamente y con progresiva autonomía el cuerpo como herramienta de expresión y comunicación a través de diversas técnicas expresivas, participando activamente en la creación y representación de composiciones individuales o colectivas con y sin base musical." }
+        ]
+      },
+      {
+        nombre: "Bloque 6. Interacción eficiente y sostenible con el entorno",
+        criterios: [
+          { id: "CE6.1", obj: "OBJ1", text: "Adoptar de manera responsable y con progresiva autonomía medidas generales para la prevención de lesiones antes, durante y después de la práctica de actividad física, aprendiendo a reconocer situaciones de riesgo para actuar cautelarmente." },
+          { id: "CE6.2", obj: "OBJ1", text: "Reconocer y valorar la incidencia que algunas prácticas y comportamientos incívicos tienen en nuestra salud y en la convivencia, valorando su impacto en el entorno y evitando activamente su reproducción." },
+          { id: "CE6.3", obj: "OBJ5", text: "Participar en actividades físico-deportivas en entornos urbanos y naturales, terrestres o acuáticos, disfrutando de manera sostenible, minimizando el impacto ambiental que estas puedan producir y siendo conscientes de su huella ecológica." },
+          { id: "CE6.4", obj: "OBJ5", text: "Practicar actividades físico-deportivas en el medio natural y urbano aplicando normas de seguridad individuales y colectivas." }
+        ]
+      }
+    ];
+
+    // 3º ESO (del PDF adjunto de 3º de ESO, 6 bloques)
+    const curriculumESO3 = [
+      {
+        nombre: "Bloque 1. Vida activa y saludable",
+        criterios: [
+          { id: "CE1.1", obj: "OBJ1", text: "Autorregular la práctica de actividad física orientada al concepto integral de salud y al estilo de vida activo, según las necesidades y los intereses individuales y respetando la propia realidad e identidad corporal." },
+          { id: "CE1.2", obj: "OBJ1", text: "Incorporar de forma autónoma los procesos de activación corporal, autorregulación y dosificación del esfuerzo, alimentación saludable, educación postural, relajación e higiene durante la práctica de actividades motrices, interiorizando las rutinas propias de una práctica motriz saludable y responsable." },
+          { id: "CE1.3", obj: "OBJ1", text: "Adoptar actitudes comprometidas que rechacen los estereotipos sociales asociados al ámbito de lo corporal, al género y a la diversidad sexual y los comportamientos que pongan en riesgo la salud, contrastando con autonomía e independencia cualquier información en base a criterios científicos de validez, fiabilidad y objetividad." },
+          { id: "CE1.4", obj: "OBJ1", text: "Desarrollar y compartir con seguridad la práctica física cotidiana manejando recursos y aplicaciones digitales vinculados al ámbito de la actividad física y del deporte." }
+        ]
+      },
+      {
+        nombre: "Bloque 2. Organización y gestión de la actividad física",
+        criterios: [
+          { id: "CE2.1", obj: "OBJ1", text: "Actuar de acuerdo con los protocolos de intervención ante situaciones de emergencia o accidentes aplicando medidas específicas de primeros auxilios." },
+          { id: "CE2.2", obj: "OBJ1", text: "Desarrollar y compartir con seguridad la práctica física cotidiana manejando recursos y aplicaciones digitales vinculados al ámbito de la actividad física y del deporte." },
+          { id: "CE2.3", obj: "OBJ3", text: "Participar activamente en una gran variedad de actividades motrices asumiendo responsabilidades en la organización, gestión y preparación de estas." },
+          { id: "CE2.4", obj: "OBJ5", text: "Conocer las normas de seguridad individuales y colectivas valorando su importancia y aplicándolas en la práctica de actividades motrices, dentro y fuera del centro escolar." }
+        ]
+      },
+      {
+        nombre: "Bloque 3. Resolución de problemas en situaciones motrices",
+        criterios: [
+          { id: "CE3.1", obj: "OBJ1", text: "Desarrollar y compartir con seguridad la práctica física cotidiana manejando recursos y aplicaciones digitales vinculados al ámbito de la actividad física y del deporte." },
+          { id: "CE3.2", obj: "OBJ2", text: "Desarrollar proyectos motores de carácter individual, cooperativo o colaborativo, estableciendo mecanismos para reconducir los procesos de trabajo y asegurar una participación equilibrada, incluyendo estrategias de autoevaluación y coevaluación tanto del proceso como del resultado." },
+          { id: "CE3.3", obj: "OBJ2", text: "Mostrar habilidades para la adaptación y la actuación ante situaciones con una elevada incertidumbre, aprovechando eficientemente las propias capacidades y aplicando de manera automática procesos de percepción, decisión y ejecución en contextos reales o simulados de actuación." },
+          { id: "CE3.4", obj: "OBJ2", text: "Evidenciar control y dominio corporal al emplear los componentes cualitativos y cuantitativos de la motricidad de manera eficiente y creativa, resolviendo problemas en todo tipo de situaciones motrices transferibles a su espacio vivencial con autonomía." },
+          { id: "CE3.5", obj: "OBJ3", text: "Colaborar en la práctica de diferentes producciones motrices y proyectos para alcanzar el logro individual y grupal, participando con autonomía en la toma de decisiones vinculadas a la asignación de roles, a la gestión del tiempo de práctica y a la optimización del resultado final." }
+        ]
+      },
+      {
+        nombre: "Bloque 4. Autorregulación emocional e interacción social en situaciones motrices",
+        criterios: [
+          { id: "CE4.1", obj: "OBJ3", text: "Practicar y participar activamente en una gran variedad de actividades motrices valorando las implicaciones éticas de las prácticas antidopaje, adoptando estrategias de superación evitando la competitividad desmedida y actuando con deportividad al asumir los roles de público, participante u otros." },
+          { id: "CE4.2", obj: "OBJ3", text: "Relacionarse y entenderse con el resto de participantes durante el desarrollo de diversas prácticas motrices con autonomía y haciendo uso efectivo de habilidades sociales de diálogo en la resolución de conflictos y respeto ante la diversidad de competencia motriz; y situándose activamente frente a los estereotipos y a las actuaciones discriminatorias y frente a cualquier tipo de violencia, haciendo respetar el propio cuerpo y el de los demás." },
+          { id: "CE4.3", obj: "OBJ4", text: "Adoptar actitudes comprometidas y conscientes acerca de los distintos estereotipos de género y comportamientos sexistas que se siguen produciendo en algunos contextos de la motricidad, identificando los factores que contribuyen a su mantenimiento y ayudando a difundir referentes de distintos géneros en el ámbito físico-deportivo." }
+        ]
+      },
+      {
+        nombre: "Bloque 5. Manifestaciones de la cultura motriz",
+        criterios: [
+          { id: "CE5.1", obj: "OBJ4", text: "Practicar actividades rítmico-musicales con carácter artístico-expresivo, valorando sus orígenes y relacionándolas con la cultura propia, con la tradicional o con las procedentes de otros lugares del mundo." },
+          { id: "CE5.2", obj: "OBJ4", text: "Crear y representar composiciones individuales o colectivas con y sin base musical y de manera coordinada, utilizando intencionadamente y con autonomía el cuerpo y el movimiento como herramienta de expresión y comunicación a través de diversas técnicas expresivas específicas y ayudando a difundir y a compartir estas prácticas culturales entre compañeros u otros miembros de la comunidad." }
+        ]
+      },
+      {
+        nombre: "Bloque 6. Interacción eficiente y sostenible con el entorno",
+        criterios: [
+          { id: "CE6.1", obj: "OBJ1", text: "Adoptar de manera responsable y autónoma medidas específicas para la prevención de lesiones antes, durante y después de la práctica de actividad física, aprendiendo a reconocer situaciones de riesgo para actuar cautelarmente." },
+          { id: "CE6.2", obj: "OBJ5", text: "Participar en actividades físico-deportivas en entornos urbanos y naturales, terrestres o acuáticos, disfrutando de estos de manera sostenible, minimizando el impacto ambiental que estas puedan producir, siendo conscientes de su huella ecológica y desarrollando actuaciones intencionadas dirigidas a la conservación y a la mejora de las condiciones de los espacios en los que se desarrollen." },
+          { id: "CE6.3", obj: "OBJ5", text: "Participar en actividades físico-deportivas en el medio natural y urbano asumiendo responsabilidades y aplicando normas de seguridad individuales y colectivas." }
+        ]
+      }
+    ];
+
+
+
+    // 4º ESO (del PDF adjunto de 4º de ESO, 6 bloques)
+    const curriculumESO4 = [
+      {
+        nombre: "Bloque 1. Vida activa y saludable",
+        criterios: [
+          { id: "CE1.1", obj: "OBJ1", text: "Planificar y autorregular la práctica de actividad física orientada al concepto integral de salud y al estilo de vida activo, según las necesidades y los intereses individuales y respetando la propia realidad e identidad corporal." },
+          { id: "CE1.2", obj: "OBJ1", text: "Incorporar de forma autónoma los procesos de activación corporal, autoevaluación, autorregulación y dosificación del esfuerzo, alimentación saludable, educación postural, relajación e higiene durante la práctica de actividades motrices, interiorizando las rutinas propias de una práctica motriz saludable y responsable." },
+          { id: "CE1.3", obj: "OBJ1", text: "Adoptar actitudes comprometidas que rechacen los estereotipos sociales asociados al ámbito de lo corporal, del género y de la diversidad sexual y los comportamientos que pongan en riesgo la salud, contrastando con autonomía e independencia cualquier información en base a criterios científicos de validez, fiabilidad y objetividad." },
+          { id: "CE1.4", obj: "OBJ1", text: "Planificar, desarrollar y compartir con seguridad la práctica física cotidiana manejando recursos y aplicaciones digitales vinculados al ámbito de la actividad física y del deporte." }
+        ]
+      },
+      {
+        nombre: "Bloque 2. Organización y gestión de la actividad física",
+        criterios: [
+          { id: "CE2.1", obj: "OBJ1", text: "Actuar de acuerdo con los protocolos de intervención ante situaciones de emergencia o accidentes aplicando medidas específicas de primeros auxilios." },
+          { id: "CE2.2", obj: "OBJ1", text: "Planificar, desarrollar y compartir con seguridad la práctica física cotidiana manejando recursos y aplicaciones digitales vinculados al ámbito de la actividad física y del deporte." },
+          { id: "CE2.3", obj: "OBJ2", text: "Desarrollar proyectos motores de carácter individual, cooperativo o colaborativo, estableciendo mecanismos para reconducir los procesos de trabajo y asegurar una participación equilibrada, incluyendo estrategias de autoevaluación y coevaluación tanto del proceso como del resultado." },
+          { id: "CE2.4", obj: "OBJ3", text: "Participar activamente en una gran variedad de actividades motrices asumiendo responsabilidades en la organización, gestión y preparación de estas." },
+          { id: "CE2.5", obj: "OBJ5", text: "Conocer las normas de seguridad individuales y colectivas valorando su importancia y aplicándolas en la práctica de actividades motrices, dentro y fuera del centro escolar." }
+        ]
+      },
+      {
+        nombre: "Bloque 3. Resolución de problemas en situaciones motrices",
+        criterios: [
+          { id: "CE3.1", obj: "OBJ1", text: "Planificar, desarrollar y compartir con seguridad la práctica física cotidiana manejando recursos y aplicaciones digitales vinculados al ámbito de la actividad física y del deporte." },
+          { id: "CE3.2", obj: "OBJ2", text: "Desarrollar proyectos motores de carácter individual, cooperativo o colaborativo, estableciendo mecanismos para reconducir los procesos de trabajo y asegurar una participación equilibrada, incluyendo estrategias de autoevaluación y coevaluación tanto del proceso como del resultado." },
+          { id: "CE3.3", obj: "OBJ2", text: "Mostrar habilidades para la adaptación y la actuación ante situaciones con una elevada incertidumbre, aprovechando eficientemente las propias capacidades y aplicando de manera automática procesos de percepción, decisión y ejecución en contextos reales o simulados de actuación, reflexionando sobre las soluciones y los resultados obtenidos." },
+          { id: "CE3.4", obj: "OBJ2", text: "Evidenciar control y dominio corporal al emplear los componentes cualitativos y cuantitativos de la motricidad de manera eficiente y creativa, resolviendo problemas en todo tipo de situaciones motrices transferibles a su espacio vivencial con autonomía." },
+          { id: "CE3.5", obj: "OBJ3", text: "Colaborar en la práctica de diferentes producciones motrices y proyectos para alcanzar el logro individual y grupal, participando con autonomía en la toma de decisiones vinculadas a la asignación de roles, a la gestión del tiempo de práctica y a la optimización del resultado final." }
+        ]
+      },
+      {
+        nombre: "Bloque 4. Autorregulación emocional e interacción social en situaciones motrices",
+        criterios: [
+          { id: "CE4.1", obj: "OBJ3", text: "Practicar y participar activamente asumiendo responsabilidades en la organización en una gran variedad de actividades motrices, valorando las implicaciones éticas de las prácticas antidopaje, adoptando estrategias de superación, evitando la competitividad desmedida y actuando con deportividad al asumir los roles de público, participante u otros." },
+          { id: "CE4.2", obj: "OBJ3", text: "Relacionarse y entenderse con el resto de participantes durante el desarrollo de diversas prácticas motrices con autonomía, haciendo uso efectivo de habilidades sociales de diálogo en la resolución de conflictos y respeto ante la diversidad de competencia motriz, situándose activamente frente a los estereotipos y a las actuaciones discriminatorias y frente a cualquier tipo de violencia y haciendo respetar el propio cuerpo y el de los demás." },
+          { id: "CE4.3", obj: "OBJ4", text: "Adoptar actitudes comprometidas y conscientes acerca de los distintos estereotipos de género y comportamientos sexistas que se siguen produciendo en algunos contextos de la motricidad, identificando los factores que contribuyen a su mantenimiento y ayudando a difundir referentes de distintos géneros en el ámbito físico-deportivo." }
+        ]
+      },
+      {
+        nombre: "Bloque 5. Manifestaciones de la cultura motriz",
+        criterios: [
+          { id: "CE5.1", obj: "OBJ4", text: "Identificar y contextualizar la influencia social del deporte en la sociedad actual, valorando sus orígenes, evolución, distintas manifestaciones e intereses económico-políticos, practicando diversas modalidades relacionadas con la cultura propia, con la tradicional o con las procedentes de otros lugares del mundo." },
+          { id: "CE5.2", obj: "OBJ4", text: "Crear y representar composiciones individuales o colectivas con y sin base musical y de manera coordinada, utilizando intencionadamente y con autonomía el cuerpo y el movimiento como herramienta de expresión y comunicación a través de diversas técnicas expresivas específicas y ayudando a difundir y a compartir estas prácticas culturales entre compañeros u otros miembros de la comunidad." }
+        ]
+      },
+      {
+        nombre: "Bloque 6. Interacción eficiente y sostenible con el entorno",
+        criterios: [
+          { id: "CE6.1", obj: "OBJ1", text: "Adoptar de manera responsable y autónoma medidas específicas para la prevención de lesiones antes, durante y después de la práctica de actividad física, aprendiendo a reconocer situaciones de riesgo para actuar cautelarmente." },
+          { id: "CE6.2", obj: "OBJ5", text: "Participar en actividades físico-deportivas en entornos urbanos y naturales, terrestres o acuáticos, disfrutando de estas de manera sostenible, minimizando el impacto ambiental que estas puedan producir, siendo conscientes de su huella ecológica y desarrollando actuaciones intencionadas dirigidas a la conservación y a la mejora de las condiciones de los espacios en los que se desarrollen." },
+          { id: "CE6.3", obj: "OBJ5", text: "Diseñar y organizar actividades físico-deportivas en el medio natural y urbano, asumiendo responsabilidades y aplicando normas de seguridad individuales y colectivas." }
+        ]
+      }
+    ];
+
+const courses = {
+      bach: {
+        label: "1º Bachillerato",
+        headerSub: "Materia de Educación Física · 1º Bachillerato",
+        headerDesc: "Basado en el documento de criterios (6 bloques).",
+        curriculum: curriculumBach
+      },
+      eso2: {
+        label: "2º ESO",
+        headerSub: "Materia de Educación Física · 2º ESO",
+        headerDesc: "Basado en el documento de criterios (6 bloques).",
+        curriculum: curriculumESO2
+      },
+      eso1: {
+        label: "1º ESO",
+        headerSub: "Materia de Educación Física · 1º ESO",
+        headerDesc: "Basado en el documento de criterios (6 bloques).",
+        curriculum: curriculumESO1
+      },
+      eso3: {
+        label: "3º ESO",
+        headerSub: "Materia de Educación Física · 3º ESO",
+        headerDesc: "Basado en el documento de criterios (6 bloques).",
+        curriculum: curriculumESO3
+      }
+          ,
+      eso4: {
+        label: "4º ESO",
+        headerSub: "Materia de Educación Física · 4º ESO",
+        headerDesc: "Basado en el documento de criterios (6 bloques).",
+        curriculum: curriculumESO4
+      }
+    };
+
+    const descObjetivos = {
+      OBJ1: "Salud y hábitos",
+      OBJ2: "Habilidad y táctica",
+      OBJ3: "Social y proyectos",
+      OBJ4: "Cultura y expresión",
+      OBJ5: "Entorno y sostenibilidad"
+    };
+
+    // =====================
+    // Estado + persistencia
+    // =====================
+
+    const LS_KEY = "ef_criterios_multi_v1";
+
+    let currentCourseKey = "bach";
+    let currentIdx = 0;
+    let selections = {}; // { [courseKey]: { [blockKey]: { [critId]: objId } } }
+    let accessibleMode = true;
+    let selectedObj = null;
+
+    function getCurriculum() {
+      return courses[currentCourseKey].curriculum;
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(LS_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed.currentCourseKey && courses[parsed.currentCourseKey]) currentCourseKey = parsed.currentCourseKey;
+        if (typeof parsed.currentIdx === "number") currentIdx = parsed.currentIdx;
+        if (parsed.selections && typeof parsed.selections === "object") selections = parsed.selections;
+        if (typeof parsed.accessibleMode === "boolean") accessibleMode = parsed.accessibleMode;
+      } catch (_) {}
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(LS_KEY, JSON.stringify({ currentCourseKey, currentIdx, selections, accessibleMode }));
+      } catch (_) {}
+    }
+
+    function toast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.style.display = "block";
+      clearTimeout(window.__toastT);
+      window.__toastT = setTimeout(() => (el.style.display = "none"), 1600);
+    }
+
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // =====================
+    // Render
+    // =====================
+
+    function init() {
+      loadState();
+      bindGlobalHandlers();
+      setAccessibleMode(accessibleMode, true);
+      setCourse(currentCourseKey, true);
+    }
+
+    function bindGlobalHandlers() {
+      document.getElementById("btn-check").addEventListener("click", checkResults);
+      document.getElementById("btn-reset").addEventListener("click", () => resetBloque(currentIdx));
+      document.getElementById("btn-show-answers").addEventListener("click", showAnswers);
+      document.getElementById("btn-shuffle").addEventListener("click", () => renderObjetivos(true));
+      document.getElementById("btn-help").addEventListener("click", showHelp);
+      document.getElementById("btn-toggle-mode").addEventListener("click", () => setAccessibleMode(!accessibleMode));
+      document.getElementById("modal-close").addEventListener("click", closeModal);
+
+      // Cursos
+      document.getElementById("course-bach").addEventListener("click", () => setCourse("bach"));
+      document.getElementById("course-eso2").addEventListener("click", () => setCourse("eso2"));
+      document.getElementById("course-eso1").addEventListener("click", () => setCourse("eso1"));
+      document.getElementById("course-eso3").addEventListener("click", () => setCourse("eso3"));
+
+      
+      document.getElementById("course-eso4").addEventListener("click", () => setCourse("eso4"));
+// ESC cierra modal
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+    }
+
+    function setCourse(courseKey, silent = false) {
+      if (!courses[courseKey]) return;
+      currentCourseKey = courseKey;
+
+      // UI: botones de curso
+      document.getElementById("course-bach").classList.toggle("course-active", courseKey === "bach");
+      document.getElementById("course-eso2").classList.toggle("course-active", courseKey === "eso2");
+      document.getElementById("course-eso1").classList.toggle("course-active", courseKey === "eso1");
+      document.getElementById("course-eso3").classList.toggle("course-active", courseKey === "eso3");
+
+      
+      document.getElementById("course-eso4").classList.toggle("course-active", courseKey === "eso4");
+// Header
+      document.getElementById("header-sub").textContent = courses[courseKey].headerSub;
+      document.getElementById("header-desc").textContent = courses[courseKey].headerDesc;
+
+      // Re-render bloques
+      const curr = getCurriculum();
+      if (currentIdx < 0 || currentIdx >= curr.length) currentIdx = 0;
+
+      renderNav();
+      loadBloque(currentIdx, true);
+      saveState();
+      if (!silent) toast(`Curso: ${courses[courseKey].label}`);
+    }
+
+    function renderNav() {
+      const nav = document.getElementById("bloque-nav");
+      nav.innerHTML = "";
+      getCurriculum().forEach((b, i) => {
+        const btn = document.createElement("button");
+        btn.className = "kbd-focus px-4 py-2 whitespace-nowrap text-sm font-semibold text-slate-700 hover:text-slate-900";
+        btn.textContent = `Bloque ${i + 1}`;
+        btn.title = b.nombre;
+        btn.id = `tab-${i}`;
+        btn.setAttribute("role", "tab");
+        btn.addEventListener("click", () => loadBloque(i));
+        nav.appendChild(btn);
+      });
+    }
+
+    function loadBloque(idx, silent = false) {
+      currentIdx = idx;
+      selectedObj = null;
+      document.getElementById("selected-obj").textContent = "Ninguno";
+
+      const curriculum = getCurriculum();
+
+      // selections se guardan por curso y por bloque
+      if (!selections[currentCourseKey]) selections[currentCourseKey] = {};
+      const blockKey = `b${idx}`;
+      const savedForBlock = selections[currentCourseKey][blockKey] || {};
+
+      // UI tabs
+      document.querySelectorAll("#bloque-nav button").forEach((btn) => btn.classList.remove("tab-active"));
+      const tab = document.getElementById(`tab-${idx}`);
+      if (tab) tab.classList.add("tab-active");
+
+      // Título
+      document.getElementById("bloque-title").textContent = curriculum[idx].nombre;
+
+      // Render criterios
+      const container = document.getElementById("criterios-container");
+      container.innerHTML = "";
+
+      curriculum[idx].criterios.forEach((c) => {
+        const card = document.createElement("article");
+        card.className = "bg-white p-5 rounded-2xl shadow-sm border-2 border-transparent transition-all";
+        card.id = `card-${c.id}`;
+
+        const assigned = savedForBlock[c.id] || null;
+
+        card.innerHTML = `
+          <div class="flex flex-col md:flex-row md:items-start gap-4">
+            <div class="shrink-0">
+              <div class="bg-blue-50 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm w-fit">${c.id}</div>
+            </div>
+            <div class="flex-1">
+              <p class="text-slate-800 text-sm leading-relaxed">${c.text}</p>
+
+              <div class="mt-4 flex flex-col sm:flex-row sm:items-center gap-2">
+                <button class="kbd-focus btn-clear text-xs font-semibold px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200" data-crit="${c.id}">Quitar</button>
+
+                <div class="drop-zone kbd-focus flex-1 border-2 border-dashed border-slate-300 rounded-xl flex items-center justify-center px-3 py-2 text-xs text-slate-500"
+                     tabindex="0"
+                     role="button"
+                     aria-label="Asignar objetivo al criterio ${c.id}"
+                     data-crit="${c.id}">
+                  ${assigned ? renderPill(assigned) : "Soltar OBJ aquí o pulsar para asignar"}
+                </div>
+              </div>
+
+              <div class="mt-2 text-xs text-slate-500" id="hint-${c.id}"></div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      // Eventos: quitar
+      document.querySelectorAll(".btn-clear").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const crit = btn.dataset.crit;
+          setAssignment(crit, null);
+          toast(`${crit}: eliminado`);
+        });
+      });
+
+      // Render objetivos
+      renderObjetivos(false);
+
+      // Interacciones
+      setupInteractions();
+
+      // Pintar asignaciones guardadas
+      Object.entries(savedForBlock).forEach(([crit, obj]) => {
+        if (obj) applyDropZoneUI(crit, obj);
+      });
+
+      updateProgress();
+      saveState();
+      if (!silent) toast(`Cargado: Bloque ${idx + 1}`);
+    }
+
+    function renderObjetivos(doShuffle) {
+      const pool = document.getElementById("objetivos-pool");
+      pool.innerHTML = "";
+
+      let keys = Object.keys(descObjetivos);
+      if (doShuffle) keys = shuffleArray(keys.slice());
+
+      keys.forEach((key) => {
+        const objEl = document.createElement("div");
+        objEl.className = "kbd-focus p-4 bg-emerald-50 border border-emerald-200 rounded-2xl cursor-grab active:cursor-grabbing hover:bg-emerald-100 transition shadow-sm flex items-center justify-between gap-3";
+        objEl.draggable = true;
+        objEl.dataset.obj = key;
+        objEl.setAttribute("role", "listitem");
+        objEl.setAttribute("tabindex", "0");
+        objEl.setAttribute("aria-label", `${key}: ${descObjetivos[key]}`);
+
+        objEl.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="font-black text-emerald-900">${key}</span>
+            <span class="text-xs text-emerald-700 font-semibold">${descObjetivos[key]}</span>
+          </div>
+          <span class="text-[11px] text-emerald-800/70 font-semibold">Seleccionar</span>
+        `;
+
+        // Drag
+        objEl.addEventListener("dragstart", (e) => {
+          e.dataTransfer.setData("text/plain", key);
+          objEl.classList.add("dragging");
+        });
+        objEl.addEventListener("dragend", () => objEl.classList.remove("dragging"));
+
+        // Selección accesible
+        const pick = () => {
+          selectedObj = key;
+          document.getElementById("selected-obj").textContent = `${key} — ${descObjetivos[key]}`;
+          toast(`Seleccionado: ${key}`);
+        };
+        objEl.addEventListener("click", pick);
+        objEl.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            pick();
+          }
+        });
+
+        pool.appendChild(objEl);
+      });
+    }
+
+    function setupInteractions() {
+      const zones = document.querySelectorAll(".drop-zone");
+      zones.forEach((zone) => {
+        zone.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          zone.classList.add("bg-slate-50");
+        });
+        zone.addEventListener("dragleave", () => zone.classList.remove("bg-slate-50"));
+
+        zone.addEventListener("drop", (e) => {
+          e.preventDefault();
+          zone.classList.remove("bg-slate-50");
+          const obj = e.dataTransfer.getData("text/plain");
+          const crit = zone.dataset.crit;
+          if (!obj || !crit) return;
+          setAssignment(crit, obj);
+          toast(`${crit} → ${obj}`);
+        });
+
+        zone.addEventListener("click", () => {
+          if (!accessibleMode) return;
+          const crit = zone.dataset.crit;
+          if (!selectedObj) {
+            toast("Primero selecciona un objetivo");
+            return;
+          }
+          setAssignment(crit, selectedObj);
+          toast(`${crit} → ${selectedObj}`);
+        });
+
+        zone.addEventListener("keydown", (e) => {
+          if (!accessibleMode) return;
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            zone.click();
+          }
+        });
+      });
+    }
+
+    function setAccessibleMode(value, silent = false) {
+      accessibleMode = !!value;
+      const btn = document.getElementById("btn-toggle-mode");
+      btn.textContent = accessibleMode ? "Modo accesible: ON" : "Modo accesible: OFF";
+      btn.className = accessibleMode
+        ? "kbd-focus px-4 py-2 rounded-xl bg-slate-900 text-white shadow hover:bg-black text-sm font-semibold"
+        : "kbd-focus px-4 py-2 rounded-xl bg-white border border-slate-200 shadow-sm hover:bg-slate-100 text-sm font-semibold";
+      saveState();
+      if (!silent) toast(accessibleMode ? "Modo accesible activado" : "Modo accesible desactivado");
+    }
+
+    function renderPill(obj, extraClass = "") {
+      return `
+        <div class="inline-flex items-center gap-2 bg-emerald-600 text-white px-4 py-1.5 rounded-full font-extrabold shadow ${extraClass}">
+          <span>${obj}</span>
+          <span class="text-[11px] font-semibold text-white/90">${descObjetivos[obj] || ""}</span>
+        </div>
+      `;
+    }
+
+    function applyDropZoneUI(crit, obj) {
+      const zone = document.querySelector(`.drop-zone[data-crit='${crit}']`);
+      if (!zone) return;
+      zone.classList.remove("zone-correct", "zone-wrong");
+      if (!obj) {
+        zone.innerHTML = "Soltar OBJ aquí o pulsar para asignar";
+        zone.classList.remove("bg-emerald-50", "border-emerald-200");
+        zone.classList.add("border-dashed", "border-slate-300");
+        return;
+      }
+      zone.innerHTML = renderPill(obj);
+      zone.classList.remove("border-dashed", "border-slate-300");
+      zone.classList.add("bg-emerald-50", "border-emerald-200");
+    }
+
+    function setAssignment(crit, objOrNull) {
+      const blockKey = `b${currentIdx}`;
+      if (!selections[currentCourseKey]) selections[currentCourseKey] = {};
+      if (!selections[currentCourseKey][blockKey]) selections[currentCourseKey][blockKey] = {};
+
+      if (objOrNull) selections[currentCourseKey][blockKey][crit] = objOrNull;
+      else delete selections[currentCourseKey][blockKey][crit];
+
+      // Reset feedback
+      const card = document.getElementById(`card-${crit}`);
+      if (card) card.classList.remove("correct-card", "incorrect-card");
+      const hint = document.getElementById(`hint-${crit}`);
+      if (hint) hint.textContent = "";
+
+      const zone = document.querySelector(`.drop-zone[data-crit='${crit}']`);
+      if (zone) zone.classList.remove("zone-correct", "zone-wrong");
+
+      applyDropZoneUI(crit, objOrNull);
+      updateProgress();
+      saveState();
+    }
+
+    function updateProgress() {
+      const curriculum = getCurriculum();
+      const b = curriculum[currentIdx];
+      const total = b.criterios.length;
+      const blockKey = `b${currentIdx}`;
+      const currentSel = (selections[currentCourseKey] && selections[currentCourseKey][blockKey]) ? selections[currentCourseKey][blockKey] : {};
+      const current = Object.keys(currentSel).length;
+      const pct = total ? (current / total) * 100 : 0;
+      document.getElementById("progress-bar").style.width = `${pct}%`;
+      document.getElementById("progress-text").textContent = `${Math.round(pct)}%`;
+    }
+
+    // =====================
+    // Acciones
+    // =====================
+
+    function resetBloque(idx) {
+      const blockKey = `b${idx}`;
+      if (!selections[currentCourseKey]) selections[currentCourseKey] = {};
+      selections[currentCourseKey][blockKey] = {};
+      loadBloque(idx, true);
+      toast("Bloque reiniciado");
+      saveState();
+    }
+
+    function checkResults() {
+      const curriculum = getCurriculum();
+      const b = curriculum[currentIdx];
+      const total = b.criterios.length;
+      const blockKey = `b${currentIdx}`;
+      const currentSel = (selections[currentCourseKey] && selections[currentCourseKey][blockKey]) ? selections[currentCourseKey][blockKey] : {};
+
+      if (Object.keys(currentSel).length < total) {
+        showModal("¡Incompleto!", "Asigna un objetivo a cada criterio antes de verificar.", "⚠️");
+        return;
+      }
+
+      let correct = 0;
+      b.criterios.forEach((c) => {
+        const card = document.getElementById(`card-${c.id}`);
+        const hint = document.getElementById(`hint-${c.id}`);
+        const zone = document.querySelector(`.drop-zone[data-crit='${c.id}']`);
+        if (!card) return;
+
+        // Limpieza previa
+        card.classList.remove("correct-card", "incorrect-card");
+        if (zone) zone.classList.remove("zone-correct", "zone-wrong");
+
+        const chosen = currentSel[c.id];
+        if (chosen === c.obj) {
+          correct++;
+          card.classList.add("correct-card");
+          if (zone) zone.classList.add("zone-correct");
+          if (hint) hint.textContent = "Correcto.";
+        } else {
+          card.classList.add("incorrect-card");
+          if (zone) {
+            zone.classList.add("zone-wrong");
+            // Si hay una asignación, pinta también la "pastilla" en rojo
+            if (chosen) zone.innerHTML = renderPill(chosen, "pill-wrong");
+          }
+          if (hint) hint.textContent = `Incorrecto. Pista: este criterio corresponde a ${c.obj}.`;
+        }
+      });
+
+      if (correct === total) {
+        showModal("¡Excelente!", "Has relacionado todos los criterios correctamente.", "🎉");
+      } else {
+        showModal("Casi lo tienes", `Has acertado ${correct} de ${total}. Revisa los marcados en rojo.`, "📋");
+      }
+    }
+
+    function showAnswers() {
+      const curriculum = getCurriculum();
+      const b = curriculum[currentIdx];
+      b.criterios.forEach((c) => setAssignment(c.id, c.obj));
+      showModal("Soluciones cargadas", "Se han asignado las soluciones correctas a este bloque.", "✅");
+    }
+
+    function showHelp() {
+      showModal(
+        "Cómo jugar",
+        "1) Elige un curso.\n2) Arrastra OBJ1–OBJ5 al criterio correspondiente.\n3) O bien: selecciona un objetivo y pulsa sobre la zona del criterio (modo accesible).\n4) Pulsa Verificar para comprobar.\n5) Usa Quitar para deshacer una asignación.\n\nTus respuestas se guardan en este navegador (por curso y por bloque).",
+        "🤖"
+      );
+    }
+
+    function showModal(title, text, icon) {
+      document.getElementById("modal-title").textContent = title;
+      document.getElementById("modal-text").textContent = text;
+      document.getElementById("modal-icon").textContent = icon;
+      const modal = document.getElementById("modal");
+      modal.style.display = "flex";
+      modal.classList.remove("hidden");
+      setTimeout(() => document.getElementById("modal-close").focus(), 0);
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("modal");
+      modal.style.display = "none";
+      modal.classList.add("hidden");
+    }
+
+    window.addEventListener("load", init);
+  </script>
+
+<script>
+  // Tooltip de criterios: copia el texto completo en data-tooltip para mostrarlo en hover
+  (function(){
+    function applyTooltips(){
+      const cards = document.querySelectorAll('#criterios-container article');
+      cards.forEach(card => {
+        // Busca el párrafo principal del criterio dentro de la tarjeta
+        const p = card.querySelector('p');
+        if(!p) return;
+        const full = (p.textContent || '').trim();
+        if(!full) return;
+        card.setAttribute('data-tooltip', full);
+        // Evita tooltip nativo del navegador si hubiera title
+        if(card.hasAttribute('title')) card.removeAttribute('title');
+      });
+    }
+    // Intenta aplicar al cargar y tras cada render (usamos un observer)
+    document.addEventListener('DOMContentLoaded', applyTooltips);
+    const target = document.getElementById('criterios-container');
+    if(target){
+      const obs = new MutationObserver(() => applyTooltips());
+      obs.observe(target, { childList:true, subtree:true });
+    }
+  })();
+</script>
+
+
+<script>
+(function(){
+  function applyVerMas(){
+    document.querySelectorAll('#criterios-container article').forEach(card => {
+      if(card.querySelector('.ver-mas-btn')) return;
+      const p = card.querySelector('p');
+      if(!p) return;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ver-mas-btn';
+      btn.textContent = 'Ver más';
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const expanded = card.classList.toggle('criterio-expandido');
+        btn.textContent = expanded ? 'Ver menos' : 'Ver más';
+      });
+
+      p.after(btn);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', applyVerMas);
+  const target = document.getElementById('criterios-container');
+  if(target){
+    new MutationObserver(applyVerMas).observe(target, { childList:true, subtree:true });
+  }
+})();
+</script>
+
+
+<script>
+/* === Sonidos de acierto y fallo (Web Audio API) === */
+function playBeep(type){
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  if(type === 'ok'){
+    osc.frequency.value = 880; // sonido agudo
+    gain.gain.value = 0.08;
+  } else {
+    osc.frequency.value = 220; // sonido grave
+    gain.gain.value = 0.1;
+  }
+
+  osc.type = 'sine';
+  osc.start();
+  osc.stop(ctx.currentTime + 0.25);
+}
+
+// Hook en la verificación de resultados
+const _oldCheckResults = checkResults;
+checkResults = function(){
+  _oldCheckResults();
+  // Detectar si hay errores
+  const hasWrong = document.querySelector('.incorrect-card, .zone-wrong, .pill-wrong');
+  playBeep(hasWrong ? 'fail' : 'ok');
+};
+</script>
+
+</body>
+</html>

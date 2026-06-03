@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>PREMIR · Objetivos Bachillerato</title>
+
+  <style>
+    :root{
+      --bg: #f6f8fc;
+      --bg2:#ffffff;
+      --panel:#ffffff;
+      --border:#d5dced;
+      --text:#0b1220;
+      --muted:#516079;
+      --primary:#2563eb;
+      --primary-2:#1d4ed8;
+      --primary-soft:#e8efff;
+      --ok:#15803d;
+      --bad:#b91c1c;
+      --warn:#a16207;
+
+      --radius:12px;
+      --shadow: 0 4px 12px rgba(2, 6, 23, .08);
+      --shadow-soft: 0 2px 6px rgba(2, 6, 23, .06);
+    }
+    [data-theme="dark"]{
+      --bg:#070a12;
+      --bg2:#0b1020;
+      --panel:#0b1220;
+      --border:#1f2a44;
+      --text:#e8eefc;
+      --muted:#a7b3cf;
+      --primary:#60a5fa;
+      --primary-2:#3b82f6;
+      --primary-soft:rgba(96,165,250,.12);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; overflow-x:hidden;}
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+      background: var(--bg);
+      color:var(--text);
+      padding-bottom: 30px;
+    }
+
+    header{
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .header-inner{ padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; }
+    .brand{ display:flex; align-items:center; gap:10px; }
+    .logo{height:1cm; width:auto}
+    h1{font-size:14px; margin:0; font-weight:800;}
+    .subtitle{font-size:10px; color:var(--muted)}
+
+    .prof-card { text-align: right; }
+    .prof-label { font-size: 8px; text-transform: uppercase; color: var(--muted); font-weight: 800; }
+    .prof-val { font-size: 11px; font-weight: 800; color: var(--primary); }
+
+    .toolbar{
+      max-width:1400px; margin: 0 auto 12px; padding: 0 16px;
+      display:flex; flex-wrap:wrap; gap:6px; align-items:center;
+    }
+    .btn{
+      appearance:none; border:1px solid var(--border);
+      background:var(--panel); color:var(--text);
+      padding:6px 12px; border-radius:6px;
+      font-weight:700; font-size:10px; cursor:pointer;
+      transition: all .15s ease;
+    }
+    .btn.primary{ background:var(--primary); color:#fff; border-color:var(--primary); }
+    .btn:hover{ background: var(--primary-soft); color: var(--primary); }
+    .btn.primary:hover{ background: var(--primary-2); color: #fff; }
+
+    .chip{
+      display:inline-flex; align-items:center; gap:6px; padding:4px 10px;
+      border-radius:6px; background:var(--panel); border:1px solid var(--border);
+      font-size:11px; font-weight:700;
+    }
+    .dot{width:6px;height:6px;border-radius:50%;background:#94a3b8}
+    .dot.ok{background:var(--ok)}
+    .dot.warn{background:var(--warn)}
+
+    .progress-bar{ width:80px; height:6px; border-radius:999px; background:var(--border); overflow:hidden; }
+    .progress-fill{ height:100%; width:0%; background:var(--primary); transition:width .4s ease; }
+
+    .wrap{ max-width:1400px; margin:0 auto; padding:0 12px; display:flex; flex-direction: column; gap:12px; }
+
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--border); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:12px;
+    }
+    .panel h2{ margin:0 0 10px 0; font-size:10px; text-transform:uppercase; color:var(--muted); font-weight: 800; letter-spacing: 0.5px; }
+
+    /* Grids optimizados */
+    .cards-grid, .targets-grid { 
+      display:grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      gap:8px; 
+    }
+
+    @media (max-width: 1000px) { .cards-grid, .targets-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 700px) { .cards-grid, .targets-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 450px) { .cards-grid, .targets-grid { grid-template-columns: 1fr; } }
+
+    /* Fichas ultra-compactas */
+    .card{
+      background:var(--panel); border:1px solid var(--border); border-radius:8px;
+      padding:6px 10px; cursor:grab; user-select:none;
+      transition: all .2s ease; display:flex; align-items:center; 
+      box-shadow: var(--shadow-soft); min-height: auto;
+    }
+    .card:hover{ border-color:var(--primary); background: var(--primary-soft); }
+    .card.selected{ border-color:var(--primary); background:var(--primary-soft); box-shadow: 0 0 0 2px var(--primary); }
+    .card p{ margin:0; font-size:11.5px; font-weight:700; line-height:1.2; flex:1; pointer-events:none; }
+
+    .dropzone{ border:1px dashed var(--border); border-radius:10px; padding:8px; min-height: 40px; }
+
+    /* Objetivos de destino compactos */
+    .target{
+      background: var(--bg);
+      border:1px solid var(--border); border-radius:10px;
+      padding:6px; min-height: auto; display:flex; flex-direction:column; gap:4px;
+      transition:all .2s ease; position:relative; cursor: pointer;
+    }
+    .target.over{ border-color:var(--primary); background:var(--primary-soft); }
+    
+    .letter-tag{
+      width:20px; height:20px; border-radius:4px;
+      background:var(--primary); color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; font-size:10px; margin-bottom: 2px;
+    }
+    .slot{ flex:1; display:flex; flex-direction:column; min-height: 32px; justify-content: center; }
+
+    .mark{
+      position:absolute; right:-4px; top:-4px;
+      font-size:9px; font-weight:900; width:16px; height:16px;
+      border-radius:50%; border:1.5px solid var(--border);
+      display:none; align-items: center; justify-content: center; z-index: 10;
+      background: var(--panel);
+    }
+    .target.correct .mark{ display:flex; color:var(--ok); border-color:var(--ok); }
+    .target.wrong .mark{ display:flex; color:var(--bad); border-color:var(--bad); }
+
+    .toast{
+      position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+      background:var(--panel); border:1px solid var(--border);
+      box-shadow:var(--shadow); border-radius:8px;
+      padding:8px 16px; font-size:12px; font-weight:700;
+      opacity:0; transition: all .3s ease; pointer-events:none; z-index:1000;
+    }
+    .toast.show{ opacity:1; transform:translateX(-50%) translateY(-5px); }
+
+    @media print{ .toolbar, .toast, header { display:none!important } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <img src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894" class="logo" alt="Logo Premir"/>
+      <div class="title-wrap">
+        <h1>Objetivos Bachillerato</h1>
+        <div class="subtitle">RD 243/2022 · Compacto</div>
+      </div>
+    </div>
+    <div class="prof-card">
+      <div class="prof-label">Preparador</div>
+      <div class="prof-val">José Manuel Paredes</div>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <button class="btn" id="shuffleBtn">Mezclar</button>
+  <button class="btn" id="resetBtn">Reiniciar</button>
+  <button class="btn" id="hintBtn">Corregir</button>
+  <button class="btn primary" id="checkBtn">Finalizar</button>
+  <button class="btn" id="solveBtn">Solución</button>
+
+  <span class="chip">
+    <span class="dot" id="dot"></span>
+    <span id="badgeText">Listo</span>
+  </span>
+
+  <span class="chip">
+    <span class="stat" id="scoreText">0/16</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+  </span>
+
+  <span style="flex:1"></span>
+  <span class="chip">⏱ <span id="timer">00:00</span></span>
+  <button class="btn" id="themeBtn">🌓</button>
+</div>
+
+<div class="wrap">
+  <section class="panel">
+    <h2>Fichas de objetivos</h2>
+    <div class="dropzone" id="poolZone">
+      <div class="cards-grid" id="poolCards"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Tablero de asociación</h2>
+    <div class="targets-grid" id="targetsContainer"></div>
+  </section>
+</div>
+
+<div class="toast" id="toast">Listo</div>
+
+<script>
+  const objectives = [
+    ["a", "Ciudadanía democrática y conciencia cívica"],
+    ["b", "Madurez personal y resolución conflictos"],
+    ["c", "Igualdad efectiva y no discriminación"],
+    ["d", "Hábitos lectura, estudio y disciplina"],
+    ["e", "Dominio gallego y castellano"],
+    ["f", "Fluidez en lenguas extranjeras"],
+    ["g", "Solvencia en tecnologías información"],
+    ["h", "Valoración crítica mundo contemporáneo"],
+    ["i", "Conocimientos científicos y tecnológicos"],
+    ["j", "Investigación, ciencia y medio ambiente"],
+    ["k", "Espíritu emprendedor y trabajo equipo"],
+    ["l", "Sensibilidad artística, literaria y estética"],
+    ["m", "Educación física, deporte y bienestar"],
+    ["n", "Respeto y prevención movilidad segura"],
+    ["o", "Cambio climático y desarrollo sostenible"],
+    ["p", "Patrimonio cultural material e inmaterial"]
+  ];
+
+  let placement = {}; 
+  let selected = null;
+  let gameStarted = false;
+  let startTs = 0;
+  let timerInterval = null;
+
+  function toast(msg, type="") {
+    const t = document.getElementById("toast");
+    t.textContent = msg; t.className = `toast show ${type}`;
+    setTimeout(()=>t.classList.remove("show"), 2000);
+  }
+
+  function render() {
+    const poolCards = document.getElementById("poolCards");
+    const targetsContainer = document.getElementById("targetsContainer");
+    
+    poolCards.innerHTML = ""; 
+    targetsContainer.innerHTML = "";
+
+    const placedValues = Object.values(placement);
+    let available = objectives.filter(obj => !placedValues.includes(obj[0]));
+    
+    available.forEach(([l, t]) => {
+      poolCards.appendChild(createCard(l, t));
+    });
+
+    objectives.forEach(([l]) => {
+      const target = createTarget(l);
+      targetsContainer.appendChild(target);
+      if(placement[l]) {
+        const fullObj = objectives.find(o => o[0] === placement[l]);
+        target.querySelector(".slot").appendChild(createCard(fullObj[0], fullObj[1], true));
+      }
+    });
+
+    updateStats();
+  }
+
+  function createCard(id, text, inSlot = false) {
+    const div = document.createElement("div");
+    div.className = `card ${selected === id ? 'selected' : ''}`;
+    div.draggable = true;
+    div.innerHTML = `<p>${text}</p>`;
+    
+    div.ondragstart = (e) => { startTimer(); e.dataTransfer.setData("text", id); };
+    div.onclick = (e) => { 
+      e.stopPropagation();
+      startTimer();
+      if(selected === id) selected = null;
+      else selected = id;
+      render();
+    };
+    return div;
+  }
+
+  function createTarget(letter) {
+    const div = document.createElement("div");
+    div.className = "target";
+    div.innerHTML = `<div class="letter-tag">${letter.toUpperCase()}</div><div class="slot"></div><div class="mark"></div>`;
+    
+    div.ondragover = (e) => { e.preventDefault(); div.classList.add("over"); };
+    div.ondragleave = () => div.classList.remove("over");
+    div.ondrop = (e) => {
+      e.preventDefault(); div.classList.remove("over");
+      const objId = e.dataTransfer.getData("text");
+      handlePlace(objId, letter);
+    };
+    div.onclick = () => {
+      if(selected) { handlePlace(selected, letter); selected = null; }
+      else if(placement[letter]) { delete placement[letter]; render(); }
+    };
+    return div;
+  }
+
+  function handlePlace(objId, targetLetter) {
+    if(!objId) return;
+    for(let k in placement) if(placement[k] === objId) delete placement[k];
+    placement[targetLetter] = objId;
+    render();
+  }
+
+  function startTimer() {
+    if(gameStarted) return;
+    gameStarted = true; startTs = Date.now();
+    document.getElementById("dot").className = "dot warn";
+    document.getElementById("badgeText").textContent = "Jugando";
+    timerInterval = setInterval(()=>{
+      const ms = Date.now() - startTs;
+      const s = Math.floor(ms/1000);
+      document.getElementById("timer").textContent = `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
+    }, 1000);
+  }
+
+  function updateStats() {
+    let placedCount = Object.keys(placement).length;
+    document.getElementById("scoreText").textContent = `${placedCount}/${objectives.length}`;
+    document.getElementById("progressBar").style.width = `${(placedCount/objectives.length)*100}%`;
+  }
+
+  function check(isFinal = false) {
+    let okCount = 0;
+    document.querySelectorAll(".target").forEach(t => {
+      const letter = t.querySelector(".letter-tag").textContent.toLowerCase();
+      const placedId = placement[letter];
+      t.classList.remove("correct", "wrong");
+      if(placedId) {
+        if(placedId === letter) { 
+          t.classList.add("correct"); 
+          t.querySelector(".mark").textContent = "✓"; 
+          okCount++; 
+        } else { 
+          t.classList.add("wrong"); 
+          t.querySelector(".mark").textContent = "✕"; 
+        }
+      }
+    });
+    if(okCount === objectives.length) {
+      clearInterval(timerInterval);
+      document.getElementById("dot").className = "dot ok";
+      document.getElementById("badgeText").textContent = "Perfecto";
+      toast("¡Conseguido!", "ok");
+    } else if(isFinal) {
+      toast(`Aciertos: ${okCount}/${objectives.length}`);
+    }
+  }
+
+  document.getElementById("resetBtn").onclick = () => {
+    clearInterval(timerInterval); gameStarted = false; placement = {}; selected = null;
+    document.getElementById("timer").textContent = "00:00";
+    document.getElementById("dot").className = "dot";
+    document.getElementById("badgeText").textContent = "Listo";
+    render();
+  };
+  document.getElementById("hintBtn").onclick = () => check(false);
+  document.getElementById("checkBtn").onclick = () => check(true);
+  document.getElementById("solveBtn").onclick = () => {
+    objectives.forEach(o => placement[o[0]] = o[0]); render(); check(true);
+  };
+  document.getElementById("shuffleBtn").onclick = () => {
+    render();
+    const pool = document.getElementById("poolCards");
+    for (let i = pool.children.length; i >= 0; i--) pool.appendChild(pool.children[Math.random() * i | 0]);
+    toast("Mezclado");
+  };
+  document.getElementById("themeBtn").onclick = () => {
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
+  };
+
+  render();
+</script>
+</body>
+</html>

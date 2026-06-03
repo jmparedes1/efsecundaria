@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Control Programación - Xunta de Galicia</title>
+    <script src="https://cdn.tailwindcss.com">
+        
+        window.exportToWord = function () {
+            // Documento Word (HTML) sin encabezado, con tablas por sección
+            const title = 'CheckList de elaboración de la Programación Didáctica';
+            const profesor = 'José Manuel Paredes';
+
+            // Construir contenido con tablas (Word-friendly)
+            let body = '';
+            body += `<h1 style="font-family:Calibri,Arial,sans-serif;font-size:18pt;margin:0 0 6pt 0;">${title}</h1>`;
+            body += `<p style="font-family:Calibri,Arial,sans-serif;font-size:11pt;margin:0 0 12pt 0;"><b>Profesor:</b> ${profesor}</p>`;
+
+            const estadoTxt = (val) => {
+                if (val === 1) return 'SÍ';
+                if (val === 3) return 'EN PROCESO';
+                if (val === 2) return 'NON';
+                return 'PENDENTE';
+            };
+
+            sections.forEach((sec) => {
+                body += `
+                    <table style="width:100%;border-collapse:collapse;margin:0 0 12pt 0;font-family:Calibri,Arial,sans-serif;">
+                        <tr>
+                            <td colspan="3" style="background:#f1f5f9;border:1px solid #cbd5e1;padding:8pt 10pt;">
+                                <span style="font-weight:700;font-size:10pt;letter-spacing:0.5pt;text-transform:uppercase;color:#0f172a;">
+                                    ${sec.fullTitle}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:7%;border:1px solid #cbd5e1;padding:6pt 8pt;background:#ffffff;font-weight:700;font-size:9pt;color:#334155;text-align:center;">Nº</td>
+                            <td style="width:73%;border:1px solid #cbd5e1;padding:6pt 8pt;background:#ffffff;font-weight:700;font-size:9pt;color:#334155;">Indicador</td>
+                            <td style="width:20%;border:1px solid #cbd5e1;padding:6pt 8pt;background:#ffffff;font-weight:700;font-size:9pt;color:#334155;text-align:center;">Estado</td>
+                        </tr>
+                `;
+
+                sec.items.forEach((item, iIdx) => {
+                    const key = `${sec.id}-${iIdx}`;
+                    const val = (typeof userProgress !== 'undefined' && userProgress) ? userProgress[key] : 0;
+
+                    body += `
+                        <tr>
+                            <td style="border:1px solid #cbd5e1;padding:6pt 8pt;font-size:10pt;text-align:center;color:#0f172a;">${iIdx + 1}</td>
+                            <td style="border:1px solid #cbd5e1;padding:6pt 8pt;font-size:10pt;color:#0f172a;">${item}</td>
+                            <td style="border:1px solid #cbd5e1;padding:6pt 8pt;font-size:10pt;text-align:center;color:#0f172a;">${estadoTxt(val)}</td>
+                        </tr>
+                    `;
+                });
+
+                body += `</table>`;
+            });
+
+            const htmlContent = `
+                <html xmlns:o="urn:schemas-microsoft-com:office:office"
+                      xmlns:w="urn:schemas-microsoft-com:office:word"
+                      xmlns="http://www.w3.org/TR/REC-html40">
+                <head>
+                    <meta charset="utf-8">
+                    <title>${title}</title>
+                    <style>
+                        @page { margin: 20mm 15mm; }
+                        body { font-family: Calibri, Arial, sans-serif; }
+                    
+        /* Modo presentación: sin botones */
+        body.presentation-mode .no-present { display: none !important; }
+        body.presentation-mode .btn-status { display: none !important; }
+        body.presentation-mode .no-print { display: none !important; }
+
+    
+        /* ===== MODO OSCURO ===== */
+        body.dark-mode {
+            background-color: #020617;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(180deg, #020617 0%, #020617 100%) !important;
+        }
+
+        body.dark-mode .section-card {
+            background-color: #020617;
+            border-color: #1e293b;
+        }
+
+        body.dark-mode .segment-tag {
+            background: linear-gradient(180deg, #020617 0%, #020617 100%);
+            color: #e5e7eb;
+            border-color: #334155;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+        }
+
+        body.dark-mode .segment-tag.is-active {
+            background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+            border-bottom-color: #22c55e;
+        }
+
+        body.dark-mode .btn-status {
+            background-color: #020617;
+            color: #e5e7eb;
+            border-color: #334155;
+        }
+
+        body.dark-mode .btn-status.active-si { background-color: #166534; border-color: #22c55e; }
+        body.dark-mode .btn-status.active-no { background-color: #7f1d1d; border-color: #ef4444; }
+        body.dark-mode .btn-status.active-proceso { background-color: #78350f; border-color: #f59e0b; }
+
+    
+        /* ===== Barra flotante (presentación) ===== */
+        .floatbar{
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            display: none;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 9999px;
+            background: rgba(255,255,255,0.78);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226,232,240,0.9);
+            box-shadow: 0 18px 45px rgba(2,6,23,0.18);
+            z-index: 9999;
+        }
+        body.presentation-mode .floatbar{ display: flex; }
+
+        .floatbtn{
+            width: 42px;
+            height: 42px;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f172a;
+            color: white;
+            box-shadow: 0 8px 18px rgba(2,6,23,0.28);
+            transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+        }
+        .floatbtn:hover{ transform: translateY(-1px); box-shadow: 0 12px 26px rgba(2,6,23,0.34); }
+        .floatbtn:active{ transform: scale(0.96); }
+        .floatbtn-accent{ background: #ef4444; }
+
+        /* ===== Animaciones iconos activos ===== */
+        @keyframes softPulse {
+            0%, 100% { transform: translateY(-1px) scale(1); box-shadow: 0 10px 22px rgba(2,6,23,0.16); }
+            50% { transform: translateY(-2px) scale(1.03); box-shadow: 0 16px 34px rgba(2,6,23,0.22); }
+        }
+        .is-on{ animation: softPulse 1.6s ease-in-out infinite; }
+
+        @keyframes spinIn {
+            from { transform: rotate(-90deg) scale(0.9); opacity: 0.6; }
+            to { transform: rotate(0deg) scale(1); opacity: 1; }
+        }
+        .icon-swap svg{ animation: spinIn 220ms ease-out; }
+
+    
+        /* ===== Título moderno 3D con degradado ===== */
+        .title-3d {
+            background: linear-gradient(90deg, #2563eb 0%, #6366f1 35%, #22c55e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.02em;
+            text-shadow:
+                0 1px 0 rgba(255,255,255,0.35),
+                0 2px 0 rgba(2,6,23,0.06),
+                0 10px 22px rgba(2,6,23,0.18);
+        }
+        .title-3d::after{
+            content: "";
+            display: block;
+            height: 3px;
+            width: 78%;
+            margin-top: 6px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, rgba(37,99,235,0.0) 0%, rgba(99,102,241,0.9) 40%, rgba(34,197,94,0.9) 100%);
+            filter: blur(0.1px);
+        }
+        @media (max-width: 640px){
+            .title-3d::after{ width: 100%; }
+        }
+
+    
+        /* ===== Encabezado redondeado y semitransparente ===== */
+        .xunta-header{
+            border-left: 1px solid rgba(226,232,240,0.9);
+            border-right: 1px solid rgba(226,232,240,0.9);
+        }
+        body.dark-mode .xunta-header{
+            background: rgba(2,6,23,0.85) !important;
+            border-color: rgba(51,65,85,0.9);
+        }
+        @media print {
+            .xunta-header{
+                background: white !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+            }
+        }
+
+    
+        /* ===== Encabezado contraíble al hacer scroll ===== */
+        .xunta-header {
+            transition: all 220ms ease;
+        }
+        .xunta-header.compact {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            transform: translateY(-2px);
+        }
+        .xunta-header.compact .max-w-6xl {
+            padding-top: 0.25rem !important;
+            padding-bottom: 0.25rem !important;
+        }
+        .xunta-header.compact h1 {
+            font-size: 1.05rem !important;
+        }
+        .xunta-header.compact img {
+            height: 2.25rem !important;
+        }
+
+    
+        /* ===== Encabezado: ocultar al bajar, mostrar al subir ===== */
+        .xunta-header {
+            will-change: transform, opacity;
+        }
+        .xunta-header.is-hidden {
+            transform: translateY(-120%);
+            opacity: 0;
+        }
+        .xunta-header.is-shown {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+    </style>
+                </head>
+                <body>
+                    ${body}
+                
+    <!-- Barra flotante minimalista (presentaciones) -->
+    <div id="floatbar" class="floatbar" aria-hidden="true">
+        <button id="float-prev" class="floatbtn" title="Apartado anterior (←/↑)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+</svg></button>
+        <button id="float-next" class="floatbtn" title="Siguiente apartado (→/↓)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5 15.75 12l-7.5 7.5" />
+</svg></button>
+        <button id="float-exit" class="floatbtn floatbtn-accent" title="Salir de modo proyector"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+</svg></button>
+    </div>
+
+</body>
+                </html>
+            `;
+
+            const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Checklist_Programacion_Didactica.doc';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+
+    
+        // Modo proyector: visión amplia (ON/OFF)
+        window.togglePresentationMode = function () {
+            const body = document.body;
+            const isOn = body.classList.toggle('presentation-mode');
+
+            // Al activar: ir arriba y pantalla completa (si está disponible)
+            if (isOn) {
+                try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch(e) { window.scrollTo(0,0); }
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen().catch(() => {});
+                }
+            } else {
+                // Al desactivar: salir de pantalla completa si procede
+                if (document.fullscreenElement && document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                }
+            }
+        };
+
+    
+        // Modo oscuro ON/OFF
+        window.toggleDarkMode = function () {
+            document.body.classList.toggle('dark-mode');
+            // Guardar preferencia
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('pref_dark_mode', '1');
+            } else {
+                localStorage.removeItem('pref_dark_mode');
+            }
+        };
+
+        // Restaurar preferencia
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('pref_dark_mode') === '1') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+
+    
+        // ===== MODO OSCURO =====
+        window.toggleDarkMode = function () {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('pref_dark_mode', '1');
+            } else {
+                localStorage.removeItem('pref_dark_mode');
+            }
+        };
+
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('pref_dark_mode') === '1') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+
+    
+        // ===== UI: iconos activos + barra flotante =====
+        const ICON_MOON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+</svg>`;
+        const ICON_SUN  = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25v1.5M12 20.25v1.5M4.22 4.22l1.06 1.06M18.72 18.72l1.06 1.06M2.25 12h1.5M20.25 12h1.5M4.22 19.78l1.06-1.06M18.72 5.28l1.06-1.06" />
+</svg>`;
+
+        function syncModeIcons() {
+            const darkBtn = document.getElementById('btn-dark');
+            const projBtn = document.getElementById('btn-projector');
+
+            if (darkBtn) {
+                const isDark = document.body.classList.contains('dark-mode');
+                darkBtn.classList.add('icon-swap');
+                darkBtn.innerHTML = isDark ? ICON_SUN : ICON_MOON;
+                // animación sutil sólo cuando está activo (oscuro)
+                darkBtn.classList.toggle('is-on', isDark);
+            }
+
+            if (projBtn) {
+                const isProj = document.body.classList.contains('presentation-mode');
+                projBtn.classList.toggle('is-on', isProj);
+            }
+        }
+
+        // Hooks: re-sincroniza al cambiar modos
+        const _origToggleDark = window.toggleDarkMode;
+        window.toggleDarkMode = function() {
+            _origToggleDark && _origToggleDark();
+            syncModeIcons();
+        };
+
+        const _origToggleProj = window.togglePresentationMode || window.togglePresentationMode;
+        // En tu fichero la función se llama togglePresentationMode()
+        const _origTogglePres = window.togglePresentationMode;
+        if (_origTogglePres) {
+            window.togglePresentationMode = function() {
+                _origTogglePres();
+                syncModeIcons();
+                // activar/desactivar accesibilidad de la barra flotante
+                const fb = document.getElementById('floatbar');
+                if (fb) fb.setAttribute('aria-hidden', document.body.classList.contains('presentation-mode') ? 'false' : 'true');
+            };
+        }
+
+        // Barra flotante: navegación entre apartados
+        window.addEventListener('load', () => {
+            const prev = document.getElementById('float-prev');
+            const next = document.getElementById('float-next');
+            const exit = document.getElementById('float-exit');
+            const fb = document.getElementById('floatbar');
+            if (fb) fb.setAttribute('aria-hidden', document.body.classList.contains('presentation-mode') ? 'false' : 'true');
+
+            if (prev) prev.addEventListener('click', () => scrollToSectionByIndex(currentSectionIdx - 1));
+            if (next) next.addEventListener('click', () => scrollToSectionByIndex(currentSectionIdx + 1));
+            if (exit) exit.addEventListener('click', () => window.togglePresentationMode && window.togglePresentationMode());
+
+            syncModeIcons();
+        });
+
+    
+        // Encabezado: desaparece al bajar y reaparece suavemente al subir
+        (function () {
+            const header = document.querySelector('.xunta-header');
+            if (!header) return;
+
+            let lastY = window.scrollY || 0;
+            let ticking = false;
+
+            // estado inicial
+            header.classList.add('is-shown');
+
+            const onScroll = () => {
+                const y = window.scrollY || document.documentElement.scrollTop;
+
+                // Si estamos cerca del top, siempre visible
+                if (y < 20) {
+                    header.classList.remove('is-hidden');
+                    header.classList.add('is-shown');
+                    lastY = y;
+                    return;
+                }
+
+                // Determina dirección
+                const goingDown = y > lastY;
+
+                if (goingDown && y > 80) {
+                    header.classList.add('is-hidden');
+                    header.classList.remove('is-shown');
+                } else {
+                    header.classList.remove('is-hidden');
+                    header.classList.add('is-shown');
+                }
+
+                lastY = y;
+            };
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        onScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // En modo proyector, preferimos siempre visible (puedes cambiarlo si quieres)
+            const syncForProjector = () => {
+                if (document.body.classList.contains('presentation-mode')) {
+                    header.classList.remove('is-hidden');
+                    header.classList.add('is-shown');
+                }
+            };
+
+            // hook: si existe toggle proyector, re-sincroniza
+            const oldToggle = window.togglePresentationMode;
+            if (oldToggle) {
+                window.togglePresentationMode = function () {
+                    oldToggle();
+                    syncForProjector();
+                };
+            }
+        })();
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js">
+        window.exportToWord = function () {
+            const header = document.querySelector('header').cloneNode(true);
+            const main = document.querySelector('main').cloneNode(true);
+
+            // Limpiar botones y elementos no deseados
+            header.querySelectorAll('.no-print').forEach(e => e.remove());
+            main.querySelectorAll('.no-print').forEach(e => e.remove());
+
+            const htmlContent = `
+                <html>
+                <head>
+                    <meta charset="utf-8">
+                    <title>Checklist Programación Didáctica</title>
+                </head>
+                <body>
+                    ${header.outerHTML}
+                    ${main.outerHTML}
+                
+    <!-- Barra flotante minimalista (presentaciones) -->
+    <div id="floatbar" class="floatbar" aria-hidden="true">
+        <button id="float-prev" class="floatbtn" title="Apartado anterior (←/↑)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+</svg></button>
+        <button id="float-next" class="floatbtn" title="Siguiente apartado (→/↓)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5 15.75 12l-7.5 7.5" />
+</svg></button>
+        <button id="float-exit" class="floatbtn floatbtn-accent" title="Salir de modo proyector"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+</svg></button>
+    </div>
+
+</body>
+                </html>
+            `;
+
+            const blob = new Blob(['\ufeff', htmlContent], {
+                type: 'application/msword'
+            });
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Checklist_Programacion_Didactica.doc';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+
+    
+        // Modo proyector: visión amplia (ON/OFF)
+        window.togglePresentationMode = function () {
+            const body = document.body;
+            const isOn = body.classList.toggle('presentation-mode');
+
+            // Al activar: ir arriba y pantalla completa (si está disponible)
+            if (isOn) {
+                try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch(e) { window.scrollTo(0,0); }
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen().catch(() => {});
+                }
+            } else {
+                // Al desactivar: salir de pantalla completa si procede
+                if (document.fullscreenElement && document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                }
+            }
+        };
+
+    
+        // Modo oscuro ON/OFF
+        window.toggleDarkMode = function () {
+            document.body.classList.toggle('dark-mode');
+            // Guardar preferencia
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('pref_dark_mode', '1');
+            } else {
+                localStorage.removeItem('pref_dark_mode');
+            }
+        };
+
+        // Restaurar preferencia
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('pref_dark_mode') === '1') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+
+    
+        // ===== MODO OSCURO =====
+        window.toggleDarkMode = function () {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('pref_dark_mode', '1');
+            } else {
+                localStorage.removeItem('pref_dark_mode');
+            }
+        };
+
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('pref_dark_mode') === '1') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+
+    
+        // ===== UI: iconos activos + barra flotante =====
+        const ICON_MOON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+</svg>`;
+        const ICON_SUN  = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25v1.5M12 20.25v1.5M4.22 4.22l1.06 1.06M18.72 18.72l1.06 1.06M2.25 12h1.5M20.25 12h1.5M4.22 19.78l1.06-1.06M18.72 5.28l1.06-1.06" />
+</svg>`;
+
+        function syncModeIcons() {
+            const darkBtn = document.getElementById('btn-dark');
+            const projBtn = document.getElementById('btn-projector');
+
+            if (darkBtn) {
+                const isDark = document.body.classList.contains('dark-mode');
+                darkBtn.classList.add('icon-swap');
+                darkBtn.innerHTML = isDark ? ICON_SUN : ICON_MOON;
+                // animación sutil sólo cuando está activo (oscuro)
+                darkBtn.classList.toggle('is-on', isDark);
+            }
+
+            if (projBtn) {
+                const isProj = document.body.classList.contains('presentation-mode');
+                projBtn.classList.toggle('is-on', isProj);
+            }
+        }
+
+        // Hooks: re-sincroniza al cambiar modos
+        const _origToggleDark = window.toggleDarkMode;
+        window.toggleDarkMode = function() {
+            _origToggleDark && _origToggleDark();
+            syncModeIcons();
+        };
+
+        const _origToggleProj = window.togglePresentationMode || window.togglePresentationMode;
+        // En tu fichero la función se llama togglePresentationMode()
+        const _origTogglePres = window.togglePresentationMode;
+        if (_origTogglePres) {
+            window.togglePresentationMode = function() {
+                _origTogglePres();
+                syncModeIcons();
+                // activar/desactivar accesibilidad de la barra flotante
+                const fb = document.getElementById('floatbar');
+                if (fb) fb.setAttribute('aria-hidden', document.body.classList.contains('presentation-mode') ? 'false' : 'true');
+            };
+        }
+
+        // Barra flotante: navegación entre apartados
+        window.addEventListener('load', () => {
+            const prev = document.getElementById('float-prev');
+            const next = document.getElementById('float-next');
+            const exit = document.getElementById('float-exit');
+            const fb = document.getElementById('floatbar');
+            if (fb) fb.setAttribute('aria-hidden', document.body.classList.contains('presentation-mode') ? 'false' : 'true');
+
+            if (prev) prev.addEventListener('click', () => scrollToSectionByIndex(currentSectionIdx - 1));
+            if (next) next.addEventListener('click', () => scrollToSectionByIndex(currentSectionIdx + 1));
+            if (exit) exit.addEventListener('click', () => window.togglePresentationMode && window.togglePresentationMode());
+
+            syncModeIcons();
+        });
+
+    
+        // Encabezado: desaparece al bajar y reaparece suavemente al subir
+        (function () {
+            const header = document.querySelector('.xunta-header');
+            if (!header) return;
+
+            let lastY = window.scrollY || 0;
+            let ticking = false;
+
+            // estado inicial
+            header.classList.add('is-shown');
+
+            const onScroll = () => {
+                const y = window.scrollY || document.documentElement.scrollTop;
+
+                // Si estamos cerca del top, siempre visible
+                if (y < 20) {
+                    header.classList.remove('is-hidden');
+                    header.classList.add('is-shown');
+                    lastY = y;
+                    return;
+                }
+
+                // Determina dirección
+                const goingDown = y > lastY;
+
+                if (goingDown && y > 80) {
+                    header.classList.add('is-hidden');
+                    header.classList.remove('is-shown');
+                } else {
+                    header.classList.remove('is-hidden');
+                    header.classList.add('is-shown');
+                }
+
+                lastY = y;
+            };
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        onScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // En modo proyector, preferimos siempre visible (puedes cambiarlo si quieres)
+            const syncForProjector = () => {
+                if (document.body.classList.contains('presentation-mode')) {
+                    header.classList.remove('is-hidden');
+                    header.classList.add('is-shown');
+                }
+            };
+
+            // hook: si existe toggle proyector, re-sincroniza
+            const oldToggle = window.togglePresentationMode;
+            if (oldToggle) {
+                window.togglePresentationMode = function () {
+                    oldToggle();
+                    syncForProjector();
+                };
+            }
+        })();
+
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --xunta-blue: #004b93;
+            --xunta-yellow: #f2d200;
+            --xunta-red: #e30613;
+        }
+
+        body {
+            background-color: #f8fafc;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .xunta-header {
+            border-top: 8px solid var(--xunta-yellow);
+            position: relative;
+        }
+
+        .xunta-header::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 0;
+            width: 33.33%;
+            height: 8px;
+            background-color: var(--xunta-yellow);
+        }
+
+        .xunta-header::after {
+            content: "";
+            position: absolute;
+            top: -8px;
+            right: 0;
+            width: 33.33%;
+            height: 8px;
+            background-color: var(--xunta-red);
+        }
+
+        .xunta-blue-bar {
+            position: absolute;
+            top: -8px;
+            left: 33.33%;
+            width: 33.33%;
+            height: 8px;
+            background-color: var(--xunta-blue);
+        }
+
+        /* Estilos de botones de estado */
+        .btn-status {
+            transition: all 0.2s;
+            border: 2px solid #e2e8f0;
+        }
+        .btn-status.active-si { background-color: #22c55e; color: white; border-color: #16a34a; }
+        .btn-status.active-no { background-color: #ef4444; color: white; border-color: #dc2626; }
+        .btn-status.active-proceso { background-color: #f59e0b; color: white; border-color: #d97706; }
+
+        .section-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Nueva barra de progreso con nombres */
+        .progress-grid {
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-rows: repeat(2, auto); /* escritorio: EXACTAMENTE 2 filas */
+            grid-auto-columns: minmax(110px, 1fr);
+            gap: 0.25rem; /* más compacto */
+            width: 100%;
+        }
+
+        /* móvil: EXACTAMENTE 3 filas */
+        @media (max-width: 640px) {
+            .progress-grid {
+                grid-template-rows: repeat(3, auto);
+                grid-auto-columns: minmax(95px, 1fr);
+                gap: 0.2rem;
+            }
+        }
+
+        .segment-tag {
+            font-size: 8px;
+            font-weight: 800;
+            padding: 3px 4px;
+            border-radius: 4px;
+            text-align: center;
+            background-color: #f1f5f9;
+            color: #64748b;
+            border-bottom: 3px solid #cbd5e1;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            line-height: 1.05;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            white-space: normal;
+            min-height: 26px;
+        }
+
+        .segment-tag.in-progress {
+            background-color: #fffbeb;
+            color: #b45309;
+            border-bottom-color: #f59e0b;
+        }
+
+        .segment-tag.completed {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border-bottom-color: #22c55e;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; }
+            .section-card { break-inside: avoid; border: 1px solid #ccc; }
+        }
+    
+        /* Modo presentación: sin botones */
+        body.presentation-mode .no-present { display: none !important; }
+        body.presentation-mode .btn-status { display: none !important; }
+        body.presentation-mode .no-print { display: none !important; }
+
+    
+        /* ===== MODO MODO PROYECTOR (ON/OFF)</button>
+<button id="btn-dark" onclick="toggleDarkMode()" title="Modo oscuro / claro" class="inline-flex items-center justify-center w-10 h-10 rounded-full text-white shadow-sm transition active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-slate-900 hover:bg-slate-800 focus:ring-slate-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+</svg></button>
+                        
+                         (PROYECTOR) ===== */
+        body.presentation-mode {
+            background: #ffffff;
+        }
+
+        body.presentation-mode header {
+            position: static;
+            box-shadow: none;
+        }
+
+        body.presentation-mode .progress-grid {
+            margin-top: 0.25rem;
+        }
+
+        body.presentation-mode .segment-tag {
+            font-size: 10px;
+            min-height: 34px;
+            font-weight: 900;
+        }
+
+        body.presentation-mode h1 {
+            font-size: 1.75rem;
+        }
+
+        body.presentation-mode main {
+            max-width: 100%;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        body.presentation-mode .section-card {
+            margin-bottom: 2rem;
+        }
+
+        body.presentation-mode .section-card h2 {
+            font-size: 0.9rem;
+        }
+
+        body.presentation-mode .section-card p {
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        body.presentation-mode .btn-status,
+        body.presentation-mode .no-present,
+        body.presentation-mode .no-print {
+            display: none !important;
+        }
+
+    
+        /* ===== MODO PROYECTOR (ON/OFF)</button>
+<button onclick="toggleDarkMode()" class="bg-slate-900 hover:bg-slate-800 text-white px-3 py-2 rounded text-xs font-bold shadow-sm transition">MODO OSCURO</button>
+                        
+                         (REVISADO) ===== */
+        body.presentation-mode {
+            background: #ffffff;
+        }
+
+        body.presentation-mode header {
+            position: static !important;
+            box-shadow: none !important;
+        }
+
+        body.presentation-mode .progress-grid {
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        body.presentation-mode .segment-tag {
+            font-size: 11px;
+            min-height: 36px;
+            font-weight: 900;
+            color: #0f172a;
+            background-color: #e5e7eb;
+        }
+
+        body.presentation-mode main {
+            max-width: 100% !important;
+            padding-left: 3rem !important;
+            padding-right: 3rem !important;
+        }
+
+        body.presentation-mode .section-card {
+            margin-bottom: 2.5rem;
+        }
+
+        body.presentation-mode .section-card h2 {
+            font-size: 1rem;
+        }
+
+        body.presentation-mode .section-card p {
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+
+        body.presentation-mode .btn-status,
+        body.presentation-mode .no-present,
+        body.presentation-mode .no-print {
+            display: none !important;
+        }
+
+    
+        /* ===== Mejora estética (moderna) ===== */
+        .segment-tag{
+            border-radius: 12px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            box-shadow: 0 6px 16px rgba(2, 6, 23, 0.08);
+            border: 1px solid #e2e8f0;
+            border-bottom-width: 3px;
+        }
+        .segment-tag:hover{
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(2, 6, 23, 0.12);
+        }
+        .btn-status{
+            border-radius: 9999px;
+        }
+        .btn-status:hover{
+            transform: translateY(-1px);
+        }
+
+    
+        /* ===== MODO OSCURO ===== */
+        body.dark-mode {
+            background-color: #020617;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(180deg, #020617 0%, #020617 100%) !important;
+        }
+
+        body.dark-mode .section-card {
+            background-color: #020617;
+            border-color: #1e293b;
+        }
+
+        body.dark-mode .segment-tag {
+            background: linear-gradient(180deg, #020617 0%, #020617 100%);
+            color: #e5e7eb;
+            border-color: #334155;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+        }
+
+        body.dark-mode .segment-tag.is-active {
+            background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+            border-bottom-color: #22c55e;
+        }
+
+        body.dark-mode .btn-status {
+            background-color: #020617;
+            color: #e5e7eb;
+            border-color: #334155;
+        }
+
+        body.dark-mode .btn-status.active-si { background-color: #166534; border-color: #22c55e; }
+        body.dark-mode .btn-status.active-no { background-color: #7f1d1d; border-color: #ef4444; }
+        body.dark-mode .btn-status.active-proceso { background-color: #78350f; border-color: #f59e0b; }
+
+    
+        /* ===== Barra flotante (presentación) ===== */
+        .floatbar{
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            display: none;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 9999px;
+            background: rgba(255,255,255,0.78);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226,232,240,0.9);
+            box-shadow: 0 18px 45px rgba(2,6,23,0.18);
+            z-index: 9999;
+        }
+        body.presentation-mode .floatbar{ display: flex; }
+
+        .floatbtn{
+            width: 42px;
+            height: 42px;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f172a;
+            color: white;
+            box-shadow: 0 8px 18px rgba(2,6,23,0.28);
+            transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+        }
+        .floatbtn:hover{ transform: translateY(-1px); box-shadow: 0 12px 26px rgba(2,6,23,0.34); }
+        .floatbtn:active{ transform: scale(0.96); }
+        .floatbtn-accent{ background: #ef4444; }
+
+        /* ===== Animaciones iconos activos ===== */
+        @keyframes softPulse {
+            0%, 100% { transform: translateY(-1px) scale(1); box-shadow: 0 10px 22px rgba(2,6,23,0.16); }
+            50% { transform: translateY(-2px) scale(1.03); box-shadow: 0 16px 34px rgba(2,6,23,0.22); }
+        }
+        .is-on{ animation: softPulse 1.6s ease-in-out infinite; }
+
+        @keyframes spinIn {
+            from { transform: rotate(-90deg) scale(0.9); opacity: 0.6; }
+            to { transform: rotate(0deg) scale(1); opacity: 1; }
+        }
+        .icon-swap svg{ animation: spinIn 220ms ease-out; }
+
+    
+        /* ===== Título moderno 3D con degradado ===== */
+        .title-3d {
+            background: linear-gradient(90deg, #2563eb 0%, #6366f1 35%, #22c55e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.02em;
+            text-shadow:
+                0 1px 0 rgba(255,255,255,0.35),
+                0 2px 0 rgba(2,6,23,0.06),
+                0 10px 22px rgba(2,6,23,0.18);
+        }
+        .title-3d::after{
+            content: "";
+            display: block;
+            height: 3px;
+            width: 78%;
+            margin-top: 6px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, rgba(37,99,235,0.0) 0%, rgba(99,102,241,0.9) 40%, rgba(34,197,94,0.9) 100%);
+            filter: blur(0.1px);
+        }
+        @media (max-width: 640px){
+            .title-3d::after{ width: 100%; }
+        }
+
+    
+        /* ===== Encabezado redondeado y semitransparente ===== */
+        .xunta-header{
+            border-left: 1px solid rgba(226,232,240,0.9);
+            border-right: 1px solid rgba(226,232,240,0.9);
+        }
+        body.dark-mode .xunta-header{
+            background: rgba(2,6,23,0.85) !important;
+            border-color: rgba(51,65,85,0.9);
+        }
+        @media print {
+            .xunta-header{
+                background: white !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+            }
+        }
+
+    
+        /* ===== Encabezado contraíble al hacer scroll ===== */
+        .xunta-header {
+            transition: all 220ms ease;
+        }
+        .xunta-header.compact {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            transform: translateY(-2px);
+        }
+        .xunta-header.compact .max-w-6xl {
+            padding-top: 0.25rem !important;
+            padding-bottom: 0.25rem !important;
+        }
+        .xunta-header.compact h1 {
+            font-size: 1.05rem !important;
+        }
+        .xunta-header.compact img {
+            height: 2.25rem !important;
+        }
+
+    
+        /* ===== Encabezado: ocultar al bajar, mostrar al subir ===== */
+        .xunta-header {
+            will-change: transform, opacity;
+        }
+        .xunta-header.is-hidden {
+            transform: translateY(-120%);
+            opacity: 0;
+        }
+        .xunta-header.is-shown {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Tooltip personalizado para los botones de progreso -->
+    <div id="seg-tooltip"
+         class="hidden fixed z-[9999] px-3 py-2 text-[11px] font-bold bg-slate-900 text-white rounded-lg shadow-lg pointer-events-none whitespace-nowrap">
+    </div>
+
+    <header class="xunta-header bg-white/80 backdrop-blur-md shadow-lg no-print sticky top-2 z-50 rounded-2xl mx-4">
+        <div class="xunta-blue-bar"></div>
+        <div class="max-w-6xl mx-auto px-6 py-2">
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-2">
+                <div class="flex items-center gap-4">
+                    <div class="bg-slate-100 p-2 rounded">
+                        <img src="https://www.salvour.com/s/cc_images/cache_2491734547.gif?t=1767110894"
+                             alt="Logo"
+                             class="h-14 w-auto">
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold uppercase tracking-tight text-blue-900 leading-tight title-3d">Programación Didáctica</h1>
+                        <p class="text-[11px] font-medium text-slate-500 italic">CheckList de elaboración de la Programación Didáctica</p>
+                        <p class="text-xs font-semibold text-slate-700 mt-1">Profesor: José Manuel Paredes</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-6">
+                    <div class="text-right">
+                        <div class="text-3xl font-black text-blue-700 leading-none" id="global-percent">0%</div>
+                        <div class="text-[10px] uppercase font-bold text-slate-400 mt-1 tracking-widest">Total</div>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 no-present">
+                            <button id="btn-excel" onclick="exportToExcel()" title="Exportar a Excel" class="inline-flex items-center justify-center w-10 h-10 rounded-full text-white shadow-sm transition active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-400"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5A2.5 2.5 0 0 1 5.5 5h8A2.5 2.5 0 0 1 16 7.5V19a2 2 0 0 0 2 2h.5A2.5 2.5 0 0 0 21 18.5V9.5A2.5 2.5 0 0 0 18.5 7H16" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6.5 10.25l4 6.5m0-6.5l-4 6.5" />
+</svg></button>
+                            <button id="btn-word" onclick="exportToWord()" title="Exportar a Word" class="inline-flex items-center justify-center w-10 h-10 rounded-full text-white shadow-sm transition active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-700 hover:bg-blue-800 focus:ring-blue-400"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75h7.69a2.25 2.25 0 0 1 1.59.66l2.06 2.06c.42.42.66.99.66 1.59V18A2.25 2.25 0 0 1 17.25 20.25H7.5A2.25 2.25 0 0 1 5.25 18V6A2.25 2.25 0 0 1 7.5 3.75z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8 10.5l1.2 5 1.3-3.2 1.3 3.2 1.2-5" />
+</svg></button>
+                            <button id="btn-pdf" onclick="window.print()" title="Exportar a PDF" class="inline-flex items-center justify-center w-10 h-10 rounded-full text-white shadow-sm transition active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-slate-700 hover:bg-slate-800 focus:ring-slate-400"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75h7.69a2.25 2.25 0 0 1 1.59.66l2.06 2.06c.42.42.66.99.66 1.59V18A2.25 2.25 0 0 1 17.25 20.25H7.5A2.25 2.25 0 0 1 5.25 18V6A2.25 2.25 0 0 1 7.5 3.75z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15.75h2.5a1.5 1.5 0 0 0 0-3h-2.5v3zm5.25 0v-3h1.25a1.5 1.5 0 0 1 0 3H13.5z" />
+</svg></button>
+                        </div>
+                        <button id="btn-projector" onclick="togglePresentationMode()" title="Modo proyector" class="inline-flex items-center justify-center w-10 h-10 rounded-full text-white shadow-sm transition active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-400"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 8.25h15A2.25 2.25 0 0 1 21.75 10.5v3A2.25 2.25 0 0 1 19.5 15.75h-15A2.25 2.25 0 0 1 2.25 13.5v-3A2.25 2.25 0 0 1 4.5 8.25z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 15.75l-1.5 3m12-3l1.5 3M12 8.25V6.75" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+</svg></button>
+<button onclick="toggleDarkMode()" class="bg-slate-900 hover:bg-slate-800 text-white px-3 py-2 rounded text-xs font-bold shadow-sm transition">MODO OSCURO</button>
+
+                        
+                        
+                        </div>
+                </div>
+            </div>
+
+            <!-- Barra de progreso segmentada con nombres -->
+            <div class="progress-grid" id="segmented-progress-bar">
+                <!-- Se genera dinámicamente -->
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-8">
+        <div id="main-content"></div>
+
+        <div class="no-print no-present mt-12 p-8 bg-white border border-slate-200 rounded-xl flex flex-wrap justify-between items-center shadow-sm">
+            <div>
+                <h3 class="font-bold text-slate-800 text-lg">Revisión Finalizada?</h3>
+                <p class="text-slate-500 text-sm">Podes exportar os teus resultados ou reiniciar a lista se o necesitas.</p>
+            </div>
+            <button onclick="resetAll()" class="bg-red-50 text-red-600 px-4 py-2 rounded-lg text-xs font-bold hover:bg-red-100 transition">Borrar todo o progreso</button>
+        </div>
+    </main>
+
+    <script>
+        const sections = [
+            {
+                        "id": "gen",
+                        "title": "Xerais",
+                        "fullTitle": "INDICADORES XERAIS",
+                        "items": [
+                                    "Emprégase unha linguaxe inclusiva, libre de estereotipos e non sexista.",
+                                    "Revisáronse e actualizáronse as referencias normativas.",
+                                    "Respéctanse os criterios recollidos na concreción curricular para cada un dos apartados da programación didáctica.",
+                                    "Existe coherencia entre os distintos apartados da programación didáctica.",
+                                    "Respéctase a protección de datos persoais, sen identificar a ningunha alumna ou alumno ou a calquera outra persoa da comunidade educativa."
+                        ]
+            },
+            {
+                        "id": "1",
+                        "title": "1. Intro",
+                        "fullTitle": "1. INTRODUCIÓN",
+                        "items": [
+                                    "É breve e concisa, e aporta datos concretos do curso académico para o que se programa.",
+                                    "Indica as características xerais do centro e do alumnado que poidan ter relevancia no proceso de ensino e aprendizaxe.",
+                                    "Recolle as características da área/materia/ámbito con relevancia no proceso de ensino e de aprendizaxe.",
+                                    "Sinala outros factores relevantes (por exemplo, a participación en programas educativos, a lingua de impartición…) xustificando a súa relación coa área/materia/ámbito e concretando como inflúen na mesma."
+                        ]
+            },
+            {
+                        "id": "2",
+                        "title": "2. Obx/Comp",
+                        "fullTitle": "2. OBXECTIVOS E A SÚA CONTRIBUCIÓN AO DESENVOLVEMENTO DAS COMPETENCIAS",
+                        "items": [
+                                    "A ampliación das relacións entre os obxectivos da área/materia/ámbito e os descritores das competencias clave responde a unha debida xustificación ou motivación.",
+                                    "En educación infantil, todos os obxectivos da área están relacionados con algunha competencia clave."
+                        ]
+            },
+            {
+                        "id": "31",
+                        "title": "3.1 UD",
+                        "fullTitle": "3. RELACIÓN DE UNIDADES DIDÁCTICAS, COA SÚA SECUENCIACIÓN E TEMPORIZACIÓN — 3.1 RELACIÓN DE UNIDADES DIDÁCTICAS",
+                        "items": [
+                                    "Todas as UD incorporan título, descrición, número de sesións, avaliación na que se imparte e peso orientativo (en educación infantil non se incorporan pesos).",
+                                    "O número de UD que se propón permite realizar un reparto coherente e equilibrado dos CA e dos contidos.",
+                                    "Cada UD ten un número de sesións adecuado para abordar o proceso de ensino, aprendizaxe e avaliación.",
+                                    "A suma do número das sesións de todas as UD coincide co número total das sesións da área/materia/ámbito ao longo do curso.",
+                                    "As UD secuenciais aparecen na orde na que se imparten ao longo do curso.",
+                                    "As UD transversais aparecen no momento no que empezan a traballarse.",
+                                    "A suma das porcentaxes dos pesos de todas as UD do curso é igual ao 100%.",
+                                    "Os pesos indicados para as UD son coherentes co indicado no apartado Criterios de cualificación da programación didáctica."
+                        ]
+            },
+            {
+                        "id": "32",
+                        "title": "3.2 Currículo",
+                        "fullTitle": "3. RELACIÓN DE UNIDADES DIDÁCTICAS, COA SÚA SECUENCIACIÓN E TEMPORIZACIÓN — 3.2 DISTRIBUCIÓN DO CURRÍCULO NAS UNIDADES DIDÁCTICAS",
+                        "items": [
+                                    "A distribución de CA e de contidos entre as UD é equilibrada segundo o número de sesións e o peso atribuído á UD.",
+                                    "Todos os CA e os contidos están vinculados, como mínimo, a algunha UD (agás en educación infantil).",
+                                    "As UD conteñen só os CA e os contidos que van ser efectivamente avaliados.",
+                                    "A selección de CA para unha UD inclúe sempre os contidos asociados do propio bloque temático, e viceversa.",
+                                    "No caso de crear subCA ou subcontidos, a redacción gramatical é coherente e non modifica o alcance e sentido do CA ou contido do que se deriva."
+                        ]
+            },
+            {
+                        "id": "33",
+                        "title": "3.3 Aval. UD",
+                        "fullTitle": "3. RELACIÓN DE UNIDADES DIDÁCTICAS, COA SÚA SECUENCIACIÓN E TEMPORIZACIÓN — 3.3 AVALIACIÓN DAS UNIDADES DIDÁCTICAS",
+                        "items": [
+                                    "Cada CA ou subCA ten un instrumento de avaliación asociado, un mínimo de consecución e un peso orientativo.",
+                                    "O instrumento de avaliación seleccionado para cada CA é adecuado para o logro que debe amosar o alumnado.",
+                                    "A redacción dos mínimos de consecución parte do CA e o/s contido/s relacionado/s e está expresada de forma precisa, clara e sinxela (sen empregar textos xenéricos nin termos de cualificación cuantitativos)."
+                        ]
+            },
+            {
+                        "id": "41",
+                        "title": "4.1 Metodol.",
+                        "fullTitle": "4. METODOLOXÍA — 4.1. CONCRECIÓNS METODOLÓXICAS",
+                        "items": [
+                                    "A metodoloxía proposta descríbese de forma clara e concisa e escóllese en función das características do alumnado.",
+                                    "A información recollida inclúe as estratexias, técnicas e/ou métodos; os tipos de agrupamentos e formas de organización do espazo; o uso de espazos; a estrutura das sesións/UD en relación ao tipo de tarefas docentes e/ou do alumnado; etc."
+                        ]
+            },
+            {
+                        "id": "42",
+                        "title": "4.2 Recursos",
+                        "fullTitle": "4. METODOLOXÍA — 4.2. MATERIAIS E RECURSOS DIDÁCTICOS",
+                        "items": [
+                                    "Os materiais e os recursos didácticos propostos son variados e diversos e teñen en conta as características do alumnado e as medidas de atención á diversidade.",
+                                    "No caso de utilizar moitos materiais e recursos, preséntanse agrupados por categorías para facilitar a súa comprensión."
+                        ]
+            },
+            {
+                        "id": "51",
+                        "title": "5.1 Aval. inic.",
+                        "fullTitle": "5. AVALIACIÓN — 5.1. PROCEDEMENTO PARA A AVALIACIÓN INICIAL",
+                        "items": [
+                                    "Indícase o tipo de información que se desexa obter.",
+                                    "Indícanse as técnicas e os métodos para obter a información.",
+                                    "Concrétase o momento ou momentos nos que se realizará a avaliación inicial.",
+                                    "Indícase, no caso de ter matices diferentes, o procedemento para a avaliación inicial do alumnado que se incorpore ao longo do curso."
+                        ]
+            },
+            {
+                        "id": "52",
+                        "title": "5.2 Cual./Rec.",
+                        "fullTitle": "5. AVALIACIÓN — 5.2. CRITERIOS DE CUALIFICACIÓN E DE RECUPERACIÓN — CRITERIOS DE CUALIFICACIÓN",
+                        "items": [
+                                    "Precísanse para cada UD os instrumentos de avaliación.",
+                                    "Concrétanse, para cada avaliación parcial, as porcentaxes de cada UD e a forma de cálculo.",
+                                    "No caso de incluír UD transversais, concrétase como estas participan no cálculo da nota nas diferentes avaliacións.",
+                                    "Para a avaliación final (final ordinaria en bacharelato), concrétase a forma de cálculo, que debe ser coherente cos pesos das UD establecidos no apartado de Avaliación.",
+                                    "Indícase o grao mínimo de consecución exixido para superar a área/materia/ámbito.",
+                                    "Apórtanse outros datos de interese na construción da nota (por exemplo, a escala de valoración que se empregará nos instrumentos de avaliación, a forma de aproximación por redondeo…).",
+                                    "Todos os criterios e condicións de cualificación son coherentes cos CA e son obxectivos."
+                        ]
+            },
+            {
+                        "id": "52r",
+                        "title": "5.2 Recuper.",
+                        "fullTitle": "5. AVALIACIÓN — 5.2. CRITERIOS DE CUALIFICACIÓN E DE RECUPERACIÓN — CRITERIOS DE RECUPERACIÓN",
+                        "items": [
+                                    "Indica os momentos para a realización da recuperación da parte ou partes sen superar.",
+                                    "Indica os instrumentos de avaliación e a forma de construír a nota.",
+                                    "Todos os criterios e condicións de recuperación son coherentes cos CA e son obxectivos (por exemplo, non se limita a nota que se pode acadar, non se inclúe no novo cálculo a nota recibida anteriormente na parte non superada…)."
+                        ]
+            },
+            {
+                        "id": "53",
+                        "title": "5.3 Pendentes",
+                        "fullTitle": "5. AVALIACIÓN — 5.3. PROCEDEMENTO DE SEGUIMENTO, RECUPERACIÓN E AVALIACIÓN DE MATERIAS PENDENTES",
+                        "items": [
+                                    "Indica o momento ou momentos nos que se vai realizar o seguimento das aprendizaxes, así como as canles establecidas para a comunicación co alumnado.",
+                                    "Descríbese o tipo e o número de instrumentos de avaliación que se empregarán, así como os momentos da súa aplicación.",
+                                    "Descríbense os criterios de cualificación da materia pendente concretando a construción da nota de cada avaliación parcial e das avaliacións finais."
+                        ]
+            },
+            {
+                        "id": "54",
+                        "title": "5.4 Acredit.",
+                        "fullTitle": "5. AVALIACIÓN — 5.4. PROCEDEMENTO PARA ACREDITAR OS COÑECEMENTOS NECESARIOS EN DETERMINADAS MATERIAS",
+                        "items": [
+                                    "Describe os instrumentos de avaliación que se empregarán para a súa corrección.",
+                                    "Describe o momento de realización das probas.",
+                                    "Descríbense os criterios de cualificación."
+                        ]
+            },
+            {
+                        "id": "6",
+                        "title": "6. Diversid.",
+                        "fullTitle": "6. MEDIDAS DE ATENCIÓN Á DIVERSIDADE",
+                        "items": [
+                                    "Describe as medidas ordinarias e extraordinarias que se porán en marcha no curso académico.",
+                                    "Describe as medidas para a atención educativa virtual ao alumnado que presente dificultades para asistir ao centro docente por causas xustificadas.",
+                                    "Indica as estratexias de deseño universal de aprendizaxe que se aplicarán.",
+                                    "Indica os protocolos e os programas educativos destinados á atención á diversidade que teñen incidencia na programación da área/materia/ámbito."
+                        ]
+            },
+            {
+                        "id": "71",
+                        "title": "7.1 Transv.",
+                        "fullTitle": "7. TRANVERSAL — 7.1. CONCRECIÓN DOS ELEMENTOS TRANSVERSAIS",
+                        "items": [
+                                    "A selección de elementos transversais é coherente coa regulación de elementos transversais que figura no decreto do currículo da etapa.",
+                                    "Indica a relación de elementos transversais, a xustificación e en que UD se traballarán."
+                        ]
+            },
+            {
+                        "id": "72",
+                        "title": "7.2 Activ.",
+                        "fullTitle": "7. TRANVERSAL — 7.2. ACTIVIDADES COMPLEMENTARIAS",
+                        "items": [
+                                    "A denominación de cada actividade é breve e clara.",
+                                    "Xustifica cada actividade en relación ao seu encaixe co currículo.",
+                                    "A descrición de cada actividade inclúe a temporización, o lugar/espazo no que se realizará, así como os recursos necesarios para desenvolvela."
+                        ]
+            },
+            {
+                        "id": "81",
+                        "title": "8.1 Indic.",
+                        "fullTitle": "8. PRÁCTICA DOCENTE — 8.1. PROCEDEMENTO PARA AVALIAR O PROCESO DO ENSINO E A PRACTICA DOCENTE COS SEUS INDICADORES DE LOGRO",
+                        "items": [
+                                    "Os indicadores do logro son medibles e realistas e centrados, como mínimo, na adecuación da programación didáctica e da súa propia planificación ao longo do curso académico; na metodoloxía empregada; na organización xeral da aula e o aproveitamento dos materiais e recursos; nas medidas de atención á diversidade aplicadas; no clima de traballo na aula; na coordinación co resto do equipo docente e coas nais, os pais ou as persoas titoras legais.",
+                                    "Indica os instrumentos que se empregarán para medir os indicadores.",
+                                    "Indica a periodización para a aplicación destes instrumentos."
+                        ]
+            },
+            {
+                        "id": "82",
+                        "title": "8.2 Mellora",
+                        "fullTitle": "8. PRÁCTICA DOCENTE — 8.2. PROCEDEMENTO DE SEGUIMENTO, AVALIACIÓN E PROPOSTAS DE MELLORA DA PROGRAMACIÓN.",
+                        "items": [
+                                    "Indica os instrumentos que se empregarán para realizar o seguimento e a avaliación.",
+                                    "Indica a periodización para a aplicación dos instrumentos de seguimento e avaliación e para a posta en común no departamento didáctico ou no equipo de ciclo de cara a valorar as propostas de mellora."
+                        ]
+            },
+            {
+                        "id": "vf",
+                        "title": "Final",
+                        "fullTitle": "VALORACIÓN FINAL",
+                        "items": [
+                                    "A programación didáctica reflicte a proposta real de traballo que a persoa docente pretende realizar na aula ao longo do curso.",
+                                    "Outra persoa docente é quen de continuar o proceso de ensino e aprendizaxe coas indicacións recollidas na programación didáctica."
+                        ]
+            }
+];
+let userProgress = {};
+
+        function init() {
+            const saved = localStorage.getItem('xunta_checklist_v2');
+            userProgress = saved ? JSON.parse(saved) : {};
+            
+            // Generar cuadrícula de progreso superior
+            const barContainer = document.getElementById('segmented-progress-bar');
+
+            // Etiquetas cortas con numeración correcta (incluyendo subapartados)
+            const essentialLabel = (sec) => {
+                const byId = {
+                    gen: 'Xerais',
+                    '1': '1 Introdución',
+                    '2': '2 Obxectivos',
+                    '31': '3.1 Unidades',
+                    '32': '3.2 Currículo',
+                    '33': '3.3 Avaliación UD',
+                    '41': '4.1 Metodoloxía',
+                    '42': '4.2 Recursos',
+                    '51': '5.1 Aval. inicial',
+                    '52': '5.2 Cualificación',
+                    '52r': '5.2 Recuperación',
+                    '53': '5.3 Pendentes',
+                    '54': '5.4 Acreditación',
+                    '6': '6 Diversidade',
+                    '71': '7.1 Transversais',
+                    '72': '7.2 Actividades',
+                    '81': '8.1 Práctica',
+                    '82': '8.2 Mellora',
+                    'vf': 'Final'
+                };
+                if (byId[sec.id]) return byId[sec.id];
+
+                // Fallback: conserva numeración e colle 1–2 palabras clave
+                const full = String(sec.fullTitle || '').replace(/\s+/g, ' ').trim();
+                const last = full.includes('—') ? full.split('—').pop().trim() : full;
+                const m = last.match(/^([0-9]+(?:\.[0-9]+)*)(?:\.)?\s+(.*)$/);
+                if (m) {
+                    const num = m[1];
+                    const words = (m[2] || '').split(' ').filter(Boolean).slice(0, 2).join(' ');
+                    return (num + ' ' + words).trim();
+                }
+                return last.split(' ').filter(Boolean).slice(0, 2).join(' ');
+            };
+
+            // Construcción de botones con tooltip personalizado (texto completo arriba)
+            barContainer.innerHTML = sections.map(sec => `
+                <div id="seg-${sec.id}"
+                     class="segment-tag"
+                     onclick="scrollToSection('${sec.id}')"
+                     data-full="${String(sec.fullTitle || '').replace(/"/g,'&quot;')}">
+                    ${essentialLabel(sec)}
+                </div>
+            `).join('');
+
+            const tip = document.getElementById('seg-tooltip');
+
+            const positionTip = (el) => {
+                const full = el.getAttribute('data-full') || '';
+                tip.textContent = full;
+                tip.classList.remove('hidden');
+
+                const r = el.getBoundingClientRect();
+                const tw = tip.offsetWidth;
+                const th = tip.offsetHeight;
+
+                let left = r.left + (r.width / 2) - (tw / 2);
+                left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+
+                let top = r.top - th - 8; // encima
+                if (top < 8) top = r.bottom + 8; // si no cabe, debajo
+
+                tip.style.left = left + 'px';
+                tip.style.top = top + 'px';
+            };
+
+            const hideTip = () => tip.classList.add('hidden');
+
+            barContainer.querySelectorAll('.segment-tag').forEach(el => {
+                el.addEventListener('mouseenter', () => positionTip(el));
+                el.addEventListener('mousemove', () => positionTip(el));
+                el.addEventListener('mouseleave', hideTip);
+                el.addEventListener('focus', () => positionTip(el));
+                el.addEventListener('blur', hideTip);
+            });
+
+render();
+            updateAllProgress();
+        }
+
+        function scrollToSection(id) {
+            const element = document.getElementById(`section-${id}`);
+            if (element) {
+                const offset = 180; // Ajuste para el header fijo
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = element.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function render() {
+            const container = document.getElementById('main-content');
+            container.innerHTML = sections.map((section, sIdx) => `
+                <section id="section-${section.id}" class="section-card bg-white border border-slate-200 shadow-sm hover:shadow-md transition rounded-2xl overflow-hidden border-l-4 border-l-indigo-600">
+                    <div class="bg-gradient-to-r from-slate-50 to-white px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h2 class="font-extrabold text-slate-900 uppercase tracking-wide text-sm">${section.fullTitle}</h2>
+                        <div class="flex items-center gap-2">
+                            <div class="w-16 bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                                <div id="bar-${section.id}" class="h-full bg-blue-600" style="width: 0%"></div>
+                            </div>
+                            <span id="text-${section.id}" class="text-[10px] font-black text-blue-800 w-7 text-right">0%</span>
+                        </div>
+                    </div>
+                    <div class="divide-y divide-slate-100">
+                        ${section.items.map((item, iIdx) => {
+                            const val = userProgress[`${section.id}-${iIdx}`] || 0;
+                            return `
+                                <div class="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-slate-50 transition">
+                                    <p class="text-slate-700 text-[15px] leading-relaxed flex-1"><span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-indigo-50 text-indigo-700 font-extrabold text-xs mr-3">${iIdx + 1}</span>${item}</p>
+                                    <div class="flex gap-1 no-print">
+                                        <button onclick="setStatus('${section.id}', ${iIdx}, 1)" class="btn-status text-[10px] font-extrabold px-3 py-1.5 rounded-full shadow-sm ${val === 1 ? 'active-si' : 'bg-white text-slate-400'}">SÍ</button>
+                                        <button onclick="setStatus('${section.id}', ${iIdx}, 3)" class="btn-status text-[10px] font-extrabold px-3 py-1.5 rounded-full shadow-sm ${val === 3 ? 'active-proceso' : 'bg-white text-slate-400'}">EN PROCESO</button>
+                                        <button onclick="setStatus('${section.id}', ${iIdx}, 2)" class="btn-status text-[10px] font-extrabold px-3 py-1.5 rounded-full shadow-sm ${val === 2 ? 'active-no' : 'bg-white text-slate-400'}">NON</button>
+                                    </div>
+                                    <div class="hidden print-block text-xs font-bold italic">
+                                        ${val === 1 ? '[ X ] SÍ' : (val === 3 ? '[ / ] PROCESO' : (val === 2 ? '[ O ] NON' : '[ ] -'))}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </section>
+            `).join('');
+        }
+
+        window.setStatus = function(secId, itemIdx, status) {
+            const key = `${secId}-${itemIdx}`;
+            userProgress[key] = (userProgress[key] === status) ? 0 : status;
+            localStorage.setItem('xunta_checklist_v2', JSON.stringify(userProgress));
+            render();
+            updateAllProgress();
+        };
+
+        function updateAllProgress() {
+            let totalWeight = 0;
+            let totalDoneWeight = 0;
+
+            sections.forEach(section => {
+                const count = section.items.length;
+                let done = 0;
+                
+                section.items.forEach((_, iIdx) => {
+                    const val = userProgress[`${section.id}-${iIdx}`];
+                    if (val === 1) done += 1;
+                    if (val === 3) done += 0.5;
+                });
+
+                const percent = Math.round((done / count) * 100);
+                document.getElementById(`bar-${section.id}`).style.width = percent + '%';
+                document.getElementById(`text-${section.id}`).innerText = percent + '%';
+
+                // Actualizar estilo de la etiqueta en el header
+                const segment = document.getElementById(`seg-${section.id}`);
+                segment.className = 'segment-tag';
+                if (percent === 100) {
+                    segment.classList.add('completed');
+                } else if (percent > 0) {
+                    segment.classList.add('in-progress');
+                }
+
+                totalWeight += count;
+                totalDoneWeight += done;
+            });
+
+            const globalPercent = Math.round((totalDoneWeight / totalWeight) * 100);
+            document.getElementById('global-percent').innerText = globalPercent + '%';
+        }
+
+        window.resetAll = function() {
+            if(confirm("Desexas borrar todo o progreso gardado?")) {
+                userProgress = {};
+                localStorage.removeItem('xunta_checklist_v2');
+                render();
+                updateAllProgress();
+                window.scrollTo(0,0);
+            }
+        };
+
+        window.exportToExcel = function() {
+            const wb = XLSX.utils.book_new();
+            const exportData = [["Apartado", "Indicador", "Estado"]];
+            sections.forEach(s => s.items.forEach((item, i) => {
+                const val = userProgress[`${s.id}-${i}`];
+                exportData.push([s.fullTitle, item, val === 1 ? "SÍ" : (val === 3 ? "EN PROCESO" : (val === 2 ? "NON" : "PENDENTE"))]);
+            }));
+            const ws = XLSX.utils.aoa_to_sheet(exportData);
+            XLSX.utils.book_append_sheet(wb, ws, "Revisión");
+            XLSX.writeFile(wb, "Control_Programacion_Xunta.xlsx");
+        };
+
+        
+        // ===== Navegación por teclado + resaltado del apartado visible =====
+        let currentSectionIdx = 0;
+
+        function getSectionElements() {
+            return sections.map(s => document.getElementById(`section-${s.id}`)).filter(Boolean);
+        }
+
+        function setActiveSegmentById(secId) {
+            // Limpia activo
+            document.querySelectorAll('#segmented-progress-bar .segment-tag').forEach(el => {
+                el.classList.remove('ring-2', 'ring-indigo-500', 'ring-offset-2');
+            });
+            const seg = document.getElementById(`seg-${secId}`);
+            if (seg) {
+                seg.classList.add('ring-2', 'ring-indigo-500', 'ring-offset-2');
+            }
+        }
+
+        function scrollToSectionByIndex(idx) {
+            const els = getSectionElements();
+            if (!els.length) return;
+            currentSectionIdx = Math.max(0, Math.min(idx, els.length - 1));
+            const el = els[currentSectionIdx];
+            if (!el) return;
+
+            // usa la función existente (tiene offset para header fijo)
+            const sec = sections[currentSectionIdx];
+            if (sec) scrollToSection(sec.id);
+        }
+
+        function setupSectionObserver() {
+            const els = getSectionElements();
+            if (!els.length) return;
+
+            // Observa cuál sección es la "dominante" en viewport
+            const obs = new IntersectionObserver((entries) => {
+                // Escoge la entrada con mayor intersección
+                let best = null;
+                for (const e of entries) {
+                    if (!e.isIntersecting) continue;
+                    if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+                }
+                if (!best) return;
+
+                const id = best.target.id.replace('section-', '');
+                const idx = sections.findIndex(s => s.id === id);
+                if (idx >= 0) currentSectionIdx = idx;
+
+                setActiveSegmentById(id);
+            }, {
+                root: null,
+                threshold: [0.25, 0.5, 0.75],
+                // deja margen superior para header fijo
+                rootMargin: "-160px 0px -55% 0px"
+            });
+
+            els.forEach(el => obs.observe(el));
+
+            // Inicializa resaltado
+            setActiveSegmentById(sections[0]?.id);
+        }
+
+        function setupKeyboardNav() {
+            // Evita interferir al escribir (si en el futuro hay inputs)
+            const isTypingTarget = (t) => {
+                if (!t) return false;
+                const tag = (t.tagName || '').toLowerCase();
+                return tag === 'input' || tag === 'textarea' || t.isContentEditable;
+            };
+
+            window.addEventListener('keydown', (e) => {
+                if (isTypingTarget(e.target)) return;
+
+                const key = e.key;
+                if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(key)) {
+                    e.preventDefault();
+                    scrollToSectionByIndex(currentSectionIdx + 1);
+                } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(key)) {
+                    e.preventDefault();
+                    scrollToSectionByIndex(currentSectionIdx - 1);
+                } else if (key === 'Home') {
+                    e.preventDefault();
+                    scrollToSectionByIndex(0);
+                } else if (key === 'End') {
+                    e.preventDefault();
+                    scrollToSectionByIndex(sections.length - 1);
+                }
+            });
+        }
+
+        // Arranca tras init/render
+        window.addEventListener('load', () => {
+            setupSectionObserver();
+            setupKeyboardNav();
+        });
+
+        init();
+    
+        window.exportToWord = function () {
+            const header = document.querySelector('header').cloneNode(true);
+            const main = document.querySelector('main').cloneNode(true);
+
+            // Limpiar botones y elementos no deseados
+            header.querySelectorAll('.no-print').forEach(e => e.remove());
+            main.querySelectorAll('.no-print').forEach(e => e.remove());
+
+            const htmlContent = `
+                <html>
+                <head>
+                    <meta charset="utf-8">
+                    <title>Checklist Programación Didáctica</title>
+                </head>
+                <body>
+                    ${header.outerHTML}
+                    ${main.outerHTML}
+                
+    <!-- Barra flotante minimalista (presentaciones) -->
+    <div id="floatbar" class="floatbar" aria-hidden="true">
+        <button id="float-prev" class="floatbtn" title="Apartado anterior (←/↑)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+</svg></button>
+        <button id="float-next" class="floatbtn" title="Siguiente apartado (→/↓)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5 15.75 12l-7.5 7.5" />
+</svg></button>
+        <button id="float-exit" class="floatbtn floatbtn-accent" title="Salir de modo proyector"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+</svg></button>
+    </div>
+
+</body>
+                </html>
+            `;
+
+            const blob = new Blob(['\ufeff', htmlContent], {
+                type: 'application/msword'
+            });
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Checklist_Programacion_Didactica.doc';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+
+    
+        // Modo proyector: visión amplia (ON/OFF)
+        window.togglePresentationMode = function () {
+            const body = document.body;
+            const isOn = body.classList.toggle('presentation-mode');
+
+            // Al activar: ir arriba y pantalla completa (si está disponible)
+            if (isOn) {
+                try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch(e) { window.scrollTo(0,0); }
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen().catch(() => {});
+                }
+            } else {
+                // Al desactivar: salir de pantalla completa si procede
+                if (document.fullscreenElement && document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                }
+            }
+        };
+
+    
+        // Modo oscuro ON/OFF
+        window.toggleDarkMode = function () {
+            document.body.classList.toggle('dark-mode');
+            // Guardar preferencia
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('pref_dark_mode', '1');
+            } else {
+                localStorage.removeItem('pref_dark_mode');
+            }
+        };
+
+        // Restaurar preferencia
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('pref_dark_mode') === '1') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+
+    
+        // ===== MODO OSCURO =====
+        window.toggleDarkMode = function () {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('pref_dark_mode', '1');
+            } else {
+                localStorage.removeItem('pref_dark_mode');
+            }
+        };
+
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('pref_dark_mode') === '1') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+
+    
+        // ===== UI: iconos activos + barra flotante =====
+        const ICON_MOON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+</svg>`;
+        const ICON_SUN  = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25v1.5M12 20.25v1.5M4.22 4.22l1.06 1.06M18.72 18.72l1.06 1.06M2.25 12h1.5M20.25 12h1.5M4.22 19.78l1.06-1.06M18.72 5.28l1.06-1.06" />
+</svg>`;
+
+        function syncModeIcons() {
+            const darkBtn = document.getElementById('btn-dark');
+            const projBtn = document.getElementById('btn-projector');
+
+            if (darkBtn) {
+                const isDark = document.body.classList.contains('dark-mode');
+                darkBtn.classList.add('icon-swap');
+                darkBtn.innerHTML = isDark ? ICON_SUN : ICON_MOON;
+                // animación sutil sólo cuando está activo (oscuro)
+                darkBtn.classList.toggle('is-on', isDark);
+            }
+
+            if (projBtn) {
+                const isProj = document.body.classList.contains('presentation-mode');
+                projBtn.classList.toggle('is-on', isProj);
+            }
+        }
+
+        // Hooks: re-sincroniza al cambiar modos
+        const _origToggleDark = window.toggleDarkMode;
+        window.toggleDarkMode = function() {
+            _origToggleDark && _origToggleDark();
+            syncModeIcons();
+        };
+
+        const _origToggleProj = window.togglePresentationMode || window.togglePresentationMode;
+        // En tu fichero la función se llama togglePresentationMode()
+        const _origTogglePres = window.togglePresentationMode;
+        if (_origTogglePres) {
+            window.togglePresentationMode = function() {
+                _origTogglePres();
+                syncModeIcons();
+                // activar/desactivar accesibilidad de la barra flotante
+                const fb = document.getElementById('floatbar');
+                if (fb) fb.setAttribute('aria-hidden', document.body.classList.contains('presentation-mode') ? 'false' : 'true');
+            };
+        }
+
+        // Barra flotante: navegación entre apartados
+        window.addEventListener('load', () => {
+            const prev = document.getElementById('float-prev');
+            const next = document.getElementById('float-next');
+            const exit = document.getElementById('float-exit');
+            const fb = document.getElementById('floatbar');
+            if (fb) fb.setAttribute('aria-hidden', document.body.classList.contains('presentation-mode') ? 'false' : 'true');
+
+            if (prev) prev.addEventListener('click', () => scrollToSectionByIndex(currentSectionIdx - 1));
+            if (next) next.addEventListener('click', () => scrollToSectionByIndex(currentSectionIdx + 1));
+            if (exit) exit.addEventListener('click', () => window.togglePresentationMode && window.togglePresentationMode());
+
+            syncModeIcons();
+        });
+
+    
+        // Encabezado: desaparece al bajar y reaparece suavemente al subir
+        (function () {
+            const header = document.querySelector('.xunta-header');
+            if (!header) return;
+
+            let lastY = window.scrollY || 0;
+            let ticking = false;
+
+            // estado inicial
+            header.classList.add('is-shown');
+
+            const onScroll = () => {
+                const y = window.scrollY || document.documentElement.scrollTop;
+
+                // Si estamos cerca del top, siempre visible
+                if (y < 20) {
+                    header.classList.remove('is-hidden');
+                    header.classList.add('is-shown');
+                    lastY = y;
+                    return;
+                }
+
+                // Determina dirección
+                const goingDown = y > lastY;
+
+                if (goingDown && y > 80) {
+                    header.classList.add('is-hidden');
+                    header.classList.remove('is-shown');
+                } else {
+                    header.classList.remove('is-hidden');
+                    header.classList.add('is-shown');
+                }
+
+                lastY = y;
+            };
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        onScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // En modo proyector, preferimos siempre visible (puedes cambiarlo si quieres)
+            const syncForProjector = () => {
+                if (document.body.classList.contains('presentation-mode')) {
+                    header.classList.remove('is-hidden');
+                    header.classList.add('is-shown');
+                }
+            };
+
+            // hook: si existe toggle proyector, re-sincroniza
+            const oldToggle = window.togglePresentationMode;
+            if (oldToggle) {
+                window.togglePresentationMode = function () {
+                    oldToggle();
+                    syncForProjector();
+                };
+            }
+        })();
+
+    </script>
+
+    <!-- Barra flotante minimalista (presentaciones) -->
+    <div id="floatbar" class="floatbar" aria-hidden="true">
+        <button id="float-prev" class="floatbtn" title="Apartado anterior (←/↑)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+</svg></button>
+        <button id="float-next" class="floatbtn" title="Siguiente apartado (→/↓)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5 15.75 12l-7.5 7.5" />
+</svg></button>
+        <button id="float-exit" class="floatbtn floatbtn-accent" title="Salir de modo proyector"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+</svg></button>
+    </div>
+
+</body>
+</html>

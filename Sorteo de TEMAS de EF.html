@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sorteo de temas de Educación Física de Secundaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --surface:#ffffff;
+      --surface2:#fbfcfe;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:#e5e7eb;
+      --shadow: 0 18px 50px rgba(15,23,42,.10);
+      --shadow2: 0 10px 22px rgba(15,23,42,.10);
+      --radius: 18px;
+      --radius2: 14px;
+
+      --brand:#0b3a53;
+      --brand2:#16a34a;
+      --focus: rgba(22,163,74,.22);
+      --danger:#e11d48;
+      --dangerSoft:#fff1f2;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 520px at 15% -10%, rgba(22,163,74,.12), transparent 60%),
+        radial-gradient(900px 520px at 85% 0%, rgba(11,58,83,.10), transparent 60%),
+        var(--bg);
+      padding: 26px;
+    }
+
+    .container{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 22px 20px 28px 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
+    }
+
+    .header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, var(--surface2));
+      border-radius: 14px;
+      padding: 16px 16px;
+    }
+
+    .logo{
+      width: 160px;
+      height: auto;
+      filter: drop-shadow(0 10px 18px rgba(15,23,42,.12));
+    }
+
+    h1{
+      color: var(--brand);
+      font-size: 20px;
+      margin: 0;
+      font-weight: 850;
+      letter-spacing: .2px;
+      line-height: 1.15;
+    }
+
+    .form-group{
+      text-align: center;
+      margin: 10px 0 0;
+      padding: 16px 14px;
+      border: 1px solid var(--line);
+      background: var(--surface2);
+      border-radius: var(--radius2);
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:center;
+      gap: 10px 12px;
+    }
+
+    .form-group label{
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 13px;
+    }
+
+    input{
+      font-size: 14px;
+      padding: 10px 12px;
+      width: 110px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      outline:none;
+      transition: box-shadow .15s ease, border-color .15s ease;
+      font-variant-numeric: tabular-nums;
+      background:#fff;
+    }
+
+    input:focus{
+      border-color: rgba(22,163,74,.55);
+      box-shadow: 0 0 0 4px var(--focus);
+    }
+
+    button{
+      padding: 10px 14px;
+      font-size: 14px;
+      background: #ffffff;
+      color: var(--brand);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform .06s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+      font-weight: 800;
+      user-select:none;
+    }
+    button:hover{
+      background:#f8fafc;
+      border-color:#dbe1ea;
+      box-shadow: var(--shadow2);
+    }
+    button:active{ transform: translateY(1px); }
+
+    /* Primary (Sortear) */
+    button[onclick="sortear()"]{
+      color:#ffffff;
+      border-color: rgba(22,163,74,.45);
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+    }
+    button[onclick="sortear()"]:hover{
+      background: linear-gradient(135deg, #149646, #1fb458);
+    }
+
+    /* Danger (Resetear) */
+    button[onclick="resetear()"]{
+      color: #7f1d1d;
+      border-color: #fecaca;
+      background: var(--dangerSoft);
+    }
+    button[onclick="resetear()"]:hover{
+      background:#ffe4e6;
+      border-color:#fda4af;
+    }
+
+    .resultado{
+      margin-top: 16px;
+      padding: 16px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      min-height: 64px;
+    }
+
+    .tema{
+      margin-bottom: 12px;
+      padding: 14px 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffffff, #fbfcfe);
+      box-shadow: 0 8px 22px rgba(15,23,42,.06);
+    }
+    .tema:last-child{ margin-bottom: 0; }
+
+    .tema-numero{
+      display:inline-block;
+      font-size: 13px;
+      font-weight: 900;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--brand), #0f5a7e);
+      border-radius: 999px;
+      padding: 6px 10px;
+      letter-spacing: .2px;
+      margin-bottom: 8px;
+    }
+
+    .tema-texto{
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* Make the current .tema-texto div behave like a paragraph */
+    .tema-texto{ display:block; margin-top: 6px; }
+
+    @media (max-width: 760px){
+      body{ padding: 16px; }
+      .header{ flex-direction:column-reverse; align-items:flex-start; }
+      .logo{ width: 200px; }
+      .form-group{ justify-content:flex-start; }
+      input{ width: 100%; max-width: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>Sorteo de temas de Educación Física de Secundaria</h1>
+      <img src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894" alt="Logo PREMIR" class="logo">
+    </div>
+
+    <div class="form-group">
+      <label for="cantidad">¿Cuántos temas quieres sortear?</label>
+      <input type="number" id="cantidad" min="1" max="65" />
+      <button onclick="sortear()">🎲 Sortear</button>
+      <button onclick="resetear()" style="background-color:#e74c3c;margin-left:10px;">🧹 Resetear</button>
+    </div>
+
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <script>
+    const temas = ["Epistemología de la Educación Física: evolución y desarrollo de las distintas concepciones y de su objeto de estudio.","La Educación Física en el sistema educativo. Historia y evolución de las funciones de la Educación Física. Evolución del modelo curricular de la Educación Física escolar.","Las taxonomías de objetivos y su valor didáctico. Taxonomías del ámbito motor: aplicaciones prácticas para el desarrollo del proceso de enseñanza y aprendizaje en Educación Física.","Los contenidos de la Educación Física: evolución y corrientes que han originado. Valor y tratamiento educativo que han recibido las corrientes más extendidas.","La coeducación e igualdad de los sexos en el contexto escolar. Estereotipos y actitudes sexistas en Educación Física: tratamiento educativo a través de los objetivos, contenidos, metodología y actividades de enseñanza de la Educación Física.","Adaptaciones curriculares y Educación Física. La atención y tratamiento de las necesidades educativas especiales en los elementos de acceso al currículo y en los elementos básicos del mismo (objetivos, contenidos, criterios de evaluación y metodología).","Desarrollo motor: el crecimiento y la evolución de aspectos cuantitativos y cualitativos más relevantes para el movimiento humano en la edad escolar.","Medición y evaluación del desarrollo motor. Tendencias en los aspectos a evaluar. Procedimientos e instrumentos para la medición y evaluación del desarrollo motor.","Estructura del ejercicio físico. Forma y técnica. Análisis de los elementos mecánicos, kinesiológicos y funcionales. Repercusiones en la Educación Física escolar.","Los sistemas naturales en Educación Física. Evolución y aspectos técnicos. Aplicaciones actuales.","Los sistemas analíticos en Educación Física. Evolución y aspectos técnicos. Aplicaciones actuales.","Los sistemas rítmicos en Educación Física. Evolución y aspectos técnicos. Aplicaciones actuales.","La condición física. Concepción y evolución de las corrientes. Sistemas de desarrollo de la condición física: clasificación, características y consideraciones para su aplicación en el marco de la Educación Secundaria.","Principios básicos para el adecuado desarrollo de la condición física (continuidad, progresión, individualización, etc.).","El calentamiento: fundamentos y tipos. Funciones: calentamiento y rendimiento, calentamiento y prevención de lesiones, calentamiento y aprendizaje. Criterios para la elaboración de tareas de calentamiento general y específico.","Capacidades físicas básicas. Concepto, clasificaciones y evolución de las mismas. Evolución en el desarrollo motor de los alumnos y alumnas de Educación Secundaria.","Factores que intervienen en el trabajo de desarrollo de la condición física: intensidad y volumen; recuperación, duración y repeticiones.","La adaptación del organismo al esfuerzo en la actividad física. El síndrome general de adaptación. Repercusiones para el desarrollo de la condición física.","Procesos energéticos y actividad física: sistemas aeróbico y anaeróbico.","La resistencia como capacidad física básica. Consideraciones teóricas. Tipos de resistencia. Tratamiento y criterios para el diseño de tareas para su desarrollo en el marco escolar.","El sistema cardio-respiratorio. Estructura y funciones. características particulares del período evolutivo correspondiente a la etapa. Consideraciones a tener presentes en la clase de Educación Física.","La fuerza como capacidad física básica. Consideraciones básicas. Tipos de fuerza. Tratamiento y criterios para el diseño de tareas para su desarrollo en el marco escolar.","El sistema muscular. Estructura y funciones. Características particulares del período evolutivo correspondiente a la etapa. Consideraciones a tener presentes en la clase de educación Física.","La velocidad como capacidad física básica. Consideraciones teóricas. Tipos de velocidad. Tratamiento y criterios para el diseño de tareas para su desarrollo en el marco escolar.","El sistema nervioso. Organización del sistema nervioso. Niveles de funciones. Características particulares del período evolutivo correspondiente a la etapa. Consideraciones a tener presentes en la clase de Educación Física.","La flexibilidad como capacidad física básica. Consideraciones teóricas. Tipos de la flexibilidad. Tratamiento y criterios para el diseño de tareas para su desarrollo en el marco escolar.","El sistema óseo-articular. Estructura y funciones. Características particulares del período evolutivo correspondiente a la etapa. Consideraciones a tener presentes en la clase de Educación Física.","La agilidad como capacidad resultante. Tratamiento y criterios para el diseño de tareas para su desarrollo en el marco escolar. Aspectos fisiológicos implicados.","Las cualidades motrices: concepto y clasificación. La coordinación y el equilibrio como aspectos cualitativos del movimiento. Métodos y sistemas para su desarrollo. Evolución en el desarrollo motor de los alumnos y alumnas de Educación Secundaria.","Las habilidades básicas. Concepto, clasificación y análisis. Evolución en el desarrollo motor de los alumnos y las alumnas de Educación Secundaria. Función en el currículo de Educación Física para la Educación Secundaria.","La respiración como contenido específico en la Educación Secundaria. Bases psicofisiológicas. Mecánica de la respiración y fases o tipos de la misma. Influencia de los ritmos respiratorios en la actividad física. Diseño de actividades y ubicación de las mismas para su tratamiento en el contexto escolar.","La relajación como contenido específico en la Educación Secundaria. Análisis de técnicas: aspectos psicofisiológicos implicados, valor educativo de las mismas y directrices para su tratamiento en el marco escolar.","El deporte como fenómeno social y cultural. Concepto y tratamiento pedagógico, características para convertirse en hecho educativo.","El aprendizaje deportivo en el marco escolar. Características. Modelos de enseñanza: fases en su enseñanza y aprendizaje.","Los deportes individuales. Aspectos técnicos, tácticos y reglamentarios. Ejemplificaciones sobre algunos deportes.","Los deportes individuales como contenido de enseñanza en el currículum del área. Intenciones educativas y de aprendizaje, posibles adaptaciones y orientaciones para tratamiento didáctico.","Los deportes de adversario. Aspectos técnicos, tácticos y reglamentarios. Ejemplificaciones sobre algunos deportes.","Los deportes de adversario como contenido de enseñanza en el currículum del área. Intenciones educativas y de aprendizaje, posibles adaptaciones y orientaciones para tratamiento didáctico.","Los deportes colectivos. Aspectos técnicos, tácticos y reglamentarios. Ejemplificaciones sobre algunos deportes.","Los deportes colectivos como contenido de enseñanza en el currículum del área. Intenciones educativas y de aprendizaje, posibles adaptaciones y orientaciones para su tratamiento didáctico.","Recreación y tiempo libre: concepto y evolución. Los juegos deportivo-recreativos: aspectos educativos de los mismos y su contribución al currículo de la Educación Física.","Los juegos y deportes tradicionales y populares: conceptos y clasificaciones. Valor cultural y educativo de los mismos.","El juego: teorías y características del mismo. El juego como actividad física organizada. Estrategias del juego. El juego como contenido de la Educación Física y como recurso didáctico. Los juegos modificados.","El cuerpo y el movimiento como elementos de expresión y comunicación. Elementos fundamentales de la expresión: del uso técnico y significado de la intensidad, tiempo y espacio de los movimientos. Rasgos característicos de las manifestaciones expresivas corporales y su valor educativo.","La danza como manifestación expresiva y de comunicación. Evolución de la danza. Danza tradicional. Danza moderna, Posibles adaptaciones al contexto escolar.","La dramatización: el lenguaje del gesto y la postura. Técnicas básicas. Posibles adaptaciones al contexto escolar.","Actividades en el medio natural. Tipos, clasificaciones y recursos. Organización de actividades físicas en la naturaleza.","La orientación en el medio natural. Conceptos y recursos para la orientación. Orientación y actividad física: juegos y actividades de orientación.","Nutrición y actividad física. Metabolismo basal y calorías. Tipos de actividad física y gasto energético. La dieta equilibrada: aspectos cuantitativos y cualitativos de la dieta.","Aspectos preventivos en la práctica de actividad física y actuación en accidentes deportivos. Lesiones más frecuentes relacionadas con el sistema locomotor: primeros auxilios.","La postura corporal y sus patologías: implicaciones en el desarrollo del adolescente. Prevención y tratamiento en el marco escolar.","Salud y actividad física. Efectos positivos y contraindicaciones de la actividad física en la salud y calidad de vida.","El aprendizaje motor: evolución histórica y fundamentación teórica de las actuales concepciones. Modelos teóricos explicativos del aprendizaje motor.","El aprendizaje motor: fases de la adquisición motriz y factores que influyen en el aprendizaje motor. La transferencia y el aprendizaje motor.","El modelo de procesamiento de la información: la percepción, decisión, ejecución y control del movimiento. Repercusiones en el proceso de enseñanza y aprendizaje.","Control del movimiento y retroalimentación: El conocimiento de los resultados. Tipos y características del conocimiento de los resultados. Valor del conocimiento de los resultados en el aprendizaje motor.","Habilidad y tareas motrices: conceptos, clasificaciones y análisis de los aspectos fundamentales para su enseñanza y aprendizaje.","Métodos y estrategias de enseñanza en Educación Física. Tendencias y clasificaciones. Utilización según el análisis de las tareas de aprendizaje y las características de los alumnos y de las alumnas.","La enseñanza y aprendizaje basados en la recepción: la reproducción de modelos. Papel del profesor y del alumno en este enfoque de la enseñanza y el aprendizaje.","La enseñanza y aprendizaje basados en el descubrimiento. La resolución de problemas y el descubrimiento guiado. Papel del profesor y del alumno en este enfoque de la enseñanza y el aprendizaje.","Las instalaciones para la Educación Física y su equipamiento. Conceptos básicos. Organización y normas para su uso. La autoconstrucción de materiales útiles para la actividad física.","La investigación en Educación Física. Paradigmas cuantitativos y cualitativos de investigación. La investigación-acción en la Educación Física.","La evaluación de las capacidades físicas. Técnicas, instrumentos y registro de los datos. Las pruebas de capacidad física: usos y valor formativo.","La evaluación de las cualidades motrices (capacidades coordinativas). Técnicas, instrumentos y registro de los datos. Las pruebas de capacidad motriz: usos y valor formativo.","El municipio y la práctica de actividades físicas. Recursos materiales y humanos. Implicaciones en el currículo de la Educación Física escolar."];
+
+    function sortear() {
+      const cantidad = parseInt(document.getElementById('cantidad').value);
+      const resultadoDiv = document.getElementById('resultado');
+      if (cantidad >= 4) resultadoDiv.innerHTML = '';
+
+      if (isNaN(cantidad) || cantidad < 1 || cantidad > 65) {
+        resultadoDiv.textContent = 'Por favor, introduce un número válido entre 1 y 65.';
+        return;
+      }
+
+      const numeros = Array.from({ length: 65 }, (_, i) => i + 1);
+      const seleccionados = [];
+
+      while (seleccionados.length < cantidad) {
+        const index = Math.floor(Math.random() * numeros.length);
+        const numero = numeros.splice(index, 1)[0];
+        seleccionados.push(numero);
+      }
+
+      seleccionados.sort((a, b) => a - b);
+
+      seleccionados.forEach(num => {
+        const temaDiv = document.createElement('div');
+        temaDiv.classList.add('tema');
+
+        const numeroEl = document.createElement('div');
+        numeroEl.classList.add('tema-numero');
+        numeroEl.textContent = `Tema ${num}`;
+
+        const textoEl = document.createElement('div');
+        textoEl.classList.add('tema-texto');
+        textoEl.textContent = temas[num - 1];
+
+        temaDiv.appendChild(numeroEl);
+        temaDiv.appendChild(textoEl);
+        resultadoDiv.appendChild(temaDiv);
+      });
+    }
+  
+    function resetear() {
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = '';
+    }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1079 @@
+<!doctype html>
+<html lang="gl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Comparador de CRITERIOS DE AVALIACIÓN · Educación Física</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --panel:#ffffff;
+      --ink:#0f172a;
+      --muted:#64748b;
+      --border:#e5e7eb;
+      --shadow: 0 10px 24px rgba(15,23,42,.06);
+      --shadow2: 0 6px 16px rgba(15,23,42,.08);
+      --pill:#eef2ff;
+      --pill2:#f1f5f9;
+      --danger:#ef4444;
+      --brand3:#0ea5e9;
+      --radius:18px;
+      --radius2:14px;
+      --focus: 0 0 0 3px rgba(37,99,235,.18);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background: radial-gradient(1000px 450px at 50% -50px, #e0f2fe 0%, rgba(224,242,254,0) 55%) , var(--bg);
+      color:var(--ink);
+    }
+    .app{max-width: 1450px; margin: 18px auto 28px; padding: 0 14px 40px}
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; margin-bottom:14px; flex-wrap:wrap;
+    }
+    .title{display:flex; flex-direction:column; gap:2px}
+    .title h1{font-size:18px; margin:0; letter-spacing:.2px}
+    .title p{margin:0; color:var(--muted); font-size:13px; line-height:1.35}
+    .topActions{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+    .btn{
+      appearance:none; border:1px solid var(--border);
+      background:var(--panel);
+      border-radius:999px;
+      padding:10px 12px;
+      font-weight:650;
+      font-size:13px;
+      cursor:pointer;
+      transition: transform .05s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+      box-shadow: 0 1px 0 rgba(15,23,42,.05);
+      white-space:nowrap;
+    }
+    .btn:hover{box-shadow:var(--shadow2)}
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{
+      background: linear-gradient(180deg, #111827 0%, #0b1220 100%);
+      color:#fff;
+      border-color:#0b1220;
+    }
+    .btn.ghost{background: transparent; border-color: transparent; color: var(--muted); box-shadow:none}
+    .btn.danger{background:#fff; color: var(--danger); border-color: rgba(239,68,68,.35)}
+    .btn.small{padding:8px 10px; font-weight:650; font-size:12px}
+
+    .modules{
+      display:grid;
+      grid-template-columns: 1fr 1.1fr 1.4fr;
+      gap:12px;
+      align-items:start;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 1100px){ .modules{grid-template-columns: 1fr} }
+
+    .panel{
+      background:var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .panel .hd{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 14px 10px;
+      border-bottom:1px solid rgba(229,231,235,.7);
+      gap:12px; flex-wrap:wrap;
+    }
+    .panel .hd .label{font-weight:800; font-size:14px}
+    .panel .bd{padding: 12px 14px 14px}
+
+    .field{display:flex; flex-direction:column; gap:8px}
+    .field label{color:var(--muted); font-size:12px; font-weight:700; letter-spacing:.2px}
+    .input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      outline:none;
+      font-size:14px;
+      transition: box-shadow .15s ease, border-color .15s ease;
+    }
+    .input:focus{border-color: rgba(37,99,235,.55); box-shadow: var(--focus)}
+    .hint{color:var(--muted); font-size:12px; line-height:1.35}
+
+    .courseChips{display:flex; gap:8px; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:2px}
+    .chip{
+      border: 1px solid rgba(229,231,235,.9);
+      background:#fff;
+      border-radius: 999px;
+      padding: 10px 12px;
+      display:flex; align-items:center; gap:10px;
+      cursor:pointer; user-select:none;
+      transition: box-shadow .15s ease, transform .05s ease, border-color .15s ease;
+      box-shadow: 0 1px 0 rgba(15,23,42,.04);
+    }
+    .chip:hover{box-shadow:var(--shadow2)}
+    .chip:active{transform: translateY(1px)}
+    .tick{
+      width:18px; height:18px; border-radius:6px;
+      border:1px solid rgba(100,116,139,.35);
+      background:#fff;
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .tick svg{opacity:0}
+    .chip.on{border-color: rgba(37,99,235,.35); background: linear-gradient(180deg,#ffffff 0%, #f8fafc 100%)}
+    .chip.on .tick{background: rgba(37,99,235,.1); border-color: rgba(37,99,235,.45)}
+    .chip.on .tick svg{opacity:1}
+    .chip .name{font-weight:750; font-size:13px}
+    .chip .meta{font-size:12px; color:var(--muted)}
+
+    .tabs{
+      display:flex; gap:8px; flex-wrap:wrap;
+      padding: 10px;
+      background: #f8fafc;
+      border:1px solid rgba(229,231,235,.8);
+      border-radius: var(--radius2);
+    }
+    .tab{
+      appearance:none;
+      border:1px solid rgba(229,231,235,.95);
+      background:#fff;
+      border-radius:999px;
+      padding: 10px 12px;
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+      transition: box-shadow .15s ease, transform .05s ease, background .15s ease, border-color .15s ease;
+      color: var(--muted);
+    }
+    .tab:hover{box-shadow:var(--shadow2); color:var(--ink);}
+    .tab:active{transform: translateY(1px)}
+    
+    /* Active tab style (now supports multiple) */
+    .tab.active{
+      background: linear-gradient(180deg, #111827 0%, #0b1220 100%); 
+      border-color:#0b1220; 
+      color:#fff
+    }
+    
+    .tab.multiOn{
+       /* Legacy style preserved just in case, but we will use .active for everything now */
+       background: rgba(17,24,39,.06);
+       border-color: rgba(17,24,39,.22);
+       color: var(--ink);
+    }
+
+    .pillRow{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+    .pill{
+      border:1px solid rgba(229,231,235,.95);
+      background: var(--pill2);
+      border-radius:999px;
+      padding: 7px 10px;
+      font-size:12px;
+      color: var(--ink);
+      font-weight:650;
+      display:flex; gap:8px; align-items:center;
+    }
+    .pill b{font-family:var(--mono); font-size:11px; color: var(--muted)}
+    .badge{
+      border:1px solid rgba(229,231,235,.95);
+      background:#fff;
+      border-radius:999px;
+      padding: 7px 10px;
+      font-size:12px;
+      color: var(--muted);
+      font-weight:650;
+    }
+    .kbd{
+      font-family:var(--mono);
+      font-size:11px;
+      padding: 2px 6px;
+      border: 1px solid rgba(148,163,184,.5);
+      background: rgba(255,255,255,.75);
+      border-radius: 8px;
+    }
+
+    .resultsPanel .bd{padding-top: 10px}
+    .resultsTop{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom: 10px}
+    .resultsTop .left{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+    .empty{
+      padding: 14px;
+      border-radius: var(--radius);
+      border:1px dashed rgba(148,163,184,.55);
+      color: var(--muted);
+      background: rgba(255,255,255,.6);
+      font-size:13px;
+      line-height:1.35;
+    }
+
+    .columns{
+      display:grid;
+      gap:12px;
+      align-items:stretch;
+      grid-template-columns: repeat(var(--cols, 5), minmax(220px, 1fr));
+    }
+    @media (max-width: 1100px){ .columns{grid-template-columns: 1fr} }
+
+    .colCard{
+      background:#fff;
+      border:1px solid rgba(229,231,235,.9);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 18px rgba(15,23,42,.06);
+      overflow:hidden;
+      min-height: 220px;
+      display:flex; flex-direction:column;
+    }
+    .colCard .ch{
+      padding: 12px 14px;
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      border-bottom:1px solid rgba(229,231,235,.75);
+      background: linear-gradient(180deg,#ffffff 0%, #fbfdff 100%);
+    }
+    .colCard .ch .course{font-weight:900; letter-spacing:.2px}
+    .mini{display:flex; align-items:center; gap:8px; flex-wrap:wrap; color: var(--muted); font-size:12px; font-weight:650}
+    .dot{width:7px; height:7px; border-radius:999px; background: var(--brand3); display:inline-block}
+    .colCard .cb{padding: 12px 14px 14px}
+    .blockTitle{font-weight:850; font-size:13px; margin:0 0 8px 0; color: var(--ink)}
+    .list{display:flex; flex-direction:column; gap:8px}
+    
+    /* Sub-sections within a list when stacking blocks */
+    .blockSection{
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed var(--border);
+    }
+    .blockSection:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+    .blockHeader {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--brand3);
+        font-weight: 800;
+        margin-bottom: 6px;
+        display:flex; align-items:center; gap:6px;
+    }
+
+    .item{
+      border:1px solid rgba(229,231,235,.9);
+      background: #fff;
+      border-radius: 14px;
+      padding: 10px 10px;
+      display:flex; gap:10px;
+    }
+    .code{
+      flex:0 0 auto;
+      font-family: var(--mono);
+      font-weight:800;
+      font-size:12px;
+      color: #0b1220;
+      background: var(--pill);
+      border:1px solid rgba(99,102,241,.18);
+      padding: 6px 8px;
+      border-radius: 10px;
+      align-self:flex-start;
+      line-height:1;
+      margin-top:1px;
+    }
+    .text{font-size:13px; line-height:1.25; color: var(--ink)}
+    .item.match{
+      border-color: rgba(16,185,129,.35);
+      background: linear-gradient(180deg,#ffffff 0%, rgba(16,185,129,.06) 100%);
+    }
+    .item.match .code{background: rgba(16,185,129,.12); border-color: rgba(16,185,129,.28)}
+    .smallNote{font-size:12px; color:var(--muted); margin-top:10px; line-height:1.35}
+    .footerNote{margin-top: 12px; color: var(--muted); font-size:12px; line-height:1.35}
+  
+.courseChips .chip{
+  font-size: 12px;
+  padding: 4px 8px;
+}
+.courseChips .chip .name{
+  font-size: 12px;
+}
+
+
+/* Similar criteria highlight */
+.similar {
+  border-left: 4px solid #10b981;
+  background: rgba(16,185,129,.06);
+}
+.similar .mini {
+  color:#059669;
+  font-weight:600;
+}
+
+
+/* Results: use full column width for texts */
+.colCard .item{
+  display:block;
+}
+.colCard .item .text{
+  display:block;
+  width:100%;
+  max-width:none;
+  white-space:normal;
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <img src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894" alt="PREMIR" style="height:84px;object-fit:contain" />
+      <div class="title">
+      <h1>Comparador de CRITERIOS DE AVALIACIÓN · Educación Física</h1>
+      
+    </div>
+    </div>
+    <div class="topActions">
+      <button class="btn primary" id="modeCoursesBtn" title="Ver cursos en paralelo (columnas) y apilar bloques seleccionados">Comparar cursos</button>
+      <button class="btn" id="modeOneCourseBtn" title="Ver bloques en paralelo (columnas) de un solo curso">Ver bloques de 1 curso</button>
+    </div>
+  </header>
+
+  <div class="modules">
+    <section class="panel">
+      <div class="hd">
+        <div class="label">Buscar</div>
+        <button class="btn ghost small" id="clearSearchBtn" title="Limpar busca">Limpar</button>
+      </div>
+      <div class="bd">
+        <div class="field">
+          <label for="q">Buscar palabras</label>
+          <input id="q" class="input" placeholder="Ex.: hixiene, alimentación, individuais, colaboración..." autocomplete="off" />
+          
+        </div>
+    </section>
+
+    <section class="panel">
+      <div class="hd">
+        <div class="label">Cursos</div>
+        <div class="pillRow">
+          <button class="btn small" id="allCoursesBtn">Todos</button>
+          <button class="btn small danger" id="noneCoursesBtn">Ningún</button>
+        </div>
+      </div>
+      <div class="bd">
+        <div id="courses" class="courseChips" aria-label="Seleccionar cursos"></div>
+        </div>
+    </section>
+
+    <section class="panel">
+      <div class="hd">
+        <div class="label">Bloques (Selección múltiple)</div>
+        <div class="pillRow">
+          <span class="pill"><b id="selBlocksCount">0</b> seleccionados</span>
+          <button class="btn small" id="resetBtn">Restablecer</button>
+        </div>
+      </div>
+      <div class="bd">
+        <div class="tabs" role="tablist" aria-label="Bloques">
+          <!-- Rendered by JS -->
+        </div>
+        <div class="footerNote">Selecciona un o varios bloques para apilar os seus contidos.</div>
+      </div>
+    </section>
+  </div>
+
+  <section class="panel resultsPanel">
+    <div class="hd">
+      <div class="label">Resultados</div>
+      <div class="pillRow">
+        <span class="badge" id="modeBadge">Modo: Comparar cursos</span>
+        <span class="badge" id="matchesBadge"><b id="matchesCount">0</b> coincidencias</span>
+        <span class="badge" id="filterBadge" style="display:none;"></span>
+        <button class="btn small" id="collapseBtn">Comprimir todo</button>
+      </div>
+    </div>
+    <div class="bd">
+      <div id="results"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const DATA = {
+    courses: [
+      {
+        id:"1ESO", name:"1º ESO",
+        blocks:{
+          B1:{ title:"Vida activa e saudable", criteria:[
+            {code:"CA1.1", text:"Establecer secuencias sinxelas de actividade física orientada ao concepto integral de saúde e ao estilo de vida activo, a partir dunha valoración do nivel inicial e respectando a propia realidade e identidade corporal."},
+            {code:"CA1.2", text:"Comezar a incorporar con progresiva autonomía procesos de activación corporal, dosificación do esforzo, alimentación saudable, educación postural, relaxación e hixiene durante a práctica de actividades motrices, interiorizando as rutinas propias dunha práctica motriz saudable e responsable."},
+            {code:"CA1.3", text:"Adoptar de maneira responsable e con progresiva autonomía medidas xerais para a prevención de lesións antes, durante e despois da práctica de actividade física, aprendendo a recoñecer situacións de risco para actuar preventivamente."},
+            {code:"CA1.4", text:"Recoñecer e valorar a incidencia que algunhas prácticas e comportamentos sociais teñen na nosa saúde e na convivencia, valorando o seu impacto e evitando activamente a súa reprodución."},
+            {code:"CA1.5", text:"Explorar diferentes recursos e aplicacións dixitais recoñecendo o seu potencial, así como os seus riscos para o seu uso no ámbito da actividade física e do deporte."},
+            {code:"CA1.6", text:"Facer uso con progresiva autonomía das habilidades sociais, do diálogo na resolución de conflitos e do respecto ante a diversidade de competencia motriz, mostrando unha actitude crítica e un compromiso activo fronte aos estereotipos e ás actuacións discriminatorias e fronte a calquera tipo de violencia, facendo respectar o propio corpo e o dos demais."}
+          ]},
+          B2:{ title:"Organización e xestión da actividade física", criteria:[
+            {code:"CA2.1", text:"Adoptar de maneira responsable e con progresiva autonomía medidas xerais para a prevención de lesións antes, durante e despois da práctica de actividade física, aprendendo a recoñecer situacións de risco para actuar preventivamente."},
+            {code:"CA2.2", text:"Actuar de acordo cos protocolos de intervención ante accidentes derivados da práctica de actividade física aplicando medidas básicas de primeiros auxilios."},
+            {code:"CA2.3", text:"Practicar unha gran variedade de actividades motrices valorando as implicacións éticas das actitudes antideportivas, evitando a competitividade desmedida e actuando con deportividade ao asumir os roles de público, participante ou outros."},
+            {code:"CA2.4", text:"Xestionar a preparación e a participación en xogos motores e outras manifestacións artístico-expresivas vinculadas tanto coa cultura propia como con outras, favorecendo a súa conservación e valorando as súas orixes, evolución e influencia nas sociedades contemporáneas."},
+            {code:"CA2.5", text:"Coñecer e aplicar normas de seguridade individuais e colectivas na práctica de actividades motrices."}
+          ]},
+          B3:{ title:"Resolución de problemas en situacións motrices", criteria:[
+            {code:"CA3.1", text:"Explorar diferentes recursos e aplicacións dixitais recoñecendo o seu potencial, así como os seus riscos para o seu uso no ámbito da actividade física e do deporte."},
+            {code:"CA3.2", text:"Desenvolver proxectos motores de carácter individual, cooperativo ou colaborativo, establecendo mecanismos para reconducir os procesos de traballo."},
+            {code:"CA3.3", text:"Interpretar contextos motrices variados e actuar correctamente aplicando principios básicos de toma de decisións en situacións lúdicas, xogos modificados e actividades deportivas a partir da anticipación, adecuándose ás demandas motrices, á actuación da compañeira ou do compañeiro e da persoa opoñente (se a houbese) e á lóxica interna en contextos reais ou simulados de actuación, reflexionando sobre as solucións e os resultados obtidos."},
+            {code:"CA3.4", text:"Mostrar control e dominio corporal ao empregar os compoñentes cualitativos e cuantitativos da motricidade de maneira eficiente e creativa, facendo fronte ás demandas de resolución de problemas en situacións motrices transferibles ao seu espazo vivencial con progresiva autonomía."},
+            {code:"CA3.5", text:"Colaborar na práctica de diferentes producións motrices para alcanzar o logro individual e grupal, participando na toma de decisións e asumindo distintos roles asignados e responsabilidades."}
+          ]},
+          B4:{ title:"Autorregulación emocional e interacción social", criteria:[
+            {code:"CA4.1", text:"Practicar unha gran variedade de actividades motrices controlando as emocións e as sensacións, valorando as implicacións éticas das actitudes antideportivas, evitando a competitividade desmedida e actuando con deportividade ao asumir os roles de público, participante ou outros."},
+            {code:"CA4.2", text:"Facer uso con progresiva autonomía das habilidades sociais, do diálogo na resolución de conflitos e do respecto ante a diversidade de competencia motriz, mostrando unha actitude crítica e un compromiso activo fronte aos estereotipos e ás actuacións discriminatorias e fronte a calquera tipo de violencia, facendo respectar o propio corpo e o dos demais."},
+            {code:"CA4.3", text:"Analizar obxectivamente as diferentes actividades e modalidades deportivas segundo as súas características e requirimentos, evitando os posibles estereotipos de xénero ou capacidade ou os comportamentos sexistas vinculados ás devanditas manifestacións."}
+          ]},
+          B5:{ title:"Manifestacións da cultura motriz", criteria:[
+            {code:"CA5.1", text:"Participar en xogos motores, deportes e outras manifestacións artístico-expresivas vinculadas tanto coa cultura propia como con outras, favorecendo a súa conservación e valorando as súas orixes, evolución e influencia nas sociedades contemporáneas."},
+            {code:"CA5.2", text:"Utilizar intencionadamente e con progresiva autonomía o corpo como ferramenta de expresión e comunicación a través de diversas técnicas expresivas, participando activamente na creación e representación de composicións individuais ou colectivas con e sen base musical."}
+          ]},
+          B6:{ title:"Interacción eficiente e sostible coa contorna", criteria:[
+            {code:"CA6.1", text:"Adoptar de maneira responsable e con progresiva autonomía medidas xerais para a prevención de lesións antes, durante e despois da práctica de actividade física, aprendendo a recoñecer situacións de risco para actuar preventivamente."},
+            {code:"CA6.2", text:"Recoñecer e valorar a incidencia que algunhas prácticas e comportamentos incívicos teñen na nosa saúde e na convivencia, valorando o seu impacto na contorna e evitando activamente a súa reprodución."},
+            {code:"CA6.3", text:"Participar en actividades físico-deportivas en contornas urbanas e naturais, terrestres ou acuáticos, gozando de maneira sostible, minimizando o impacto ambiental que estas poidan producir e sendo conscientes da súa pegada ecolóxica."},
+            {code:"CA6.4", text:"Practicar actividades físico-deportivas no medio natural e urbano aplicando normas de seguridade individuais e colectivas."}
+          ]}
+        }
+      },
+      {
+        id:"2ESO", name:"2º ESO",
+        blocks:{
+          B1:{ title:"Vida activa e saudable", criteria:[
+            {code:"CA1.1", text:"Establecer e organizar secuencias sinxelas de actividade física orientada ao concepto integral de saúde e ao estilo de vida activo, a partir dunha valoración do nivel inicial e respectando a propia realidade e identidade corporal."},
+            {code:"CA1.2", text:"Incorporar con progresiva autonomía procesos de activación corporal, dosificación do esforzo, alimentación saudable, educación postural, relaxación e hixiene durante a práctica de actividades motrices, interiorizando as rutinas propias dunha práctica motriz saudable e responsable."},
+            {code:"CA1.3", text:"Adoptar de maneira responsable e con progresiva autonomía medidas xerais para a prevención de lesións antes, durante e despois da práctica de actividade física, aprendendo a recoñecer situacións de risco para actuar preventivamente."},
+            {code:"CA1.4", text:"Analizar e valorar a incidencia que algunhas prácticas e comportamentos sociais teñen na nosa saúde e na convivencia, valorando o seu impacto e evitando activamente a súa reprodución."},
+            {code:"CA1.5", text:"Explorar diferentes recursos e aplicacións dixitais recoñecendo o seu potencial, así como os seus riscos para o seu uso no ámbito da actividade física e do deporte."},
+            {code:"CA1.6", text:"Facer uso con progresiva autonomía das habilidades sociais, do diálogo na resolución de conflitos e do respecto ante a diversidade de competencia motriz, mostrando unha actitude crítica e un compromiso activo fronte aos estereotipos e ás actuacións discriminatorias e fronte a calquera tipo de violencia, facendo respectar o propio corpo e o dos demais."},
+            {code:"CA1.7", text:"Analizar obxectivamente as diferentes actividades e modalidades deportivas segundo as súas características e requirimentos, evitando os posibles estereotipos de xénero ou capacidade vinculados ás devanditas manifestacións."}
+          ]},
+          B2:{ title:"Organización e xestión da actividade física", criteria:[
+            {code:"CA2.1", text:"Adoptar de maneira responsable e con autonomía medidas xerais para a prevención de lesións antes, durante e despois da práctica de actividade física, recoñecendo situacións de risco para actuar preventivamente."},
+            {code:"CA2.2", text:"Coñecer e actuar de acordo cos protocolos de intervención ante accidentes derivados da práctica de actividade física, aplicando medidas básicas de primeiros auxilios."},
+            {code:"CA2.3", text:"Explorar diferentes recursos e aplicacións dixitais recoñecendo o seu potencial, así como os seus riscos para o seu uso no ámbito da actividade física e do deporte."},
+            {code:"CA2.4", text:"Desenvolver proxectos motores de carácter individual, cooperativo ou colaborativo, establecendo mecanismos para reconducir os procesos de traballo, incluíndo estratexias de autoavaliación e coavaliación tanto do proceso como do resultado."},
+            {code:"CA2.5", text:"Practicar unha gran variedade de actividades motrices, valorando as implicacións éticas das actitudes antideportivas, evitando a competitividade desmedida e actuando con deportividade ao asumir os roles de público, participante ou outros."},
+            {code:"CA2.6", text:"Coñecer as normas de seguridade individuais e colectivas valorando a súa importancia e aplicándoas na práctica das actividades motrices, dentro e fóra do centro escolar."}
+          ]},
+          B3:{ title:"Resolución de problemas en situacións motrices", criteria:[
+            {code:"CA3.1", text:"Explorar diferentes recursos e aplicacións dixitais recoñecendo o seu potencial, así como os seus riscos para o seu uso no ámbito da actividade física e do deporte."},
+            {code:"CA3.2", text:"Desenvolver proxectos motores de carácter individual, cooperativo ou colaborativo, establecendo mecanismos para reconducir os procesos de traballo, incluíndo estratexias de autoavaliación e coavaliación tanto do proceso como do resultado."},
+            {code:"CA3.3", text:"Interpretar contextos motrices variados e actuar correctamente aplicando principios básicos de toma de decisións en situacións lúdicas, xogos modificados e actividades deportivas a partir da anticipación, adecuándose ás demandas motrices, á actuación do compañeiro ou da compañeira e da persoa opoñente (se o houbese) e á lóxica interna en contextos reais ou simulados de actuación, reflexionando sobre as solucións e os resultados obtidos."},
+            {code:"CA3.4", text:"Mostrar control e dominio corporal ao empregar os compoñentes cualitativos e cuantitativos da motricidade de maneira eficiente e creativa, facendo fronte ás demandas de resolución de problemas en situacións motrices transferibles ao seu espazo vivencial con progresiva autonomía."},
+            {code:"CA3.5", text:"Colaborar na práctica de diferentes producións motrices para alcanzar o logro individual e grupal, participando na toma de decisións e asumindo distintos roles asignados e responsabilidades."}
+          ]},
+          B4:{ title:"Autorregulación emocional e interacción social", criteria:[
+            {code:"CA4.1", text:"Practicar unha gran variedade de actividades motrices controlando as emocións e as sensacións, valorando as implicacións éticas das actitudes antideportivas, evitando a competitividade desmedida e actuando con deportividade ao asumir os roles de público, participante ou outros."},
+            {code:"CA4.2", text:"Facer uso con progresiva autonomía das habilidades sociais, do diálogo na resolución de conflitos e do respecto ante a diversidade de competencia motriz, mostrando unha actitude crítica e un compromiso activo fronte aos estereotipos e ás actuacións discriminatorias e fronte a calquera tipo de violencia, facendo respectar o propio corpo e o dos demais."},
+            {code:"CA4.3", text:"Analizar obxectivamente as diferentes actividades e modalidades deportivas segundo as súas características e requirimentos, evitando os posibles estereotipos de xénero ou capacidade ou os comportamentos sexistas vinculados ás devanditas manifestacións."}
+          ]},
+          B5:{ title:"Manifestacións da cultura motriz", criteria:[
+            {code:"CA5.1", text:"Participar en xogos motores, deportes e outras manifestacións artístico-expresivas vinculadas tanto coa cultura propia como con outras, favorecendo a súa conservación e valorando as súas orixes, evolución e influencia nas sociedades contemporáneas."},
+            {code:"CA5.2", text:"Utilizar intencionadamente e con progresiva autonomía o corpo como ferramenta de expresión e comunicación a través de diversas técnicas expresivas, participando activamente na creación e representación de composicións individuais ou colectivas con e sen base musical."}
+          ]},
+          B6:{ title:"Interacción eficiente e sostible coa contorna", criteria:[
+            {code:"CA6.1", text:"Adoptar de maneira responsable e con progresiva autonomía medidas xerais para a prevención de lesións antes, durante e despois da práctica de actividade física, aprendendo a recoñecer situacións de risco para actuar preventivamente."},
+            {code:"CA6.2", text:"Analizar e valorar a incidencia que algunhas prácticas e comportamentos incívicos teñen na nosa saúde e na convivencia, valorando o seu impacto na contorna e evitando activamente a súa reprodución."},
+            {code:"CA6.3", text:"Participar en actividades físico-deportivas en contornas urbanas e naturais, terrestres ou acuáticos, gozando de maneira sostible, minimizando o impacto ambiental que estas poidan producir e sendo conscientes da súa pegada ecolóxica."},
+            {code:"CA6.4", text:"Practicar actividades físico-deportivas no medio natural e urbano aplicando normas de seguridade individuais e colectivas."}
+          ]}
+        }
+      },
+      {
+        id:"3ESO", name:"3º ESO",
+        blocks:{
+          B1:{ title:"Vida activa e saudable", criteria:[
+            {code:"CA1.1", text:"Autorregular a práctica de actividade física orientada ao concepto integral de saúde e ao estilo de vida activo, segundo as necesidades e os intereses individuais e respectando a propia realidade e identidade corporal."},
+            {code:"CA1.2", text:"Incorporar de forma autónoma os procesos de activación corporal, autorregulación e dosificación do esforzo, alimentación saudable, educación postural, relaxación e hixiene durante a práctica de actividades motrices, interiorizando as rutinas propias dunha práctica motriz saudable e responsable."},
+            {code:"CA1.3", text:"Adoptar actitudes comprometidas que rexeiten os estereotipos sociais asociados ao ámbito do corporal, ao xénero e á diversidade sexual e os comportamentos que poñan en risco a saúde, contrastando con autonomía e independencia calquera información con base en criterios científicos de validez, fiabilidade e obxectividade."},
+            {code:"CA1.4", text:"Desenvolver e compartir con seguridade a práctica física cotiá manexando recursos e aplicacións dixitais vinculados ao ámbito da actividade física e do deporte."}
+          ]},
+          B2:{ title:"Organización e xestión da actividade física", criteria:[
+            {code:"CA2.1", text:"Actuar de acordo cos protocolos de intervención ante situacións de emerxencia ou accidentes aplicando medidas específicas de primeiros auxilios."},
+            {code:"CA2.2", text:"Desenvolver e compartir con seguridade a práctica física cotiá manexando recursos e aplicacións dixitais vinculados ao ámbito da actividade física e do deporte."},
+            {code:"CA2.3", text:"Participar activamente nunha gran variedade de actividades motrices asumindo responsabilidades na organización, xestión e preparación destas."},
+            {code:"CA2.4", text:"Coñecer as normas de seguridade individuais e colectivas valorando a súa importancia e aplicándoas na práctica de actividades motrices, dentro e fóra do centro escolar."}
+          ]},
+          B3:{ title:"Resolución de problemas en situacións motrices", criteria:[
+            {code:"CA3.1", text:"Desenvolver e compartir con seguridade a práctica física cotiá manexando recursos e aplicacións dixitais vinculados ao ámbito da actividade física e do deporte."},
+            {code:"CA3.2", text:"Desenvolver proxectos motores de carácter individual, cooperativo ou colaborativo, establecendo mecanismos para reconducir os procesos de traballo e asegurar unha participación equilibrada, incluíndo estratexias de autoavaliación e coavaliación tanto do proceso como do resultado."},
+            {code:"CA3.3", text:"Mostrar habilidades para a adaptación e a actuación ante situacións cunha elevada incerteza, aproveitando eficientemente as propias capacidades e aplicando de maneira automática procesos de percepción, decisión e execución en contextos reais ou simulados de actuación."},
+            {code:"CA3.4", text:"Evidenciar control e dominio corporal ao empregar os compoñentes cualitativos e cuantitativos da motricidade de maneira eficiente e creativa, resolvendo problemas en todo tipo de situacións motrices transferibles ao seu espazo vivencial con autonomía."},
+            {code:"CA3.5", text:"Colaborar na práctica de diferentes producións motrices e proxectos para alcanzar o logro individual e grupal, participando con autonomía na toma de decisións vinculadas á asignación de roles, á xestión do tempo de práctica e á optimización do resultado final."}
+          ]},
+          B4:{ title:"Autorregulación emocional e interacción social", criteria:[
+            {code:"CA4.1", text:"Practicar e participar activamente nunha gran variedade de actividades motrices valorando as implicacións éticas das prácticas antideportivas, adoptando estratexias de superación, evitando a competitividade desmedida e actuando con deportividade ao asumir os roles de público, participante ou outros."},
+            {code:"CA4.2", text:"Relacionarse e entenderse co resto de participantes durante o desenvolvemento de diversas prácticas motrices con autonomía e facendo uso efectivo de habilidades sociais de diálogo na resolución de conflitos e respecto ante a diversidade de competencia motriz, e situándose activamente fronte aos estereotipos e ás actuacións discriminatorias e fronte a calquera tipo de violencia, facendo respectar o propio corpo e o dos demais."},
+            {code:"CA4.3", text:"Adoptar actitudes comprometidas e conscientes acerca dos distintos estereotipos de xénero e comportamentos sexistas que se seguen producindo nalgúns contextos da motricidade, identificando os factores que contribúen ao seu mantemento e axudando a difundir referentes de distintos xéneros no ámbito físico-deportivo."}
+          ]},
+          B5:{ title:"Manifestacións da cultura motriz", criteria:[
+            {code:"CA5.1", text:"Practicar actividades rítmico-musicais con carácter artístico-expresivo, valorando as súas orixes, e relacionándoas coa cultura propia, coa tradicional ou coas procedentes doutros lugares do mundo."},
+            {code:"CA5.2", text:"Crear e representar composicións individuais ou colectivas con e sen base musical e de maneira coordinada, utilizando intencionadamente e con autonomía o corpo e o movemento como ferramenta de expresión e comunicación a través de diversas técnicas expresivas específicas, e axudando a difundir e a compartir estas prácticas culturais entre compañeiros ou outros membros da comunidade."}
+          ]},
+          B6:{ title:"Interacción eficiente e sostible coa contorna", criteria:[
+            {code:"CA6.1", text:"Adoptar de maneira responsable e autónoma medidas específicas para a prevención de lesións antes, durante e despois da práctica de actividade física, aprendendo a recoñecer situacións de risco para actuar preventivamente."},
+            {code:"CA6.2", text:"Participar en actividades físico-deportivas en contornas urbanas e naturais, terrestres ou acuáticos, gozando destas de maneira sostible, minimizando o impacto ambiental que estas poidan producir, sendo conscientes da súa pegada ecolóxica e desenvolvendo actuacións intencionadas dirixidas á conservación e á mellora das condicións dos espazos en que se desenvolvan."},
+            {code:"CA6.3", text:"Participar en actividades físico-deportivas no medio natural e urbano asumindo responsabilidades e aplicando normas de seguridade individuais e colectivas."}
+          ]}
+        }
+      },
+      {
+        id:"4ESO", name:"4º ESO",
+        blocks:{
+          B1:{ title:"Vida activa e saudable", criteria:[
+            {code:"CA1.1", text:"Planificar e autorregular a práctica de actividade física orientada ao concepto integral de saúde e ao estilo de vida activo, segundo as necesidades e os intereses individuais e respectando a propia realidade e identidade corporal."},
+            {code:"CA1.2", text:"Incorporar de forma autónoma os procesos de activación corporal, autoavaliación, autorregulación e dosificación do esforzo, alimentación saudable, educación postural, relaxación e hixiene durante a práctica de actividades motrices, interiorizando as rutinas propias dunha práctica motriz saudable e responsable."},
+            {code:"CA1.3", text:"Adoptar actitudes comprometidas que rexeiten os estereotipos sociais asociados ao ámbito do corporal, do xénero e da diversidade sexual, e os comportamentos que poñan en risco a saúde, contrastando con autonomía e independencia calquera información con base en criterios científicos de validez, fiabilidade e obxectividade."},
+            {code:"CA1.4", text:"Planificar, desenvolver e compartir con seguridade a práctica física cotiá manexando recursos e aplicacións dixitais vinculados ao ámbito da actividade física e do deporte."}
+          ]},
+          B2:{ title:"Organización e xestión da actividade física", criteria:[
+            {code:"CA2.1", text:"Actuar de acordo cos protocolos de intervención ante situacións de emerxencia ou accidentes aplicando medidas específicas de primeiros auxilios."},
+            {code:"CA2.2", text:"Planificar, desenvolver e compartir con seguridade a práctica física cotiá manexando recursos e aplicacións dixitais vinculados ao ámbito da actividade física e do deporte."},
+            {code:"CA2.3", text:"Desenvolver proxectos motores de carácter individual, cooperativo ou colaborativo, establecendo mecanismos para reconducir os procesos de traballo e asegurar unha participación equilibrada, incluíndo estratexias de autoavaliación e coavaliación tanto do proceso como do resultado."},
+            {code:"CA2.4", text:"Participar activamente nunha gran variedade de actividades motrices asumindo responsabilidades na organización, xestión e preparación destas."},
+            {code:"CA2.5", text:"Coñecer as normas de seguridade individuais e colectivas valorando a súa importancia e aplicándoas na práctica de actividades motrices, dentro e fóra do centro escolar."}
+          ]},
+          B3:{ title:"Resolución de problemas en situacións motrices", criteria:[
+            {code:"CA3.1", text:"Planificar, desenvolver e compartir con seguridade a práctica física cotiá manexando recursos e aplicacións dixitais vinculados ao ámbito da actividade física e do deporte."},
+            {code:"CA3.2", text:"Desenvolver proxectos motores de carácter individual, cooperativo ou colaborativo, establecendo mecanismos para reconducir os procesos de traballo e asegurar unha participación equilibrada, incluíndo estratexias de autoavaliación e coavaliación tanto do proceso como do resultado."},
+            {code:"CA3.3", text:"Mostrar habilidades para a adaptación e a actuación ante situacións cunha elevada incerteza, aproveitando eficientemente as propias capacidades e aplicando de maneira automática procesos de percepción, decisión e execución en contextos reais ou simulados de actuación, reflexionando sobre as solucións e os resultados obtidos."},
+            {code:"CA3.4", text:"Evidenciar control e dominio corporal ao empregar os compoñentes cualitativos e cuantitativos da motricidade de maneira eficiente e creativa, resolvendo problemas en todo tipo de situacións motrices transferibles ao seu espazo vivencial con autonomía."},
+            {code:"CA3.5", text:"Colaborar na práctica de diferentes producións motrices e proxectos para alcanzar o logro individual e grupal, participando con autonomía na toma de decisións vinculadas á asignación de roles, á xestión do tempo de práctica e á optimización do resultado final."}
+          ]},
+          B4:{ title:"Autorregulación emocional e interacción social", criteria:[
+            {code:"CA4.1", text:"Practicar e participar activamente asumindo responsabilidades na organización nunha gran variedade de actividades motrices, valorando as implicacións éticas das prácticas antideportivas, adoptando estratexias de superación, evitando a competitividade desmedida e actuando con deportividade ao asumir os roles de público, participante ou outros."},
+            {code:"CA4.2", text:"Relacionarse e entenderse co resto de participantes durante o desenvolvemento de diversas prácticas motrices con autonomía, facendo uso efectivo de habilidades sociais de diálogo na resolución de conflitos e respecto ante a diversidade de competencia motriz, situándose activamente fronte aos estereotipos e ás actuacións discriminatorias e fronte a calquera tipo de violencia e facendo respectar o propio corpo e o dos demais."},
+            {code:"CA4.3", text:"Adoptar actitudes comprometidas e conscientes acerca dos distintos estereotipos de xénero e comportamentos sexistas que se seguen producindo nalgúns contextos da motricidade, identificando os factores que contribúen ao seu mantemento e axudando a difundir referentes de distintos xéneros no ámbito físico-deportivo."}
+          ]},
+          B5:{ title:"Manifestacións da cultura motriz", criteria:[
+            {code:"CA5.1", text:"Identificar e contextualizar a influencia social do deporte nas sociedades actuais, valorando as súas orixes, evolución, distintas manifestacións e intereses económico-políticos, practicando diversas modalidades relacionadas coa cultura propia, coa tradicional ou coas procedentes doutros lugares do mundo."},
+            {code:"CA5.2", text:"Crear e representar composicións individuais ou colectivas con e sen base musical e de maneira coordinada, utilizando intencionadamente e con autonomía o corpo e o movemento como ferramenta de expresión e comunicación a través de diversas técnicas expresivas específicas e axudando a difundir e a compartir estas prácticas culturais entre compañeiros ou outros membros da comunidade."}
+          ]},
+          B6:{ title:"Interacción eficiente e sostible coa contorna", criteria:[
+            {code:"CA6.1", text:"Adoptar de maneira responsable e autónoma medidas específicas para a prevención de lesións antes, durante e despois da práctica de actividade física, aprendendo a recoñecer situacións de risco para actuar preventivamente."},
+            {code:"CA6.2", text:"Participar en actividades físico-deportivas en contornas urbanas e naturais, terrestres ou acuáticos, gozando destas de maneira sostible, minimizando o impacto ambiental que estas poidan producir, sendo conscientes da súa pegada ecolóxica e desenvolvendo actuacións intencionadas dirixidas á conservación e á mellora das condicións dos espazos en que se desenvolvan."},
+            {code:"CA6.3", text:"Deseñar e organizar actividades físico-deportivas no medio natural e urbano, asumindo responsabilidades e aplicando normas de seguridade individuais e colectivas."}
+          ]}
+        }
+      },
+      {
+        id:"1BACH", name:"1º Bacharelato",
+        blocks:{
+          B1:{ title:"Vida activa e saudable", criteria:[
+            {code:"CA1.1", text:"Planificar, elaborar e poñer en práctica de maneira autónoma un programa persoal de actividade física dirixido á mellora ou ao mantemento da saúde, aplicando os diferentes sistemas de desenvolvemento das capacidades físicas implicadas, segundo as necesidades e intereses individuais e respectando a propia realidade e identidade corporal, avaliando os resultados obtidos."},
+            {code:"CA1.2", text:"Incorporar de forma autónoma, e segundo as súas preferencias persoais, os procesos de activación corporal, autorregulación e dosificación do esforzo, alimentación saudable, educación postural e relaxación e hixiene durante a práctica de actividades motrices, reflexionando sobre a súa relación con posibles estudos posteriores ou futuros desempeños profesionais."},
+            {code:"CA1.3", text:"Actuar de forma crítica, comprometida e responsable ante os estereotipos sociais asociados ao ámbito do corporal e os comportamentos que poñan en risco a saúde, aplicando con autonomía e independencia criterios científicos de validez, fiabilidade e obxectividade á información recibida."},
+            {code:"CA1.4", text:"Empregar de maneira autónoma aplicacións e dispositivos dixitais relacionados coa xestión da actividade física, respectando a privacidade e as medidas básicas de seguridade vinculadas á difusión pública de datos persoais."}
+          ]},
+          B2:{ title:"Organización e xestión da actividade física", criteria:[
+            {code:"CA2.1", text:"Coñecer e implementar de maneira responsable e autónoma medidas específicas para a prevención de lesións antes, durante e despois da actividade física, así como para a aplicación de primeiros auxilios ante situacións de emerxencia ou accidente, poñendo en práctica normas de seguridade individuais e colectivas, identificando as posibles transferencias que estes coñecementos teñen ao ámbito profesional e ocupacional."},
+            {code:"CA2.2", text:"Desenvolver proxectos motores de carácter individual, cooperativo ou colaborativo, xestionando autonomamente calquera imprevisto ou situación que poida ir xurdindo ao longo do proceso de forma eficiente, creativa e axustada aos obxectivos que se pretendan alcanzar."},
+            {code:"CA2.3", text:"Colaborar mostrando iniciativa durante o desenvolvemento de proxectos e producións motrices, liquidando de forma coordinada calquera imprevisto ou situación que poida ir xurdindo ao longo do proceso."}
+          ]},
+          B3:{ title:"Resolución de problemas en situacións motrices", criteria:[
+            {code:"CA3.1", text:"Desenvolver proxectos motores de carácter individual, cooperativo ou colaborativo, xestionando autonomamente calquera imprevisto ou situación que poida ir xurdindo ao longo do proceso de forma eficiente, creativa e axustada aos obxectivos que se pretendan alcanzar."},
+            {code:"CA3.2", text:"Solucionar de forma autónoma situacións de oposición, colaboración ou colaboración-oposición en contextos deportivos ou recreativos con fluidez, precisión e control, aplicando de maneira automática procesos de percepción, decisión e execución en contextos reais ou simulados de actuación e adaptando as estratexias ás condicións cambiantes que se producen na práctica."},
+            {code:"CA3.3", text:"Identificar, analizar e comprender os factores clave que condicionan a intervención dos compoñentes cualitativos e cuantitativos da motricidade na realización de xestos técnicos ou situacións motrices variadas, identificando erros comúns e propoñendo solucións para estes."},
+            {code:"CA3.4", text:"Colaborar mostrando iniciativa durante o desenvolvemento de proxectos e producións motrices, liquidando de forma coordinada calquera imprevisto ou situación que poida ir xurdindo ao longo do proceso."}
+          ]},
+          B4:{ title:"Autorregulación emocional e interacción social", criteria:[
+            {code:"CA4.1", text:"Organizar e practicar diversas actividades motrices, valorando o seu potencial como posible saída profesional e analizando os seus beneficios desde a perspectiva da saúde, o gozo, a autosuperación e as posibilidades de interacción social, adoptando actitudes de interese, esforzo, liderado e empatía ao asumir e desempeñar distintos roles relacionados con elas."},
+            {code:"CA4.2", text:"Establecer mecanismos de relación e entendemento co resto de participantes durante o desenvolvemento de diversas prácticas motrices con autonomía e facendo uso efectivo de habilidades sociais de diálogo na resolución de conflitos e respecto ante a diversidade de competencia motriz, e situándose activa, reflexiva e criticamente fronte aos estereotipos, as actuacións discriminatorias e a violencia, así como coñecer as estratexias para a súa prevención, detección precoz e abordaxe."},
+            {code:"CA4.3", text:"Comprender e contextualizar a influencia cultural e social das manifestacións motrices máis relevantes no panorama actual, analizando as súas orixes e a súa evolución ata a actualidade e rexeitando aqueles compoñentes que non se axusten aos valores dunha sociedade aberta, inclusiva, diversa e igualitaria."}
+          ]},
+          B5:{ title:"Manifestacións da cultura motriz", criteria:[
+            {code:"CA5.1", text:"Organizar e practicar diversas actividades motrices, valorando o seu potencial como posible saída profesional e analizando os seus beneficios desde a perspectiva da saúde, o gozo, a autosuperación e as posibilidades de interacción social, adoptando actitudes de interese, esforzo, liderado e empatía ao asumir e desempeñar distintos roles relacionados con elas."},
+            {code:"CA5.2", text:"Comprender e contextualizar a influencia cultural e social das manifestacións motrices máis relevantes no panorama actual, analizando as súas orixes e a súa evolución ata a actualidade e rexeitando aqueles compoñentes que non se axusten aos valores dunha sociedade aberta, inclusiva, diversa e igualitaria."},
+            {code:"CA5.3", text:"Crear e representar composicións corporais individuais ou colectivas, con e sen base musical, aplicando con precisión, idoneidade e coordinación escénica as técnicas expresivas máis apropiadas a cada composición para representalas ante as súas compañeiras e compañeiros ou outros membros da comunidade."}
+          ]},
+          B6:{ title:"Interacción eficiente e sustentable coa contorna", criteria:[
+            {code:"CA6.1", text:"Promover e participar en actividades físico-deportivas en contornas urbanas e naturais terrestres ou acuáticas, interactuando con elas de maneira sustentable, minimizando o impacto ambiental que estas poidan producir reducindo ao máximo a súa pegada ecolóxica e desenvolvendo actuacións dirixidas á conservación e mellora das condicións dos espazos nos que se desenvolvan."},
+            {code:"CA6.2", text:"Practicar e organizar actividades físico-deportivas no medio natural e urbano, asumindo responsabilidades e aplicando normas de seguridade individuais e colectivas para previr e controlar os riscos intrínsecos á propia actividade derivados da utilización dos equipamentos, a contorna ou a propia actuación dos participantes."}
+          ]}
+        }
+      }
+    ]
+  };
+
+  const ALL_BLOCKS = ["B1","B2","B3","B4","B5","B6"];
+
+  const state = {
+    mode: "courses",                 // courses | onecourse
+    // Now selectedBlocks is the single source of truth for ALL modes
+    selectedBlocks: new Set(["B1"]), 
+    selectedCourses: new Set(DATA.courses.map(c => c.id)),
+    oneCourseId: DATA.courses[0].id,
+    query: "",
+    collapsed: false
+  };
+
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+  const byId = (id) => DATA.courses.find(c => c.id === id);
+
+  function normalize(s){ return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
+  function escapeHTML(str){
+    return (str||"").replace(/[&<>"']/g, (c)=>({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    }[c]));
+  }
+  function highlightQuery(htmlText, q){
+    const qq = (q||"").trim();
+    if(!qq) return htmlText;
+    const parts = qq.split(/[,\s]+/).map(s=>s.trim()).filter(Boolean).slice(0,6);
+    if(!parts.length) return htmlText;
+    let out = htmlText;
+    for(const p of parts){
+      const esc = p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const re = new RegExp(esc, "gi");
+      out = out.replace(re, (m)=>`<mark style="padding:0 3px;border-radius:6px;background:rgba(16,185,129,.18);border:1px solid rgba(16,185,129,.30)">${m}</mark>`);
+    }
+    return out;
+  }
+  function criterionMatchesQuery(crit, q){
+    if(!q) return true;
+    const nq = normalize(q);
+    const hay = normalize(crit.code + " " + crit.text);
+    return hay.includes(nq);
+  }
+
+  function selectedCoursesArray(){
+    return DATA.courses.filter(c => state.selectedCourses.has(c.id));
+  }
+  
+  function codesInBlock(course, block){
+    const b = course.blocks[block];
+    return (b?.criteria || []).map(x => x.code);
+  }
+  
+  // Updated to compute matches for ONE block at a time (used in loop)
+  function computeGlobalMatchesForBlock(blockId){
+    const selected = selectedCoursesArray();
+    const count = new Map();
+    for(const c of selected){
+      for(const code of codesInBlock(c, blockId)){
+        count.set(code, (count.get(code)||0)+1);
+      }
+    }
+    const matches = new Set();
+    for(const [code, n] of count.entries()){
+      if(n >= 2) matches.add(code);
+    }
+    return matches;
+  }
+
+  function computeTotalVisibleMatches(){
+     const selected = selectedCoursesArray();
+     let total = 0;
+     // Iterate all selected blocks
+     for(const blockId of state.selectedBlocks){
+         const matches = computeGlobalMatchesForBlock(blockId);
+         for(const c of selected){
+             const list = c.blocks[blockId]?.criteria || [];
+             for(const crit of list){
+                 if(matches.has(crit.code) && criterionMatchesQuery(crit, state.query)){
+                     total++;
+                 }
+             }
+         }
+     }
+     return total;
+  }
+
+  function renderCourses(){
+    const wrap = $("#courses");
+    wrap.innerHTML = "";
+    for(const c of DATA.courses){
+      const on = state.selectedCourses.has(c.id);
+      const el = document.createElement("div");
+      el.className = "chip" + (on ? " on" : "");
+      el.tabIndex = 0;
+      el.setAttribute("role", "checkbox");
+      el.setAttribute("aria-checked", on ? "true" : "false");
+      el.innerHTML = `
+        <span class="tick" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+            <path d="M7.8 14.2 3.9 10.4l1.4-1.4 2.5 2.5 6.8-6.8 1.4 1.4-8.2 8.1Z" fill="currentColor"/>
+          </svg>
+        </span>
+        <span style="display:flex;flex-direction:column;gap:1px;">
+          <span class="name">${escapeHTML(c.name)}</span>
+        </span>
+      `;
+      const toggle = () => {
+        if(state.selectedCourses.has(c.id)) state.selectedCourses.delete(c.id);
+        else state.selectedCourses.add(c.id);
+
+        if(state.mode === "onecourse"){
+          if(state.selectedCourses.size === 0) state.selectedCourses.add(c.id);
+          state.oneCourseId = Array.from(state.selectedCourses)[0];
+        }
+        render();
+      };
+      el.addEventListener("click", toggle);
+      el.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); toggle(); }});
+      wrap.appendChild(el);
+    }
+  }
+
+  function setMode(mode){
+    state.mode = mode;
+    $("#modeCoursesBtn").classList.toggle("primary", mode==="courses");
+    $("#modeOneCourseBtn").classList.toggle("primary", mode==="onecourse");
+
+    if(mode === "onecourse"){
+      // Ensure only one course selected visually or logically
+      if(state.selectedCourses.size === 0) state.selectedCourses.add(DATA.courses[0].id);
+      state.oneCourseId = Array.from(state.selectedCourses)[0];
+    } 
+    // We NO LONGER reset selectedBlocks to "B1". We keep user selection.
+    
+    render();
+  }
+
+  function renderTabs(){
+    // In ALL modes, we allow multi-select now.
+    const wrap = $(".tabs");
+    wrap.innerHTML = "";
+    
+    ALL_BLOCKS.forEach(bid => {
+        const on = state.selectedBlocks.has(bid);
+        const btn = document.createElement("button");
+        // Unified style: 'tab active' means selected.
+        btn.className = "tab" + (on ? " active" : "");
+        btn.textContent = bid;
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+        
+        btn.addEventListener("click", () => {
+            // Toggle logic for ALL modes
+            if(state.selectedBlocks.has(bid)) state.selectedBlocks.delete(bid);
+            else state.selectedBlocks.add(bid);
+            
+            // Prevent empty state? Optional. Let's allow empty to clear view or keep at least one.
+            // keeping at least one is usually better UX, but "summative" might mean 0 is possible.
+            // Let's allow 0 for full clearing.
+            render();
+        });
+        
+        wrap.appendChild(btn);
+    });
+
+    $("#selBlocksCount").textContent = state.selectedBlocks.size;
+  }
+
+  function renderTopBadges(){
+    $("#matchesCount").textContent = String(computeTotalVisibleMatches());
+
+    const modeLabel = state.mode === "courses" ? "Comparar cursos"
+      : "Ver bloques de 1 curso";
+    $("#modeBadge").textContent = "Modo: " + modeLabel;
+
+    const fb = $("#filterBadge");
+    if(state.query.trim()){
+      fb.style.display = "";
+      fb.textContent = "Filtro: “" + state.query.trim().slice(0,60) + (state.query.trim().length>60 ? "…" : "") + "”";
+    } else {
+      fb.style.display = "none";
+      fb.textContent = "";
+    }
+
+    $("#collapseBtn").textContent = state.collapsed ? "Expandir todo" : "Comprimir todo";
+  }
+
+  function itemHTML(crit, isMatch){
+    return `
+      <div class="item ${isMatch ? "match" : ""}">
+        <div class="code">${escapeHTML(crit.code)}</div>
+        <div class="text">${highlightQuery(escapeHTML(crit.text), state.query)}</div>
+      </div>
+    `;
+  }
+
+  function getAllCriteriaByQuery(q){
+    const out = [];
+    if(!q) return out;
+    for(const c of DATA.courses){
+      for(const bid of ALL_BLOCKS){
+        const b = c.blocks[bid];
+        if(!b) continue;
+        for(const crit of (b.criteria||[])){
+          if(criterionMatchesQuery(crit, q)){
+            out.push({course:c, blockId:bid, block:b, crit});
+          }
+        }
+      }
+    }
+    return out;
+  }
+
+
+  function renderResults(){
+    const wrap = $("#results");
+    wrap.innerHTML = "";
+    const q = state.query.trim();
+
+    // 1. GLOBAL SEARCH
+    if(q){
+      const found = getAllCriteriaByQuery(q);
+      if(found.length === 0){
+        wrap.innerHTML = `<div class="empty"><b>Sen resultados.</b></div>`;
+        return;
+      }
+      // group by block
+      const byBlock = {};
+      for(const r of found){
+        byBlock[r.blockId] ||= [];
+        byBlock[r.blockId].push(r);
+      }
+      let out = "";
+      for(const blockId of ALL_BLOCKS){
+        const rows = byBlock[blockId];
+        if(!rows) continue;
+        out += `<div class="smallNote" style="margin:6px 0 8px 2px;font-weight:800">${blockId}</div>`;
+        out += `<div class="columns" style="--cols:1; margin-bottom:16px;">`;
+        out += `
+          <article class="colCard">
+            <div class="ch">
+              <div>
+                <div class="course">Resultados globais</div>
+                <div class="mini"><span class="dot"></span> ${blockId}</div>
+              </div>
+              <div class="mini">${rows.length}</div>
+            </div>
+            <div class="cb">
+              <div class="list">
+                ${rows.map(r => `
+                    <div class="item hit">
+                      <div class="code">${highlightQuery(escapeHTML(r.crit.code), q)}</div>
+                      <div class="text">${highlightQuery(escapeHTML(r.crit.text), q)}</div>
+                      <div class="mini">${escapeHTML(r.course.name)} · ${escapeHTML(r.block.title)}</div>
+                    </div>
+                `).join("")}
+              </div>
+            </div>
+          </article>
+        `;
+        out += `</div>`;
+      }
+      wrap.innerHTML = out;
+      return;
+    }
+
+    // 2. ONE COURSE MODE (Columns = Blocks)
+    if(state.mode === "onecourse"){
+      const course = byId(state.oneCourseId) || DATA.courses[0];
+      const blocks = Array.from(state.selectedBlocks).sort((a,b)=>ALL_BLOCKS.indexOf(a)-ALL_BLOCKS.indexOf(b));
+
+      if(blocks.length === 0){
+        wrap.innerHTML = `<div class="empty"><b>Non hai bloques seleccionados.</b><br/>Selecciona polo menos un bloque.</div>`;
+        return;
+      }
+
+      const cols = Math.min(6, Math.max(1, blocks.length));
+      
+      wrap.innerHTML = `
+        <div class="columns" style="--cols:${cols}">
+          ${blocks.map(bid=>{
+            const b = course.blocks[bid];
+            const list = (b.criteria||[]).filter(crit => criterionMatchesQuery(crit, q));
+            const body = state.collapsed
+              ? `<div class="smallNote">Comprimido.</div>`
+              : (list.length ? list.map(crit => itemHTML(crit, false)).join("") : `<div class="empty">Sen criterios.</div>`);
+            return `
+              <article class="colCard">
+                <div class="ch">
+                  <div>
+                    <div class="course">${escapeHTML(course.name)}</div>
+                    <div class="mini"><span class="dot"></span> ${bid} · ${escapeHTML(b.title)}</div>
+                  </div>
+                  <div class="mini">${list.length}</div>
+                </div>
+                <div class="cb">
+                  <div class="list">${body}</div>
+                </div>
+              </article>
+            `;
+          }).join("")}
+        </div>
+      `;
+      return;
+    }
+
+    // 3. COMPARISON MODE (Summative Stacking)
+    const selected = selectedCoursesArray();
+    if(selected.length === 0){
+      wrap.innerHTML = `<div class="empty"><b>Non hai cursos seleccionados.</b><br/>Activa polo menos un curso.</div>`;
+      return;
+    }
+    
+    // Sort selected blocks to maintain B1, B2... order in stack
+    const activeBlocks = ALL_BLOCKS.filter(b => state.selectedBlocks.has(b));
+    
+    if(activeBlocks.length === 0){
+        wrap.innerHTML = `<div class="empty"><b>Non hai bloques seleccionados.</b><br/>Selecciona bloques para ver o seu contido apilado.</div>`;
+        return;
+    }
+
+    const cols = Math.max(1, selected.length);
+
+    wrap.innerHTML = `
+      <div class="columns" style="--cols:${cols}">
+        ${selected.map(c => {
+          
+          // Generate Stacked Content
+          let stackHtml = "";
+          let totalMatchesInCard = 0;
+          let totalCriteriaInCard = 0;
+
+          activeBlocks.forEach(blockId => {
+             const b = c.blocks[blockId];
+             const all = b?.criteria || [];
+             const matches = computeGlobalMatchesForBlock(blockId); // Matches for this specific block across courses
+             
+             // Filter by query if needed
+             const filtered = all.filter(crit => criterionMatchesQuery(crit, q));
+             const matchCount = filtered.filter(crit => matches.has(crit.code)).length;
+             
+             totalMatchesInCard += matchCount;
+             totalCriteriaInCard += filtered.length;
+
+             const listHtml = state.collapsed
+                ? "" 
+                : (filtered.length 
+                    ? filtered.map(crit => itemHTML(crit, matches.has(crit.code))).join("") 
+                    : `<div class="empty" style="padding:8px;font-size:11px;">Sen resultados.</div>`);
+
+             if(!state.collapsed || filtered.length > 0){
+                 stackHtml += `
+                    <div class="blockSection">
+                        <div class="blockHeader">
+                            <span class="dot"></span> ${blockId} · ${escapeHTML(b.title)}
+                        </div>
+                        <div class="list">${listHtml}</div>
+                    </div>
+                 `;
+             }
+          });
+          
+          if(state.collapsed) stackHtml = `<div class="smallNote">Vista comprimida.</div>`;
+
+          return `
+            <article class="colCard">
+              <div class="ch">
+                <div>
+                  <div class="course">${escapeHTML(c.name)}</div>
+                </div>
+                <div class="mini">${totalCriteriaInCard} criterios</div>
+              </div>
+              <div class="cb">
+                ${stackHtml}
+              </div>
+            </article>
+          `;
+        }).join("")}
+      </div>
+    `;
+  }
+
+  // --- Similarity detection ---
+  const STOPWORDS = ["de","do","da","e","en","a","o","os","as","para","con","un","una","ou","que","por"];
+  function keywords(text){
+    return text.toLowerCase()
+      .replace(/[^a-záéíóúñçü ]/g," ")
+      .split(/\s+/)
+      .filter(w=>w.length>4 && !STOPWORDS.includes(w));
+  }
+  function markSimilarCriteria(){
+    const items = Array.from(document.querySelectorAll(".item"));
+    const map = {};
+    items.forEach(it=>{
+      const txt = it.querySelector(".text")?.textContent || "";
+      const keys = keywords(txt);
+      it.__keys = keys;
+      keys.forEach(k=>{
+        map[k] = map[k] || [];
+        map[k].push(it);
+      });
+    });
+    Object.values(map).forEach(list=>{
+      if(list.length>1){
+        list.forEach(it=>{
+          it.classList.add("similar");
+          const mini = it.querySelector(".mini");
+          // Avoid duplicating the label
+          if(mini && !mini.innerHTML.includes("similar")){
+             // Simple check, or just leave as is.
+          }
+        });
+      }
+    });
+  }
+
+  function render(){
+    renderCourses();
+    renderTabs();
+    renderTopBadges();
+    renderResults(); 
+    markSimilarCriteria();
+  }
+
+  // Events
+  $("#modeCoursesBtn").addEventListener("click", ()=>setMode("courses"));
+  $("#modeOneCourseBtn").addEventListener("click", ()=>setMode("onecourse"));
+
+  $("#q").addEventListener("input", (e)=>{
+    state.query = e.target.value || "";
+    renderTopBadges();
+    renderResults(); markSimilarCriteria();
+  });
+
+  $("#clearSearchBtn").addEventListener("click", ()=>{
+    state.query = "";
+    $("#q").value = "";
+    render();
+    $("#q").focus();
+  });
+
+  $("#allCoursesBtn").addEventListener("click", ()=>{
+    state.selectedCourses = new Set(DATA.courses.map(c=>c.id));
+    if(state.mode === "onecourse"){
+      state.oneCourseId = Array.from(state.selectedCourses)[0];
+    }
+    render();
+  });
+
+  $("#noneCoursesBtn").addEventListener("click", ()=>{
+    state.selectedCourses = new Set();
+    if(state.mode === "onecourse"){
+      state.selectedCourses.add(DATA.courses[0].id);
+      state.oneCourseId = DATA.courses[0].id;
+    }
+    render();
+  });
+
+  $("#resetBtn").addEventListener("click", ()=>{
+    state.mode = "courses";
+    state.selectedBlocks = new Set(["B1"]); // Reset to just B1 or ALL_BLOCKS? "Restablecer" implies default.
+    state.query = "";
+    state.selectedCourses = new Set(DATA.courses.map(c=>c.id));
+    state.oneCourseId = DATA.courses[0].id;
+    state.collapsed = false;
+    $("#q").value = "";
+    setMode("courses");
+  });
+
+  $("#collapseBtn").addEventListener("click", ()=>{
+    state.collapsed = !state.collapsed;
+    render();
+  });
+
+  // Init
+  setMode("courses");
+})();
+</script>
+</body>
+</html>

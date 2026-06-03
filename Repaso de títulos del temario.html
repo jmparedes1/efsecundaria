@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Práctica — Títulos y Números (EF Secundaria)</title>
+<style>
+  :root {
+    --bg: #f0f2f5;
+    --card: #ffffff;
+    --primary: #1e40af;
+    --primary-light: #dbeafe;
+    --secondary: #3b82f6;
+    --accent: #f59e0b;
+    --ink: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --ok: #10b981;
+    --bad: #ef4444;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; transition: background 0.2s, border 0.2s, transform 0.1s; }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    font-size: 16px;
+  }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:22px 28px;
+    background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.86));
+    border-radius: 20px;
+    border: 1px solid rgba(226,232,240,.9);
+    box-shadow: 0 18px 40px rgba(15,23,42,.10);
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  header::after{
+    content:"";
+    position:absolute;
+    inset:0 0 auto 0;
+    height:8px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  }
+
+  header::before{
+    content:"";
+    position:absolute;
+    right:-120px;
+    top:-140px;
+    width:320px;
+    height:320px;
+    background: radial-gradient(circle at 30% 30%, rgba(59,130,246,.25), rgba(30,64,175,0) 60%);
+    transform: rotate(12deg);
+    pointer-events:none;
+  }
+
+  .brand { display: flex; align-items: center; gap: 20px; }
+  .brand img{ height: 84px; width: auto; filter: drop-shadow(0 6px 10px rgba(15,23,42,.12)); }
+  
+  .title-group{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .title{
+    margin:0;
+    font-size: clamp(24px, 2.6vw, 34px);
+    font-weight: 950;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    line-height: 1.02;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:baseline;
+  }
+
+  .title .t1{
+    /* acento moderno (gradiente suave) */
+    background: linear-gradient(90deg, rgba(59,130,246,1), rgba(16,185,129,1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 10px 24px rgba(15,23,42,.08);
+  }
+
+  .title .t2{
+    color: rgba(15,23,42,.65);
+    font-weight: 800;
+    letter-spacing: .06em;
+    font-size: .78em;
+  }
+
+  .subtitle{
+    width: fit-content;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(15,23,42,.62);
+    background: rgba(255,255,255,.72);
+    border: 1px solid rgba(226,232,240,.95);
+    box-shadow: 0 8px 18px rgba(15,23,42,.06);
+  }
+
+  .prof{ display:flex; align-items:center; gap:10px; background: rgba(219,234,254,.75); border: 1px solid rgba(191,219,254,.9); padding: 10px 14px; border-radius: 14px; box-shadow: 0 10px 18px rgba(15,23,42,.08); }
+  .prof-name{ font-weight: 900; font-size: 14px; color: var(--primary); letter-spacing: .02em; }
+
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  
+  .tabs { 
+    display: flex; gap: 4px; padding: 12px; background: #f8fafc; border-bottom: 1px solid var(--border); 
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab { 
+    white-space: nowrap; border: 1px solid transparent; background: transparent; 
+    color: var(--muted); padding: 10px 16px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 14px;
+  }
+  .tab:hover { background: var(--primary-light); color: var(--primary); }
+  .tab[aria-selected="true"] { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+  .content { padding: 32px; min-height: 450px; }
+
+  .card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; position: relative; }
+  
+  .big { font-size: 140px; font-weight: 900; color: var(--primary); line-height: 1; margin: 10px 0; letter-spacing: -4px; }
+  .prompt-xl { font-size: 36px; font-weight: 800; color: var(--ink); margin-bottom: 15px; line-height: 1.2; }
+  .prompt { font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 15px; line-height: 1.3; }
+  
+  .muted { color: var(--muted); font-size: 14px; }
+
+  .mc { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-top: 20px; }
+  .opt { 
+    text-align: left; border: 2px solid var(--border); background: #fff; border-radius: 12px; 
+    padding: 16px; cursor: pointer; font-weight: 600; font-size: 15px; color: var(--ink);
+  }
+  .opt:hover:not(:disabled) { border-color: var(--secondary); background: var(--primary-light); }
+  .opt.good { border-color: var(--ok); background: #ecfdf5; color: #065f46; }
+  .opt.bad { border-color: var(--bad); background: #fef2f2; color: #991b1b; }
+
+  .btn { 
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 24px; border-radius: 12px; border: 1px solid var(--border); background: #fff;
+    font-weight: 700; cursor: pointer; font-size: 15px;
+  }
+  .btn:hover { background: #f1f5f9; }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+  input, select { 
+    padding: 12px 18px; border-radius: 12px; border: 2px solid var(--border); 
+    font-size: 16px; font-weight: 600; outline: none; background: #f8fafc; width: 100%;
+  }
+
+  .pill { 
+    display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 999px; 
+    font-weight: 700; font-size: 13px; background: #f1f5f9; border: 1px solid var(--border);
+  }
+  .pill.ok { background: #d1fae5; color: #065f46; border-color: #10b981; }
+  .pill.bad { background: #fee2e2; color: #991b1b; border-color: #ef4444; }
+
+  .list-item { 
+    display: flex; align-items: flex-start; gap: 15px; padding: 18px; background: #fff; 
+    border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; 
+  }
+  .list-n { font-weight: 900; font-size: 22px; color: var(--primary); min-width: 50px; }
+  .list-content { flex: 1; }
+  .list-t { font-weight: 600; font-size: 16px; color: var(--ink); line-height: 1.4; display: none; margin-top: 8px; border-left: 3px solid var(--primary-light); padding-left: 12px; }
+  .btn-reveal { 
+    background: var(--primary-light); color: var(--primary); border: none; padding: 6px 12px; 
+    border-radius: 8px; font-weight: 800; font-size: 12px; cursor: pointer; text-transform: uppercase;
+  }
+
+  .index-item {
+    display: grid; grid-template-columns: 40px 1fr; gap: 15px; padding: 12px 16px;
+    border-bottom: 1px solid var(--border); align-items: center;
+  }
+  .index-n { font-weight: 800; color: var(--primary); font-size: 18px; }
+  .index-t { font-size: 15px; font-weight: 500; color: var(--ink); }
+
+  .match-row { display: grid; grid-template-columns: 1fr 100px; gap: 10px; margin-bottom: 8px; align-items: center; }
+  .match-t { font-size: 14px; font-weight: 500; }
+  
+  #listWrap, #indexWrap { max-height: 600px; overflow-y: auto; }
+
+  /* Estilos específicos para el nuevo módulo de seguimiento */
+  .tracking-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+  .tracking-table th { background: #f8fafc; text-align: left; padding: 12px 8px; border-bottom: 2px solid var(--border); color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+  .tracking-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); }
+  .tracking-table tr:hover { box-shadow: inset 0 0 0 9999px rgba(15,23,42,.03); }
+  .tracking-num { font-weight: 800; color: var(--primary); width: 40px; }
+  .tracking-title { font-weight: 600; max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .check-cell { text-align: center; width: 80px; }
+  .check-cell input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary); }
+
+  .user-dot{
+    display:inline-block;
+    width:10px;
+    height:10px;
+    border-radius:999px;
+    margin-right:8px;
+    background: var(--ok);
+    box-shadow: 0 0 0 4px rgba(16,185,129,.18);
+    vertical-align: middle;
+  }
+
+  header .btn#btnFs{
+    border-radius: 12px !important;
+    border-color: rgba(30,64,175,.25) !important;
+    background: rgba(255,255,255,.85) !important;
+  }
+  header .btn#btnFs:hover{
+    transform: translateY(-1px);
+    background: rgba(255,255,255,1) !important;
+  }
+
+  @media (max-width: 720px){
+    header{ padding:18px 18px; }
+    .brand{ gap:14px; }
+    .brand img{ height:64px; }
+    .prof{ width:100%; justify-content: space-between; }
+  }
+
+
+  
+  /* Progreso por colores (Temas estudiados y Tablero) – esquema intenso */
+  .trk-0{ background:#ffffff; }
+  .trk-1{ background:#fecaca; }   /* rojo */
+  .trk-2{ background:#fed7aa; }   /* naranja */
+  .trk-3{ background:#fef08a; }   /* amarillo */
+  .trk-4{ background:#bfdbfe; }   /* azul */
+  .trk-5{ background:#bbf7d0; }   /* verde claro */
+  .trk-6{ background:#4ade80; color:#064e3b; } /* verde oscuro */  /* verde oscuro (suave) */
+  .trk-6 td.tracking-num{ color: #065f46; } /* refuerzo */
+/* refuerzo */
+
+
+  header .pill#studiedCount{
+    background: #e7fbe9;
+    border-color: #10b981;
+    color: #065f46;
+    font-size: 13px;
+    margin-left: 8px;
+  }
+
+  /* Tablero 65 (colores por progreso) – esquema intenso */
+  .tile.trk-0{ background:#ffffff; }
+  .tile.trk-1{ background:#fecaca; }
+  .tile.trk-2{ background:#fed7aa; }
+  .tile.trk-3{ background:#fef08a; }
+  .tile.trk-4{ background:#bfdbfe; }
+  .tile.trk-5{ background:#bbf7d0; }
+  .tile.trk-6{ background:#4ade80; color:#064e3b; }
+
+  
+
+  /* Tablero (mosaico) */
+  .board-grid{
+    display: grid;
+    grid-template-columns: repeat(13, minmax(44px, 1fr));
+    gap: 10px;
+    padding: 10px;
+    background: linear-gradient(180deg, rgba(15,23,42,.03), rgba(15,23,42,0));
+    border: 1px solid rgba(226,232,240,.9);
+    border-radius: 18px;
+  }
+
+  .tile{
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: .02em;
+    border-radius: 14px;
+    border: 1px solid rgba(15,23,42,.10);
+    box-shadow: 0 8px 18px rgba(15,23,42,.10);
+    user-select: none;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tile::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.55), rgba(255,255,255,0) 55%);
+    pointer-events:none;
+  }
+
+  .tile:hover{
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 14px 26px rgba(15,23,42,.14);
+  }
+@media (max-width: 900px){
+    .board-grid{ grid-template-columns: repeat(10, minmax(40px, 1fr)); }
+  }
+  @media (max-width: 600px){
+    .board-grid{ grid-template-columns: repeat(7, minmax(38px, 1fr)); }
+  }
+
+
+  /* Barra de progreso debajo del encabezado */
+  .hdr-progress{
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 24px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(226,232,240,.95);
+    background: rgba(255,255,255,.78);
+    box-shadow: 0 10px 18px rgba(15,23,42,.06);
+  }
+  .hdr-progress-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom: 8px;
+  }
+  .hdr-progress-title{
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hdr-progress-val{
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--primary);
+  }
+  .hdr-progress-track{
+    height: 12px;
+    border-radius: 999px;
+    background: rgba(148,163,184,.30);
+    overflow:hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.12);
+  }
+  .hdr-progress-bar{
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ef4444, #f59e0b, #facc15, #3b82f6, #10b981);
+    transition: width .6s ease;
+  }
+
+
+/* Alinear ancho de encabezado y barra */
+.page-width{
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Igualar ancho de módulos con encabezado */
+.main,
+.modulo,
+section{
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Ajuste encabezado: Profesor + nombre */
+.prof-name{
+  display:flex;
+  gap:6px;
+  align-items:baseline;
+}
+.prof-label{
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.prof-user{
+  font-size: 12px;
+  color: rgba(15,23,42,.55);
+  font-weight: 700;
+}
+
+
+/* Nombre del profesor en título: pequeño y gris */
+.prof-user-small{
+  font-size: 12px;
+  color: rgba(15,23,42,.55);
+  font-weight: 700;
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="page-width">
+    <div class="brand">
+      <img src="https://www.salvour.com/s/cc_images/cache_2491734547.gif?t=1767110894" alt="Logo">
+      <div class="title-group">
+        <h1 class="title"><span class="t1">TEMAS</span> <span class="t2">EF SECUNDARIA</span></h1>
+        <div class="subtitle">REPASO DE TÍTULOS DEL TEMARIO</div>
+      </div>
+    </div>
+    <div class="prof">
+      <div class="prof-name"><span class="user-dot" aria-hidden="true"></span>José Manuel Paredes</div> <button class="btn" id="btnFs" style="padding: 8px 12px; font-size: 12px;">Fullscreen</button>
+    </div>
+</header>
+          <div class="hdr-progress-val"><span id="hdrProbVal"></span></div>
+        </div>
+        </div>
+      </div>
+
+<section class="panel">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-tab="modo-num">Nº → Título</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="modo-tit">Título → Nº</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="modo-match">Emparejar</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="modo-tarj">Tarjetas</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="modo-vf">V / F</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="modo-write">Escribir</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="modo-lista">Autoevaluación</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="modo-indice">Índice Visible</button>    </div>
+
+    <div class="content">
+      <!-- MODO 1: N -> T -->
+      <div id="modo-num" class="tabpane">
+        <div class="card">
+          <div class="muted">¿A qué tema corresponde este número?</div>
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="big" id="qNum">01</div>
+            <button class="btn" id="numSkip">Saltar →</button>
+          </div>
+          <div class="mc" id="numOptions"></div>
+          <div style="margin-top: 25px;"><span class="pill" id="numStats">Aciertos: 0 · Fallos: 0</span></div>
+        </div>
+      </div>
+
+      <!-- MODO 2: T -> N -->
+      <div id="modo-tit" class="tabpane" style="display:none">
+        <div class="card">
+          <div class="muted">Escribe el número del tema:</div>
+          <div class="prompt" id="tPrompt" style="margin-top: 15px;">—</div>
+          <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <input id="tAnswer" type="number" min="1" max="65" placeholder="Escribe el nº">
+            <button class="btn primary" id="tCheck">Verificar</button>
+          </div>
+          <div style="margin-top: 15px; height: 30px;">
+            <span class="pill" id="tFeedback" style="display:none"></span>
+          </div>
+          <button class="btn" id="tNext" style="margin-top: 10px;">Siguiente Tema</button>
+        </div>
+      </div>
+
+      <!-- MODO 3: Emparejar -->
+      <div id="modo-match" class="tabpane" style="display:none">
+        <div class="card">
+          <div class="prompt">Relaciona los títulos con su número</div>
+          <div id="matchArea" style="margin: 20px 0;"></div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn primary" id="matchCheck">Corregir</button>
+            <button class="btn" id="matchNew">Nueva Ronda</button>
+          </div>
+          <div style="margin-top:15px;"><span class="pill" id="matchFeedback" style="display:none"></span></div>
+        </div>
+      </div>
+
+      <!-- MODO 4: Tarjetas -->
+      <div id="modo-tarj" class="tabpane" style="display:none">
+        <div class="card" style="text-align: center;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <span class="pill" id="fcPos">1 / 65</span>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button class="btn" id="fcShuffle" title="Mezclar orden">🔀 Mezclar</button>
+                <div style="width: 180px;">
+                    <select id="fcModeSelector" style="padding: 6px 10px; font-size: 13px;">
+                        <option value="n-t">Frente: Número</option>
+                        <option value="t-n">Frente: Título</option>
+                    </select>
+                </div>
+            </div>
+          </div>
+          
+          <div id="fcContainer" class="card" style="min-height: 400px; cursor: pointer; background: #f8fafc; display: flex; flex-direction: column; justify-content: center; padding: 40px;">
+            <div class="big" id="fcFront" style="margin:0;">01</div>
+            <div class="prompt-xl" id="fcBack" style="display:none; margin-top: 0px; color: var(--primary);">—</div>
+            <div class="muted" id="fcHelp" style="margin-top: 20px;">Toca para voltear</div>
+          </div>
+          
+          <div style="margin-top: 30px; display: flex; justify-content: center; gap: 10px;">
+            <button class="btn" id="fcPrev">← Anterior</button>
+            <button class="btn" id="fcNext">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODO 5: V/F -->
+      <div id="modo-vf" class="tabpane" style="display:none">
+        <div class="card" style="text-align: center;">
+          <div class="muted">¿Es correcto este número para este título?</div>
+          <div class="card" style="margin: 20px 0; background: #f8fafc;">
+             <div class="big" id="vfNum">01</div>
+             <div class="prompt" id="vfTitle" style="min-height: 60px;">—</div>
+          </div>
+          <div style="display: flex; gap: 15px; justify-content: center;">
+            <button class="btn" id="vfTrue" style="border-color: var(--ok); color: var(--ok);">Verdadero</button>
+            <button class="btn" id="vfFalse" style="border-color: var(--bad); color: var(--bad);">Falso</button>
+          </div>
+          <div style="margin-top: 20px; height: 30px;">
+            <span class="pill" id="vfFeedback" style="display:none"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODO 6: Escribir -->
+      <div id="modo-write" class="tabpane" style="display:none">
+        <div class="card">
+          <div class="muted">Escribe el nombre del tema (se permite margen de error):</div>
+          <div class="big" id="wNum">01</div>
+          <input id="wAnswer" type="text" placeholder="Escribe el nombre del tema...">
+          <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <button class="btn primary" id="wCheck">Verificar</button>
+            <button class="btn" id="wSkip">Saltar</button>
+          </div>
+          <div style="margin-top: 20px; height: 60px;">
+            <span class="pill" id="wFeedback" style="display:none; white-space: normal; line-height: 1.2; text-align: left; padding: 10px;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODO 7: AUTOEVALUACIÓN -->
+      <div id="modo-lista" class="tabpane" style="display:none">
+        <div class="card">
+          <div class="muted" style="margin-bottom: 10px;">Títulos ocultos para practicar:</div>
+          <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <input id="listSearch" type="text" placeholder="Filtrar autoevaluación...">
+            <button class="btn" id="listClear">Limpiar</button>
+          </div>
+          <div id="listWrap"></div>
+        </div>
+      </div>
+
+      <!-- MODO 8: Índice Visible -->
+      <div id="modo-indice" class="tabpane" style="display:none">
+        <div class="card">
+          <div class="muted" style="margin-bottom: 10px;">Consulta rápida de todos los títulos:</div>
+          <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <input id="indexSearch" type="text" placeholder="Buscar en el índice completo...">
+            <button class="btn" id="indexClear">Limpiar</button>
+          </div>
+          <div id="indexWrap"></div>
+        </div>
+      </div>
+</div>
+  </section>
+</div>
+
+<script>
+// Base de datos
+const ORIGINAL_DATA = [{"n": 1, "t": "Epistemología y evolución Educación Física"}, {"n": 2, "t": "Educación Física en sistema educativo"}, {"n": 3, "t": "Taxonomías y didáctica motriz"}, {"n": 4, "t": "Contenidos y corrientes Educación Física"}, {"n": 5, "t": "Coeducación e igualdad en Educación Física"}, {"n": 6, "t": "Atención diversidad y adaptaciones curriculares"}, {"n": 7, "t": "Desarrollo motor en edad escolar"}, {"n": 8, "t": "Evaluación del desarrollo motor"}, {"n": 9, "t": "Análisis del ejercicio físico"}, {"n": 10, "t": "Sistemas naturales en Educación Física"}, {"n": 11, "t": "Sistemas analíticos en Educación Física"}, {"n": 12, "t": "Sistemas rítmicos en Educación Física"}, {"n": 13, "t": "Condición física en Secundaria"}, {"n": 14, "t": "Principios del entrenamiento físico"}, {"n": 15, "t": "Calentamiento: fundamentos y aplicación"}, {"n": 16, "t": "Capacidades físicas básicas"}, {"n": 17, "t": "Carga y variables del entrenamiento"}, {"n": 18, "t": "Adaptación al esfuerzo físico"}, {"n": 19, "t": "Sistemas energéticos y ejercicio"}, {"n": 20, "t": "Resistencia: teoría y aplicación"}, {"n": 21, "t": "Sistema cardiorrespiratorio y ejercicio"}, {"n": 22, "t": "Fuerza: teoría y aplicación escolar"}, {"n": 23, "t": "Sistema muscular y ejercicio"}, {"n": 24, "t": "Velocidad: teoría y aplicación escolar"}, {"n": 25, "t": "Sistema nervioso y movimiento"}, {"n": 26, "t": "Flexibilidad: teoría y aplicación escolar"}, {"n": 27, "t": "Sistema óseo-articular y ejercicio"}, {"n": 28, "t": "Agilidad y su desarrollo"}, {"n": 29, "t": "Cualidades motrices y coordinación"}, {"n": 30, "t": "Habilidades motrices básicas"}, {"n": 31, "t": "Respiración en Educación Física"}, {"n": 32, "t": "Relajación en Educación Física"}, {"n": 33, "t": "Deporte como fenómeno educativo"}, {"n": 34, "t": "Aprendizaje deportivo escolar"}, {"n": 35, "t": "Deportes individuales: fundamentos"}, {"n": 36, "t": "Deportes individuales en el currículo"}, {"n": 37, "t": "Deportes de adversario: fundamentos"}, {"n": 38, "t": "Deportes de adversario en currículo"}, {"n": 39, "t": "Deportes colectivos: fundamentos"}, {"n": 40, "t": "Deportes colectivos en currículo"}, {"n": 41, "t": "Recreación y tiempo libre"}, {"n": 42, "t": "Juegos tradicionales y populares"}, {"n": 43, "t": "El juego en Educación Física"}, {"n": 44, "t": "Expresión corporal y comunicación"}, {"n": 45, "t": "Danza y expresión corporal"}, {"n": 46, "t": "Dramatización y lenguaje corporal"}, {"n": 47, "t": "Actividades físicas en naturaleza"}, {"n": 48, "t": "Orientación en medio natural"}, {"n": 49, "t": "Nutrición y actividad física"}, {"n": 50, "t": "Prevención y primeros auxilios"}, {"n": 51, "t": "Postura corporal y salud"}, {"n": 52, "t": "Actividad física y salud"}, {"n": 53, "t": "Fundamentos del aprendizaje motor"}, {"n": 54, "t": "Fases del aprendizaje motor"}, {"n": 55, "t": "Procesamiento de información motriz"}, {"n": 56, "t": "Retroalimentación y control motor"}, {"n": 57, "t": "Tareas y habilidades motrices"}, {"n": 58, "t": "Métodos de enseñanza en Educación Física"}, {"n": 59, "t": "Enseñanza por reproducción de modelos"}, {"n": 60, "t": "Enseñanza por descubrimiento guiado"}, {"n": 61, "t": "Instalaciones y materiales Educación Física"}, {"n": 62, "t": "Investigación en Educación Física"}, {"n": 63, "t": "Evaluación de capacidades físicas"}, {"n": 64, "t": "Evaluación de cualidades motrices"}, {"n": 65, "t": "Municipio y actividad física"}];
+
+const FULL_TITLES = [{"n": 1, "t": "Epistemología de la Educación Física: evolución y desarrollo de las distintas concepciones y de su objeto de estudio."}, {"n": 2, "t": "La Educación Física en el sistema educativo. Historia y evolución de las funciones de la Educación Física. Evolución del modelo curricular de la Educación Física escolar."}, {"n": 3, "t": "Las taxonomías de objetivos y su valor didáctico. Taxonomías del ámbito motor: aplicaciones prácticas para el desarrollo del proceso de enseñanza y aprendizaje en Educación Física."}, {"n": 4, "t": "Los contenidos de la Educación Física: evolución y corrientes que han originado. Valor y tratamiento educativo que han recibido las corrientes más extendidas."}, {"n": 5, "t": "La coeducación e igualdad de los sexos en el contexto escolar. Estereotipos y actitudes sexistas en Educación Física: tratamiento educativo a través de los objetivos, contenidos, metodología y actividades de enseñanza de la Educación Física."}, {"n": 6, "t": "Adaptaciones curriculares y Educación Física. La atención y tratamiento de las necesidades educativas especiales en los elementos de acceso al currículo y en los elementos básicos del mismo (objetivos, contenidos, criterios de evaluación y metodología)."}, {"n": 7, "t": "Desarrollo motor: el crecimiento y la evolución de aspectos cuantitativos y cualitativos más relevantes para el movimiento humano en la edad escolar."}, {"n": 8, "t": "Medición y evaluación del desarrollo motor. Tendencias en los aspectos a evaluar. Procedimientos e instrumentos para la medición y evaluación del desarrollo motor."}, {"n": 9, "t": "Estructura del ejercicio físico. Forma y técnica. Análisis de los elementos mecánicos, kinesiológicos y funcionales. Repercusiones en la Educación Física escolar."}, {"n": 10, "t": "Los sistemas naturales en Educación Física. Evolución y aspectos técnicos. Aplicaciones actuales."}, {"n": 11, "t": "Los sistemas analíticos en Educación Física. Evolución y aspectos técnicos. Aplicaciones actuales."}, {"n": 12, "t": "Los sistemas rítmicos en Educación Física. Evolución y aspectos técnicos. Aplicaciones actuales."}, {"n": 13, "t": "La condición física. Concepción y evolución de las corrientes. Sistemas de desarrollo de la condición física: clasificación, características y consideraciones para su aplicación en el marco de la Educación Secundaria."}, {"n": 14, "t": "Principios básicos para el adecuado desarrollo de la condición física (continuidad, progresión, individualización, etc.)."}, {"n": 15, "t": "El calentamiento: fundamentos y tipos. Funciones : calentamiento y rendimiento, calentamiento y prevención de lesiones, calentamiento y aprendizaje. Criterios para la elaboración de tareas de calentamiento general y específico."}, {"n": 16, "t": "Capacidades físicas básicas. Concepto, clasificaciones y evolución de las mismas. Evolución en el desarrollo motor de los alumnos y alumnas de Educación Secundaria."}, {"n": 17, "t": "Factores que intervienen en el trabajo de desarrollo de la condición física: intensidad y volumen; recuperación, duración y repeticiones."}, {"n": 18, "t": "La adaptación del organismo al esfuerzo en la actividad física. El síndrome general de adaptación. Repercusiones para el desarrollo de la condición física."}, {"n": 19, "t": "Procesos energéticos y actividad física: sistemas aeróbico y anaeróbico."}, {"n": 20, "t": "La resistencia como capacidad física básica. Consideraciones teóricas. Tipos de resistencia. Tratamiento y criterios para el diseño de tareas para su desarrollo en el marco escolar."}, {"n": 21, "t": "El sistema cardio-respiratorio. Estructura y funciones. características particulares del período evolutivo correspondiente a la etapa. Consideraciones a tener presentes en la clase de Educación Física."}, {"n": 22, "t": "La fuerza como capacidad física básica. Consideraciones básicas. Tipos de fuerza. Tratamiento y criterios para el diseño de tareas para su desarrollo en el marco escolar."}, {"n": 23, "t": "El sistema muscular. Estructura y funciones. Características particulares del período evolutivo correspondiente a la etapa. Consideraciones a tener presentes en la clase de educación Física."}, {"n": 24, "t": "La velocidad como capacidad física básica. Consideraciones teóricas. Tipos de velocidad. Tratamiento y criterios para el diseño de tareas para su desarrollo en el marco escolar."}, {"n": 25, "t": "El sistema nervioso. Organización del sistema nervioso. Niveles de funciones. Características particulares del período evolutivo correspondiente a la etapa. Consideraciones a tener presentes en la clase de Educación Física."}, {"n": 26, "t": "La flexibilidad como capacidad física básica. Consideraciones teóricas. Tipos de la flexibilidad. Tratamiento y criterios para el diseño de tareas para su desarrollo en el marco escolar."}, {"n": 27, "t": "El sistema óseo-articular. Estructura y funciones. Características particulares del período evolutivo correspondiente a la etapa. Consideraciones a tener presentes en la clase de Educación Física."}, {"n": 28, "t": "La agilidad como capacidad resultante. Tratamiento y criterios para el diseño de tareas para su desarrollo en el marco escolar. Aspectos fisiológicos implicados."}, {"n": 29, "t": "Las cualidades motrices: concepto y clasificación. La coordinación y el equilibrio como aspectos cualitativos del movimiento. Métodos y sistemas para su desarrollo. Evolución en el desarrollo motor de los alumnos y alumnas de Educación Secundaria."}, {"n": 30, "t": "Las habilidades básicas. Concepto, clasificación y análisis. Evolución en el desarrollo motor de los alumnos y las alumnas de Educación Secundaria. Función en el currículo de Educación Física para la Educación Secundaria."}, {"n": 31, "t": "La respiración como contenido específico en la Educación Secundaria. Bases psicofisiológicas. Mecánica de la respiración y fases o tipos de la misma. Influencia de los ritmos respiratorios en la actividad física. Diseño de actividades y ubicación de las mismas para su tratamiento en el contexto escolar."}, {"n": 32, "t": "La relajación como contenido específico en la Educación Secundaria. Análisis de técnicas: aspectos psicofisiológicos implicados, valor educativo de las mismas y directrices para su tratamiento en el marco escolar."}, {"n": 33, "t": "El deporte como fenómeno social y cultural. Concepto y tratamiento pedagógico, características para convertirse en hecho educativo."}, {"n": 34, "t": "El aprendizaje deportivo en el marco escolar. Características. Modelos de enseñanza: fases en su enseñanza y aprendizaje."}, {"n": 35, "t": "Los deportes individuales. Aspectos técnicos, tácticos y reglamentarios. Ejemplificaciones sobre algunos deportes."}, {"n": 36, "t": "Los deportes individuales como contenido de enseñanza en el currículum del área. Intenciones educativas y de aprendizaje, posibles adaptaciones y orientaciones para tratamiento didáctico."}, {"n": 37, "t": "Los deportes de adversario. Aspectos técnicos, tácticos y reglamentarios. Ejemplificaciones sobre algunos deportes."}, {"n": 38, "t": "Los deportes de adversario como contenido de enseñanza en el currículum del área. Intenciones educativas y de aprendizaje, posibles adaptaciones y orientaciones para tratamiento didáctico."}, {"n": 39, "t": "Los deportes colectivos. Aspectos técnicos, tácticos y reglamentarios. Ejemplificaciones sobre algunos deportes."}, {"n": 40, "t": "Los deportes colectivos como contenido de enseñanza en el currículum del área. Intenciones educativas y de aprendizaje, posibles adaptaciones y orientaciones para su tratamiento didáctico."}, {"n": 41, "t": "Recreación y tiempo libre: concepto y evolución. Los juegos deportivo-recreativos: aspectos educativos de los mismos y su contribución al currículo de la Educación Física."}, {"n": 42, "t": "Los juegos y deportes tradicionales y populares: conceptos y clasificaciones. Valor cultural y educativo de los mismos."}, {"n": 43, "t": "El juego: teorías y características del mismo. El juego como actividad física organizada. Estrategias del juego. El juego como contenido de la Educación Física y como recurso didáctico. Los juegos modificados."}, {"n": 44, "t": "El cuerpo y el movimiento como elementos de expresión y comunicación. Elementos fundamentales de la expresión: del uso técnico y significado de la intensidad, tiempo y espacio de los movimientos. Rasgos característicos de las manifestaciones expresivas corporales y su valor educativo."}, {"n": 45, "t": "La danza como manifestación expresiva y de comunicación. Evolución de la danza. Danza tradicional. Danza moderna, Posibles adaptaciones al contexto escolar."}, {"n": 46, "t": "La dramatización: el lenguaje del gesto y la postura. Técnicas básicas. Posibles adaptaciones al contexto escolar."}, {"n": 47, "t": "Actividades en el medio natural. Tipos, clasificaciones y recursos. Organización de actividades físicas en la naturaleza."}, {"n": 48, "t": "La orientación en el medio natural. Conceptos y recursos para la orientación. Orientación y actividad física: juegos y actividades de orientación."}, {"n": 49, "t": "Nutrición y actividad física. Metabolismo basal y calorías. Tipos de actividad física y gasto energético. La dieta equilibrada: aspectos cuantitativos y cualitativos de la dieta."}, {"n": 50, "t": "Aspectos preventivos en la práctica de actividad física y actuación en accidentes deportivos. Lesiones más frecuentes relacionadas con el sistema locomotor: primeros auxilios."}, {"n": 51, "t": "La postura corporal y sus patologías: implicaciones en el desarrollo del adolescente. Prevención y tratamiento en el marco escolar."}, {"n": 52, "t": "Salud y actividad física. Efectos positivos y contraindicaciones de la actividad física en la salud y calidad de vida."}, {"n": 53, "t": "El aprendizaje motor: evolución histórica y fundamentación teórica de las actuales concepciones. Modelos teóricos explicativos del aprendizaje motor."}, {"n": 54, "t": "El aprendizaje motor: fases de la adquisición motriz y factores que influyen en el aprendizaje motor. La transferencia y el aprendizaje motor."}, {"n": 55, "t": "El modelo de procesamiento de la información: la percepción, decisión, ejecución y control del movimiento. Repercusiones en el proceso de enseñanza y aprendizaje."}, {"n": 56, "t": "Control del movimiento y retroalimentación: El conocimiento de los resultados. Tipos y características del conocimiento de los resultados. Valor del conocimiento de los resultados en el aprendizaje motor."}, {"n": 57, "t": "Habilidad y tareas motrices: conceptos, clasificaciones y análisis de los aspectos fundamentales para su enseñanza y aprendizaje."}, {"n": 58, "t": "Métodos y estrategias de enseñanza en Educación Física. Tendencias y clasificaciones. Utilización según el análisis de las tareas de aprendizaje y las características de los alumnos y de las alumnas."}, {"n": 59, "t": "La enseñanza y aprendizaje basados en la recepción: la reproducción de modelos. Papel del profesor y del alumnos en este enfoque de la enseñanza y el aprendizaje."}, {"n": 60, "t": "La enseñanza y aprendizaje basados en el descubrimiento. La resolución de problemas y el descubrimiento guiado. Papel del profesor y del alumno en este enfoque de la enseñanza y el aprendizaje."}, {"n": 61, "t": "Las instalaciones para la Educación Física y su equipamiento. Conceptos básicos. Organización y normas para su uso. La autoconstrucción de materiales útiles para la actividad física."}, {"n": 62, "t": "La investigación en Educación Física. Paradigmas cuantitativos y cualitativos de investigación. La investigación-acción en la Educación Física."}, {"n": 63, "t": "La evaluación de las capacidades físicas. Técnicas, instrumentos y registro de los datos. Las pruebas de capacidad física: usos y valor formativo."}, {"n": 64, "t": "La evaluación de las cualidades motrices (capacidades coordinativas). Técnicas, instrumentos y registro de los datos. Las pruebas de capacidad motriz: usos y valor formativo."}, {"n": 65, "t": "El municipio y la práctica de actividades físicas. Recursos materiales y humanos. Implicaciones en el currículo de la Educación Física escolar."}];
+
+let currentData = [...ORIGINAL_DATA];
+
+const $ = (q)=>document.querySelector(q);
+const $$ = (q)=>Array.from(document.querySelectorAll(q));
+const pad2 = (n)=>String(n).padStart(2,'0');
+const shuffle = (arr)=>arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+
+let stats = { ok: 0, bad: 0 };
+
+// TABS
+const tabs = $$('.tab');
+tabs.forEach(btn=>btn.addEventListener('click', ()=>{
+  tabs.forEach(t=>t.setAttribute('aria-selected','false'));
+  btn.setAttribute('aria-selected','true');
+  $$('.tabpane').forEach(p=>p.style.display='none');
+  const targetId = btn.dataset.tab;
+  $(`#${targetId}`).style.display='block';
+  initTab(targetId);
+}));
+
+function initTab(id) {
+  if (id === 'modo-num') newNumQuestion();
+  if (id === 'modo-tit') newTitQuestion();
+  if (id === 'modo-match') newMatchRound();
+  if (id === 'modo-tarj') updateFc();
+  if (id === 'modo-vf') newVfQuestion();
+  if (id === 'modo-write') newWriteQuestion();
+  if (id === 'modo-lista') renderList();
+  if (id === 'modo-indice') renderIndex();
+}
+
+// MODO 1: Nº -> TIT
+function newNumQuestion(){
+  const item = ORIGINAL_DATA[Math.floor(Math.random()*ORIGINAL_DATA.length)];
+  $('#qNum').textContent = pad2(item.n);
+  const opts = shuffle([item, ...shuffle(ORIGINAL_DATA.filter(x=>x.n!==item.n)).slice(0,3)]);
+  $('#numOptions').innerHTML = '';
+  opts.forEach(o => {
+    const b = document.createElement('button'); b.className='opt'; b.textContent=o.t;
+    b.onclick = () => {
+      $$('#numOptions .opt').forEach(x=>x.disabled=true);
+      if(o.n === item.n) { b.classList.add('good'); stats.ok++; }
+      else { b.classList.add('bad'); stats.bad++; $$('#numOptions .opt').find(x=>x.textContent===item.t).classList.add('good'); }
+      $('#numStats').textContent = `Aciertos: ${stats.ok} · Fallos: ${stats.bad}`;
+      setTimeout(newNumQuestion, 1500);
+    };
+    $('#numOptions').appendChild(b);
+  });
+}
+$('#numSkip').onclick = newNumQuestion;
+
+// MODO 2: TIT -> Nº
+let currentTit = null;
+function newTitQuestion(){
+  currentTit = ORIGINAL_DATA[Math.floor(Math.random()*ORIGINAL_DATA.length)];
+  $('#tPrompt').textContent = currentTit.t;
+  $('#tAnswer').value = '';
+  $('#tFeedback').style.display = 'none';
+}
+$('#tCheck').onclick = () => {
+  const ans = parseInt($('#tAnswer').value);
+  const fb = $('#tFeedback'); fb.style.display = 'inline-flex';
+  if(ans === currentTit.n) { fb.textContent = '¡Correcto!'; fb.className = 'pill ok'; }
+  else { fb.textContent = `Error. Era el ${pad2(currentTit.n)}`; fb.className = 'pill bad'; }
+};
+$('#tNext').onclick = newTitQuestion;
+
+// MODO 3: EMPAREJAR
+function newMatchRound(){
+  const items = shuffle(ORIGINAL_DATA).slice(0, 5);
+  const nums = shuffle(items.map(i=>i.n));
+  const area = $('#matchArea'); area.innerHTML = '';
+  items.forEach((it, idx) => {
+    const row = document.createElement('div'); row.className = 'match-row';
+    row.innerHTML = `<div class="match-t">${it.t}</div>
+      <select class="match-sel" data-correct="${it.n}">
+        <option value="">?</option>
+        ${nums.map(n=>`<option value="${n}">${pad2(n)}</option>`).join('')}
+      </select>`;
+    area.appendChild(row);
+  });
+  $('#matchFeedback').style.display='none';
+}
+$('#matchCheck').onclick = () => {
+  let ok = 0;
+  $$('.match-sel').forEach(s => {
+    if(s.value == s.dataset.correct) { s.style.borderColor='var(--ok)'; ok++; }
+    else s.style.borderColor='var(--bad)';
+  });
+  $('#matchFeedback').style.display='inline-flex';
+  $('#matchFeedback').textContent = `Resultado: ${ok} / 5 correctos`;
+  $('#matchFeedback').className = ok === 5 ? 'pill ok' : 'pill';
+};
+$('#matchNew').onclick = newMatchRound;
+
+// MODO 4: FLASHCARDS
+let fcIdx = 0;
+function updateFc(){
+  const item = currentData[fcIdx];
+  const mode = $('#fcModeSelector').value;
+  $('#fcPos').textContent = `${fcIdx+1} / ${currentData.length}`;
+  if(mode === 'n-t') {
+    $('#fcFront').textContent = pad2(item.n);
+    $('#fcFront').className = 'big';
+    $('#fcBack').textContent = item.t;
+    $('#fcBack').className = 'prompt-xl';
+  } else {
+    $('#fcFront').textContent = item.t;
+    $('#fcFront').className = 'prompt-xl';
+    $('#fcBack').textContent = pad2(item.n);
+    $('#fcBack').className = 'big';
+  }
+  $('#fcBack').style.display = 'none';
+  $('#fcFront').style.display = 'block';
+  $('#fcHelp').textContent = 'Toca para voltear';
+}
+$('#fcModeSelector').onchange = updateFc;
+$('#fcShuffle').onclick = () => { currentData = shuffle([...ORIGINAL_DATA]); fcIdx = 0; updateFc(); };
+$('#fcContainer').onclick = () => {
+  const isFront = $('#fcFront').style.display !== 'none';
+  $('#fcFront').style.display = isFront ? 'none' : 'block';
+  $('#fcBack').style.display = isFront ? 'block' : 'none';
+  $('#fcHelp').textContent = isFront ? 'Toca para volver al frente' : 'Toca para voltear';
+};
+$('#fcNext').onclick = () => { fcIdx = (fcIdx + 1) % currentData.length; updateFc(); };
+$('#fcPrev').onclick = () => { fcIdx = (fcIdx - 1 + currentData.length) % currentData.length; updateFc(); };
+
+// MODO 5: V/F
+let vfCorrect = true;
+function newVfQuestion(){
+  const item = ORIGINAL_DATA[Math.floor(Math.random()*ORIGINAL_DATA.length)];
+  vfCorrect = Math.random() > 0.5;
+  if(vfCorrect) {
+    $('#vfNum').textContent = pad2(item.n);
+    $('#vfTitle').textContent = item.t;
+  } else {
+    const wrong = ORIGINAL_DATA[Math.floor(Math.random()*ORIGINAL_DATA.length)];
+    $('#vfNum').textContent = pad2(item.n);
+    $('#vfTitle').textContent = wrong.t;
+    if(item.n === wrong.n) vfCorrect = true; 
+  }
+  $('#vfFeedback').style.display='none';
+}
+function handleVf(val){
+  const fb = $('#vfFeedback'); fb.style.display='inline-flex';
+  if(val === vfCorrect) { fb.textContent='¡Muy bien!'; fb.className='pill ok'; }
+  else { fb.textContent='Incorrecto'; fb.className='pill bad'; }
+  setTimeout(newVfQuestion, 1200);
+}
+$('#vfTrue').onclick = () => handleVf(true);
+$('#vfFalse').onclick = () => handleVf(false);
+
+// MODO 6: ESCRIBIR
+let currentW = null;
+function newWriteQuestion(){
+  currentW = ORIGINAL_DATA[Math.floor(Math.random()*ORIGINAL_DATA.length)];
+  $('#wNum').textContent = pad2(currentW.n);
+  $('#wAnswer').value = '';
+  $('#wFeedback').style.display = 'none';
+}
+$('#wCheck').onclick = () => {
+  const user = $('#wAnswer').value.toLowerCase().trim();
+  const real = currentW.t.toLowerCase();
+  const fb = $('#wFeedback'); fb.style.display='block';
+  if(real.includes(user) && user.length > 4) {
+    fb.textContent = `¡Correcto! Título completo: ${currentW.t}`;
+    fb.className = 'pill ok';
+  } else {
+    fb.textContent = `Casi... El título es: ${currentW.t}`;
+    fb.className = 'pill bad';
+  }
+};
+$('#wSkip').onclick = newWriteQuestion;
+
+// MODO 7: AUTOEVALUACIÓN
+function renderList(){
+  const query = ($('#listSearch').value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  const wrap = $('#listWrap'); wrap.innerHTML = '';
+  FULL_TITLES.forEach(item => {
+    const textNorm = item.t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+    if (query && !String(item.n).includes(query) && !textNorm.includes(query)) return;
+    const row = document.createElement('div'); row.className = 'list-item';
+    row.innerHTML = `<div class="list-n">${pad2(item.n)}</div>
+      <div class="list-content">
+        <button class="btn-reveal">Ver Título</button>
+        <div class="list-t">${item.t}</div>
+      </div>`;
+    const b = row.querySelector('.btn-reveal');
+    const t = row.querySelector('.list-t');
+    b.onclick = () => {
+      const isH = t.style.display !== 'block';
+      t.style.display = isH ? 'block' : 'none';
+      b.textContent = isH ? 'Ocultar' : 'Ver Título';
+    };
+    wrap.appendChild(row);
+  });
+}
+$('#listSearch').oninput = renderList;
+$('#listClear').onclick = () => { $('#listSearch').value=''; renderList(); };
+
+// MODO 8: ÍNDICE VISIBLE
+function renderIndex() {
+  const query = ($('#indexSearch').value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  const wrap = $('#indexWrap'); wrap.innerHTML = '';
+  FULL_TITLES.forEach(item => {
+    const textNorm = item.t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+    if (query && !String(item.n).includes(query) && !textNorm.includes(query)) return;
+    const row = document.createElement('div'); row.className = 'index-item';
+    row.innerHTML = `<div class="index-n">${pad2(item.n)}</div>
+                     <div class="index-t">${item.t}</div>`;
+    wrap.appendChild(row);
+  });
+}
+$('#indexSearch').oninput = renderIndex;
+$('#indexClear').onclick = () => { $('#indexSearch').value=''; renderIndex(); };
+
+// FULLSCREEN
+$('#btnFs').onclick = () => {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+};
+
+window.onload = () => { newNumQuestion(); };
+</script>
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Objetivos de la materia y competencias clave </title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --premir-azul-oscuro:#003865;
+      --premir-azul:#0062a8;
+      --premir-azul-claro:#e3f2fd;
+      --premir-gris-fondo:#f3f6fb;
+      --premir-gris-borde:#d0d7e2;
+      --premir-verde-ok:#2e7d32;
+      --premir-rojo-error:#c62828;
+      --premir-amarillo-resolver: #f9a825;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      padding:20px 16px;
+      font-family:"Inter", "Montserrat", system-ui, sans-serif;
+      background:radial-gradient(circle at top left,#1a73e8 0,#003865 40%,#001933 100%);
+      color:#13233a;
+    }
+    .shell{
+      max-width:1150px;
+      margin:0 auto;
+      background:#ffffff;
+      border-radius:18px;
+      box-shadow:0 24px 60px rgba(0,0,0,.35);
+      padding:20px;
+      position:relative;
+      overflow:hidden;
+    }
+    .shell::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg,rgba(0,98,168,0.06),rgba(0,56,101,0.18));
+      pointer-events:none;
+    }
+    .shell-inner{ position:relative; z-index:1; }
+    
+    /* --- Nuevo Encabezado 3D --- */
+    .header-3d-box {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 18px 24px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      /* Efecto 3D: Sombra proyectada y borde sutil */
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+      border: 1px solid rgba(0, 56, 101, 0.08);
+      position: relative;
+    }
+
+    .logo-wrap{ display:flex; align-items:center; gap:16px; }
+    .logo-wrap img{ height:65px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+    
+    .logo-text{ display:flex; flex-direction:column; gap:2px; }
+    .logo-text span{
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.15em;
+      color: #64748b;
+      font-weight:700;
+    }
+    .logo-text h1{
+      margin:0;
+      font-size:18px;
+      font-weight:700;
+      color:var(--premir-azul-oscuro);
+      line-height: 1.2;
+    }
+
+    .profesor-info {
+      text-align: right;
+      padding-left: 20px;
+      border-left: 2px solid #f1f5f9;
+    }
+    .profesor-info .label {
+      font-size: 9px;
+      text-transform: uppercase;
+      color: #94a3b8;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      margin-bottom: 2px;
+      display: block;
+    }
+    .profesor-info .nombre {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--premir-azul);
+      white-space: nowrap;
+    }
+    
+    /* --- Estilos Cronómetro --- */
+    .crono-bar{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 20px;
+      background: #fdfdfe;
+      padding: 10px 24px;
+      border-radius: 14px;
+      border: 1px solid var(--premir-gris-borde);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .stats-item{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stats-label{
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #64748b;
+      letter-spacing: 0.08em;
+    }
+    .stats-value{
+      font-family: 'Roboto Mono', monospace;
+      font-size: 19px;
+      color: var(--premir-azul-oscuro);
+      font-weight: 500;
+      background: #f1f5f9;
+      padding: 4px 12px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      min-width: 110px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.5px;
+    }
+    .record-value{
+      color: var(--premir-verde-ok);
+      background: #ecfdf5;
+      border-color: #d1fae5;
+    }
+    .crono-mini-btns{
+      display: flex;
+      gap: 4px;
+    }
+    .btn-mini{
+      background: white;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      color: #64748b;
+      padding: 6px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-mini:hover{
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: var(--premir-azul);
+    }
+
+    #contenedor-principal{
+      display:flex; gap:20px; align-items:flex-start; justify-content:center; flex-wrap:wrap;
+    }
+
+    .tabla-wrap{
+      background:#fbfdff;
+      border-radius:14px;
+      padding:14px;
+      border:1px solid var(--premir-gris-borde);
+      box-shadow:0 8px 24px rgba(0,0,0,.04);
+      flex: 1;
+      min-width: 700px;
+    }
+
+    table{
+      border-collapse:collapse;
+      background:white;
+      width: 100%;
+      border-radius:10px;
+      overflow:hidden;
+      font-size:12px;
+    }
+    th, td{
+      border:1px solid #d5dcec;
+      padding:6px 4px;
+      text-align:center;
+    }
+    thead th{
+      background:linear-gradient(120deg,var(--premir-azul-oscuro),var(--premir-azul));
+      color:#fdfdfd;
+      font-weight: 600;
+    }
+    tbody tr:nth-child(even){ background:#f7fbff; }
+
+    .fila-obj{
+      background:#edf2ff;
+      font-weight:600;
+      color:var(--premir-azul-oscuro);
+      font-size:11px;
+    }
+
+    .dropzone{
+      min-height:32px;
+      background:#ffffff;
+      transition: all 0.2s ease;
+    }
+    .dropzone.resaltado{
+      background:#e3f2fd;
+      box-shadow: inset 0 0 0 2px var(--premir-azul);
+    }
+    .dropzone.correcto{ background:#e6f4ea; }
+    .dropzone.incorrecto{ background:#ffebee; }
+
+    #banco-fichas{
+      width:220px;
+      background: #fcfdfe;
+      border:1px solid var(--premir-gris-borde);
+      padding:12px;
+      border-radius:14px;
+    }
+    #banco-fichas h2{ font-size:13px; margin:0 0 8px; color:var(--premir-azul-oscuro); }
+    #banco-fichas p{ margin:0 0 8px; font-size:10px; color:#64748b; }
+
+    .ficha{
+      display:inline-block;
+      padding:4px 10px;
+      margin:3px;
+      border-radius:999px;
+      border:1px solid rgba(0,56,101,.1);
+      background:#fff;
+      cursor:grab;
+      font-size:11px;
+      font-weight:600;
+      color:var(--premir-azul-oscuro);
+      box-shadow:0 2px 4px rgba(0,0,0,.05);
+    }
+
+    #botones{
+      margin-top:14px;
+      display:flex;
+      justify-content:flex-end;
+      gap:8px;
+    }
+    button.main-btn{
+      padding:7px 16px;
+      cursor:pointer;
+      border-radius:8px;
+      border:none;
+      font-size:11px;
+      font-weight:600;
+      text-transform:uppercase;
+      transition: all 0.2s;
+    }
+    #btn-comprobar{ background:var(--premir-azul); color:#fff; }
+    #btn-resolver{ background: var(--premir-amarillo-resolver); color: #000; }
+    #btn-reiniciar{ background:#f1f5f9; color:#475569; }
+
+    #mensaje{ margin-top:8px; font-weight:600; font-size:12px; min-height:20px; }
+    
+    @keyframes pulse-record {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); filter: brightness(1.2); }
+      100% { transform: scale(1); }
+    }
+    .new-record { animation: pulse-record 0.6s ease-in-out 5; border-color: #ff9800; }
+
+    @media (max-width:900px){
+      .tabla-wrap{ min-width: 100%; }
+      #banco-fichas{ width: 100%; }
+      .header-3d-box { flex-direction: column; text-align: center; }
+      .profesor-info { border-left: none; border-top: 2px solid #f1f5f9; padding: 10px 0 0; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="shell-inner">
+      
+      <!-- Encabezado con Rectángulo Blanco 3D -->
+      <div class="header-3d-box">
+        <div class="logo-wrap">
+          <img src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894" alt="PREMIR">
+          <div class="logo-text">
+            <span>Perfil de salida BACHILLERATO · Educación Física</span>
+            <h1>Objetivos de la materia y competencias clave</h1>
+          </div>
+        </div>
+        <div class="profesor-info">
+          <span class="label">Profesor </span>
+          <span class="nombre">José Manuel Paredes</span>
+        </div>
+      </div>
+
+      <div class="crono-bar">
+        <div class="stats-item">
+          <span class="stats-label">Tiempo</span>
+          <div class="stats-value" id="crono-display">00:00:00</div>
+          <div class="crono-mini-btns">
+            <button class="btn-mini" id="crono-stop" title="Detener">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <button class="btn-mini" id="crono-reset" title="Reiniciar reloj">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="stats-item">
+          <span class="stats-label">Mejor Récord</span>
+          <div class="stats-value record-value" id="record-display">--:--:--</div>
+        </div>
+      </div>
+
+      <div id="contenedor-principal">
+        <div class="tabla-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th rowspan="2">Objetivos</th>
+                <th colspan="8">Competencias clave</th>
+              </tr>
+              <tr>
+                <th>CCL</th><th>CP</th><th>STEM</th><th>CD</th><th>CPSAA</th><th>CC</th><th>CE</th><th>CCEC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fila-obj">OBJ1</td>
+                <td class="dropzone" data-cell-id="OBJ1-CCL"></td><td class="dropzone" data-cell-id="OBJ1-CP"></td><td class="dropzone" data-cell-id="OBJ1-STEM"></td><td class="dropzone" data-cell-id="OBJ1-CD"></td><td class="dropzone" data-cell-id="OBJ1-CPSAA"></td><td class="dropzone" data-cell-id="OBJ1-CC"></td><td class="dropzone" data-cell-id="OBJ1-CE"></td><td class="dropzone" data-cell-id="OBJ1-CCEC"></td>
+              </tr>
+              <tr>
+                <td class="fila-obj">OBJ2</td>
+                <td class="dropzone" data-cell-id="OBJ2-CCL"></td><td class="dropzone" data-cell-id="OBJ2-CP"></td><td class="dropzone" data-cell-id="OBJ2-STEM"></td><td class="dropzone" data-cell-id="OBJ2-CD"></td><td class="dropzone" data-cell-id="OBJ2-CPSAA"></td><td class="dropzone" data-cell-id="OBJ2-CC"></td><td class="dropzone" data-cell-id="OBJ2-CE"></td><td class="dropzone" data-cell-id="OBJ2-CCEC"></td>
+              </tr>
+              <tr>
+                <td class="fila-obj">OBJ3</td>
+                <td class="dropzone" data-cell-id="OBJ3-CCL"></td><td class="dropzone" data-cell-id="OBJ3-CP"></td><td class="dropzone" data-cell-id="OBJ3-STEM"></td><td class="dropzone" data-cell-id="OBJ3-CD"></td><td class="dropzone" data-cell-id="OBJ3-CPSAA"></td><td class="dropzone" data-cell-id="OBJ3-CC"></td><td class="dropzone" data-cell-id="OBJ3-CE"></td><td class="dropzone" data-cell-id="OBJ3-CCEC"></td>
+              </tr>
+              <tr>
+                <td class="fila-obj">OBJ4</td>
+                <td class="dropzone" data-cell-id="OBJ4-CCL"></td><td class="dropzone" data-cell-id="OBJ4-CP"></td><td class="dropzone" data-cell-id="OBJ4-STEM"></td><td class="dropzone" data-cell-id="OBJ4-CD"></td><td class="dropzone" data-cell-id="OBJ4-CPSAA"></td><td class="dropzone" data-cell-id="OBJ4-CC"></td><td class="dropzone" data-cell-id="OBJ4-CE"></td><td class="dropzone" data-cell-id="OBJ4-CCEC"></td>
+              </tr>
+              <tr>
+                <td class="fila-obj">OBJ5</td>
+                <td class="dropzone" data-cell-id="OBJ5-CCL"></td><td class="dropzone" data-cell-id="OBJ5-CP"></td><td class="dropzone" data-cell-id="OBJ5-STEM"></td><td class="dropzone" data-cell-id="OBJ5-CD"></td><td class="dropzone" data-cell-id="OBJ5-CPSAA"></td><td class="dropzone" data-cell-id="OBJ5-CC"></td><td class="dropzone" data-cell-id="OBJ5-CE"></td><td class="dropzone" data-cell-id="OBJ5-CCEC"></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div id="botones">
+            <button class="main-btn" id="btn-reiniciar">Reiniciar</button>
+            <button class="main-btn" id="btn-resolver">Resolver</button>
+            <button class="main-btn" id="btn-comprobar">Comprobar</button>
+          </div>
+          <div id="mensaje"></div>
+        </div>
+
+        <div id="banco-fichas" class="dropzone" data-cell-id="BANCO">
+          <h2>Banco de Fichas</h2>
+          <p>Relaciona objetivos y competencias.</p>
+          <div class="ficha" draggable="true" id="f1" data-value="2-5">2-5</div>
+          <div class="ficha" draggable="true" id="f2" data-value="1-4">1-4</div>
+          <div class="ficha" draggable="true" id="f3" data-value="1.1-1.2-5">1.1-1.2-5</div>
+          <div class="ficha" draggable="true" id="f4" data-value="3">3</div>
+          <div class="ficha" draggable="true" id="f5" data-value="1.2-4">1.2-4</div>
+          <div class="ficha" draggable="true" id="f6" data-value="2-3">2-3</div>
+          <div class="ficha" draggable="true" id="f7" data-value="5">5</div>
+          <div class="ficha" draggable="true" id="f8" data-value="3">3</div>
+          <div class="ficha" draggable="true" id="f9" data-value="1.1-2-5">1.1-2-5</div>
+          <div class="ficha" draggable="true" id="f10" data-value="3">3</div>
+          <div class="ficha" draggable="true" id="f11" data-value="3">3</div>
+          <div class="ficha" draggable="true" id="f12" data-value="5">5</div>
+          <div class="ficha" draggable="true" id="f13" data-value="1.2">1.2</div>
+          <div class="ficha" draggable="true" id="f14" data-value="1">1</div>
+          <div class="ficha" draggable="true" id="f15" data-value="1">1</div>
+          <div class="ficha" draggable="true" id="f16" data-value="5">5</div>
+          <div class="ficha" draggable="true" id="f17" data-value="1.2-2">1.2-2</div>
+          <div class="ficha" draggable="true" id="f18" data-value="4">4</div>
+          <div class="ficha" draggable="true" id="f19" data-value="1">1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const applauseAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2012/2012-preview.mp3');
+    const errorAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2955/2955-preview.mp3');
+
+    const solucion = {
+      "OBJ1-STEM": "2-5", "OBJ1-CD": "1-4", "OBJ1-CPSAA": "1.1-1.2-5", "OBJ1-CE": "3",
+      "OBJ2-CPSAA": "1.2-4", "OBJ2-CE": "2-3",
+      "OBJ3-CCL": "5", "OBJ3-CP": "3", "OBJ3-CPSAA": "1.1-2-5", "OBJ3-CC": "3",
+      "OBJ4-CP": "3", "OBJ4-STEM": "5", "OBJ4-CPSAA": "1.2", "OBJ4-CC": "1", "OBJ4-CCEC": "1",
+      "OBJ5-STEM": "5", "OBJ5-CPSAA": "1.2-2", "OBJ5-CC": "4", "OBJ5-CE": "1"
+    };
+
+    let startTime, elapsedTime = 0, timerInterval, timerRunning = false;
+    const STORAGE_KEY = "premir_ef_bach_best_time";
+    const display = document.getElementById('crono-display');
+    const recordDisplay = document.getElementById('record-display');
+
+    function formatTime(time) {
+      const h = Math.floor(time / 3600000);
+      const m = Math.floor((time % 3600000) / 60000);
+      const s = Math.floor((time % 60000) / 1000);
+      return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      if (timerRunning) return;
+      startTime = Date.now() - elapsedTime;
+      timerInterval = setInterval(() => {
+        elapsedTime = Date.now() - startTime;
+        display.innerText = formatTime(elapsedTime);
+      }, 1000);
+      timerRunning = true;
+    }
+
+    function stopTimer() { clearInterval(timerInterval); timerRunning = false; }
+    function resetTimer() { stopTimer(); elapsedTime = 0; display.innerText = "00:00:00"; }
+
+    function loadRecord() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) recordDisplay.innerText = formatTime(parseInt(saved));
+    }
+
+    function checkRecord(current) {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved || current < parseInt(saved)) {
+        localStorage.setItem(STORAGE_KEY, current);
+        recordDisplay.innerText = formatTime(current);
+        recordDisplay.classList.add('new-record');
+        setTimeout(() => recordDisplay.classList.remove('new-record'), 4000);
+      }
+    }
+
+    function playApplause() {
+        applauseAudio.currentTime = 0;
+        applauseAudio.play().catch(e => console.log("Audio play error", e));
+    }
+
+    function playError() {
+        errorAudio.currentTime = 0;
+        errorAudio.volume = 0.5;
+        errorAudio.play().catch(e => console.log("Audio play error", e));
+    }
+
+    const fichas = document.querySelectorAll(".ficha");
+    const zonas = document.querySelectorAll(".dropzone");
+
+    fichas.forEach(ficha => {
+      ficha.addEventListener("dragstart", e => {
+        e.dataTransfer.setData("text/plain", e.target.id);
+        startTimer();
+      });
+    });
+
+    zonas.forEach(zona => {
+      zona.addEventListener("dragover", e => { e.preventDefault(); zona.classList.add("resaltado"); });
+      zona.addEventListener("dragleave", () => { zona.classList.remove("resaltado"); });
+      zona.addEventListener("drop", e => {
+        e.preventDefault();
+        zona.classList.remove("resaltado");
+        const idFicha = e.dataTransfer.getData("text/plain");
+        const ficha = document.getElementById(idFicha);
+        if (!ficha || (zona.dataset.cellId !== "BANCO" && zona.querySelector(".ficha"))) return;
+        zona.appendChild(ficha);
+      });
+    });
+
+    document.getElementById("btn-comprobar").addEventListener("click", () => {
+      let todoCorrecto = true;
+      let algunFallo = false;
+      
+      zonas.forEach(zona => {
+        if (zona.dataset.cellId === "BANCO") return;
+        zona.classList.remove("correcto", "incorrecto");
+        const esperado = solucion[zona.dataset.cellId];
+        const ficha = zona.querySelector(".ficha");
+        const real = ficha ? ficha.dataset.value : null;
+
+        if (esperado === undefined) { 
+          if (real) { 
+            zona.classList.add("incorrecto"); 
+            todoCorrecto = false; 
+            algunFallo = true;
+          } 
+        } else {
+          if (real === esperado) {
+            zona.classList.add("correcto");
+          } else { 
+            zona.classList.add("incorrecto"); 
+            todoCorrecto = false; 
+            algunFallo = true;
+          }
+        }
+      });
+
+      const msg = document.getElementById("mensaje");
+      if (todoCorrecto) {
+        stopTimer();
+        checkRecord(elapsedTime);
+        playApplause();
+        msg.innerHTML = '<span style="color:var(--premir-verde-ok)">¡Perfecto! Todo correcto. 👏</span>';
+      } else {
+        if (algunFallo) playError();
+        msg.innerHTML = '<span style="color:var(--premir-rojo-error)">Revisa las fichas marcadas en rojo.</span>';
+      }
+    });
+
+    document.getElementById("btn-reiniciar").addEventListener("click", () => {
+      resetTimer();
+      const banco = document.getElementById("banco-fichas");
+      zonas.forEach(z => {
+        if (z.dataset.cellId !== "BANCO") {
+          const f = z.querySelector(".ficha");
+          if (f) banco.appendChild(f);
+          z.classList.remove("correcto", "incorrecto");
+        }
+      });
+      document.getElementById("mensaje").innerHTML = "";
+    });
+
+    document.getElementById("btn-resolver").addEventListener("click", () => {
+      stopTimer();
+      const banco = document.getElementById("banco-fichas");
+      const fichasDisp = Array.from(banco.querySelectorAll(".ficha"));
+      for (const [cell, val] of Object.entries(solucion)) {
+        const dest = document.querySelector(`[data-cell-id="${cell}"]`);
+        const idx = fichasDisp.findIndex(f => f.dataset.value === val);
+        if (idx !== -1 && dest) {
+          dest.appendChild(fichasDisp.splice(idx, 1)[0]);
+          dest.classList.add("correcto");
+        }
+      }
+      playApplause();
+    });
+
+    document.getElementById("crono-stop").addEventListener("click", stopTimer);
+    document.getElementById("crono-reset").addEventListener("click", resetTimer);
+    loadRecord();
+  </script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora y Sorteo de Temas - Oposiciones</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: rgb(0, 123, 196);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #005f99;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+            width: 100px;
+            margin: 5px;
+        }
+        .result, .numeros {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #eef3f8, #ffffff);
+    margin: 0;
+    padding: 0;
+    color: #2c3e50;
+}
+
+.app-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-logo { height: 2cm; width: auto; }
+
+.container {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    padding: 32px;
+}
+
+input, button {
+    font-family: 'Inter', sans-serif;
+    border-radius: 10px;
+}
+
+button {
+    background: linear-gradient(135deg, rgb(0,123,196), rgb(0,90,160));
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0,123,196,0.3);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+input {
+    border: 1px solid #d1d5db;
+    padding: 10px;
+}
+
+.numeros {
+    margin-top: 20px;
+}
+
+#historicoLista span {
+    background: #f0f6fb;
+    border-radius: 12px;
+}
+</style>
+
+
+<style>
+/* --- Compactación (override) --- */
+.app-header{padding:14px 0;margin-bottom:18px;}
+.app-logo { height: 2cm; width: auto; }
+.container{padding:22px;border-radius:14px;}
+h1,h2{margin:0 0 12px 0;}
+.section{margin-top:16px;}
+label{margin-bottom:6px;}
+input{padding:8px 10px;}
+button{padding:10px 16px;}
+.numeros{margin-top:14px;}
+#historicoLista span{margin:6px 8px;padding:8px 12px;}
+</style>
+
+<style>
+  /* === Overrides solicitados (estético) === */
+  .app-header{
+    position: sticky;
+    top: 14px;
+    z-index: 1000;
+
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, .10);
+    border-radius: 20px;
+
+    /* 3D / flotante */
+    box-shadow:
+      0 20px 45px rgba(15, 23, 42, .18),
+      0 8px 18px rgba(15, 23, 42, .10),
+      inset 0 1px 0 rgba(255,255,255,.95);
+
+    margin: 14px auto 18px;
+    max-width: 900px;
+    padding: 14px 18px;
+  }
+
+  .logo-container{
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .app-logo{
+    height: 2cm;
+    width: auto;
+    display:block;
+  }
+
+  .profesor{
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 600;
+    letter-spacing: .02em;
+    text-align: center;
+  }
+
+  /* Compensar layout (antes había margin-bottom en header) */
+  body{ padding-top: 0; }
+</style>
+
+</head>
+<body>
+
+<header class="app-header">
+    <div class="logo-container">
+        <img src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894" class="app-logo">
+    </div>
+        <div class="profesor">Profesor: José Manuel Paredes</div>
+</header>
+
+<!-- Calculadora de Probabilidad -->
+<div class="container">
+    <h1>Calculadora de Probabilidad de Temas</h1>
+    <form id="probabilityForm">
+        <label>Número total de temas:</label>
+        <input type="number" id="totalTopics" min="1" required>
+
+        <label>Temas preparados:</label>
+        <input type="number" id="preparedTopics" min="1" required>
+
+        <label>Bolas extraídas:</label>
+        <input type="number" id="extractedBalls" min="1" required>
+
+        <button type="submit">Calcular Probabilidad</button>
+    </form>
+    <div class="result" id="result"></div>
+</div>
+
+<!-- Sorteo de Temas -->
+<div class="container">
+    <h2>Sorteo de Temas</h2>
+    <input type="number" id="minimo" placeholder="Mínimo">
+    <input type="number" id="maximo" placeholder="Máximo">
+    <input type="number" id="cantidad" placeholder="Cantidad">
+
+    <button onclick="generarNumeros()">Generar Números</button>
+    <button onclick="resetear()">Resetear</button>
+
+    <div id="numeros" class="numeros" style="font-weight:bold; font-size:40px; color:rgb(0,123,196);">--</div>
+    <div class="result" id="historico" style="text-align:left; font-size:16px; line-height:1.5;">
+        
+        <div id="historicoLista" style="margin-top:8px;">(vacío)</div>
+    </div>
+</div>
+
+<script>
+function combination(n, k) {
+    if (k > n) return 0;
+    if (k === 0 || k === n) return 1;
+    let result = 1;
+    for (let i = 1; i <= k; i++) {
+        result *= (n - i + 1);
+        result /= i;
+    }
+    return result;
+}
+
+document.getElementById('probabilityForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const totalTopics = parseInt(document.getElementById('totalTopics').value);
+    const preparedTopics = parseInt(document.getElementById('preparedTopics').value);
+    const extractedBalls = parseInt(document.getElementById('extractedBalls').value);
+
+    const resultDiv = document.getElementById('result');
+
+    if (preparedTopics > totalTopics || extractedBalls > totalTopics) {
+        resultDiv.innerText = 'Los valores ingresados no son válidos.';
+        return;
+    }
+
+    const nonPrepared = totalTopics - preparedTopics;
+    const totalComb = combination(totalTopics, extractedBalls);
+    const nonPrepComb = combination(nonPrepared, extractedBalls);
+
+    const probability = 1 - (nonPrepComb / totalComb);
+    const percentage = (probability * 100).toFixed(2);
+
+    resultDiv.innerHTML = 'Probabilidad de que salga al menos un tema preparado: <strong>' + percentage + '%</strong>';
+});
+
+
+// --- Histórico de sorteos (se mantiene hasta pulsar "Resetear") ---
+const HIST_KEY = "premir_sorteo_historico_v1";
+
+function getHistorico() {
+    try {
+        const raw = localStorage.getItem(HIST_KEY);
+        return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function setHistorico(arr) {
+    try {
+        localStorage.setItem(HIST_KEY, JSON.stringify(arr));
+    } catch (e) {
+        // si localStorage no está disponible, no hacemos nada
+    }
+}
+
+
+
+function renderHistorico() {
+    const lista = document.getElementById("historicoLista");
+    if (!lista) return;
+
+    const hist = getHistorico();
+    if (!hist.length) {
+        lista.textContent = "";
+        return;
+    }
+
+    lista.innerHTML = hist.map(item => 
+        `<span style="
+            display:inline-block;
+            margin:8px 10px;
+            padding:10px 14px;
+            font-size:40px;
+            font-weight:bold;
+            color:rgb(0,123,196);
+        ">
+            ${item}
+        </span>`
+    ).join("");
+}
+
+
+
+function generarNumeros() {
+    const min = parseInt(document.getElementById('minimo').value);
+    const max = parseInt(document.getElementById('maximo').value);
+    const cantidad = parseInt(document.getElementById('cantidad').value);
+
+    if (isNaN(min) || isNaN(max) || isNaN(cantidad) || min > max || cantidad <= 0 || cantidad > (max - min + 1)) {
+        alert("Por favor, ingresa valores válidos.");
+        return;
+    }
+
+    let numeros = new Set();
+    while (numeros.size < cantidad) {
+        numeros.add(Math.floor(Math.random() * (max - min + 1)) + min);
+    }
+
+    const resultado = Array.from(numeros).join(", ");
+    document.getElementById('numeros').textContent = resultado;
+
+    // Guardar en histórico solo si no existe ya
+    const hist = getHistorico();
+    if (!hist.includes(resultado)) {
+        hist.push(resultado);
+        setHistorico(hist);
+    }
+    renderHistorico();
+}
+
+function resetear() {
+    document.getElementById('numeros').textContent = "--";
+    document.getElementById('minimo').value = "";
+    document.getElementById('maximo').value = "";
+    document.getElementById('cantidad').value = "";
+
+    // Limpiar histórico
+    try { localStorage.removeItem(HIST_KEY); } catch (e) {}
+    renderHistorico();
+}
+
+
+// Renderizar histórico al cargar
+window.addEventListener('DOMContentLoaded', renderHistorico);
+</script>
+
+<div style="text-align:center; margin-top:30px;"><img src="https://premironline.es/assets/logo-premir.png" alt="Logo Premir" style="margin:auto;height:2cm; width:auto; "></div>
+</body>
+</html>

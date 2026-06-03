@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sorteo de Temas Mejorado</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            text-align: center;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 550px;
+        }
+        .logo-container {
+            margin-bottom: 20px;
+        }
+        .logo-container img {
+            width: 180px;
+            height: auto;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .input-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        input {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+            width: 90px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #007bff;
+        }
+        .input-full {
+            width: 200px;
+        }
+        /* Número principal actual */
+        .numeros {
+            margin: 20px 0;
+            font-size: 50px;
+            font-weight: bold;
+            color: #007bff;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            border-radius: 12px;
+            border: 3px solid #007bff;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        .boton {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.1s;
+        }
+        .boton:hover {
+            background-color: #0056b3;
+        }
+        .boton:active {
+            transform: scale(0.98);
+        }
+        .boton-reset {
+            background-color: #6c757d;
+        }
+        
+        /* Sección de histórico unificada */
+        .historico-section {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            text-align: left;
+        }
+        .historico-section h3 {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Recuadro verde claro solicitado */
+        .historico-box {
+            background-color: #e8f5e9; /* Verde claro */
+            border: 1px solid #c8e6c9;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 100px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .historico-entry {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(46, 125, 50, 0.1);
+        }
+
+        .historico-entry strong {
+            font-size: 38px; /* Tamaño grande solicitado */
+            color: #1b5e20;
+            line-height: 1;
+        }
+
+        .empty-msg {
+            color: #81c784;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-container">
+        <img src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894">
+    </div>
+
+    <h2>Sorteo de temas</h2>
+    
+    <div class="input-group">
+        <input type="number" id="minimo" placeholder="Mín." title="Mínimo">
+        <input type="number" id="maximo" placeholder="Máx." title="Máximo">
+    </div>
+    <div class="input-group">
+        <input type="number" id="cantidad" class="input-full" placeholder="Cantidad de temas">
+    </div>
+
+    <div id="numeros" class="numeros">--</div>
+
+    <div class="btn-group">
+        <button class="boton" onclick="generarNumeros()">Generar Números</button>
+        <button class="boton boton-reset" onclick="resetear()">Resetear</button>
+    </div>
+
+    <div class="historico-section">
+        <h3>
+            Histórico de Sorteos
+            <span style="font-weight: normal; cursor: pointer; font-size: 11px; color: #007bff;" onclick="limpiarHistorico()">Limpiar</span>
+        </h3>
+        <div id="historico-box" class="historico-box">
+            <div class="empty-msg">No hay sorteos previos</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Set para controlar que no se repitan sorteos en el histórico
+    let sorteosRealizados = new Set();
+
+    function generarNumeros() {
+        const minInput = document.getElementById('minimo');
+        const maxInput = document.getElementById('maximo');
+        const cantInput = document.getElementById('cantidad');
+
+        const min = parseInt(minInput.value);
+        const max = parseInt(maxInput.value);
+        const cantidad = parseInt(cantInput.value);
+
+        if (isNaN(min) || isNaN(max) || isNaN(cantidad)) {
+            mostrarMensaje("Ingresa valores válidos");
+            return;
+        }
+        if (min > max) {
+            mostrarMensaje("Mín > Máx");
+            return;
+        }
+        if (cantidad <= 0 || (max - min + 1) < cantidad) {
+            mostrarMensaje("Rango insuficiente");
+            return;
+        }
+
+        let intentos = 0;
+        let resultado = "";
+        let nuevoSorteoEncontrado = false;
+
+        // Intentar generar una combinación nueva que no esté en el histórico
+        while (!nuevoSorteoEncontrado && intentos < 100) {
+            let numerosSet = new Set();
+            while (numerosSet.size < cantidad) {
+                numerosSet.add(Math.floor(Math.random() * (max - min + 1)) + min);
+            }
+            resultado = Array.from(numerosSet).sort((a, b) => a - b).join(", ");
+            
+            if (!sorteosRealizados.has(resultado)) {
+                nuevoSorteoEncontrado = true;
+            }
+            intentos++;
+        }
+
+        if (!nuevoSorteoEncontrado) {
+            mostrarMensaje("Combinación repetida");
+            return;
+        }
+
+        document.getElementById('numeros').textContent = resultado;
+        sorteosRealizados.add(resultado);
+        agregarAlHistorico(resultado);
+    }
+
+    function agregarAlHistorico(resultado) {
+        const box = document.getElementById('historico-box');
+        
+        // Quitar mensaje de vacío si existe
+        if (box.querySelector('.empty-msg')) {
+            box.innerHTML = '';
+        }
+
+        const entry = document.createElement('div');
+        entry.className = 'historico-entry';
+        entry.innerHTML = `<strong>${resultado}</strong>`;
+        
+        // Insertar al principio para ver el más reciente primero
+        box.insertBefore(entry, box.firstChild);
+    }
+
+    function mostrarMensaje(msg) {
+        const display = document.getElementById('numeros');
+        display.style.fontSize = "22px";
+        display.style.color = "#dc3545";
+        display.textContent = msg;
+        setTimeout(() => {
+            display.style.fontSize = "50px";
+            display.style.color = "#007bff";
+            display.textContent = "--";
+        }, 2000);
+    }
+
+    function resetear() {
+        document.getElementById('numeros').textContent = "--";
+        document.getElementById('minimo').value = "";
+        document.getElementById('maximo').value = "";
+        document.getElementById('cantidad').value = "";
+        // Limpiar el registro de sorteos para permitir que vuelvan a salir
+        sorteosRealizados.clear();
+    }
+
+    function limpiarHistorico() {
+        document.getElementById('historico-box').innerHTML = '<div class="empty-msg">No hay sorteos previos</div>';
+        // También limpiamos el registro interno al limpiar visualmente
+        sorteosRealizados.clear();
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorteo de números</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gradient-dark: #00598F;
+    --gradient-light: #5CA0D3;
+    --accent-color: #FFC20E;
+    --bg-page: #F7F7F7;
+    --bg-card: #FFFFFF;
+    --text-color: #333333;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --btn-size: 2.5rem;
+    --ball-size: 5rem;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; background: var(--bg-page); color: var(--text-color); padding-top: 0.5rem; }
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 16px;
+
+    /* Floating white card */
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid rgba(15, 23, 42, .10);
+    box-shadow:
+      0 20px 45px rgba(15, 23, 42, .18),
+      0 8px 18px rgba(15, 23, 42, .10),
+      inset 0 1px 0 rgba(255,255,255,.95);
+
+    padding: 1.2rem 1.25rem;
+    margin: 1rem auto 0;
+    max-width: 900px;
+
+    /* "Flotante": stays visible when scrolling */
+    position: sticky;
+    top: 14px;
+    z-index: 50;
+    backdrop-filter: saturate(1.1);
+  }
+  header h1 { color: var(--gradient-dark); font-weight: 700; font-size: 2rem; }
+  .header-logo{ height: 2cm; width: auto; display:block; }
+  .container { max-width: 700px; margin: 2rem auto; background: var(--bg-card);
+    border-radius: 8px; padding: 2rem; box-shadow: 0 4px 8px var(--shadow);
+  }
+  #drawnNumber { display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .ball { display: inline-flex; align-items: center; justify-content: center;
+    width: var(--ball-size); height: var(--ball-size); background: var(--accent-color);
+    color: var(--gradient-dark); border-radius: 50%; font-weight: 600;
+    box-shadow: inset -2px -2px 4px rgba(0,0,0,0.1),2px 2px 4px rgba(0,0,0,0.05);
+    border:2px solid #FFF; animation: zoom 1.5s ease-in-out infinite;
+    font-size: 1.2rem;
+  }
+  @keyframes zoom {0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+  form { display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; margin-bottom:1.5rem;}
+  form label { font-weight:500; font-size:0.9rem; align-self:center;}
+  form input[type=number] { width:5rem; padding:0.6rem; border:1px solid #CCC;
+    border-radius:4px; font-size:1rem; text-align:center; background:#FFF;
+    transition:border-color 0.2s;
+  }
+  form input[type=number]:focus { border-color:var(--gradient-dark);
+    outline:none; box-shadow:0 0 0 2px rgba(0,89,143,0.2);
+  }
+  .btn-icon { width:var(--btn-size); height:var(--btn-size); background:var(--gradient-dark);
+    border:none; border-radius:50%; display:inline-flex; align-items:center;
+    justify-content:center; cursor:pointer; box-shadow:0 4px 6px var(--shadow);
+    transition:background 0.2s, transform 0.1s;
+  }
+  .btn-icon:hover { background:var(--gradient-light); transform:translateY(-2px); }
+  .btn-icon svg { width:1.2rem; height:1.2rem; fill:#FFF; }
+  .grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 0.75rem; }
+  .cell { background: var(--bg-card); border:1px solid #CCC; border-radius:4px;
+    height:3rem; display:flex; align-items:center; justify-content:center;
+    font-weight:500; transition:background 0.2s;
+  }
+  .cell.drawn { background-image:linear-gradient(135deg,var(--gradient-dark),var(--gradient-light));
+    color:#FFF; border-color:transparent;
+  }
+  @media(max-width:600px){ form{flex-direction:column;} .btn-icon,input[type=number]{width:100%;max-width:80px;} }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Sorteo de números</h1>
+    <img class="header-logo" src="https://www.salvour.com/s/cc_images/teaserbox_2491734547.gif?t=1767110894">
+  </header>
+  <div class="container">
+    <div id="drawnNumber"></div>
+    <form id="drawForm">
+      <label for="minNum">Mín:</label><input id="minNum" type="number" value="1" required>
+      <label for="maxNum">Máx:</label><input id="maxNum" type="number" value="65" required>
+      <label for="count">Cant:</label><input id="count" type="number" value="1" min="1" required>
+      <button type="submit" class="btn-icon" title="Sacar">
+        <svg viewBox="0 0 24 24"><path d="M3 12l18-12v24z"/></svg>
+      </button>
+      <button type="button" id="resetBtn" class="btn-icon" title="Reset">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8v4l6-6-6-6v4z"/></svg>
+      </button>
+    </form>
+    <div class="grid" id="grid"></div>
+  </div>
+  <script>
+    let numbers=[],numbersDrawn=[];
+    const grid=document.getElementById('grid'),drawnNumberEl=document.getElementById('drawnNumber');
+    function initGrid(min,max){numbers=Array.from({length:max-min+1},(_,i)=>min+i);numbersDrawn=[];
+      grid.innerHTML='';numbers.forEach(num=>{let c=document.createElement('div');c.className='cell';
+      c.id='cell-'+num;c.textContent=num;grid.appendChild(c);});drawnNumberEl.innerHTML='';}
+    initGrid(+document.getElementById('minNum').value,+document.getElementById('maxNum').value);
+    document.getElementById('drawForm').addEventListener('submit',e=>{e.preventDefault();
+      const min=+document.getElementById('minNum').value,max=+document.getElementById('maxNum').value;
+      let count=+document.getElementById('count').value;
+      if(!numbers.length||numbers[0]!==min||numbers.slice(-1)[0]!==max) initGrid(min,max);
+      count=Math.max(1,Math.min(count,numbers.length));
+      for(let i=0;i<count;i++){const idx=Math.floor(Math.random()*numbers.length),
+        num=numbers.splice(idx,1)[0];numbersDrawn.push(num);
+        document.getElementById('cell-'+num).classList.add('drawn');}
+      drawnNumberEl.innerHTML=numbersDrawn.map(n=>`<span class="ball">${n}</span>`).join('');});
+    document.getElementById('resetBtn').addEventListener('click',()=>initGrid(
+      +document.getElementById('minNum').value,+document.getElementById('maxNum').value));
+  </script>
+</body>
+</html>
