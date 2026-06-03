@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="es" data-theme="light" data-color="c8">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recursos Educación Física - José Manuel Paredes</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* =====================
+   SISTEMA DE DISEÑO PROFESIONAL V8.5
+===================== */
+:root {
+  --bg: #f0f2f5;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --surface: #ffffff;
+  --border-3d: rgba(255, 255, 255, 0.8);
+  --radius-lg: 32px;
+  --radius-md: 20px;
+  --transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  --shadow-3d: 8px 8px 16px rgba(0, 0, 0, 0.06), -8px -8px 16px rgba(255, 255, 255, 0.9);
+  --shadow-header: 0 20px 40px rgba(0, 0, 0, 0.08);
+  --shadow-inner: inset 3px 3px 6px rgba(0,0,0,0.06), inset -3px -3px 6px rgba(255,255,255,0.8);
+}
+
+html[data-color="c1"] { --brand: #3b82f6; --brand-glow: rgba(59, 130, 246, 0.15); }
+html[data-color="c2"] { --brand: #8b5cf6; --brand-glow: rgba(139, 92, 246, 0.15); }
+html[data-color="c3"] { --brand: #10b981; --brand-glow: rgba(16, 185, 129, 0.15); }
+html[data-color="c8"] { --brand: #0ea5e9; --brand-glow: rgba(14, 165, 233, 0.15); }
+
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0;
+  -webkit-tap-highlight-color: transparent; 
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-top: 20px;
+}
+
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* =====================
+   HEADER FLOTANTE
+===================== */
+.navbar {
+  position: sticky;
+  top: 20px; 
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.75); 
+  backdrop-filter: blur(12px); 
+  -webkit-backdrop-filter: blur(12px);
+  padding: 1.2rem 0;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow-header);
+  border-radius: 28px; 
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  width: calc(100% - 3rem); 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nav-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.nav-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0 1.5rem;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logo-container {
+  width: 180px;
+  height: 100px; 
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition: var(--transition);
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.text-info h1 {
+  font-size: 1.6rem;
+  font-weight: 850;
+  color: var(--text-main);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.text-info h1 span { color: var(--brand); }
+
+.text-info p.subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.6rem 1rem;
+  background: rgba(248, 250, 252, 0.5);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-3d);
+}
+
+.user-avatar {
+  width: 44px;
+  height: 44px;
+  background: var(--brand);
+  color: white;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-role {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+/* Fila inferior: Buscador */
+.nav-bottom-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.5rem;
+}
+
+.search-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem 1.5rem 0.8rem 3.5rem;
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,0.03);
+  background: rgba(240, 242, 245, 0.6);
+  box-shadow: var(--shadow-inner);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--transition);
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--brand);
+}
+
+.nav-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text-main);
+  cursor: pointer;
+  box-shadow: var(--shadow-3d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.action-btn.active {
+  background: var(--brand);
+  color: white;
+  border-color: var(--brand);
+}
+
+/* =====================
+   GRID Y CARDS
+===================== */
+.grid { 
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 1.5rem; 
+  padding-bottom: 5rem;
+}
+
+@media (max-width: 1280px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .navbar { width: calc(100% - 1rem); top: 10px; padding: 1rem 0; }
+  .nav-top-row { flex-direction: column; text-align: center; gap: 1rem; }
+  .brand-section { flex-direction: column; gap: 0.5rem; }
+  .user-profile { text-align: center; justify-content: center; width: 100%; }
+}
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--surface);
+  border: 2px solid var(--brand-glow); 
+  border-radius: var(--radius-lg);
+  padding: 1.8rem;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  box-shadow: var(--shadow-3d);
+}
+
+.card:hover { 
+  transform: translateY(-6px);
+  border-color: var(--brand);
+}
+
+.badge {
+    font-size: 0.6rem; 
+    font-weight: 800; 
+    color: white; 
+    background: var(--brand); 
+    padding: 4px 10px; 
+    border-radius: 8px; 
+    text-transform: uppercase; 
+    margin-bottom: 0.6rem; 
+    display: inline-block;
+}
+
+.card-title { 
+  font-weight: 800; 
+  font-size: 1.15rem; 
+  color: #0f172a; 
+  line-height: 1.3;
+}
+
+.btn-primary { 
+  flex: 1; 
+  background: #f8fafc; 
+  color: var(--text-main); 
+  border: 1.5px solid var(--brand-glow); 
+  border-radius: 14px; 
+  padding: 0.8rem; 
+  font-weight: 800; 
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.8rem;
+}
+
+.btn-primary:hover {
+  color: white;
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+.btn-delete {
+    color: #ef4444;
+    border: 1.5px solid #fee2e2;
+}
+
+.btn-delete:hover {
+    background: #ef4444 !important;
+    border-color: #ef4444 !important;
+    color: white !important;
+}
+
+/* =====================
+   MODALES
+===================== */
+.modal-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 2001;
+}
+
+.modal-window.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-overlay {
+  position:fixed; top:0; left:0; width:100%; height:100%; 
+  background:rgba(15,23,42,0.6); backdrop-filter:blur(6px); 
+  z-index:2000; display:none;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <div class="nav-content">
+      <div class="nav-top-row">
+        <div class="brand-section">
+          <div class="logo-container">
+            <img src="https://www.salvour.com/s/cc_images/cache_2491734547.gif?t=1767110894" alt="Logo José Manuel Paredes" class="logo-img">
+          </div>
+          <div class="text-info">
+            <h1>RECURSOS <span>Educación Física</span></h1>
+            <p class="subtitle">Oposición Secundaria </p>
+          </div>
+        </div>
+        
+        <div class="user-profile">
+            <div class="user-details" style="text-align: right;">
+                <span class="user-role"> Profesor</span>
+                <span class="user-name">José Manuel Paredes</span>
+            </div>
+            <div class="user-avatar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+        </div>
+      </div>
+
+      <div class="nav-bottom-row">
+        <div class="search-wrapper">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Buscar material por nombre...">
+        </div>
+
+        <div class="nav-controls">
+          <button id="sortBtn" class="action-btn" title="Ordenar A-Z"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m3 16 4 4 4-4m-4 4V4m7 8h10m-10-4h7m-7 8h7m-7 4h10"/></svg></button>
+          <button id="favBtn" class="action-btn" title="Mis Favoritos"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></button>
+          <button id="styleBtn" class="action-btn" title="Personalizar Color"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <main id="grid" class="grid"></main>
+</div>
+
+<!-- Modal Visor -->
+<div class="modal-overlay" id="overlay" onclick="closeAllModals()"></div>
+
+<div id="viewer" class="modal-window" style="width: 96%; height: 92vh; background: #f8fafc; border-radius: 40px; overflow: hidden; display: none; flex-direction: column; border: 4px solid white; box-shadow: 0 40px 100px rgba(0,0,0,0.3);">
+  <div style="padding:1rem 2rem; background:white; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9">
+    <div style="display:flex; flex-direction:column">
+        <span id="vTitle" style="font-weight:900; font-size:1.3rem; color:#0f172a">Archivo</span>
+        <span style="font-size:0.75rem; color:var(--text-muted); font-weight:700; text-transform:uppercase">Documento de Estudio</span>
+    </div>
+    <div style="display:flex; gap:0.8rem">
+        <button id="fullScreenBtn" style="padding:0.6rem 1rem; border-radius:12px; border:none; background:#f1f5f9; font-weight:700; font-size:0.75rem; cursor:pointer; display:flex; align-items:center; gap:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3"/></svg>
+            NUEVA VENTANA
+        </button>
+        <button onclick="closeModal()" style="width:40px; height:40px; border-radius:12px; border:none; background:#fee2e2; color:#ef4444; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+    </div>
+  </div>
+  <iframe id="vFrame" style="flex:1; border:none; background:white;"></iframe>
+</div>
+
+<!-- Modal Añadir Recurso -->
+<div id="addModal" class="modal-window" style="padding:2.5rem; width: 90%; max-width:480px; border-radius:35px; background: white; display: none; flex-direction: column; border: 4px solid white; box-shadow: 0 40px 100px rgba(0,0,0,0.3);">
+    <h2 style="font-weight:900; margin-bottom:1.5rem; font-size:1.8rem; letter-spacing:-0.04em">Añadir Material</h2>
+    <div style="margin-bottom:1.2rem">
+        <label style="display:block; margin-bottom:0.5rem; font-weight:800; color:var(--text-main); font-size:0.9rem">Nombre del recurso</label>
+        <input type="text" id="newName" placeholder="Ej: UD Fútbol Sala" style="width:100%; padding:1rem; border-radius:15px; border:none; background:#f1f5f9; outline:none">
+    </div>
+    <div style="margin-bottom:2rem">
+        <label style="display:block; margin-bottom:0.5rem; font-weight:800; color:var(--text-main); font-size:0.9rem">Archivo (PDF / HTML)</label>
+        <input type="file" id="newFile" accept=".html,.pdf" style="width:100%; padding:10px; border:2px dashed var(--brand-glow); border-radius:15px;">
+    </div>
+    <div style="display:flex; gap:1rem">
+        <button class="btn-primary" onclick="closeAddModal()" style="background:#f1f5f9; border:none">Cancelar</button>
+        <button class="btn-primary" id="saveBtn" style="background:var(--brand); color:white; border:none" onclick="saveResource()">Guardar Material</button>
+    </div>
+</div>
+
+<script>
+/* =====================
+   ESTADO Y DATOS
+===================== */
+const DEFAULT_TOOLS = [
+  { id: "Generar códigos QR.html", name: "Generar códigos QR" },
+  { id: "Cronómetro y cuenta atrás.html", name: "Cronómetro y cuenta atrás" },
+  { id: "Sorteo temas tablero.html", name: "Sorteo temas tablero" },
+  { id: "Sorteo temas RULETA.html", name: "Sorteo temas RULETA" },
+  { id: "Rúbrica UD.html", name: "Rúbrica UD" },
+  { id: "Rúbrica PD.html", name: "Rúbrica PD" },
+  { id: "Calculadora de PROBABILIDADES.html", name: "Calculadora de PROBABILIDADES" },
+  { id: "Sorteo de TEMAS de EF.html", name: "Sorteo de TEMAS de EF" },
+  { id: "Sorteo de TEMAS.html", name: "Sorteo de TEMAS" },
+  { id: "PERFIL SALIDA BACH.html", name: "PERFIL DE SALIDA BACH" },
+  { id: "PERFIL DE SALIDA ESO.html", name: "PERFIL DE SALIDA ESO" },
+  { id: "Porcentaje y Sorteo.html", name: "Porcentaje y Sorteo" },
+  { id: "OBJETIVOS ETAPA ESO.html", name: "OBJETIVOS ETAPA ESO" },
+  { id: "OBJETIVOS ETAPA BACHILLERATO.html", name: "OBJETIVOS ETAPA BACHILLERATO" },
+  { id: "Comparador de CRITERIOS.html", name: "Comparador de CRITERIOS" },
+  // CORRECCIÓN: Nombre de archivo ajustado a un solo espacio para coincidir con el archivo real subido
+  { id: "Comparador de CONTENIDOS.html", name: "Comparador de CONTENIDOS" }
+];
+
+let customTools = JSON.parse(localStorage.getItem('ef_custom_v8') || '[]');
+let favs = JSON.parse(localStorage.getItem('ef_favs_v8') || '[]');
+let searchTerm = "";
+let showFavs = false;
+let isAZ = false;
+let currentResourceUrl = "";
+
+function render() {
+  const container = document.getElementById('grid');
+  let list = [...DEFAULT_TOOLS, ...customTools];
+
+  if (searchTerm) list = list.filter(l => l.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  if (showFavs) list = list.filter(l => favs.includes(l.name));
+  if (isAZ) list.sort((a, b) => a.name.localeCompare(b.name));
+
+  let html = list.map((item) => {
+    const isFav = favs.includes(item.name);
+    const isCustom = customTools.some(c => c.name === item.name);
+    return `
+      <div class="card" onmouseenter="playTick()">
+        <div>
+            <span class="badge" style="${isCustom ? 'background:#1e293b' : ''}">${isCustom ? 'Tu Archivo' : 'Material'}</span>
+            <div class="card-title">${item.name}</div>
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center">
+          <button class="btn-primary" onclick="openViewer('${item.id}', '${item.name}')">
+            Abrir
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </button>
+          
+          <button class="action-btn ${isFav ? 'active' : ''}" onclick="toggleFav('${item.name}')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+
+          ${isCustom ? `
+            <button class="action-btn btn-delete" onclick="deleteCustom('${item.name}')" title="Borrar este recurso">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+            </button>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  if (!showFavs && !searchTerm) {
+    html += `
+      <div class="card" onclick="openAddModal()" onmouseenter="playTick()" style="border:3px dashed var(--brand); align-items:center; justify-content:center; cursor:pointer; background:rgba(255,255,255,0.4); min-height:180px;">
+        <div style="width:50px; height:50px; border-radius:50%; background:white; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-3d); color:var(--brand); margin-bottom:0.8rem">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div style="font-weight:900; font-size:1rem; color:#1e293b">SUBIR MATERIAL</div>
+      </div>
+    `;
+  }
+  container.innerHTML = html;
+}
+
+/* =====================
+   LÓGICA FUNCIONAL
+===================== */
+let audioCtx = null;
+function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+function playTick() {
+    initAudio();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.05);
+    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+}
+
+function openAddModal() {
+    const m = document.getElementById('addModal');
+    m.style.display = 'flex';
+    document.getElementById('overlay').style.display = 'block';
+    setTimeout(() => m.classList.add('open'), 10);
+}
+
+function closeAddModal() {
+    const m = document.getElementById('addModal');
+    m.classList.remove('open');
+    document.getElementById('overlay').style.display = 'none';
+    setTimeout(() => { m.style.display = 'none'; }, 400);
+}
+
+function saveResource() {
+    const nameInput = document.getElementById('newName');
+    const fileInput = document.getElementById('newFile');
+    const name = nameInput.value.trim();
+    const file = fileInput.files[0];
+    
+    if (!name || !file) return;
+
+    const r = new FileReader();
+    r.onload = (e) => {
+        customTools.push({ id: e.target.result, name });
+        localStorage.setItem('ef_custom_v8', JSON.stringify(customTools));
+        nameInput.value = "";
+        fileInput.value = "";
+        closeAddModal();
+        render();
+    };
+    r.readAsDataURL(file);
+}
+
+function deleteCustom(n) {
+    if(confirm(`¿Estás seguro de que quieres eliminar "${n}"?`)) {
+        customTools = customTools.filter(c => c.name !== n);
+        localStorage.setItem('ef_custom_v8', JSON.stringify(customTools));
+        render();
+    }
+}
+
+function openViewer(src, title) {
+  currentResourceUrl = src;
+  const v = document.getElementById('viewer');
+  document.getElementById('vTitle').innerText = title;
+  document.getElementById('vFrame').src = src;
+  v.style.display = 'flex';
+  document.getElementById('overlay').style.display = 'block';
+  setTimeout(() => v.classList.add('open'), 10);
+}
+
+function closeModal() {
+  const v = document.getElementById('viewer');
+  v.classList.remove('open');
+  document.getElementById('overlay').style.display = 'none';
+  setTimeout(() => { v.style.display = 'none'; document.getElementById('vFrame').src = ''; }, 400);
+}
+
+function closeAllModals() { closeModal(); closeAddModal(); }
+
+document.getElementById('fullScreenBtn').onclick = () => { if(currentResourceUrl) window.open(currentResourceUrl, '_blank'); };
+document.getElementById('searchInput').oninput = (e) => { searchTerm = e.target.value; render(); };
+
+function toggleFav(n) {
+  if (favs.includes(n)) favs = favs.filter(f => f !== n);
+  else favs.push(n);
+  localStorage.setItem('ef_favs_v8', JSON.stringify(favs));
+  render();
+}
+
+document.getElementById('sortBtn').onclick = (e) => { 
+    isAZ = !isAZ; 
+    e.currentTarget.classList.toggle('active', isAZ); 
+    render(); 
+};
+
+document.getElementById('favBtn').onclick = (e) => { 
+    showFavs = !showFavs; 
+    e.currentTarget.classList.toggle('active', showFavs); 
+    render(); 
+};
+
+document.getElementById('styleBtn').onclick = () => {
+  const colors = ['c1', 'c2', 'c3', 'c8'];
+  const current = document.documentElement.getAttribute('data-color');
+  document.documentElement.setAttribute('data-color', colors[(colors.indexOf(current) + 1) % colors.length]);
+};
+
+window.onload = render;
+</script>
+</body>
+</html>
