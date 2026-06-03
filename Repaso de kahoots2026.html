@@ -1,0 +1,1020 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kahoots DUA Premium</title><style>
+:root{--bg:#0b1020;--panel:rgba(255,255,255,.92);--panel2:#fff;--text:#102033;--muted:#64748b;--primary:#6d5dfc;--secondary:#00c2ff;--success:#18a058;--line:rgba(15,23,42,.12);--shadow:0 26px 80px rgba(2,6,23,.22);--font-scale:1}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,"Segoe UI",Arial,sans-serif;font-size:calc(16px * var(--font-scale));background:radial-gradient(circle at 10% 8%,rgba(109,93,252,.34),transparent 30%),radial-gradient(circle at 88% 2%,rgba(0,194,255,.24),transparent 28%),radial-gradient(circle at 55% 100%,rgba(245,158,11,.16),transparent 32%),linear-gradient(135deg,#06111f 0%,#10172d 42%,#172554 100%);background-attachment:fixed}body.high-contrast{--panel:#fff;--panel2:#fff;--text:#000;--muted:#111;--primary:#000;--secondary:#ffd400;--line:#000;background:#fff}body.reading-mode{background:#f8fafc}body.reading-mode .hero{background:#fff;color:#102033}body.reading-mode .hero p,body.reading-mode .teacher-chip{color:#334155}body.reduce-motion *,body.reduce-motion *:before,body.reduce-motion *:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.hero{position:relative;overflow:hidden;color:#fff;padding:54px 24px 72px}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 0 34%,rgba(255,255,255,.12) 34% 35%,transparent 35% 100%),linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:auto,44px 44px,44px 44px;mask-image:linear-gradient(to bottom,black,transparent 88%)}.hero-inner{position:relative;z-index:1;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}.eyebrow{display:inline-flex;width:fit-content;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(12px);font-weight:800;letter-spacing:.2px}h1{margin:18px 0 14px;font-size:clamp(2.4rem,6vw,5.4rem);line-height:.9;letter-spacing:-3px;text-transform:uppercase}.hero p{max-width:680px;margin:0;color:rgba(255,255,255,.78);font-size:1.08rem;line-height:1.6}.teacher-chip{display:inline-flex;margin-top:18px;padding:12px 18px;border-radius:18px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.23);font-weight:850;backdrop-filter:blur(14px)}.dashboard-card{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:30px;padding:22px;backdrop-filter:blur(18px);box-shadow:0 18px 50px rgba(0,0,0,.20)}.big-score{font-size:clamp(2.1rem,5vw,4.2rem);line-height:1;font-weight:950;letter-spacing:-2px}.dashboard-card small{display:block;margin-top:8px;opacity:.78;font-weight:700}.main{max-width:1180px;margin:-38px auto 48px;padding:0 18px;position:relative;z-index:3}.panel{background:var(--panel);border:1px solid rgba(255,255,255,.66);border-radius:26px;box-shadow:var(--shadow);backdrop-filter:blur(22px) saturate(170%);padding:20px}.toolbar{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--line)}.search{width:100%;min-height:48px;border:1px solid var(--line);border-radius:16px;padding:0 16px;font-size:1rem;color:var(--text);background:var(--panel2);outline:none}.search:focus,.score-input:focus,.note-input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 5px rgba(109,93,252,.14)}.controls{display:flex;flex-wrap:wrap;gap:9px;justify-content:flex-end}.control-btn,select{min-height:42px;border:1px solid var(--line);border-radius:14px;padding:0 13px;background:var(--panel2);color:var(--text);font-weight:800;cursor:pointer}.control-btn.primary{color:#fff;border:none;background:linear-gradient(135deg,var(--primary),var(--secondary))}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}.stat{background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:14px}.stat span{display:block;color:var(--muted);font-size:.86rem;font-weight:800}.stat strong{display:block;margin-top:6px;font-size:1.45rem;letter-spacing:-.6px}.progress-card{background:var(--panel2);border:1px solid var(--line);border-radius:22px;padding:16px;margin-bottom:18px}.progress-head{display:flex;justify-content:space-between;gap:12px;font-weight:900;margin-bottom:12px}.progress-track{position:relative;height:22px;border-radius:999px;background:#e5e7eb;overflow:hidden;box-shadow:inset 0 2px 8px rgba(0,0,0,.16)}.progress-fill{width:0%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#22c55e,#84cc16);transition:width .42s ease,background .32s ease}.special-mark{position:absolute;left:76.923%;top:50%;width:32px;height:32px;transform:translate(-50%,-50%);border-radius:50%;background:linear-gradient(135deg,#ffd43b,#f59e0b);border:4px solid #fff;box-shadow:0 0 0 5px rgba(245,158,11,.22),0 10px 20px rgba(245,158,11,.32);z-index:2}.special-mark:after{content:"★";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:14px}.scale{display:flex;justify-content:space-between;margin-top:10px;color:var(--muted);font-size:.86rem;font-weight:800}.group-title{margin:26px 0 12px;color:var(--muted);font-size:.95rem;font-weight:950;letter-spacing:.4px;text-transform:uppercase}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(154px,1fr));gap:14px}.kahoot-item{background:var(--panel2);border:1px solid var(--line);border-radius:24px;padding:12px;box-shadow:0 10px 28px rgba(15,23,42,.08);transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}.kahoot-item:hover{transform:translateY(-4px);border-color:rgba(109,93,252,.38);box-shadow:0 18px 36px rgba(15,23,42,.13)}.kahoot-item.done{border-color:rgba(24,160,88,.35);background:linear-gradient(180deg,#fff,#f0fdf4)}.kahoot-btn{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:54px;width:100%;padding:10px 12px;border-radius:18px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 12px 26px rgba(109,93,252,.24);overflow:hidden}.kahoot-btn:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);transform:translateX(-120%);transition:.45s ease}.kahoot-btn:hover:before{transform:translateX(120%)}.btn-number{position:relative;z-index:1;font-size:1.6rem;font-weight:950;letter-spacing:-1px}.btn-label{position:relative;z-index:1;font-weight:900;font-size:.86rem;opacity:.92}.score-label{display:block;margin:11px 0 6px;color:var(--muted);font-size:.78rem;font-weight:950;text-transform:uppercase}.score-input,.note-input{width:100%;border:1px solid var(--line);background:#f8fafc;color:var(--text);outline:none;font:inherit}.score-input{height:42px;border-radius:14px;padding:0 12px;text-align:center;font-weight:950}.note-input{margin-top:8px;min-height:58px;resize:vertical;border-radius:14px;padding:10px;line-height:1.35}.done-btn{width:100%;margin-top:9px;min-height:38px;border:1px solid rgba(24,160,88,.25);border-radius:14px;background:#ecfdf5;color:#087443;font-weight:950;cursor:pointer}.kahoot-item.done .done-btn{background:#18a058;color:#fff}.empty{display:none;padding:30px;text-align:center;color:var(--muted);font-weight:900}.fab{position:fixed;right:18px;bottom:18px;z-index:20;border:none;border-radius:999px;padding:14px 18px;background:#111827;color:#fff;box-shadow:0 18px 40px rgba(0,0,0,.25);font-weight:900;cursor:pointer}@media(max-width:860px){.hero-inner{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.controls{justify-content:stretch}.control-btn,select{flex:1 1 auto}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.hero{padding:38px 16px 58px}h1{letter-spacing:-1.8px}.main{padding:0 12px}.panel{padding:14px;border-radius:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stats{grid-template-columns:1fr}}@media print{body{background:#fff;color:#000}.controls,.fab,.search,.done-btn{display:none!important}.hero,.panel,.kahoot-item{box-shadow:none}}
+
+.access-overlay{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(109,93,252,.35),transparent 30%),
+    radial-gradient(circle at 85% 0%,rgba(0,194,255,.24),transparent 28%),
+    linear-gradient(135deg,#06111f,#172554);
+}
+.access-card{
+  width:min(430px,94vw);
+  padding:32px;
+  border-radius:28px;
+  background:rgba(255,255,255,.94);
+  color:#102033;
+  text-align:center;
+  box-shadow:0 26px 80px rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.7);
+}
+.access-card h2{
+  margin:0 0 10px;
+  font-size:1.8rem;
+}
+.access-card p{
+  margin:0 0 18px;
+  color:#64748b;
+  font-weight:700;
+}
+.access-input{
+  width:100%;
+  height:52px;
+  border-radius:16px;
+  border:1px solid rgba(15,23,42,.18);
+  padding:0 16px;
+  text-align:center;
+  font-size:1.25rem;
+  font-weight:900;
+  outline:none;
+}
+.access-input:focus{
+  border-color:#6d5dfc;
+  box-shadow:0 0 0 5px rgba(109,93,252,.15);
+}
+.access-btn{
+  width:100%;
+  height:52px;
+  margin-top:14px;
+  border:none;
+  border-radius:16px;
+  cursor:pointer;
+  color:#fff;
+  font-weight:900;
+  background:linear-gradient(135deg,#6d5dfc,#00c2ff);
+  box-shadow:0 14px 30px rgba(109,93,252,.25);
+}
+#accessError{
+  min-height:22px;
+  margin-top:10px;
+  color:#dc2626;
+  font-weight:900;
+}
+.hidden-app{display:none!important;}
+
+
+.explosion-layer{
+  position:fixed;
+  inset:0;
+  z-index:100000;
+  pointer-events:none;
+  display:none;
+  overflow:hidden;
+  background:radial-gradient(circle at center,rgba(255,255,255,.55),transparent 34%);
+}
+.explosion-layer.active{display:block;}
+.explosion-burst{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:#fff;
+  box-shadow:
+    0 0 0 0 rgba(255,255,255,.95),
+    0 0 60px 20px rgba(0,194,255,.45),
+    0 0 120px 40px rgba(109,93,252,.38);
+  animation:burstZoom 1s ease-out forwards;
+}
+.explosion-particle{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:var(--particle-color,#fff);
+  transform:translate(-50%,-50%);
+  animation:particleFly 1.25s cubic-bezier(.12,.84,.28,1) forwards;
+}
+.explosion-text{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%) scale(.65);
+  color:#fff;
+  font-weight:950;
+  font-size:clamp(2.2rem,7vw,5rem);
+  letter-spacing:-2px;
+  text-shadow:0 16px 40px rgba(0,0,0,.34);
+  opacity:0;
+  animation:accessText 1.7s ease forwards;
+}
+@keyframes burstZoom{
+  0%{transform:translate(-50%,-50%) scale(.2);opacity:1}
+  55%{transform:translate(-50%,-50%) scale(18);opacity:.9}
+  100%{transform:translate(-50%,-50%) scale(30);opacity:0}
+}
+@keyframes particleFly{
+  0%{transform:translate(-50%,-50%) scale(.3);opacity:1}
+  80%{opacity:1}
+  100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(720deg) scale(.15);opacity:0}
+}
+@keyframes accessText{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.65)}
+  22%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
+  65%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-58%) scale(1.08)}
+}
+
+
+.portal-layer{position:fixed;inset:0;z-index:100000;display:none;overflow:hidden;background:radial-gradient(circle,#0008,#000)}
+.portal-layer.active{display:block}
+.portal-ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;border:6px solid #fff;animation:ring 2.4s ease-out forwards;box-shadow:0 0 60px #6d5dfc,0 0 120px #00c2ff}
+.portal-flash{position:absolute;inset:0;background:white;opacity:0;animation:flash 1s ease}
+.portal-title{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(2rem,8vw,5rem);font-weight:900;color:#fff;letter-spacing:-2px;text-shadow:0 0 30px #fff;animation:titleIn 2.5s ease forwards}
+@keyframes ring{0%{width:10px;height:10px;opacity:1}100%{width:160vmax;height:160vmax;opacity:0}}
+@keyframes flash{0%,100%{opacity:0}50%{opacity:.9}}
+@keyframes titleIn{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.3)}100%{opacity:0;transform:translate(-50%,-70%) scale(1)}}
+
+.portal-layer{position:fixed;inset:0;z-index:100000;display:none;overflow:hidden;background:radial-gradient(circle at center,rgba(109,93,252,.35),transparent 28%),radial-gradient(circle,#0f172a,#020617 72%);pointer-events:none}
+.portal-layer.active{display:block}
+.portal-ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;border:6px solid rgba(255,255,255,.95);animation:portalRing 2.4s ease-out forwards;box-shadow:0 0 60px #6d5dfc,0 0 130px #00c2ff}
+.portal-flash{position:absolute;inset:0;background:white;opacity:0;animation:portalFlash 1.05s ease}
+.portal-title{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(2rem,8vw,5rem);font-weight:950;color:#fff;letter-spacing:-2px;text-shadow:0 0 30px #fff,0 18px 42px rgba(0,0,0,.45);animation:portalTitle 2.5s ease forwards;white-space:nowrap}
+@keyframes portalRing{0%{width:10px;height:10px;opacity:1}70%{opacity:.85}100%{width:160vmax;height:160vmax;opacity:0}}
+@keyframes portalFlash{0%,100%{opacity:0}45%{opacity:.92}}
+@keyframes portalTitle{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.25)}72%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-68%) scale(1.08)}}
+.done-btn{line-height:1.25;white-space:normal}
+.kahoot-item.done .done-btn{font-size:.82rem}
+
+
+/* === DISEÑO FINAL INSPIRADO EN LA REFERENCIA === */
+body{
+  background:
+    radial-gradient(circle at 12% 0%, rgba(124,58,237,.35), transparent 28%),
+    radial-gradient(circle at 88% 8%, rgba(0,194,255,.20), transparent 32%),
+    linear-gradient(180deg,#020617 0%,#07123a 28%,#f6f8ff 28%,#f6f8ff 100%) !important;
+}
+
+.hero{
+  padding:28px 30px 34px !important;
+  background:
+    radial-gradient(circle at 18% 12%,rgba(168,85,247,.22),transparent 22%),
+    radial-gradient(circle at 82% 5%,rgba(0,194,255,.20),transparent 26%),
+    linear-gradient(135deg,#03051f 0%,#07104a 52%,#0d1b6b 100%) !important;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.hero:before{
+  background:
+    linear-gradient(120deg,transparent 0 38%,rgba(255,255,255,.12) 38% 39%,transparent 39% 100%),
+    radial-gradient(circle,rgba(80,150,255,.9) 1px,transparent 2px),
+    linear-gradient(90deg,rgba(80,80,255,.22) 1px,transparent 1px),
+    linear-gradient(rgba(80,80,255,.18) 1px,transparent 1px) !important;
+  background-size:auto,120px 70px,160px 80px,160px 80px !important;
+  opacity:.95;
+}
+
+.hero-inner{
+  max-width:1240px !important;
+  grid-template-columns:1fr 260px !important;
+}
+
+.eyebrow{
+  background:rgba(82,40,200,.32)!important;
+  border:1px solid rgba(139,92,246,.75)!important;
+  border-radius:12px!important;
+  padding:9px 18px!important;
+  box-shadow:0 0 16px rgba(124,58,237,.28);
+}
+
+.hero h1{
+  margin:8px 0 10px!important;
+  font-size:clamp(2rem,4vw,3.7rem)!important;
+  line-height:.95!important;
+  letter-spacing:-1.6px!important;
+  font-weight:950!important;
+  font-style:italic;
+  background:linear-gradient(100deg,#fff 0%,#a855f7 18%,#fff 31%,#22d3ee 48%,#c4b5fd 68%,#fff 100%);
+  background-size:240% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent!important;
+  text-shadow:0 0 20px rgba(168,85,247,.55);
+  animation:titleShine 3.4s linear infinite;
+}
+
+@keyframes titleShine{
+  0%{background-position:240% center}
+  100%{background-position:-240% center}
+}
+
+.hero p{
+  font-size:1rem!important;
+  max-width:650px!important;
+  color:rgba(255,255,255,.88)!important;
+}
+
+.teacher-chip{
+  margin-top:14px!important;
+  padding:10px 18px!important;
+  border-radius:12px!important;
+  background:rgba(49,24,130,.42)!important;
+  border:1px solid rgba(139,92,246,.85)!important;
+  box-shadow:0 0 15px rgba(124,58,237,.25);
+}
+
+/* Recuadro superior de puntuación, como en la foto */
+.dashboard-card{
+  width:230px!important;
+  justify-self:end!important;
+  padding:16px 18px 15px 70px!important;
+  border-radius:16px!important;
+  background:rgba(6,13,62,.72)!important;
+  border:1px solid rgba(168,85,247,.85)!important;
+  box-shadow:
+    0 0 0 1px rgba(34,211,238,.12),
+    0 0 28px rgba(124,58,237,.62),
+    inset 0 0 24px rgba(0,194,255,.12)!important;
+  backdrop-filter:blur(18px)!important;
+  position:relative!important;
+  overflow:hidden!important;
+}
+
+.dashboard-card:before{
+  content:"🏆";
+  position:absolute;
+  left:18px;
+  top:23px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#6d28d9,#7c3aed);
+  box-shadow:0 0 18px rgba(124,58,237,.75);
+  font-size:21px;
+}
+
+.dashboard-card small{
+  margin:0!important;
+  display:block!important;
+  color:#fff!important;
+  opacity:1!important;
+  font-size:.70rem!important;
+  line-height:1.25!important;
+  font-weight:800!important;
+  text-transform:uppercase!important;
+  letter-spacing:.4px!important;
+}
+
+.big-score{
+  margin-top:6px!important;
+  font-size:clamp(1.8rem,3vw,2.35rem)!important;
+  line-height:1!important;
+  color:#35f3ff!important;
+  text-shadow:0 0 18px rgba(53,243,255,.92)!important;
+  letter-spacing:-1px!important;
+}
+
+.dashboard-card:after{
+  content:"puntos";
+  display:block;
+  margin-top:5px;
+  color:#fff;
+  font-size:.85rem;
+  opacity:.95;
+}
+
+/* Contenedor principal blanco redondeado */
+.main{
+  max-width:1240px!important;
+  margin:-18px auto 48px!important;
+  padding:0 14px!important;
+}
+
+.panel{
+  background:#f9fbff!important;
+  border:1px solid rgba(226,232,240,.9)!important;
+  border-radius:28px!important;
+  padding:22px!important;
+  box-shadow:0 24px 70px rgba(15,23,42,.18)!important;
+  backdrop-filter:none!important;
+}
+
+.toolbar{
+  grid-template-columns: minmax(260px, 420px) 1fr!important;
+  gap:18px!important;
+  align-items:center!important;
+  border-bottom:none!important;
+  padding-bottom:18px!important;
+}
+
+.search{
+  min-height:48px!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  border:1px solid #dbe3f0!important;
+  box-shadow:0 6px 16px rgba(15,23,42,.08)!important;
+}
+
+.controls{
+  gap:14px!important;
+  justify-content:flex-end!important;
+}
+
+.control-btn,select{
+  min-height:48px!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  border:1px solid #dbe3f0!important;
+  box-shadow:0 6px 16px rgba(15,23,42,.08)!important;
+  color:#0f174a!important;
+}
+
+.control-btn.primary{
+  background:linear-gradient(135deg,#7c3aed,#4f46e5)!important;
+  color:#fff!important;
+  border:none!important;
+  box-shadow:0 10px 20px rgba(99,102,241,.35)!important;
+}
+
+/* Tarjetas estadísticas tipo dashboard */
+.stats{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:16px!important;
+  margin:8px 0 18px!important;
+}
+
+.stat{
+  min-height:86px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  padding:16px 18px 16px 84px!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  border:1px solid #e3e8f3!important;
+  box-shadow:0 8px 20px rgba(15,23,42,.08)!important;
+  position:relative!important;
+}
+
+.stat:before{
+  position:absolute;
+  left:22px;
+  top:50%;
+  transform:translateY(-50%);
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:22px;
+  box-shadow:0 10px 22px rgba(15,23,42,.15);
+}
+
+.stat:nth-child(1):before{content:"📋";background:linear-gradient(135deg,#8b5cf6,#5b21b6)}
+.stat:nth-child(2):before{content:"📈";background:linear-gradient(135deg,#16a34a,#059669)}
+.stat:nth-child(3):before{content:"🎯";background:linear-gradient(135deg,#3b82f6,#2563eb)}
+.stat:nth-child(4):before{content:"🔥";background:linear-gradient(135deg,#f97316,#fb923c)}
+
+.stat span{
+  color:#33406d!important;
+  font-size:.78rem!important;
+  text-transform:uppercase;
+  letter-spacing:.25px;
+}
+
+.stat strong{
+  margin-top:3px!important;
+  color:#071044!important;
+  font-size:1.55rem!important;
+}
+
+/* Progreso global */
+.progress-card{
+  background:#fff!important;
+  border:1px solid #e3e8f3!important;
+  border-radius:14px!important;
+  padding:18px!important;
+  box-shadow:0 8px 22px rgba(15,23,42,.08)!important;
+}
+
+.progress-head{
+  color:#071044!important;
+}
+
+.progress-track{
+  height:16px!important;
+  background:#e5e7eb!important;
+  box-shadow:none!important;
+}
+
+.progress-fill{
+  background:linear-gradient(90deg,#0b8f2a,#61d600)!important;
+}
+
+.special-mark{
+  width:30px!important;
+  height:30px!important;
+}
+
+/* Bloques y tarjetas de Kahoots compactas */
+.group-title{
+  color:#071044!important;
+  padding-left:12px;
+  border-left:4px solid #7c3aed;
+  font-size:1rem!important;
+}
+
+.kahoot-item{
+  border-radius:12px!important;
+  background:#fff!important;
+  border:1px solid #e3e8f3!important;
+  box-shadow:0 8px 18px rgba(15,23,42,.08)!important;
+}
+
+.kahoot-btn{
+  border-radius:12px!important;
+  background:linear-gradient(135deg,#8b5cf6,#6d28d9)!important;
+  min-height:48px!important;
+}
+
+.btn-number{
+  font-size:1.35rem!important;
+}
+
+@media(max-width:860px){
+  .hero-inner{grid-template-columns:1fr!important}
+  .dashboard-card{justify-self:start!important;margin-top:16px}
+  .toolbar{grid-template-columns:1fr!important}
+}
+
+@media(max-width:560px){
+  .hero{padding:24px 18px 42px!important}
+  .dashboard-card{width:100%!important}
+  .stats{grid-template-columns:1fr!important}
+}
+
+
+.high-contrast{
+  filter:contrast(1.35) saturate(1.2);
+  background:#000 !important;
+  color:#fff !important;
+}
+.read-mode{
+  font-size:1.12em !important;
+  line-height:1.8 !important;
+}
+.read-mode .kahoot-item,
+.read-mode .panel,
+.read-mode .stat{
+  font-size:1.05em !important;
+}
+.done-stamp{
+  display:block;
+  margin-top:6px;
+  font-size:.72rem;
+  color:#16a34a;
+  font-weight:700;
+}
+
+/* Explosión cinematográfica mejorada */
+.explosion-layer{
+ position:fixed;inset:0;display:none;z-index:999999;
+ background:radial-gradient(circle,#ffffff44,#000000);
+ pointer-events:none;overflow:hidden;
+}
+.explosion-layer.active{display:block}
+.explosion-core{
+ position:absolute;left:50%;top:50%;
+ width:20px;height:20px;border-radius:50%;
+ transform:translate(-50%,-50%);
+ background:white;
+ box-shadow:0 0 80px #fff,0 0 150px #00c2ff,0 0 250px #7c3aed;
+ animation:explode 1.4s ease-out forwards;
+}
+@keyframes explode{
+0%{transform:translate(-50%,-50%) scale(.1);opacity:1}
+100%{transform:translate(-50%,-50%) scale(35);opacity:0}
+}
+
+.explosion-layer{
+  position:fixed;
+  inset:0;
+  display:none;
+  z-index:999999;
+  background:radial-gradient(circle at center,rgba(255,255,255,.35),rgba(2,6,23,.98) 68%);
+  pointer-events:none;
+  overflow:hidden;
+}
+.explosion-layer.active{display:block}
+.explosion-core{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  box-shadow:0 0 80px #fff,0 0 150px #00c2ff,0 0 250px #7c3aed;
+  animation:explodeAccess 1.4s ease-out forwards;
+}
+.explosion-title{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  color:#fff;
+  font-size:clamp(2rem,7vw,4.8rem);
+  font-weight:950;
+  letter-spacing:-2px;
+  text-shadow:0 0 28px rgba(255,255,255,.9),0 18px 42px rgba(0,0,0,.45);
+  animation:accessTitleIn 2s ease forwards;
+  white-space:nowrap;
+}
+@keyframes explodeAccess{
+  0%{transform:translate(-50%,-50%) scale(.1);opacity:1}
+  100%{transform:translate(-50%,-50%) scale(36);opacity:0}
+}
+@keyframes accessTitleIn{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.65)}
+  20%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
+  75%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-60%) scale(1.05)}
+}
+
+
+/* Ocultar botones solicitados */
+#contrastBtn,
+#readingBtn,
+#fontMinus,
+#fontPlus,
+#groupFilter{
+  display:none !important;
+}
+
+/* Estilo oscuro premium tipo referencia */
+body{
+  background:
+    radial-gradient(circle at 12% 4%, rgba(124,58,237,.28), transparent 26%),
+    radial-gradient(circle at 82% 0%, rgba(0,194,255,.18), transparent 30%),
+    linear-gradient(180deg,#020617 0%,#07122d 36%,#050b1c 100%) !important;
+}
+
+.panel,
+.kahoot-item,
+.stat,
+.progress-card{
+  background:linear-gradient(135deg,rgba(2,8,23,.94),rgba(8,26,69,.92)) !important;
+  color:#fff !important;
+  border:1px solid rgba(139,92,246,.28) !important;
+  box-shadow:0 12px 34px rgba(0,0,0,.38) !important;
+}
+
+.search,
+.control-btn,
+select,
+.score-input,
+.note-input{
+  background:#0a1336 !important;
+  color:#fff !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+}
+
+.stat span,
+.score-label,
+.group-title,
+.progress-head,
+.scale{
+  color:#e5e7ff !important;
+}
+
+.stat strong,
+#scoreValue,
+#progressPercent,
+#doneCount,
+#visibleCount{
+  color:#fff !important;
+}
+
+.kahoot-item.done{
+  background:linear-gradient(135deg,rgba(5,46,22,.92),rgba(8,26,69,.9)) !important;
+  border-color:rgba(34,197,94,.45) !important;
+}
+
+
+.kahoot-number{
+ display:flex!important;
+ align-items:center;
+ gap:8px;
+}
+.kahoot-number::after{
+ content:"";
+ width:24px;
+ height:24px;
+ display:inline-block;
+ background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADhCAMAAADmr0l2AAAAkFBMVEU2AJ7///8+FKEdAJfh3u4kAJm9ttowAJwgAJh9broxAJwSAJUqAJr9/P7v7fatpNLNx+P19Pne2+y3r9eXi8eShcSglcvq5/PTzuaons+0rNVGJKPHweBpVbFLLKWckMmKfMDZ1OljTa9dRaxSNqh2ZLd7ark/GKFYPqpmUbCGd75JKqVbQqtEIaOPgcOrodALSFcuAAAHvklEQVR4nO2daXviOgyFgTQktc3WjbbQhQE6XW5n/v+/u2BKySLZcigyw6P3YycBH5LIJzpOptU5cVqCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAj/Air2AA6MWugkNSesMum3Ly7/zJOVyiz2WA5Cetm2jKdPDybJT0+leW/v6A/vli2dm5M6ZTvtCqPbwfmHzk/mlNX9qkLL6sJ81SdxYaZTUKDlrHv1lkZWqUyeTPb5AHOFC9xcmNObZaRHBFbi9OJp2J6m+3zIq0egPWHzHxs0eVwm1Y9Xw97667v7CGxpgsD7vb4hmLW4yfV0tP36/QTmt36B1+anxu5nJa7zvBO3v0Bz5xf4wFZm8tZ7t1bX9xOYPfgFsk388Om0n8BW7tXX0z80fi/J2QEEwh9a5CL5ofE3HAtFoGOy3vptnD1/wQAaC9Q3Lxqz0ObcJ/CGrYg2FahXB2k0mCTIQH0CX9iKaEOBurvZ8OI5T4HDiPjtHY9sVbSZQD0sbDvXtcPo8tsWtiLaTKAuzy3jpywvn3Lm2q1vzFZEGwnUs9oOw2Wp4qiFW+CQz2qHC1TJBbTLuuLsNtI9p8ABnxMNFqhSdBaf7fby+O3n4xWozBgddsFAe/z2L74eVKBAleETwEthJ4/fZrxXChOYdUbQ5pbrUuFw+u0R3ywRJjD7jeu7Swif+8WMsV8RItB84LWxWzko6b1DIJ/VDhJoHJPbbfWkc/rtp6O8Bs1/+IgvgIvKIXDJ2BYlCzS/8AGPgWvK5bd/MyYVVIGpo+6PMmDALr/NWESpAtMlPtz2J3TGOfz2GZ/VpgrMXSXjFSwZDr+9V988FJLA5B3a6IsHpCTifvuOsYiSBCauu7tz7HDgfvv8yATqJ4e+K9SUmBtsn1fOuNcvULtuDAZ4QcT9NmeN8QvUA4e+qavgJ8hO/aMSqF093JpBI3z0ai/WaNAjULvaY2fuCRvz27zRoFtgsT1Yow91RAtgfpszGvQI1K7OSq/ls8wK3pEvGlzjEgi0Bwt8eMeJ+G3eNUG4QJU7Q7C5/0SD/TZfNGhBBaoUb5+tWBIuJNhv80WDFkxg5mgPrninVEL1iPx4nCACE+XMh25oRwH023zRoAUWeGnw9tmKe+JlBPptvmjQAgucOvU5DVoR0G/zRYMW/3qBGjNyGczegN15i2gTgQEjBPw2YzS4GUK4wDn9IgKSNsZocDOEcIEBHQfAbzNGg5YGAgNm6uyltjdjNGhpIDAk/MpqOzNGg5YmAgOaRknNL/D6mGYCA8xW2q3syxkNWpoIDBik+VPZlzMatDQRGGBGan6b2Wo3FBiQ71X9Nmc0aGkkMKAvlle6OpzRoKWRwIDWbdVvc0aDlmYC6X2jrJKbchfRhgIH9FJR9tus0eDm+xsJDLglKPtt1mhw8/1+gVD4Qv+CtJRtsEaDFr/AhQH+SLfMZb/9fnQCe48G2iTgVCv5bdZo0OIR2JuYlvlb/3uAW0uK/Uf2GuMROPqd1Sv95lCQJ4qi3+aNBi1OgaOOlQG1N+ndzaLf5o0GLS6B/a/8CMoYZuRjoT52ezE/NbjGIbC/XcBknoF/pQ9V75qsvNGgBRc43i2jrzceQlxzwW/zRoMWVOC4kN9CG12SD2HBb0d4XQAm8CwvDAZaYt6n97e/qzBzNGhBBJZbg2oObPJJPhwJ/Kk8wAKr8QM0UdALxrffZu9XtDCB1cFDEwW9B2+2fps5GrTAAq8qIzHQckP6Rbj128zRoIUmsAXdUbyRh7vdmzkatMACa70v6IGsv/SLcBx4zH8QokBooqC3H778Nnc0aCEKzKAXcND99sbrcUeDFqLAoqH8hnx7riZ2e+5o0EIVWEtR2iHT2ubn4Y4GLbDA+oQFLR2k39Zv/PY8xpurqALBiWJBHbGxy75jHEC6wGRGOZMRrN9mjwYt9CMILOqhdyDWLwlijwYtZIHgkyzkiS2fxbHamECoAQ1NFOTb+rXfZo8GLeQjCE4U5CZStowQDVroRxBY8xJgvkyEaNBCF9hKgQ3J739b+e0oRRQRCN4oQBPFH+p1lXajWG1MIOgaoYliSi395noYpYiGCISWYJP7ZGpxH6WIhggEn4Mg+0uzjPMO1RCB0Mu26JFtpHfEhgjMgCeVY7Q6g0AEwgUBegNHnNJBJ0wg8JhAjFZgCLBAxIJB736NY6HpBAn86q2UoIcwcUCefEEOCzRRTNzlMdMFjqZ1jwmEJopaF7xE9tDufRPjjilMIDRRuG/ry8spPU/9HoIwgeCj465Bq8pr0z3n8wEIFAhNFK7gPa08hX8sa9VQgdBE4WpYJ5XkdHwk60VRgeqzvrEjhKkvQFlw+wJz050Ob2dn4/6o0FTCZ29oosA/Xdd+Pv58wqRpnufJitU8lZjOZDF/W+LP36i38xqP6Mb1xQtxur+lQSmVQe9o+v73rAa6bQ5E+wEP5x0/0KsQ6AuIjh/wFZXxz9GfIwEfdY6wXu1AIO/lOvb7qwAyNYPO0WNvcoSg62+ziLAm9pCkn+Wp/uIxSkh4QJQu9MN75/qU/oOpL9LF1t0N8jjN7UOTafs0/WxyWldfkeStN1qe4tn5TabMaZ6dgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIvHROnP8B5Otkgljhxx4AAAAASUVORK5CYII=);
+ background-size:contain;
+ background-repeat:no-repeat;
+ background-position:center;
+ filter:drop-shadow(0 0 8px rgba(168,85,247,.7));
+}
+
+/* Botón y modo claro */
+.light-mode{
+  background:#f5f7fb !important;
+  color:#111827 !important;
+}
+.light-mode .hero{
+  background:linear-gradient(135deg,#ffffff,#eef4ff) !important;
+  color:#111827 !important;
+}
+.light-mode .hero p,
+.light-mode .teacher-chip,
+.light-mode .eyebrow{
+  color:#111827 !important;
+}
+.light-mode .panel,
+.light-mode .kahoot-item,
+.light-mode .stat,
+.light-mode .progress-card{
+  background:#ffffff !important;
+  color:#111827 !important;
+  border:1px solid #dbe3f0 !important;
+  box-shadow:0 10px 20px rgba(15,23,42,.08) !important;
+}
+.light-mode .search,
+.light-mode .control-btn,
+.light-mode select,
+.light-mode .score-input,
+.light-mode .note-input{
+  background:#ffffff !important;
+  color:#111827 !important;
+  border:1px solid #cbd5e1 !important;
+}
+.light-mode .group-title,
+.light-mode .stat span,
+.light-mode .progress-head,
+.light-mode .scale,
+.light-mode .score-label{
+  color:#374151 !important;
+}
+.light-mode .stat strong,
+.light-mode #scoreValue,
+.light-mode #progressPercent,
+.light-mode #doneCount,
+.light-mode #visibleCount{
+  color:#0f172a !important;
+}
+.light-mode .dashboard-card{
+  background:#ffffff !important;
+  color:#111827 !important;
+  border:1px solid #cbd5e1 !important;
+  box-shadow:0 10px 24px rgba(15,23,42,.12) !important;
+}
+.light-mode .big-score{
+  color:#2563eb !important;
+  text-shadow:none !important;
+}
+.light-toggle-btn{
+  min-height:48px;
+  padding:0 16px;
+  border-radius:12px;
+  border:1px solid #dbe3f0;
+  background:linear-gradient(135deg,#ffffff,#eaf2ff);
+  color:#0f172a;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 6px 15px rgba(15,23,42,.10);
+}
+
+</style></head><body>
+<div id="accessOverlay" class="access-overlay">
+  <div class="access-card">
+    <h2>🔐 Acceso protegido</h2>
+    <p>Introduce el código para acceder al panel de los KAHOOTS.</p>
+    <input id="accessCode" class="access-input" type="password" inputmode="numeric" placeholder="Código" autocomplete="off">
+    <button class="access-btn" type="button" onclick="checkAccess()">Acceder</button>
+    <div id="accessError" aria-live="polite"></div>
+  </div>
+</div>
+<div id="explosionLayer" class="portal-layer" aria-hidden="true"></div>
+<div id="appContent" class="hidden-app"><header class="hero"><div class="hero-inner"><section><div class="eyebrow">Panel de repaso de kahoots</div><h1>Kahoots del Temario 2026</h1><p>Seguimiento del progreso</p><div class="teacher-chip">👨‍🏫 Profesor: José Manuel Paredes</div></section><aside class="dashboard-card" aria-label="Marcador general"><div class="big-score" id="heroScore">0</div><small>Puntuación total acumulada</small></aside></div></header><main class="main"><section class="panel"><div class="toolbar"><input id="search" class="search" type="search" placeholder="Buscar Kahoot, nota o puntuación..." aria-label="Buscar Kahoot"><div class="controls"><select id="groupFilter" aria-label="Filtrar por bloque"><option value="all">Todos los bloques</option><option value="1">Bloque 1 · 1-10</option><option value="2">Bloque 2 · 11-20</option><option value="3">Bloque 3 · 21-30</option><option value="4">Bloque 4 · 31-40</option><option value="5">Bloque 5 · 41-50</option><option value="6">Bloque 6 · 51-60</option><option value="7">Bloque 7 · 61-65</option></select><button class="control-btn" type="button" id="fontMinus">A−</button><button class="control-btn" type="button" id="fontPlus">A+</button><button class="control-btn" type="button" id="contrastBtn">Alto contraste</button><button class="control-btn" type="button" id="readingBtn">Modo lectura</button><button class="control-btn" type="button" id="motionBtn">Sin animación</button><button class="control-btn primary" type="button" id="exportBtn">Exportar CSV</button><button class="light-toggle-btn" type="button" id="lightModeBtn">☀️ Modo claro</button><button class="control-btn" type="button" id="resetBtn">Reiniciar</button></div></div><div class="stats"><div class="stat"><span>Total</span><strong id="scoreValue">0</strong></div><div class="stat"><span>Progreso</span><strong id="progressPercent">0%</strong></div><div class="stat"><span>Completados</span><strong id="doneCount">0/65</strong></div><div class="stat"><span>Visibles</span><strong id="visibleCount">65</strong></div></div><div class="progress-card"><div class="progress-head"><span>Barra 0 → 1.300.000</span><span>⭐ Meta especial: 1.000.000</span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div><div class="special-mark" title="Meta especial: 1.000.000 puntos"></div></div><div class="scale"><span>0</span><span>200k</span><span>400k</span><span>600k</span><span>800k</span><span>⭐ 1M</span><span>1.3M</span></div></div><h2 class="group-title">Listado de Kahoots</h2><div class="grid" id="grid"><article class="kahoot-item" data-index="1" data-title="kahoot 1" data-group="1"><a class="kahoot-btn" href="https://kahoot.it/challenge/08657806" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 1"><span class="btn-number kahoot-number">01</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-1">Puntos</label><input id="score-1" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="1"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 1" data-note-id="1"></textarea><button class="done-btn" type="button" data-done-id="1">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="2" data-title="kahoot 2" data-group="1"><a class="kahoot-btn" href="https://kahoot.it/challenge/03783736" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 2"><span class="btn-number kahoot-number">02</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-2">Puntos</label><input id="score-2" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="2"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 2" data-note-id="2"></textarea><button class="done-btn" type="button" data-done-id="2">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="3" data-title="kahoot 3" data-group="1"><a class="kahoot-btn" href="https://kahoot.it/challenge/07862988" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 3"><span class="btn-number kahoot-number">03</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-3">Puntos</label><input id="score-3" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="3"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 3" data-note-id="3"></textarea><button class="done-btn" type="button" data-done-id="3">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="4" data-title="kahoot 4" data-group="1"><a class="kahoot-btn" href="https://kahoot.it/challenge/09514747" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 4"><span class="btn-number kahoot-number">04</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-4">Puntos</label><input id="score-4" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="4"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 4" data-note-id="4"></textarea><button class="done-btn" type="button" data-done-id="4">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="5" data-title="kahoot 5" data-group="1"><a class="kahoot-btn" href="https://kahoot.it/challenge/04789137" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 5"><span class="btn-number kahoot-number">05</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-5">Puntos</label><input id="score-5" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="5"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 5" data-note-id="5"></textarea><button class="done-btn" type="button" data-done-id="5">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="6" data-title="kahoot 6" data-group="1"><a class="kahoot-btn" href="https://kahoot.it/challenge/02088766" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 6"><span class="btn-number kahoot-number">06</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-6">Puntos</label><input id="score-6" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="6"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 6" data-note-id="6"></textarea><button class="done-btn" type="button" data-done-id="6">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="7" data-title="kahoot 7" data-group="1"><a class="kahoot-btn" href="https://kahoot.it/challenge/08456319" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 7"><span class="btn-number kahoot-number">07</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-7">Puntos</label><input id="score-7" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="7"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 7" data-note-id="7"></textarea><button class="done-btn" type="button" data-done-id="7">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="8" data-title="kahoot 8" data-group="1"><a class="kahoot-btn" href="https://kahoot.it/challenge/032506" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 8"><span class="btn-number kahoot-number">08</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-8">Puntos</label><input id="score-8" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="8"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 8" data-note-id="8"></textarea><button class="done-btn" type="button" data-done-id="8">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="9" data-title="kahoot 9" data-group="1"><a class="kahoot-btn" href="https://kahoot.it/challenge/05692250" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 9"><span class="btn-number kahoot-number">09</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-9">Puntos</label><input id="score-9" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="9"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 9" data-note-id="9"></textarea><button class="done-btn" type="button" data-done-id="9">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="10" data-title="kahoot 10" data-group="1"><a class="kahoot-btn" href="https://kahoot.it/challenge/06465608" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 10"><span class="btn-number kahoot-number">10</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-10">Puntos</label><input id="score-10" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="10"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 10" data-note-id="10"></textarea><button class="done-btn" type="button" data-done-id="10">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="11" data-title="kahoot 11" data-group="2"><a class="kahoot-btn" href="https://kahoot.it/challenge/0946915" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 11"><span class="btn-number kahoot-number">11</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-11">Puntos</label><input id="score-11" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="11"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 11" data-note-id="11"></textarea><button class="done-btn" type="button" data-done-id="11">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="12" data-title="kahoot 12" data-group="2"><a class="kahoot-btn" href="https://kahoot.it/challenge/06799028" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 12"><span class="btn-number kahoot-number">12</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-12">Puntos</label><input id="score-12" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="12"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 12" data-note-id="12"></textarea><button class="done-btn" type="button" data-done-id="12">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="13" data-title="kahoot 13" data-group="2"><a class="kahoot-btn" href="https://kahoot.it/challenge/0540980" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 13"><span class="btn-number kahoot-number">13</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-13">Puntos</label><input id="score-13" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="13"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 13" data-note-id="13"></textarea><button class="done-btn" type="button" data-done-id="13">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="14" data-title="kahoot 14" data-group="2"><a class="kahoot-btn" href="https://kahoot.it/challenge/0842442" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 14"><span class="btn-number kahoot-number">14</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-14">Puntos</label><input id="score-14" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="14"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 14" data-note-id="14"></textarea><button class="done-btn" type="button" data-done-id="14">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="15" data-title="kahoot 15" data-group="2"><a class="kahoot-btn" href="https://kahoot.it/challenge/01153020" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 15"><span class="btn-number kahoot-number">15</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-15">Puntos</label><input id="score-15" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="15"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 15" data-note-id="15"></textarea><button class="done-btn" type="button" data-done-id="15">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="16" data-title="kahoot 16" data-group="2"><a class="kahoot-btn" href="https://kahoot.it/challenge/08233337" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 16"><span class="btn-number kahoot-number">16</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-16">Puntos</label><input id="score-16" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="16"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 16" data-note-id="16"></textarea><button class="done-btn" type="button" data-done-id="16">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="17" data-title="kahoot 17" data-group="2"><a class="kahoot-btn" href="https://kahoot.it/challenge/02474214" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 17"><span class="btn-number kahoot-number">17</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-17">Puntos</label><input id="score-17" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="17"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 17" data-note-id="17"></textarea><button class="done-btn" type="button" data-done-id="17">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="18" data-title="kahoot 18" data-group="2"><a class="kahoot-btn" href="https://kahoot.it/challenge/07563453" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 18"><span class="btn-number kahoot-number">18</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-18">Puntos</label><input id="score-18" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="18"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 18" data-note-id="18"></textarea><button class="done-btn" type="button" data-done-id="18">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="19" data-title="kahoot 19" data-group="2"><a class="kahoot-btn" href="https://kahoot.it/challenge/08125029" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 19"><span class="btn-number kahoot-number">19</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-19">Puntos</label><input id="score-19" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="19"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 19" data-note-id="19"></textarea><button class="done-btn" type="button" data-done-id="19">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="20" data-title="kahoot 20" data-group="2"><a class="kahoot-btn" href="https://kahoot.it/challenge/09837206" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 20"><span class="btn-number kahoot-number">20</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-20">Puntos</label><input id="score-20" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="20"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 20" data-note-id="20"></textarea><button class="done-btn" type="button" data-done-id="20">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="21" data-title="kahoot 21" data-group="3"><a class="kahoot-btn" href="https://kahoot.it/challenge/06548239" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 21"><span class="btn-number kahoot-number">21</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-21">Puntos</label><input id="score-21" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="21"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 21" data-note-id="21"></textarea><button class="done-btn" type="button" data-done-id="21">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="22" data-title="kahoot 22" data-group="3"><a class="kahoot-btn" href="https://kahoot.it/challenge/07115608" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 22"><span class="btn-number kahoot-number">22</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-22">Puntos</label><input id="score-22" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="22"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 22" data-note-id="22"></textarea><button class="done-btn" type="button" data-done-id="22">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="23" data-title="kahoot 23" data-group="3"><a class="kahoot-btn" href="https://kahoot.it/challenge/0343302" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 23"><span class="btn-number kahoot-number">23</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-23">Puntos</label><input id="score-23" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="23"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 23" data-note-id="23"></textarea><button class="done-btn" type="button" data-done-id="23">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="24" data-title="kahoot 24" data-group="3"><a class="kahoot-btn" href="https://kahoot.it/challenge/09437802" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 24"><span class="btn-number kahoot-number">24</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-24">Puntos</label><input id="score-24" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="24"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 24" data-note-id="24"></textarea><button class="done-btn" type="button" data-done-id="24">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="25" data-title="kahoot 25" data-group="3"><a class="kahoot-btn" href="https://kahoot.it/challenge/04472998" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 25"><span class="btn-number kahoot-number">25</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-25">Puntos</label><input id="score-25" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="25"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 25" data-note-id="25"></textarea><button class="done-btn" type="button" data-done-id="25">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="26" data-title="kahoot 26" data-group="3"><a class="kahoot-btn" href="https://kahoot.it/challenge/0300965" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 26"><span class="btn-number kahoot-number">26</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-26">Puntos</label><input id="score-26" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="26"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 26" data-note-id="26"></textarea><button class="done-btn" type="button" data-done-id="26">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="27" data-title="kahoot 27" data-group="3"><a class="kahoot-btn" href="https://kahoot.it/challenge/06693420" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 27"><span class="btn-number kahoot-number">27</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-27">Puntos</label><input id="score-27" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="27"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 27" data-note-id="27"></textarea><button class="done-btn" type="button" data-done-id="27">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="28" data-title="kahoot 28" data-group="3"><a class="kahoot-btn" href="https://kahoot.it/challenge/05049709" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 28"><span class="btn-number kahoot-number">28</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-28">Puntos</label><input id="score-28" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="28"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 28" data-note-id="28"></textarea><button class="done-btn" type="button" data-done-id="28">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="29" data-title="kahoot 29" data-group="3"><a class="kahoot-btn" href="https://kahoot.it/challenge/09960264" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 29"><span class="btn-number kahoot-number">29</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-29">Puntos</label><input id="score-29" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="29"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 29" data-note-id="29"></textarea><button class="done-btn" type="button" data-done-id="29">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="30" data-title="kahoot 30" data-group="3"><a class="kahoot-btn" href="https://kahoot.it/challenge/0508772" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 30"><span class="btn-number kahoot-number">30</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-30">Puntos</label><input id="score-30" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="30"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 30" data-note-id="30"></textarea><button class="done-btn" type="button" data-done-id="30">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="31" data-title="kahoot 31" data-group="4"><a class="kahoot-btn" href="https://kahoot.it/challenge/04354406" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 31"><span class="btn-number kahoot-number">31</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-31">Puntos</label><input id="score-31" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="31"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 31" data-note-id="31"></textarea><button class="done-btn" type="button" data-done-id="31">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="32" data-title="kahoot 32" data-group="4"><a class="kahoot-btn" href="https://kahoot.it/challenge/01589074" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 32"><span class="btn-number kahoot-number">32</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-32">Puntos</label><input id="score-32" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="32"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 32" data-note-id="32"></textarea><button class="done-btn" type="button" data-done-id="32">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="33" data-title="kahoot 33" data-group="4"><a class="kahoot-btn" href="https://kahoot.it/challenge/02518645" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 33"><span class="btn-number kahoot-number">33</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-33">Puntos</label><input id="score-33" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="33"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 33" data-note-id="33"></textarea><button class="done-btn" type="button" data-done-id="33">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="34" data-title="kahoot 34" data-group="4"><a class="kahoot-btn" href="https://kahoot.it/challenge/09629882" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 34"><span class="btn-number kahoot-number">34</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-34">Puntos</label><input id="score-34" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="34"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 34" data-note-id="34"></textarea><button class="done-btn" type="button" data-done-id="34">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="35" data-title="kahoot 35" data-group="4"><a class="kahoot-btn" href="https://kahoot.it/challenge/09968150" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 35"><span class="btn-number kahoot-number">35</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-35">Puntos</label><input id="score-35" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="35"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 35" data-note-id="35"></textarea><button class="done-btn" type="button" data-done-id="35">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="36" data-title="kahoot 36" data-group="4"><a class="kahoot-btn" href="https://kahoot.it/challenge/0616155" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 36"><span class="btn-number kahoot-number">36</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-36">Puntos</label><input id="score-36" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="36"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 36" data-note-id="36"></textarea><button class="done-btn" type="button" data-done-id="36">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="37" data-title="kahoot 37" data-group="4"><a class="kahoot-btn" href="https://kahoot.it/challenge/04824443" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 37"><span class="btn-number kahoot-number">37</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-37">Puntos</label><input id="score-37" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="37"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 37" data-note-id="37"></textarea><button class="done-btn" type="button" data-done-id="37">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="38" data-title="kahoot 38" data-group="4"><a class="kahoot-btn" href="https://kahoot.it/challenge/0789434" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 38"><span class="btn-number kahoot-number">38</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-38">Puntos</label><input id="score-38" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="38"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 38" data-note-id="38"></textarea><button class="done-btn" type="button" data-done-id="38">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="39" data-title="kahoot 39" data-group="4"><a class="kahoot-btn" href="https://kahoot.it/challenge/05147170" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 39"><span class="btn-number kahoot-number">39</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-39">Puntos</label><input id="score-39" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="39"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 39" data-note-id="39"></textarea><button class="done-btn" type="button" data-done-id="39">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="40" data-title="kahoot 40" data-group="4"><a class="kahoot-btn" href="https://kahoot.it/challenge/0523708" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 40"><span class="btn-number kahoot-number">40</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-40">Puntos</label><input id="score-40" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="40"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 40" data-note-id="40"></textarea><button class="done-btn" type="button" data-done-id="40">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="41" data-title="kahoot 41" data-group="5"><a class="kahoot-btn" href="https://kahoot.it/challenge/03854282" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 41"><span class="btn-number kahoot-number">41</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-41">Puntos</label><input id="score-41" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="41"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 41" data-note-id="41"></textarea><button class="done-btn" type="button" data-done-id="41">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="42" data-title="kahoot 42" data-group="5"><a class="kahoot-btn" href="https://kahoot.it/challenge/05233652" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 42"><span class="btn-number kahoot-number">42</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-42">Puntos</label><input id="score-42" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="42"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 42" data-note-id="42"></textarea><button class="done-btn" type="button" data-done-id="42">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="43" data-title="kahoot 43" data-group="5"><a class="kahoot-btn" href="https://kahoot.it/challenge/01853722" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 43"><span class="btn-number kahoot-number">43</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-43">Puntos</label><input id="score-43" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="43"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 43" data-note-id="43"></textarea><button class="done-btn" type="button" data-done-id="43">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="44" data-title="kahoot 44" data-group="5"><a class="kahoot-btn" href="https://kahoot.it/challenge/03288329" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 44"><span class="btn-number kahoot-number">44</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-44">Puntos</label><input id="score-44" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="44"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 44" data-note-id="44"></textarea><button class="done-btn" type="button" data-done-id="44">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="45" data-title="kahoot 45" data-group="5"><a class="kahoot-btn" href="https://kahoot.it/challenge/07553826" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 45"><span class="btn-number kahoot-number">45</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-45">Puntos</label><input id="score-45" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="45"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 45" data-note-id="45"></textarea><button class="done-btn" type="button" data-done-id="45">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="46" data-title="kahoot 46" data-group="5"><a class="kahoot-btn" href="https://kahoot.it/challenge/04840990" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 46"><span class="btn-number kahoot-number">46</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-46">Puntos</label><input id="score-46" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="46"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 46" data-note-id="46"></textarea><button class="done-btn" type="button" data-done-id="46">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="47" data-title="kahoot 47" data-group="5"><a class="kahoot-btn" href="https://kahoot.it/challenge/08598482" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 47"><span class="btn-number kahoot-number">47</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-47">Puntos</label><input id="score-47" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="47"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 47" data-note-id="47"></textarea><button class="done-btn" type="button" data-done-id="47">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="48" data-title="kahoot 48" data-group="5"><a class="kahoot-btn" href="https://kahoot.it/challenge/09609952" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 48"><span class="btn-number kahoot-number">48</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-48">Puntos</label><input id="score-48" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="48"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 48" data-note-id="48"></textarea><button class="done-btn" type="button" data-done-id="48">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="49" data-title="kahoot 49" data-group="5"><a class="kahoot-btn" href="https://kahoot.it/challenge/02213239" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 49"><span class="btn-number kahoot-number">49</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-49">Puntos</label><input id="score-49" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="49"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 49" data-note-id="49"></textarea><button class="done-btn" type="button" data-done-id="49">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="50" data-title="kahoot 50" data-group="5"><a class="kahoot-btn" href="https://kahoot.it/challenge/04714194" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 50"><span class="btn-number kahoot-number">50</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-50">Puntos</label><input id="score-50" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="50"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 50" data-note-id="50"></textarea><button class="done-btn" type="button" data-done-id="50">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="51" data-title="kahoot 51" data-group="6"><a class="kahoot-btn" href="https://kahoot.it/challenge/04051509" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 51"><span class="btn-number kahoot-number">51</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-51">Puntos</label><input id="score-51" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="51"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 51" data-note-id="51"></textarea><button class="done-btn" type="button" data-done-id="51">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="52" data-title="kahoot 52" data-group="6"><a class="kahoot-btn" href="https://kahoot.it/challenge/05273951" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 52"><span class="btn-number kahoot-number">52</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-52">Puntos</label><input id="score-52" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="52"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 52" data-note-id="52"></textarea><button class="done-btn" type="button" data-done-id="52">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="53" data-title="kahoot 53" data-group="6"><a class="kahoot-btn" href="https://kahoot.it/challenge/05762220" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 53"><span class="btn-number kahoot-number">53</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-53">Puntos</label><input id="score-53" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="53"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 53" data-note-id="53"></textarea><button class="done-btn" type="button" data-done-id="53">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="54" data-title="kahoot 54" data-group="6"><a class="kahoot-btn" href="https://kahoot.it/challenge/06069459" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 54"><span class="btn-number kahoot-number">54</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-54">Puntos</label><input id="score-54" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="54"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 54" data-note-id="54"></textarea><button class="done-btn" type="button" data-done-id="54">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="55" data-title="kahoot 55" data-group="6"><a class="kahoot-btn" href="https://kahoot.it/challenge/0200932" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 55"><span class="btn-number kahoot-number">55</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-55">Puntos</label><input id="score-55" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="55"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 55" data-note-id="55"></textarea><button class="done-btn" type="button" data-done-id="55">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="56" data-title="kahoot 56" data-group="6"><a class="kahoot-btn" href="https://kahoot.it/challenge/02435794" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 56"><span class="btn-number kahoot-number">56</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-56">Puntos</label><input id="score-56" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="56"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 56" data-note-id="56"></textarea><button class="done-btn" type="button" data-done-id="56">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="57" data-title="kahoot 57" data-group="6"><a class="kahoot-btn" href="https://kahoot.it/challenge/04349848" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 57"><span class="btn-number kahoot-number">57</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-57">Puntos</label><input id="score-57" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="57"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 57" data-note-id="57"></textarea><button class="done-btn" type="button" data-done-id="57">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="58" data-title="kahoot 58" data-group="6"><a class="kahoot-btn" href="https://kahoot.it/challenge/04427616" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 58"><span class="btn-number kahoot-number">58</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-58">Puntos</label><input id="score-58" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="58"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 58" data-note-id="58"></textarea><button class="done-btn" type="button" data-done-id="58">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="59" data-title="kahoot 59" data-group="6"><a class="kahoot-btn" href="https://kahoot.it/challenge/0564705" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 59"><span class="btn-number kahoot-number">59</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-59">Puntos</label><input id="score-59" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="59"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 59" data-note-id="59"></textarea><button class="done-btn" type="button" data-done-id="59">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="60" data-title="kahoot 60" data-group="6"><a class="kahoot-btn" href="https://kahoot.it/challenge/09126097" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 60"><span class="btn-number kahoot-number">60</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-60">Puntos</label><input id="score-60" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="60"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 60" data-note-id="60"></textarea><button class="done-btn" type="button" data-done-id="60">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="61" data-title="kahoot 61" data-group="7"><a class="kahoot-btn" href="https://kahoot.it/challenge/024007" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 61"><span class="btn-number kahoot-number">61</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-61">Puntos</label><input id="score-61" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="61"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 61" data-note-id="61"></textarea><button class="done-btn" type="button" data-done-id="61">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="62" data-title="kahoot 62" data-group="7"><a class="kahoot-btn" href="https://kahoot.it/challenge/0403153" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 62"><span class="btn-number kahoot-number">62</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-62">Puntos</label><input id="score-62" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="62"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 62" data-note-id="62"></textarea><button class="done-btn" type="button" data-done-id="62">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="63" data-title="kahoot 63" data-group="7"><a class="kahoot-btn" href="https://kahoot.it/challenge/07782047" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 63"><span class="btn-number kahoot-number">63</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-63">Puntos</label><input id="score-63" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="63"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 63" data-note-id="63"></textarea><button class="done-btn" type="button" data-done-id="63">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="64" data-title="kahoot 64" data-group="7"><a class="kahoot-btn" href="https://kahoot.it/challenge/08276173" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 64"><span class="btn-number kahoot-number">64</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-64">Puntos</label><input id="score-64" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="64"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 64" data-note-id="64"></textarea><button class="done-btn" type="button" data-done-id="64">Marcar hecho</button></article>
+<article class="kahoot-item" data-index="65" data-title="kahoot 65" data-group="7"><a class="kahoot-btn" href="https://kahoot.it/challenge/01235154" target="_blank" rel="noopener noreferrer" aria-label="Abrir Kahoot 65"><span class="btn-number kahoot-number">65</span><span class="btn-label">Abrir</span></a><label class="score-label" for="score-65">Puntos</label><input id="score-65" class="score-input" type="number" min="0" step="1" placeholder="0" inputmode="numeric" data-score-id="65"><textarea class="note-input" rows="2" placeholder="Nota breve..." aria-label="Nota del Kahoot 65" data-note-id="65"></textarea><button class="done-btn" type="button" data-done-id="65">Marcar hecho</button></article></div><div class="empty" id="empty">No se encontraron Kahoots con ese filtro.</div></section></main><button class="fab" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Arriba</button><script>
+const MAX_SCORE=1300000,STORAGE_KEY='kahoots_temario_2026_dua_v1';const state={scores:{},notes:{},done:{},fontScale:1,contrast:false,reading:false,motion:false};const els={search:document.getElementById('search'),groupFilter:document.getElementById('groupFilter'),scoreValue:document.getElementById('scoreValue'),heroScore:document.getElementById('heroScore'),progressPercent:document.getElementById('progressPercent'),progressFill:document.getElementById('progressFill'),doneCount:document.getElementById('doneCount'),visibleCount:document.getElementById('visibleCount'),empty:document.getElementById('empty')};
+function formatDoneDateTime(value){
+  if(!value) return "";
+  const d = new Date(value);
+  if(Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  }) + " · " + d.toLocaleTimeString("es-ES", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
+function setDoneButtonText(btn, id){
+  if(state.done[id]){
+    const dateText = formatDoneDateTime(state.completedAt && state.completedAt[id]);
+    btn.textContent = dateText ? "Hecho ✓ · " + dateText : "Hecho ✓";
+  } else {
+    btn.textContent = "Marcar hecho";
+  }
+}
+
+function loadState(){try{Object.assign(state,JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'))}catch(e){}document.querySelectorAll('.score-input').forEach(i=>{let id=i.dataset.scoreId;if(state.scores[id]!==undefined)i.value=state.scores[id]});document.querySelectorAll('.note-input').forEach(i=>{let id=i.dataset.noteId;if(state.notes[id]!==undefined)i.value=state.notes[id]});document.querySelectorAll('.kahoot-item').forEach(item=>{let id=item.dataset.index;if(state.done[id])item.classList.add('done')});applyAccessibility()}function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}function formatNumber(n){return Number(n).toLocaleString('es-ES')}function progressColor(t){if(t<200000)return'linear-gradient(90deg,#22c55e,#84cc16)';if(t<400000)return'linear-gradient(90deg,#06b6d4,#3b82f6)';if(t<600000)return'linear-gradient(90deg,#6366f1,#a855f7)';if(t<800000)return'linear-gradient(90deg,#f59e0b,#facc15)';if(t<1000000)return'linear-gradient(90deg,#f97316,#ef4444)';if(t<1200000)return'linear-gradient(90deg,#ef4444,#f59e0b,#facc15)';return'linear-gradient(90deg,#facc15,#22c55e,#3b82f6)'}function updateTotals(){let total=0;document.querySelectorAll('.score-input').forEach(input=>{let id=input.dataset.scoreId,value=Number(input.value)||0;state.scores[id]=input.value;total+=value});let safe=Math.max(0,Math.min(total,MAX_SCORE)),percent=safe/MAX_SCORE*100;els.scoreValue.textContent=formatNumber(total);els.heroScore.textContent=formatNumber(total);els.progressPercent.textContent=Math.round(percent)+'%';els.progressFill.style.width=percent+'%';els.progressFill.style.background=progressColor(safe);let done=Object.values(state.done).filter(Boolean).length;els.doneCount.textContent=done+'/65';saveState()}function applyFilters(){let term=els.search.value.trim().toLowerCase(),group=els.groupFilter.value,visible=0;document.querySelectorAll('.kahoot-item').forEach(item=>{let score=item.querySelector('.score-input').value,note=item.querySelector('.note-input').value.toLowerCase(),hay=(item.dataset.title+' '+score+' '+note).toLowerCase(),show=hay.includes(term)&&(group==='all'||item.dataset.group===group);item.style.display=show?'':'none';if(show)visible++});els.visibleCount.textContent=visible;els.empty.style.display=visible?'none':'block'}function applyAccessibility(){document.documentElement.style.setProperty('--font-scale',state.fontScale);document.body.classList.toggle('high-contrast',!!state.contrast);document.body.classList.toggle('reading-mode',!!state.reading);document.body.classList.toggle('reduce-motion',!!state.motion);saveState()}document.querySelectorAll('.score-input').forEach(i=>i.addEventListener('input',()=>{updateTotals();applyFilters()}));document.querySelectorAll('.note-input').forEach(i=>i.addEventListener('input',()=>{state.notes[i.dataset.noteId]=i.value;saveState();applyFilters()}));document.querySelectorAll('.done-btn').forEach(btn=>btn.addEventListener('click',()=>{let id=btn.dataset.doneId;state.done[id]=!state.done[id];document.querySelector('.kahoot-item[data-index="'+id+'"]').classList.toggle('done',state.done[id]);btn.textContent=state.done[id]?'Hecho ✓':'Marcar hecho';updateTotals()}));els.search.addEventListener('input',applyFilters);els.groupFilter.addEventListener('change',applyFilters);document.getElementById('fontPlus').addEventListener('click',()=>{state.fontScale=Math.min(1.35,Number(state.fontScale||1)+.08);applyAccessibility()});document.getElementById('fontMinus').addEventListener('click',()=>{state.fontScale=Math.max(.88,Number(state.fontScale||1)-.08);applyAccessibility()});document.getElementById('contrastBtn').addEventListener('click',()=>{state.contrast=!state.contrast;applyAccessibility()});document.getElementById('readingBtn').addEventListener('click',()=>{state.reading=!state.reading;applyAccessibility()});document.getElementById('motionBtn').addEventListener('click',()=>{state.motion=!state.motion;applyAccessibility()});document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('¿Quieres borrar puntuaciones, notas y progreso guardado?')){localStorage.removeItem(STORAGE_KEY);location.reload()}});document.getElementById('exportBtn').addEventListener('click',()=>{let rows=[['Kahoot','Puntos','Nota','Completado']];document.querySelectorAll('.kahoot-item').forEach(item=>{let id=item.dataset.index,score=item.querySelector('.score-input').value||'0',note=item.querySelector('.note-input').value.replaceAll('"','""'),done=state.done[id]?'Sí':'No';rows.push([id,score,note,done])});let csv=rows.map(r=>r.map(v=>'"'+String(v)+'"').join(',')).join('\n'),blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='kahoots_temario_2026_puntuaciones.csv';a.click();URL.revokeObjectURL(url)});document.getElementById("resetBtn").addEventListener("click", () => {
+  if(confirm("¿Estás seguro de que quieres reiniciar? Se eliminarán puntuaciones, notas y progreso guardado.")) {
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+});
+
+loadState();document.querySelectorAll('.done-btn').forEach(btn=>{let id=btn.dataset.doneId;btn.textContent=state.done[id]?'Hecho ✓':'Marcar hecho'});updateTotals();applyFilters();
+</script></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+ // Alto contraste
+ const contrastBtn=document.getElementById("contrastBtn");
+ if(contrastBtn){
+   contrastBtn.onclick=()=>{
+     document.body.classList.toggle("high-contrast");
+     localStorage.setItem("highContrast",
+       document.body.classList.contains("high-contrast"));
+   };
+   if(localStorage.getItem("highContrast")==="true"){
+      document.body.classList.add("high-contrast");
+   }
+ }
+
+ // Modo lectura
+ const readBtn=document.getElementById("readModeBtn");
+ if(readBtn){
+   readBtn.onclick=()=>{
+      document.body.classList.toggle("read-mode");
+      localStorage.setItem("readMode",
+        document.body.classList.contains("read-mode"));
+   };
+   if(localStorage.getItem("readMode")==="true"){
+      document.body.classList.add("read-mode");
+   }
+ }
+
+ // Fecha y hora al marcar hecho
+ document.querySelectorAll(".done-btn").forEach(btn=>{
+   btn.addEventListener("click",()=>{
+      const card=btn.closest(".kahoot-item");
+      let stamp=card.querySelector(".done-stamp");
+
+      if(btn.classList.contains("completed")){
+        btn.classList.remove("completed");
+        if(stamp) stamp.remove();
+      }else{
+        btn.classList.add("completed");
+
+        const now=new Date();
+        const date=now.toLocaleDateString("es-ES");
+        const time=now.toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"});
+
+        if(!stamp){
+          stamp=document.createElement("span");
+          stamp.className="done-stamp";
+          card.appendChild(stamp);
+        }
+        stamp.innerHTML="✓ Hecho: "+date+" · "+time;
+      }
+   });
+ });
+
+});
+</script>
+
+
+
+<script>
+const ACCESS_HASH = "46d782c8bb0925dddd865c9b61028fb69a561a238bca0d77f0a619d785749218";
+
+async function sha256Text(text){
+  if(window.crypto && crypto.subtle){
+    const data = new TextEncoder().encode(text);
+    const buffer = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2,"0")).join("");
+  }
+  return null;
+}
+
+function playAccessSound(){
+  try{
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AudioContext();
+    const now = ctx.currentTime;
+    const master = ctx.createGain();
+    master.connect(ctx.destination);
+    master.gain.setValueAtTime(0.0001, now);
+    master.gain.exponentialRampToValueAtTime(0.42, now + 0.04);
+    master.gain.exponentialRampToValueAtTime(0.0001, now + 2.0);
+
+    function tone(freq,start,duration,type,vol){
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, now + start);
+      gain.gain.setValueAtTime(0.0001, now + start);
+      gain.gain.exponentialRampToValueAtTime(vol, now + start + 0.06);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + start + duration);
+      osc.connect(gain);
+      gain.connect(master);
+      osc.start(now + start);
+      osc.stop(now + start + duration + 0.05);
+    }
+
+    tone(392,0.00,1.05,"sine",0.20);
+    tone(523.25,0.18,1.10,"sine",0.17);
+    tone(659.25,0.48,1.20,"triangle",0.14);
+    tone(783.99,0.82,1.00,"sine",0.10);
+
+    setTimeout(() => ctx.close(), 2200);
+  }catch(e){}
+}
+
+function runAccessExplosion(callback){
+  const layer = document.getElementById("explosionLayer");
+  if(!layer){
+    callback();
+    return;
+  }
+  layer.innerHTML = '<div class="explosion-core"></div><div class="explosion-title">ACCEDIENDO...</div>';
+  layer.classList.add("active");
+  playAccessSound();
+
+  setTimeout(callback, 1450);
+  setTimeout(() => {
+    layer.classList.remove("active");
+    layer.innerHTML = "";
+  }, 2300);
+}
+
+function unlockAccess(animated){
+  const openApp = () => {
+    const overlay = document.getElementById("accessOverlay");
+    const app = document.getElementById("appContent");
+    if(overlay) overlay.style.display = "none";
+    if(app) app.classList.remove("hidden-app");
+    sessionStorage.setItem("kahoot_access_212223", "ok");
+  };
+
+  if(animated) runAccessExplosion(openApp);
+  else openApp();
+}
+
+async function checkAccess(){
+  const input = document.getElementById("accessCode");
+  const error = document.getElementById("accessError");
+  const value = input ? input.value.trim() : "";
+
+  let ok = false;
+  try{
+    const hash = await sha256Text(value);
+    ok = hash ? (hash === ACCESS_HASH) : (value === "212223");
+  }catch(e){
+    ok = (value === "212223");
+  }
+
+  if(ok){
+    if(error) error.textContent = "";
+    unlockAccess(true);
+  }else{
+    if(error) error.textContent = "Código incorrecto";
+    if(input) input.focus();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("accessCode");
+  if(sessionStorage.getItem("kahoot_access_212223") === "ok"){
+    unlockAccess(false);
+  }
+  if(input){
+    input.addEventListener("keydown", e => {
+      if(e.key === "Enter") checkAccess();
+    });
+  }
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const btn = document.getElementById("lightModeBtn");
+  if(!btn) return;
+
+  function updateLabel(){
+    btn.textContent = document.body.classList.contains("light-mode") ? "🌙 Modo oscuro" : "☀️ Modo claro";
+  }
+
+  if(localStorage.getItem("lightMode") === "true"){
+    document.body.classList.add("light-mode");
+  }
+  updateLabel();
+
+  btn.addEventListener("click", function(){
+    document.body.classList.toggle("light-mode");
+    localStorage.setItem("lightMode", document.body.classList.contains("light-mode"));
+    updateLabel();
+  });
+});
+</script>
+
+</body></html>

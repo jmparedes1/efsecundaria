@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exámenes Temas 38, 39, 40, 41 y 42</title>
+    <!-- Tailwind CSS para el diseño de interfaz premium -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Ocultar barra de scroll estética de navegación en dispositivos táctiles */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 antialiased text-slate-800 min-h-screen flex flex-col">
+
+    <header id="main-header" class="bg-blue-600 text-white shadow-md py-8 transition-all duration-500">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <span class="inline-block bg-white/20 text-white text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full mb-2 animate-pulse">
+                Oposiciones Educación Física
+            </span>
+            <h1 id="header-title" class="text-3xl sm:text-4xl font-extrabold tracking-tight transition-all duration-500">Tema 38</h1>
+            <p id="header-subtitle" class="text-lg sm:text-xl mt-2 font-light opacity-90 transition-all duration-500">Deportes de Adversario</p>
+            <div class="flex items-center justify-center gap-4 mt-4 text-xs opacity-75">
+                <span class="flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    10 Preguntas
+                </span>
+                <span class="w-1.5 h-1.5 rounded-full bg-white/50"></span>
+                <span class="flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    Verdadero / Falso
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-30">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="flex space-x-2 sm:space-x-4 overflow-x-auto no-scrollbar py-2">
+                <button id="tab-tema38" class="tab-btn py-3 px-4 border-b-2 font-bold text-sm sm:text-base border-blue-600 text-blue-600 transition-all duration-300 whitespace-nowrap rounded-t-lg" onclick="switchTheme('tema38')">
+                    Tema 38 - Adversario
+                </button>
+                <button id="tab-tema39" class="tab-btn py-3 px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-all duration-300 whitespace-nowrap rounded-t-lg" onclick="switchTheme('tema39')">
+                    Tema 39 - Colectivos
+                </button>
+                <button id="tab-tema40" class="tab-btn py-3 px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-all duration-300 whitespace-nowrap rounded-t-lg" onclick="switchTheme('tema40')">
+                    Tema 40 - Iniciación
+                </button>
+                <button id="tab-tema41" class="tab-btn py-3 px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-all duration-300 whitespace-nowrap rounded-t-lg" onclick="switchTheme('tema41')">
+                    Tema 41 - Tiempo Libre
+                </button>
+                <button id="tab-tema42" class="tab-btn py-3 px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-all duration-300 whitespace-nowrap rounded-t-lg" onclick="switchTheme('tema42')">
+                    Tema 42 - Tradicionales
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-4xl mx-auto px-4 py-8 w-full">
+        
+        <!-- Sección de Bienvenida / Intro -->
+        <div id="intro-section" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 text-center max-w-2xl mx-auto transition-all duration-300 hover:shadow-md">
+            <div id="intro-icon-container" class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-500">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Simulador de Examen Autoevaluativo</h2>
+            <p class="text-slate-600 mb-6 leading-relaxed">
+                Pon a prueba tus conocimientos sobre el currículo y didáctica de la materia. Este módulo interactivo te permite responder preguntas de Verdadero/Falso y estudiar las justificaciones didácticas detalladas de cada respuesta al corregir el examen.
+            </p>
+            <button id="start-btn" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
+                Comenzar Examen
+            </button>
+        </div>
+
+        <!-- Contenedor del Cuestionario -->
+        <div id="quiz-container" class="hidden space-y-6">
+            <!-- Barra de Progreso Superior -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span id="progress-text" class="text-sm font-semibold text-slate-500">Respondidas: 0/10</span>
+                </div>
+                <div class="w-2/3 bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <!-- Formulario Dinámico -->
+            <form id="quiz-form" class="space-y-6" onsubmit="event.preventDefault();">
+                <!-- Las preguntas se cargan de forma dinámica mediante JS -->
+            </form>
+
+            <!-- Botones de Acción -->
+            <div class="flex justify-center pt-4">
+                <button id="submit-btn" class="hidden bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-xl shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
+                    Corregir Examen
+                </button>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div id="results-section" class="hidden bg-white rounded-2xl shadow-md border border-slate-100 p-8 max-w-xl mx-auto text-center my-8 transition-all duration-500">
+            <h3 class="text-2xl font-extrabold text-slate-800 mb-2">Calificación Obtenida</h3>
+            
+            <!-- Gráfico Anillo de Progreso -->
+            <div class="relative w-40 h-40 mx-auto my-6 flex items-center justify-center">
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 128 128">
+                    <circle cx="64" cy="64" r="50" stroke="#f1f5f9" stroke-width="8" fill="transparent" />
+                    <circle id="score-ring" cx="64" cy="64" r="50" stroke="currentColor" stroke-width="8" fill="transparent" pathLength="100" stroke-dasharray="0 100" class="text-blue-600 transition-all duration-1000 ease-out" />
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span id="score-text" class="text-3xl font-extrabold text-slate-800">0/10</span>
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Aciertos</span>
+                </div>
+            </div>
+
+            <!-- Mensaje Motivacional -->
+            <p id="score-message" class="text-center text-lg font-medium mb-6"></p>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button id="retry-btn" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-6 py-3 rounded-xl shadow transition-colors duration-200">
+                    Reiniciar Test
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-slate-950 text-slate-400 text-center py-6 mt-12 border-t border-slate-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <p id="footer-text" class="text-sm font-medium">Exámenes Interactivos - Oposiciones Educación Física</p>
+            <p class="text-xs mt-1 text-slate-600">Diseñado con propósitos didácticos y autoevaluativos</p>
+        </div>
+    </footer>
+
+    <script>
+        // Almacén central de contenidos didácticos, preguntas y justificaciones
+        const quizStore = {
+            tema38: {
+                title: "Tema 38",
+                subtitle: "Deportes de Adversario",
+                headerColor: "bg-blue-600",
+                tabColor: "border-blue-600 text-blue-600",
+                buttonColor: "bg-blue-600 hover:bg-blue-700",
+                ringColor: "text-blue-600",
+                accentClass: "blue",
+                data: [
+                    {
+                        id: 1,
+                        text: "Hernández Moreno (1994) define los deportes de adversario como situaciones motrices donde la conducta de ambos participantes persigue objetivos coincidentes y cooperativos, disminuyendo progresivamente la incertidumbre generada por las acciones del oponente.",
+                        answer: false,
+                        justification: "Hernández establece exactamente lo contrario: los participantes presentan objetivos opuestos y sus conductas motrices se condicionan mutuamente."
+                    },
+                    {
+                        id: 2,
+                        text: "El tema señala que las unidades motrices poseen un importante valor didáctico porque el componente técnico pierde protagonismo frente al educativo, permitiendo además experimentar el duelo singular desde las primeras prácticas.",
+                        answer: true,
+                        justification: "El tema atribuye precisamente a las unidades motrices simplicidad, valor educativo y acceso inmediato al duelo."
+                    },
+                    {
+                        id: 3,
+                        text: "Dentro de las situaciones motrices con consigna, las limitaciones de instalaciones, material y conocimientos específicos obligan generalmente a reducir la variedad de experiencias motrices del alumnado.",
+                        answer: false,
+                        justification: "El tema indica lo contrario: gracias a su adaptabilidad y simplicidad, permiten superar dichas limitaciones."
+                    },
+                    {
+                        id: 4,
+                        text: "El primer nivel de concreción curricular posee carácter flexible, abierto, orientador y prescriptivo, dejando determinadas decisiones curriculares al profesorado para adaptarlas a contextos educativos concretos.",
+                        answer: true,
+                        justification: "Estas características aparecen recogidas expresamente en el apartado dedicado al currículo."
+                    },
+                    {
+                        id: 5,
+                        text: "En el ejemplo de distribución de unidades didácticas por cursos, primero de ESO incorpora actividades luctatorias e iniciación al judo, mientras tercero introduce únicamente bádminton avanzado y tenis de mesa.",
+                        answer: false,
+                        justification: "El tema sitúa juegos de lucha y bádminton I en primero, mientras judo aparece en tercero."
+                    },
+                    {
+                        id: 6,
+                        text: "Entre los aspectos que justifican la utilidad educativa de los deportes de adversario, el tema destaca riqueza motriz, transferencia elevada, novedad y participación simultánea de percepción, decisión y ejecución.",
+                        answer: true,
+                        justification: "El tema enumera exactamente estas razones para justificar su incorporación educativa."
+                    },
+                    {
+                        id: 7,
+                        text: "En los contenidos actitudinales asociados a deportes de lucha, la agresividad constituye un recurso eficaz que debe potenciarse para incrementar rendimiento y eficacia táctica durante situaciones de oposición intensa.",
+                        answer: false,
+                        justification: "El tema insiste en controlar la agresividad, evitando daño físico y favoreciendo una actitud lúdica y respetuosa."
+                    },
+                    {
+                        id: 8,
+                        text: "Durante la primera fase de secuenciación didáctica, las experiencias motrices y el uso de materiales alternativos prevalecen sobre aprendizajes técnicos específicos y equipamientos deportivos convencionales.",
+                        answer: true,
+                        justification: "El tema señala que predominan las experiencias motrices básicas y materiales alternativos."
+                    },
+                    {
+                        id: 9,
+                        text: "Entre las premisas metodológicas iniciales para actividades de lucha, el tema recomienda comenzar directamente con derribos y oposiciones duales para favorecer adaptación temprana al contacto físico.",
+                        answer: false,
+                        justification: "La progresión establecida es oposiciones grupales → duales y sin derribos → con derribos, familiarizando antes con caídas."
+                    },
+                    {
+                        id: 10,
+                        text: "Bunker y Thorpe (1982) sitúan dentro del modelo comprensivo la ejecución técnica después de la toma de decisiones apropiadas y antes del rendimiento final en el juego.",
+                        answer: true,
+                        justification: "La secuencia descrita es: juego modificado, apreciación, conciencia táctica, toma de decisiones, ejecución técnica y rendimiento."
+                    }
+                ]
+            },
+            tema39: {
+                title: "Tema 39",
+                subtitle: "Deportes Colectivos",
+                headerColor: "bg-indigo-600",
+                tabColor: "border-indigo-600 text-indigo-600",
+                buttonColor: "bg-indigo-600 hover:bg-indigo-700",
+                ringColor: "text-indigo-600",
+                accentClass: "indigo",
+                data: [
+                    {
+                        id: 1,
+                        text: "Magnate, citado por Hernández (1994), define el deporte como una actividad placentera donde predominan esfuerzo físico, competición, reglamentos e instituciones específicas susceptibles incluso de evolucionar hacia formas profesionales organizadas.",
+                        answer: true,
+                        justification: "El tema recoge literalmente esta definición e identifica además juego, competición, reglas e institucionalización como rasgos fundamentales del deporte."
+                    },
+                    {
+                        id: 2,
+                        text: "Parlebás considera que los deportes colectivos desarrollados en espacios comunes eliminan completamente la incertidumbre asociada a compañeros y adversarios gracias a la automatización técnica y al perfeccionamiento coordinativo del juego.",
+                        answer: false,
+                        justification: "El perfeccionamiento reduce la incertidumbre, pero no la elimina completamente; siguen existiendo incertidumbres derivadas de compañeros y adversarios."
+                    },
+                    {
+                        id: 3,
+                        text: "Dal Monte señala que las demandas físicas de los deportes colectivos dependen exclusivamente del número de jugadores participantes, independientemente de la posición específica desempeñada y las dimensiones reglamentarias del terreno.",
+                        answer: false,
+                        justification: "El tema añade otros factores: posición específica, especialización y dimensiones del terreno de juego."
+                    },
+                    {
+                        id: 4,
+                        text: "Hernández y Blázquez, basándose en la octava categoría CAI de Parlebás, diferenciaron deportes según situación espacial y forma de participación sobre el móvil o balón.",
+                        answer: true,
+                        justification: "Introducen dos parámetros adicionales: situación espacial y participación sobre el móvil, originando tres grupos diferenciados."
+                    },
+                    {
+                        id: 5,
+                        text: "Bayer considera que los principios generales ofensivos consisten en recuperar el balón, obstaculizar progresiones rivales y proteger la propia meta frente a acciones colectivas adversarias.",
+                        answer: false,
+                        justification: "Esos principios corresponden a la defensa; ofensivamente se pretende conservar el balón, progresar y marcar."
+                    },
+                    {
+                        id: 6,
+                        text: "Weineck define la técnica deportiva como actos motores automatizados mediante entrenamiento, aunque subraya que la técnica individual adquiere sentido únicamente integrada en la táctica global del equipo.",
+                        answer: true,
+                        justification: "El tema destaca que una técnica muy depurada pierde valor si no está subordinada al funcionamiento táctico colectivo."
+                    },
+                    {
+                        id: 7,
+                        text: "Durante el aprendizaje técnico de deportes colectivos, el tema recomienda introducir desde el inicio situaciones globales reales con presión temporal y oposición intensa para favorecer anticipación precoz.",
+                        answer: false,
+                        justification: "Inicialmente las acciones deben aprenderse analíticamente, sin presión temporal ni oposición, avanzando después hacia situaciones reales."
+                    },
+                    {
+                        id: 8,
+                        text: "Según Bayer, las fases tácticas defensivas incluyen pérdida del balón, balance defensivo, organización defensiva y defensa en sistema, articulándose alrededor de distintos estadios del marcaje.",
+                        answer: true,
+                        justification: "El tema especifica además los estadios de disuasión, intercepción, desposesión, acoso y blocaje."
+                    },
+                    {
+                        id: 9,
+                        text: "Riera (1994) propone que la estrategia deportiva se caracteriza por centrarse únicamente en acciones inmediatas, ignorando elementos externos como público, arbitraje o próximos encuentros.",
+                        answer: false,
+                        justification: "La estrategia aborda precisamente objetivos amplios, planificación temporal y elementos externos como árbitros o contexto competitivo."
+                    },
+                    {
+                        id: 10,
+                        text: "Bayer (1986) considera que los deportes colectivos presentan elementos estructurales comunes como pelota, terreno delimitado, meta, reglamento, compañeros y adversarios, independientemente de la modalidad concreta practicada.",
+                        answer: true,
+                        justification: "El tema presenta estos componentes como rasgos compartidos por todos los deportes colectivos."
+                    }
+                ]
+            },
+            tema40: {
+                title: "Tema 40",
+                subtitle: "El Deporte Escolar e Iniciación Deportiva",
+                headerColor: "bg-emerald-600",
+                tabColor: "border-emerald-600 text-emerald-600",
+                buttonColor: "bg-emerald-600 hover:bg-emerald-700",
+                ringColor: "text-emerald-600",
+                accentClass: "emerald",
+                data: [
+                    {
+                        id: 1,
+                        text: "Magnate, citado por Hernández (1994), entiende el deporte como una actividad placentera dominada por el esfuerzo físico, con reglamentos e instituciones específicas susceptibles incluso de evolucionar hacia una actividad profesional organizada.",
+                        answer: true,
+                        justification: "El tema recoge literalmente esta definición y añade como rasgos esenciales juego, competición, reglas e institucionalización."
+                    },
+                    {
+                        id: 2,
+                        text: "Parlebás sostiene que la automatización técnica en los deportes colectivos elimina completamente la incertidumbre generada por compañeros, adversarios y medio, favoreciendo respuestas motrices plenamente previsibles y estables.",
+                        answer: false,
+                        justification: "El tema indica que el perfeccionamiento del juego disminuye la incertidumbre, pero nunca la elimina completamente."
+                    },
+                    {
+                        id: 3,
+                        text: "Cagigal y Thomas consideran que las aportaciones de los deportes colectivos incluyen dimensiones mecánicas, psicomotrices, morales e intelectuales, destacando entre estas últimas la inserción grupal y el enriquecimiento psíquico-motriz.",
+                        answer: true,
+                        justification: "El tema incluye explícitamente estos cuatro ámbitos y sus efectos asociados."
+                    },
+                    {
+                        id: 4,
+                        text: "De la Rica (1993) considera que el deporte escolar debe centrarse prioritariamente en la mejora del rendimiento competitivo, relegando la observación y las capacidades tácticas a etapas posteriores especializadas.",
+                        answer: false,
+                        justification: "De la Rica incluye expresamente educación del poder de observación y formación de capacidades tácticas como aspectos fundamentales."
+                    },
+                    {
+                        id: 5,
+                        text: "El primer nivel de concreción curricular posee carácter flexible, abierto, orientador y prescriptivo, dejando parte de las decisiones curriculares en manos del profesorado para adecuarlas a contextos educativos específicos.",
+                        answer: true,
+                        justification: "El tema presenta estas características como rasgos esenciales del currículo oficial."
+                    },
+                    {
+                        id: 6,
+                        text: "En el tercer nivel de concreción, el tema propone introducir los deportes colectivos mediante especialización temprana, presumiblemente analítica, y condiciones reglamentarias reales desde las primeras experiencias motrices escolares.",
+                        answer: false,
+                        justification: "El tema propone carácter polivalente, adaptación reglamentaria y situaciones globalizadas, evitando especialización precoz."
+                    },
+                    {
+                        id: 7,
+                        text: "Sánchez Bañuelos (1996) concreta el potencial educativo del deporte en componentes lúdico, agonístico, normativo y simbólico como dimensiones fundamentales para orientar la enseñanza escolar.",
+                        answer: true,
+                        justification: "Estos cuatro componentes aparecen recogidas expresamente como elementos con potencial formativo."
+                    },
+                    {
+                        id: 8,
+                        text: "Piaget considera que las reglas racionales de observancia mutua aparecen desde edades preescolares y son aceptadas sin crítica mediante repetición y ritualización motriz continuada.",
+                        answer: false,
+                        justification: "Esa descripción corresponde a reglas coercitivas y motrices; las racionales aparecen cuando el niño comienza a cuestionarlas críticamente."
+                    },
+                    {
+                        id: 9,
+                        text: "El tema afirma que imponer precozmente esquemas tácticos complejos puede limitar la personalidad del jugador, favorecer automatismos rígidos y frenar posibilidades de expresión y desarrollo individual.",
+                        answer: true,
+                        justification: "Se señala explícitamente que imponer esquemas cerrados convierte al jugador en un autómata y limita su desarrollo."
+                    },
+                    {
+                        id: 10,
+                        text: "Bayer propone seleccionar juegos de enseñanza deportiva priorizando reglamentos complejos, alta especialización técnica inicial y restricciones que reduzcan la iniciativa individual del alumnado participante.",
+                        answer: false,
+                        justification: "Bayer recomienda precisamente lo contrario: intencionalidad lúdica, adecuación evolutiva, transferencia e iniciativa del jugador."
+                    }
+                ]
+            },
+            tema41: {
+                title: "Tema 41",
+                subtitle: "Tiempo Libre, Ocio y Recreación",
+                headerColor: "bg-rose-600",
+                tabColor: "border-rose-600 text-rose-600",
+                buttonColor: "bg-rose-600 hover:bg-rose-700",
+                ringColor: "text-rose-600",
+                accentClass: "rose",
+                data: [
+                    {
+                        id: 1,
+                        text: "Weber define el tiempo libre como un conjunto de períodos vitales liberados de determinaciones extrínsecas que permiten al individuo emplearlos con sentido y desarrollar una vida verdaderamente humana.",
+                        answer: true,
+                        justification: "El tema recoge literalmente esta definición y la relaciona con mejora personal, relaciones sociales, reposo y diversión."
+                    },
+                    {
+                        id: 2,
+                        text: "Brohm, desde una perspectiva neomarxista, considera que las actividades físicas desarrolladas durante el tiempo libre favorecen prioritariamente la emancipación individual y la ruptura de desigualdades sociales estructurales.",
+                        answer: false,
+                        justification: "Brohm mantiene una posición negativa, afirmando que estas actividades manipulan y reproducen el sistema social desigual."
+                    },
+                    {
+                        id: 3,
+                        text: "Dumazedier (1964) atribuye al ocio funciones relacionadas con descanso, diversión y desarrollo de la personalidad, permitiendo participación social y creación de nuevas formas de expresión.",
+                        answer: true,
+                        justification: "Estas tres funciones aparecen expresamente desarrolladas dentro de la definición de ocio presentada en el tema."
+                    },
+                    {
+                        id: 4,
+                        text: "Camerino (2000) considera que la recreación físico-deportiva realizada durante el ocio responde prioritariamente a exigencias competitivas institucionalizadas y objetivos de rendimiento técnico especializado.",
+                        answer: false,
+                        justification: "Camerino la define como actividad realizada por placer, diversión y enriquecimiento personal, no orientada al rendimiento competitivo."
+                    },
+                    {
+                        id: 5,
+                        text: "Dumazedier, en su obra sobre psicosociología del tiempo libre, sostiene que históricamente el disfrute del tiempo libre constituyó un privilegio reservado principalmente a determinadas clases sociales.",
+                        answer: true,
+                        justification: "El tema recoge literalmente esta interpretación histórica del tiempo libre."
+                    },
+                    {
+                        id: 6,
+                        text: "En la Grecia clásica, la Skholé integraba juegos y deportes como actividades centrales del ocio ciudadano, considerándolos medios fundamentales de contemplación y desarrollo espiritual.",
+                        answer: false,
+                        justification: "El tema indica que juegos y deportes no eran considerados ocio, poseyendo principalmente un carácter religioso."
+                    },
+                    {
+                        id: 7,
+                        text: "Torres (1999) considera insuficiente el tiempo escolar y propone un triple tiempo pedagógico integrado por trabajo en el centro, actividades extraescolares y proyección familiar y social.",
+                        answer: true,
+                        justification: "El tema recoge exactamente esta propuesta temporal para alcanzar objetivos de educación del ocio."
+                    },
+                    {
+                        id: 8,
+                        text: "González Millán sostiene que las actividades recreativas alcanzan mayores niveles de satisfacción cuando requieren reglamentos complejos, preparativos extensos y elevados requisitos físicos y técnicos previos.",
+                        answer: false,
+                        justification: "El tema señala justamente lo contrario: simplicidad normativa, escasa exigencia técnica y mínimos preparativos favorecen el carácter recreativo."
+                    },
+                    {
+                        id: 9,
+                        text: "Lagardera (1985) señala que las actividades lúdico-recreativas se caracterizan por ausencia de superestructuras institucionales, inexistencia de requisitos burocráticos y protagonismo de animadores lúdico-sociales.",
+                        answer: true,
+                        justification: "Estas características aparecen expresamente recogidas en el apartado organizativo del tema."
+                    },
+                    {
+                        id: 10,
+                        text: "Terry Orlick considera que la exclusión, la eliminación progresiva y la competitividad intensa constituyen elementos indispensables para garantizar participación y cohesión en los juegos cooperativos.",
+                        answer: false,
+                        justification: "Orlick defiende precisamente lo contrario mediante sus cinco libertades, especialmente la ausencia de exclusión y agresión."
+                    }
+                ]
+            },
+            tema42: {
+                title: "Tema 42",
+                subtitle: "Juegos y Deportes Tradicionales",
+                headerColor: "bg-violet-600",
+                tabColor: "border-violet-600 text-violet-600",
+                buttonColor: "bg-violet-600 hover:bg-violet-700",
+                ringColor: "text-violet-600",
+                accentClass: "violet",
+                data: [
+                    {
+                        id: 1,
+                        text: "Parlebás (1986) define el deporte como una situación motriz competitiva institucionalizada, descartando tanto las actividades libres e improvisadas como los juegos no reconocidos por instancias sociales.",
+                        answer: true,
+                        justification: "El tema recoge literalmente que el deporte es una motricidad lúdica y competitiva aprobada por instituciones sociales."
+                    },
+                    {
+                        id: 2,
+                        text: "Los juegos tradicionales presentan reglamentos rígidos y unificados, delimitación precisa de instrumentos y espacios de juego y supervisión institucional mediante organismos reguladores específicos.",
+                        answer: false,
+                        justification: "Estas características corresponden a los deportes tradicionales; los juegos tradicionales poseen reglas flexibles y espacios variables."
+                    },
+                    {
+                        id: 3,
+                        text: "Según el proceso evolutivo descrito en el tema, un juego puede convertirse en tradicional sin alcanzar necesariamente un elevado número de practicantes o una amplia popularidad social.",
+                        answer: true,
+                        justification: "El tema señala expresamente que una actividad puede seguir siendo tradicional aunque deje de ser popular."
+                    },
+                    {
+                        id: 4,
+                        text: "El término autóctono aplicado a juegos y deportes resulta plenamente objetivo porque permite identificar con absoluta certeza el origen geográfico exacto de cualquier práctica ludomotriz.",
+                        answer: false,
+                        justification: "El tema insiste en utilizar este término con cautela, ya que muchos juegos poseen orígenes remotos difíciles de determinar."
+                    },
+                    {
+                        id: 5,
+                        text: "Moreno Palos define los juegos tradicionales como actividades lúdicas locales y ancestrales transmitidas generacionalmente y dotadas de un marcado valor cultural antropológico comunitario.",
+                        answer: true,
+                        justification: "Esta definición aparece prácticamente de forma literal dentro del apartado conceptual del tema."
+                    },
+                    {
+                        id: 6,
+                        text: "Dentro de la clasificación de Parlebás, los cuasi-juegos deportivos poseen reconocimiento institucional consolidado y reglamentaciones estrictas reguladas por federaciones y organismos oficiales.",
+                        answer: false,
+                        justification: "Los cuasi-juegos se caracterizan por ausencia de normas rígidas y modificación libre por los participantes."
+                    },
+                    {
+                        id: 7,
+                        text: "Moreno Palos sitúa a Galicia junto con Andalucía, Extremadura y Baleares dentro del grupo con nivel escaso respecto a número y práctica de juegos tradicionales.",
+                        answer: true,
+                        justification: "El tema ubica a Galicia en el Grupo IV, correspondiente a un nivel reducido de práctica y cantidad."
+                    },
+                    {
+                        id: 8,
+                        text: "Según Moreno Palos, los juegos de lanzamiento de precisión incluyen actividades cuyo objetivo principal consiste en proyectar objetos pesados alcanzando la máxima distancia posible.",
+                        answer: false,
+                        justification: "La finalidad es derribar o alcanzar objetivos concretos, mientras la máxima distancia corresponde a lanzamientos de distancia."
+                    },
+                    {
+                        id: 9,
+                        text: "El proceso de enculturación supone que generaciones de mayor edad inducen y transmiten comportamientos tradicionales, siendo el juego popular un ejemplo especialmente representativo de dicho fenómeno.",
+                        answer: true,
+                        justification: "El tema presenta expresamente el juego tradicional como un ejemplo ilustrativo de enculturación cultural."
+                    },
+                    {
+                        id: 10,
+                        text: "Moreno Palos sostiene que los juegos tradicionales únicamente deben utilizarse como recursos para objetivos motores y corporales, evitando planteamientos culturales o interdisciplinares complementarios.",
+                        answer: false,
+                        justification: "El tema defiende exactamente lo contrario: favorecen interdisciplinariedad y conocimiento geográfico, histórico y cultural."
+                    }
+                ]
+            }
+        };
+
+        let currentTheme = 'tema38';
+        let quizData = quizStore[currentTheme].data;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const startBtn = document.getElementById('start-btn');
+            const introSection = document.getElementById('intro-section');
+            const quizContainer = document.getElementById('quiz-container');
+            const form = document.getElementById('quiz-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const resultsSection = document.getElementById('results-section');
+            const retryBtn = document.getElementById('retry-btn');
+            const scoreRing = document.getElementById('score-ring');
+
+            if (!startBtn || !introSection || !quizContainer || !form || !submitBtn || !resultsSection || !retryBtn || !scoreRing) {
+                console.error("Error: Algunos de los elementos del DOM no han podido ser localizados correctamente.");
+                return;
+            }
+
+            // Inicializar por primera vez
+            initQuiz();
+
+            // Vincular oyentes de eventos con control de interacción
+            startBtn.addEventListener('click', () => {
+                introSection.classList.add('hidden');
+                quizContainer.classList.remove('hidden');
+                initQuiz();
+                window.scrollTo({ top: quizContainer.offsetTop - 80, behavior: 'smooth' });
+            });
+
+            submitBtn.addEventListener('click', () => {
+                evaluateQuiz();
+            });
+
+            retryBtn.addEventListener('click', () => {
+                resultsSection.classList.add('hidden');
+                initQuiz();
+                window.scrollTo({ top: quizContainer.offsetTop - 80, behavior: 'smooth' });
+            });
+        });
+
+        function switchTheme(theme) {
+            if (currentTheme === theme) return;
+
+            currentTheme = theme;
+            const themeInfo = quizStore[theme];
+            quizData = themeInfo.data;
+
+            // Actualizar datos de cabecera de manera fluida
+            const mainHeader = document.getElementById('main-header');
+            const headerTitle = document.getElementById('header-title');
+            const headerSubtitle = document.getElementById('header-subtitle');
+            const footerText = document.getElementById('footer-text');
+            const introIconContainer = document.getElementById('intro-icon-container');
+            const startBtn = document.getElementById('start-btn');
+
+            if (headerTitle) headerTitle.textContent = themeInfo.title;
+            if (headerSubtitle) headerSubtitle.textContent = themeInfo.subtitle;
+            if (footerText) footerText.textContent = `Exámenes Interactivos - ${themeInfo.title}`;
+            if (mainHeader) {
+                mainHeader.className = `${themeInfo.headerColor} text-white shadow-md py-8 transition-colors duration-500`;
+            }
+
+            // Actualizar botones de la pantalla de bienvenida según el tema activo
+            if (introIconContainer) {
+                introIconContainer.className = `w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-500 bg-${themeInfo.accentClass}-50 text-${themeInfo.accentClass}-600`;
+            }
+            if (startBtn) {
+                startBtn.className = `w-full sm:w-auto ${themeInfo.buttonColor} text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5`;
+            }
+
+            // Actualizar estilos activos de las pestañas de navegación
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn py-3 px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-all duration-300 whitespace-nowrap rounded-t-lg";
+            });
+
+            const activeTab = document.getElementById(`tab-${theme}`);
+            if (activeTab) {
+                activeTab.className = `tab-btn py-3 px-4 border-b-2 font-bold text-sm sm:text-base ${themeInfo.tabColor} transition-all duration-300 whitespace-nowrap rounded-t-lg`;
+            }
+
+            // Restaurar visualizaciones del flujo de examen
+            const introSection = document.getElementById('intro-section');
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsSection = document.getElementById('results-section');
+            const submitBtn = document.getElementById('submit-btn');
+
+            if (introSection) introSection.classList.remove('hidden');
+            if (quizContainer) quizContainer.classList.add('hidden');
+            if (resultsSection) resultsSection.classList.add('hidden');
+            if (submitBtn) {
+                submitBtn.classList.add('hidden');
+                submitBtn.className = `hidden ${themeInfo.buttonColor} text-white font-bold px-10 py-4 rounded-xl shadow-lg transition-all duration-200 transform hover:-translate-y-0.5`;
+            }
+
+            // Reiniciar el anillo de progreso visual
+            const scoreRing = document.getElementById('score-ring');
+            if (scoreRing) {
+                scoreRing.className = `${themeInfo.ringColor} transition-all duration-1000 ease-out`;
+                scoreRing.setAttribute('stroke-dasharray', '0 100');
+            }
+
+            // Inicializar estructura limpia del cuestionario
+            initQuiz();
+        }
+
+        function initQuiz() {
+            const form = document.getElementById('quiz-form');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            if (!form) return;
+            form.innerHTML = ''; // Limpiar renderizados previos
+
+            const currentThemeInfo = quizStore[currentTheme];
+
+            quizData.forEach((q) => {
+                const questionHTML = `
+                    <div class="question-card bg-white rounded-xl shadow-sm border border-slate-100 p-6 transition-all duration-200 hover:shadow-md">
+                        <div class="flex items-start mb-5">
+                            <span class="flex-shrink-0 bg-slate-100 text-slate-600 font-bold rounded-xl w-9 h-9 flex items-center justify-center mr-4 text-sm">
+                                ${q.id}
+                            </span>
+                            <p class="text-base sm:text-lg text-slate-800 font-semibold leading-relaxed pt-1">${q.text}</p>
+                        </div>
+                        
+                        <!-- Contenedores Interactivos de Respuesta -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-0 sm:pl-13 max-w-md">
+                            <label class="option-label flex items-center justify-between p-3.5 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-all select-none group">
+                                <span class="text-sm font-semibold text-slate-700 group-hover:text-slate-900">Verdadero</span>
+                                <input type="radio" name="q${q.id}" value="true" class="form-radio h-5 w-5 text-${currentThemeInfo.accentClass}-600 focus:ring-${currentThemeInfo.accentClass}-500 border-slate-300 transition duration-150" onchange="updateProgress()">
+                            </label>
+                            <label class="option-label flex items-center justify-between p-3.5 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-all select-none group">
+                                <span class="text-sm font-semibold text-slate-700 group-hover:text-slate-900">Falso</span>
+                                <input type="radio" name="q${q.id}" value="false" class="form-radio h-5 w-5 text-${currentThemeInfo.accentClass}-600 focus:ring-${currentThemeInfo.accentClass}-500 border-slate-300 transition duration-150" onchange="updateProgress()">
+                            </label>
+                        </div>
+
+                        <!-- Panel de Retroalimentación Oculto -->
+                        <div id="feedback-${q.id}" class="mt-5 hidden p-5 rounded-xl border-l-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span id="icon-${q.id}"></span>
+                                <span id="status-${q.id}" class="font-bold text-base"></span>
+                            </div>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mt-1">
+                                <strong class="font-semibold text-slate-900">Justificación:</strong> ${q.justification}
+                            </p>
+                        </div>
+                    </div>
+                `;
+                form.insertAdjacentHTML('beforeend', questionHTML);
+            });
+
+            // Reconfigurar barra de progreso
+            updateProgress();
+
+            if (submitBtn) {
+                submitBtn.classList.add('hidden');
+                submitBtn.className = `hidden ${currentThemeInfo.buttonColor} text-white font-bold px-10 py-4 rounded-xl shadow-lg transition-all duration-200 transform hover:-translate-y-0.5`;
+            }
+        }
+
+        function updateProgress() {
+            const total = quizData.length;
+            let answered = 0;
+
+            quizData.forEach(q => {
+                const checkedOption = document.querySelector(`input[name="q${q.id}"]:checked`);
+                if (checkedOption) answered++;
+            });
+
+            const percentage = (answered / total) * 100;
+            
+            const progressText = document.getElementById('progress-text');
+            const progressBar = document.getElementById('progress-bar');
+            const submitBtn = document.getElementById('submit-btn');
+
+            if (progressText) progressText.textContent = `Respondidas: ${answered}/${total}`;
+            if (progressBar) {
+                progressBar.className = `h-full transition-all duration-300 bg-${quizStore[currentTheme].accentClass}-600`;
+                progressBar.style.width = `${percentage}%`;
+            }
+
+            // Mostrar el botón de corregir una vez se ha respondido a alguna pregunta
+            if (submitBtn && answered > 0) {
+                submitBtn.classList.remove('hidden');
+                submitBtn.classList.add('inline-block');
+            }
+        }
+
+        function evaluateQuiz() {
+            let score = 0;
+            const total = quizData.length;
+
+            quizData.forEach(q => {
+                const selectedOption = document.querySelector(`input[name="q${q.id}"]:checked`);
+                const feedbackDiv = document.getElementById(`feedback-${q.id}`);
+                const statusSpan = document.getElementById(`status-${q.id}`);
+                const iconSpan = document.getElementById(`icon-${q.id}`);
+                
+                // Deshabilitar respuestas para evitar modificaciones post-examen
+                document.querySelectorAll(`input[name="q${q.id}"]`).forEach(input => input.disabled = true);
+                
+                if (feedbackDiv) feedbackDiv.classList.remove('hidden');
+
+                if (selectedOption) {
+                    const userAnswer = selectedOption.value === 'true';
+                    
+                    if (userAnswer === q.answer) {
+                        score++;
+                        if (feedbackDiv) feedbackDiv.className = "mt-5 p-5 rounded-xl border-l-4 border-green-500 bg-green-50/50 block";
+                        if (statusSpan) {
+                            statusSpan.textContent = "¡Correcto!";
+                            statusSpan.className = "font-bold text-green-700";
+                        }
+                        if (iconSpan) {
+                            iconSpan.innerHTML = '<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>';
+                        }
+                    } else {
+                        if (feedbackDiv) feedbackDiv.className = "mt-5 p-5 rounded-xl border-l-4 border-red-500 bg-red-50/50 block";
+                        if (statusSpan) {
+                            statusSpan.textContent = "Incorrecto";
+                            statusSpan.className = "font-bold text-red-700";
+                        }
+                        if (iconSpan) {
+                            iconSpan.innerHTML = '<svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>';
+                        }
+                    }
+                } else {
+                    // Control de respuestas no cumplimentadas
+                    if (feedbackDiv) feedbackDiv.className = "mt-5 p-5 rounded-xl border-l-4 border-amber-500 bg-amber-50/50 block";
+                    if (statusSpan) {
+                        statusSpan.textContent = "Sin responder";
+                        statusSpan.className = "font-bold text-amber-700";
+                    }
+                    if (iconSpan) {
+                        iconSpan.innerHTML = '<svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>';
+                    }
+                }
+            });
+
+            showResults(score, total);
+        }
+
+        function showResults(score, total) {
+            const submitBtn = document.getElementById('submit-btn');
+            const resultsSection = document.getElementById('results-section');
+            const scoreText = document.getElementById('score-text');
+            const scoreRing = document.getElementById('score-ring');
+            const scoreMessage = document.getElementById('score-message');
+
+            if (submitBtn) submitBtn.classList.add('hidden');
+            if (resultsSection) resultsSection.classList.remove('hidden');
+
+            const percentage = (score / total) * 100;
+            const themeInfo = quizStore[currentTheme];
+
+            if (scoreText) scoreText.textContent = `${score}/${total}`;
+            
+            if (scoreRing) {
+                // Modificar el color y el trazo del anillo SVG dinámicamente
+                scoreRing.className = `transition-all duration-1000 ease-out ${themeInfo.ringColor}`;
+                scoreRing.setAttribute('stroke-dasharray', `${percentage} 100`);
+            }
+
+            if (scoreMessage) {
+                if (percentage >= 80) {
+                    scoreMessage.textContent = "¡Excelente trabajo! Tienes un gran dominio del tema.";
+                    scoreMessage.className = "text-center text-lg font-bold mb-6 text-green-600";
+                } else if (percentage >= 50) {
+                    scoreMessage.textContent = "Buen intento, pero aún hay conceptos clave que debes consolidar.";
+                    scoreMessage.className = "text-center text-lg font-bold mb-6 text-amber-600";
+                } else {
+                    scoreMessage.textContent = "Necesitas repasar el material con más detenimiento y volver a intentarlo.";
+                    scoreMessage.className = "text-center text-lg font-bold mb-6 text-red-600";
+                }
+            }
+            
+            // Animación de scroll suave hacia la sección de resultados
+            if (resultsSection) {
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    </script>
+</body>
+</html>

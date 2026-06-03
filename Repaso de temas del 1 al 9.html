@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Autoevaluación - Mentes Activas</title>
+    <!-- Importación de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 20px 25px -10px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="w-full bg-white border-b border-slate-100 py-4 px-6 md:px-12 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+            </div>
+            <div>
+                <h1 class="font-bold text-slate-900 leading-none">Mentes Activas</h1>
+                <span class="text-xs text-slate-400 font-medium">Plataforma de Evaluación</span>
+            </div>
+        </div>
+        <div class="flex items-center space-x-2">
+            <span id="header-badge" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 transition-all duration-300">
+                Tema Seleccionado: Tema 1
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow flex items-center justify-center p-4 md:p-8">
+        <div class="max-w-4xl w-full">
+            
+            <!-- Welcome / Start Screen -->
+            <div id="welcome-screen" class="bg-white rounded-3xl p-6 md:p-10 custom-shadow text-center transition-all duration-300">
+                <div class="w-20 h-20 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-6 shadow-xl shadow-indigo-100 animate-pulse">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">
+                    Plataforma de Autoevaluación
+                </h2>
+                <p class="text-slate-500 text-sm md:text-base mb-6 max-w-lg mx-auto">
+                    Selecciona el tema que deseas poner a prueba hoy. Cada módulo cuenta con 10 preguntas interactivas de Verdadero/Falso con justificación pedagógica final.
+                </p>
+
+                <!-- TAB SELECTOR MODULE (Ampliación a 9 columnas responsivas) -->
+                <div class="bg-slate-100 p-1.5 rounded-2xl grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2 mb-8 max-w-4xl mx-auto border border-slate-200">
+                    <button id="tab-tema1" class="py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-indigo-900 shadow-sm">
+                        Tema 1
+                    </button>
+                    <button id="tab-tema2" class="py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 text-slate-500 hover:text-slate-800 hover:bg-white/50">
+                        Tema 2
+                    </button>
+                    <button id="tab-tema3" class="py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 text-slate-500 hover:text-slate-800 hover:bg-white/50">
+                        Tema 3
+                    </button>
+                    <button id="tab-tema4" class="py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 text-slate-500 hover:text-slate-800 hover:bg-white/50">
+                        Tema 4
+                    </button>
+                    <button id="tab-tema5" class="py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 text-slate-500 hover:text-slate-800 hover:bg-white/50">
+                        Tema 5
+                    </button>
+                    <button id="tab-tema6" class="py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 text-slate-500 hover:text-slate-800 hover:bg-white/50">
+                        Tema 6
+                    </button>
+                    <button id="tab-tema7" class="py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 text-slate-500 hover:text-slate-800 hover:bg-white/50">
+                        Tema 7
+                    </button>
+                    <button id="tab-tema8" class="py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 text-slate-500 hover:text-slate-800 hover:bg-white/50">
+                        Tema 8
+                    </button>
+                    <button id="tab-tema9" class="py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 text-slate-500 hover:text-slate-800 hover:bg-white/50">
+                        Tema 9
+                    </button>
+                </div>
+
+                <!-- Topic Description Info Box -->
+                <div class="p-5 rounded-2xl bg-indigo-50/50 border border-indigo-100/80 text-left max-w-3xl mx-auto mb-8 transition-all duration-300">
+                    <h3 id="topic-info-title" class="font-bold text-indigo-950 text-base mb-1">Tema 1: Epistemología y Educación Física</h3>
+                    <p id="topic-info-desc" class="text-xs md:text-sm text-indigo-800/80 leading-relaxed">
+                        Analiza las bases conceptuales, autores clave (Bunge, Cagigal, Simri, etc.), herencias teóricas y la transición metodológica del área hacia una disciplina integral.
+                    </p>
+                </div>
+
+                <button id="btn-start" class="group relative px-8 py-4 bg-indigo-600 text-white font-semibold rounded-2xl shadow-lg shadow-indigo-200 hover:shadow-xl hover:shadow-indigo-300 hover:bg-indigo-700 active:scale-95 transition-all duration-200 inline-flex items-center space-x-2 text-lg">
+                    <span id="start-btn-text">Iniciar Tema 1</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quiz-screen" class="hidden bg-white rounded-3xl p-6 md:p-10 custom-shadow transition-all duration-300">
+                <!-- Quiz Header -->
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <span id="quiz-active-badge" class="text-xs font-bold uppercase tracking-wider text-indigo-500">Tema 1 en Progreso</span>
+                        <h3 id="question-counter" class="text-slate-400 font-medium text-sm">Pregunta 1 de 10</h3>
+                    </div>
+                    <!-- Audio Button -->
+                    <button id="btn-sound" class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors" title="Activar/Desactivar Sonido">
+                        <svg id="sound-icon-on" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                        <svg id="sound-icon-off" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zm13.121-6.121a3 3 0 010 4.242m2.829-7.071a7 7 0 010 9.9" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-100 rounded-full h-2 mb-8 overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-full rounded-full transition-all duration-300" style="width: 10%;"></div>
+                </div>
+
+                <!-- Question Area -->
+                <div class="mb-8">
+                    <h2 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 leading-snug">
+                        ¿Cargando pregunta?
+                    </h2>
+                </div>
+
+                <!-- Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 gap-4 mb-8">
+                    <!-- Options will be generated programmatically here -->
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex justify-between items-center border-t border-slate-100 pt-6">
+                    <button id="btn-prev" class="px-6 py-3 border border-slate-200 text-slate-600 font-semibold rounded-2xl hover:bg-slate-50 hover:text-slate-800 transition-all flex items-center space-x-2 invisible">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        <span>Anterior</span>
+                    </button>
+                    <button id="btn-next" class="px-8 py-3 bg-slate-200 text-slate-400 font-semibold rounded-2xl transition-all flex items-center space-x-2 cursor-not-allowed" disabled>
+                        <span id="next-text">Siguiente</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="results-screen" class="hidden bg-white rounded-3xl p-6 md:p-10 custom-shadow transition-all duration-300">
+                <div class="text-center mb-10">
+                    <div class="inline-flex items-center justify-center p-3 bg-indigo-50 rounded-2xl text-indigo-600 mb-4 animate-bounce">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-slate-900 mb-2">¡Evaluación Finalizada!</h2>
+                    <p id="results-welcome" class="text-slate-500 text-sm md:text-base">Aquí tienes el desglose de tu rendimiento y las justificaciones correspondientes.</p>
+                </div>
+
+                <!-- Score Dashboard -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <!-- Progress Wheel / Score -->
+                    <div class="bg-indigo-50/50 border border-indigo-100 rounded-3xl p-6 flex flex-col items-center justify-center">
+                        <div class="relative w-32 h-32 flex items-center justify-center">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-slate-200" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="score-radial-progress" class="text-indigo-600 transition-all duration-1000" stroke-width="3" stroke-dasharray="0, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="absolute text-center">
+                                <span id="score-text" class="text-3xl font-extrabold text-slate-800">0/10</span>
+                                <span class="block text-xs font-semibold text-indigo-600">Puntaje</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feedbacks / Performance Details -->
+                    <div class="bg-slate-50 border border-slate-100 rounded-3xl p-6 md:col-span-2 flex flex-col justify-center">
+                        <h4 class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Resultado de Calificación</h4>
+                        <div id="performance-badge" class="text-2xl font-extrabold text-slate-900 mb-2">¡Sigue practicando!</div>
+                        <p id="performance-desc" class="text-slate-500 text-sm leading-relaxed">No te preocupes si no lograste el puntaje deseado. Aprovecha las explicaciones detalladas de abajo para aprender más sobre cada tema.</p>
+                    </div>
+                </div>
+
+                <!-- Explanation Title -->
+                <div class="border-t border-slate-100 pt-8 mb-6">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2 flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        <span>Explicaciones Detalladas por Pregunta</span>
+                    </h3>
+                    <p class="text-sm text-slate-400">Revisa tus aciertos, errores y consolida tus conocimientos del tema.</p>
+                </div>
+
+                <!-- Explanations List -->
+                <div id="explanations-container" class="space-y-6 mb-10">
+                    <!-- Dynamic details are populated here -->
+                </div>
+
+                <!-- Action buttons -->
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center border-t border-slate-100 pt-8">
+                    <button id="btn-restart" class="px-6 py-4 bg-indigo-600 text-white font-semibold rounded-2xl hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-100 transition-all active:scale-95 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H17" />
+                        </svg>
+                        <span>Reiniciar Desafío</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full bg-white border-t border-slate-100 py-6 px-6 text-center text-slate-400 text-xs font-medium">
+        <span>© 2026 Mentes Activas. Diseñado para el aprendizaje interactivo.</span>
+    </footer>
+
+    <!-- Script Principal -->
+    <script>
+        // Bancos de Preguntas estructurados por temas (Tema 1 al Tema 9)
+        const quizData = {
+            tema1: [
+                {
+                    id: 1,
+                    category: "Epistemología",
+                    question: "Ferrier (1808–1864) introdujo el término epistemología como sinónimo de gnoseología, vocablo actualmente vigente y preferido por carecer de connotaciones escolástico-especulativas.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema señala que Ferrier introdujo el término epistemología como sinónimo de gnoseología, pero especifica que este último es un vocablo caído en desuso por sus connotaciones escolástico-especulativas."
+                },
+                {
+                    id: 2,
+                    category: "Epistemología",
+                    question: "Mario Bunge (2002) definió la epistemología como la rama de la filosofía encargada de estudiar la investigación científica y su producto, el conocimiento científico.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "La definición aparece literalmente recogida en el tema y constituye una referencia central del apartado epistemológico."
+                },
+                {
+                    id: 3,
+                    category: "Educación Física / Concepto",
+                    question: "Uriel Simri (1974) recopiló setenta términos utilizados para referirse a Educación Física, hecho que Cagigal (1984) relacionó con la inmadurez conceptual del área.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema relaciona la recopilación de Simri con la problemática señalada posteriormente por Cagigal sobre la inmadurez del contenido."
+                },
+                {
+                    id: 4,
+                    category: "Teoría de la Educación",
+                    question: "González Muñoz (1993) defendió que educare y educere eran concepciones opuestas e incompatibles porque describían acciones educativas contradictorias entre sí.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El autor afirma precisamente lo contrario: considera ambos significados complementarios, uno de fuera hacia dentro (educare) y otro de dentro hacia fuera (educere)."
+                },
+                {
+                    id: 5,
+                    category: "Teoría de la Educación",
+                    question: "Según el tema, el cuerpo como entidad biológica no se educa, sino que se adiestra; quien realmente constituye el sujeto de la educación es la persona.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El documento recoge literalmente esta idea al abordar el concepto de educación y persona integral."
+                },
+                {
+                    id: 6,
+                    category: "Etimología",
+                    question: "El Diccionario Paidotribo de la Actividad Física y el Deporte (2008) establece que el término física procede directamente del latín physicus sin raíces griegas previas.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema explica que physicus procede del griego physis, entendido como naturaleza en sentido amplio."
+                },
+                {
+                    id: 7,
+                    category: "Educación Física / Enfoques",
+                    question: "La Educación Física actual rechaza entender el cuerpo exclusivamente desde perspectivas biomecánicas y fisiológicas, considerándolo resultado de herencia, educación e interacción social y afectiva.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema afirma que el cuerpo surge de la interacción entre factores cognitivos, afectivos y sociales además de herencia e educación."
+                },
+                {
+                    id: 8,
+                    category: "Educación Física / Enfoques",
+                    question: "Desde visiones mecanicistas, la Educación Física se definía como ciencia de la educación que educa por y a partir del movimiento humano.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Esa definición pertenece al enfoque basado en el movimiento; las visiones mecanicistas hablaban de “educación de lo físico” y del perfeccionamiento anatómico y fisiológico."
+                },
+                {
+                    id: 9,
+                    category: "Educación Física / Enfoques",
+                    question: "Cagigal (1981) definió la Educación Física como toda tarea y ciencia establecida alrededor del hecho de educar mediante movimiento, cuerpo y capacidades psicomotrices, integrando además el enfoque educativo del deporte.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "La formulación aparece prácticamente de manera literal en el apartado de definiciones complementarias."
+                },
+                {
+                    id: 10,
+                    category: "Educación Física / Enfoques",
+                    question: "Según Arufe-Giráldez et al. (2023), uno de los elements imprescindibles en una definición de Educación Física consiste en priorizar exclusivamente capacidades físicas y técnica deportiva sobre variables psicosociales y valores.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Los autores incluyen explícitamente ética, moral, valores y variables psicológicas y psicosociales como componentes esenciales."
+                }
+            ],
+            tema2: [
+                {
+                    id: 1,
+                    category: "Historia de la EF",
+                    question: "Popplow sitúa los inicios de los ejercicios físicos en el Paleolítico Superior y considera las carreras, los lanzamientos y la natación como las primeras manifestaciones motrices organizadas del ser humano.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema sitúa esos inicios en el Paleolítico Inferior, identificando danzas rituales, caza y lucha como primeras manifestaciones."
+                },
+                {
+                    id: 2,
+                    category: "Antigüedad Clásica",
+                    question: "En la Grecia ateniense hacia el año 700 a.C., la belleza de ejecución tenía inicialmente prioridad sobre la fuerza y velocidad, circunstancia posteriormente modificada por la naturaleza competitiva humana.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema establece que inicialmente predominó la belleza de ejecución y posteriormente surgieron los Juegos Olímpicos por el carácter competitivo humano."
+                },
+                {
+                    id: 3,
+                    category: "Antigüedad Clásica",
+                    question: "Los Juegos Olímpicos Antiguos nacieron en el año 776 a.C., se celebraban cada cinco años y exigían para participar ser ciudadano libre de cualquier origen geográfico.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Se celebraban cada cuatro años, y era requisito ser hombre libre de origen griego."
+                },
+                {
+                    id: 4,
+                    category: "Renacimiento",
+                    question: "Mercurialis (1530–1606), mediante su obra “Arte Gimnástica”, realizó una recopilación de conocimientos gimnásticos conocida como una de las contribuciones más importantes del Renacimiento.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema señala explícitamente que restauró la gimnasia antigua y recopiló conocimientos gimnásticos conocidos."
+                },
+                {
+                    id: 5,
+                    category: "Enfoque Naturalista",
+                    question: "Rousseau, dentro del enfoque naturalista, defendía una Educación Física independiente de la educación general y rechazaba contenidos relacionados con supervivencia y actividades al aire libre.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Rousseau defendía exactamente lo contrario: integración en la educación general e inclusión de resistencia, supervivencia y actividades exteriores."
+                },
+                {
+                    id: 6,
+                    category: "Sistematización Pedagógica",
+                    question: "GutsMuths desarrolló el primer intento de sistematización de ejercicios físicos mediante una clasificación progresiva entre ejercicios generales y específicos.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema lo considera el primer intento sistemático de organización pedagógica de ejercicios físicos."
+                },
+                {
+                    id: 7,
+                    category: "Escuelas Gimnásticas",
+                    question: "Pehr Henrik Ling, considerado padre de la gimnasia sueca, definía la gimnasia como una doctrina basada exclusivamente en principios bioquímicos y dinámicos del organismo humano.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "La escuela sueca se fundamentaba principalmente en principios mecánicos, intentando unificar también los bioquímicos y dinámicos."
+                },
+                {
+                    id: 8,
+                    category: "Escuelas Gimnásticas",
+                    question: "Friedrich Jahn utilizó una concepción nacionalista de la Educación Física orientada a preparar individuos para la comunidad y reforzar la unidad alemana.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema presenta a Jahn como máximo representante de la escuela alemana de orientación nacionalista."
+                },
+                {
+                    id: 9,
+                    category: "Evolución en España",
+                    question: "Domingo Blázquez sitúa la etapa pedagógica entre 1980 y la actualidad, caracterizada principalmente por deporte para todos, actividad física y salud y tiempo libre.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "La etapa pedagógica comprende 1970–1980; desde 1980 comienza la etapa del tiempo libre."
+                },
+                {
+                    id: 10,
+                    category: "Funciones de la EF",
+                    question: "P.H. Taylor incluye entre las nueve grandes funciones de la Educación Física aspectos relacionados con estabilidad emocional, conciencia estética y desarrollo cognitivo.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema incorpora esos tres elementos entre las nueve finalidades propuestas por Taylor."
+                }
+            ],
+            tema3: [
+                {
+                    id: 1,
+                    category: "Objetivos en EF",
+                    question: "Pieron (1988) afirmaba que uno de los principales problemas históricos de la Educación Física consistía en una formulación excesivamente precisa, concreta y específica de los objetivos educativos oficiales.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema indica exactamente lo contrario: Pieron señala el carácter vago e impreciso con el que históricamente se formularon los objetivos de Educación Física."
+                },
+                {
+                    id: 2,
+                    category: "Taxonomías",
+                    question: "Las taxonomías surgieron por la necesidad de racionalizar, sistematizar y evaluar una acción educativa que durante demasiado tiempo permaneció apoyada sobre intuición y sensibilidad.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema recoge literalmente esa justificación histórica del nacimiento de las taxonomías educativas."
+                },
+                {
+                    id: 3,
+                    category: "Marco Legislativo (LOMLOE)",
+                    question: "Según la LOMLOE, los objetivos de etapa constituyen desempeños específicos de una materia concreta y funcionan independientemente de las competencias clave y del perfil de salida.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Los objetivos de etapa son logros vinculados directamente a la adquisición de competencias clave."
+                },
+                {
+                    id: 4,
+                    category: "Modelos Curriculares",
+                    question: "Tyler (1950) propone que la elección de objetivos educativos debe considerar exigencias sociales, características evolutivas del alumnado y organización interna de contenidos.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "Son los tres factores que el tema presenta explícitamente en el modelo de selección de objetivos de Tyler."
+                },
+                {
+                    id: 5,
+                    category: "Pedagogía por Objetivos",
+                    question: "La Pedagogía por Objetivos desarrollada tras Bloom (1975) considera innecesario especificar conductas observables, otorgando prioridad a formulaciones abiertas e interpretativas.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "La PPO defendía precisamente formular objetivos de manera concreta e incluso expresarlos como conductas observables."
+                },
+                {
+                    id: 6,
+                    category: "Diseño Instruccional",
+                    question: "R. Mager (1974) propuso una metodología para formular objetivos operativos basada en comportamiento observable, conducta precisa, condiciones de ejecución y criterios de evaluación.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema presenta exactamente esos cuatro componentes para la formulación de objetivos."
+                },
+                {
+                    id: 7,
+                    category: "Taxonomías",
+                    question: "Landsheere (1977) estableció entre los principios de elaboración taxonómica que la jerarquía de objetivos debía corresponder necesariamente con una jerarquía de valores educativos.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El principio objetivo establece expresamente que la jerarquía de objetivos no coincide con una jerarquía de valores."
+                },
+                {
+                    id: 8,
+                    category: "Evolución Taxonómica",
+                    question: "Anderson y Krathwohl, en su revisión de 2001 de la taxonomía de Bloom, sustituyeron sustantivos por verbos y ampliaron el concepto de síntesis relacionándolo con crear.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "Ambos cambios aparecen como modificaciones fundamentales de la revisión."
+                },
+                {
+                    id: 9,
+                    category: "Taxonomías Psicomotrices",
+                    question: "Harrow (1978) sitúa las habilidades perceptivas después de las cualidades físicas, estructura que el propio tema considera uno de los principales aciertos de dicha taxonomía.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema señala precisamente esa organización como una de las críticas realizadas a Harrow."
+                },
+                {
+                    id: 10,
+                    category: "Taxonomías en EF",
+                    question: "Jewett (1974), según Pieron, presenta una taxonomía especialmente valiosa porque facilita el paso desde definiciones comportamentales hacia formas concretas de redactar objetivos educativos.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema destaca exactamente esa aportación como principal valor didáctico de la taxonomía de Jewett."
+                }
+            ],
+            tema4: [
+                {
+                    id: 1,
+                    category: "Evolución de Contenidos",
+                    question: "Domingo Blázquez sitúa el origen de la integración escolar de la Educación Física durante el siglo XVIII y atribuye su desarrollo principalmente a las corrientes deportiva, psicomotricista y expresiva.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema indica que Blázquez analiza la evolución a partir del siglo XIX y señala cuatro corrientes iniciales: analítica, natural, rítmica y deportiva, añadiéndose posteriormente la psicomotricista."
+                },
+                {
+                    id: 2,
+                    category: "Marco Curricular",
+                    question: "El Decreto 156/2022 define los contenidos como conocimientos, destrezas y actitudes cuyo aprendizaje resulta necesario para alcanzar criterios de evaluación y objetivos de materia.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "La definición aparece prácticamente de forma literal dentro del apartado conceptual del tema."
+                },
+                {
+                    id: 3,
+                    category: "Enfoque Educativo",
+                    question: "Aunque LOE y LOMLOE no identifican expresamente contenidos conceptuales, procedimentales y actitudinales, el tema señala que los tres colaboran por igual en el desarrollo de capacidades.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El documento especifica que los tres tipos mantienen idéntica importancia educativa."
+                },
+                {
+                    id: 4,
+                    category: "Historia de la EF",
+                    question: "Popplow sitúa los comienzos de los ejercicios físicos durante el Paleolítico Superior y atribuye especial relevancia inicial a actividades relacionadas con la natación y carreras regladas.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema sitúa dichos comienzos en el Paleolítico Inferior y menciona danzas rituales, caza y lucha."
+                },
+                {
+                    id: 5,
+                    category: "Teorías Naturalistas",
+                    question: "Rousseau, dentro del naturalismo, defendía que la Educación Física debía integrarse en la educación general incorporando higiene, resistencia, supervivencia y actividades al aire libre.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "Son contenidos citados literalmente en el apartado dedicado al naturalismo."
+                },
+                {
+                    id: 6,
+                    category: "Sistematización de Ejercicios",
+                    question: "GutsMuths llevó a cabo el primer intento de sistematización de ejercicios físicos mediante una clasificación progresiva entre ejercicios generales y específicos.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema lo presenta como el primer intento sistemático de organización pedagógica del ejercicio físico."
+                },
+                {
+                    id: 7,
+                    category: "Escuelas Gimnásticas",
+                    question: "Pehr Henrik Ling definió la gimnasia como doctrina basada exclusivamente en principios bioquímicos, rechazando fundamentos mecánicos y dinámicos para la explicación del movimiento corporal.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "La escuela sueca se basaba fundamentalmente en principios mecánicos, intentando integrar también los dinámicos y bioquímicos."
+                },
+                {
+                    id: 8,
+                    category: "Escuelas Gimnásticas",
+                    question: "Friedrich Jahn utilizó una concepción nacionalista de la Educación Física orientada a la preparación comunitaria y a la consolidación de la unidad alemana.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema identifica a Jahn como principal representante de la escuela alemana y del enfoque nacionalista."
+                },
+                {
+                    id: 9,
+                    category: "Evolución en España",
+                    question: "Domingo Blázquez establece que la etapa pedagógica se extiende desde 1980 hasta la actualidad y se caracteriza principalmente por deporte para todos y actividad física saludable.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "La etapa pedagógica comprende 1970–1980; desde 1980 comienza la etapa del tiempo libre."
+                },
+                {
+                    id: 10,
+                    category: "Tendencias Futuras",
+                    question: "Delgado Noguera (2024) plantea que la evolución futura de la Educación Física estará condicionada por inteligencia artificial, bienestar integral y procesos personalizados de evaluación continua.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema incluye estos elementos entre las tendencias futuras previsibles de la Educación Física."
+                }
+            ],
+            tema5: [
+                {
+                    id: 1,
+                    category: "Coeducación",
+                    question: "Cervelló (2003) entiende la coeducación como una acción educativa centrada exclusivamente en la escolarización conjunta de niños y niñas, sin necesidad de intervenir sobre desigualdades o estereotipos de género.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema indica que la coeducación implica corregir estereotipos, eliminar desigualdades y actuar intencionadamente contra cualquier forma de discriminación."
+                },
+                {
+                    id: 2,
+                    category: "Género y OMS",
+                    question: "La OMS (2018) diferencia claramente sexo y género, definiendo este último mediante roles, oportunidades y características socialmente construidas para hombres, mujeres y personas con identidades no binarias.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema recoge literalmente esta definición diferenciando elementos biológicos y sociales."
+                },
+                {
+                    id: 3,
+                    category: "Material Curricular",
+                    question: "González (2005) concluyó que los libros de texto analizados otorgaban mayor protagonismo a la Expresión Corporal que a juegos, deportes o contenidos relacionados con condición física.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El estudio mostró exactamente lo contrario: predominaban condición física y deportes, mientras Expresión Corporal recibía menor presencia."
+                },
+                {
+                    id: 4,
+                    category: "Sociología en EF",
+                    question: "El concepto de currículo oculto en Educación Física adquiere especial relevancia porque transmite aspectos relacionados con modelos corporales, usos sociales del cuerpo y estereotipos asociados al sexo y la edad.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema destaca que la Educación Física posee un importante contenido oculto vinculado a la construcción corporal y cultural."
+                },
+                {
+                    id: 5,
+                    category: "Historia de la Educación",
+                    question: "Rousseau defendía durante el siglo XVIII un modelo educativo de equivalencia para Emilio y Sofía basado en autonomía, libertad y desarrollo personal independiente del sexo.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema señala que Rousseau planteó modelos claramente diferenciados: Emilio autónomo y Sofía dependiente y orientada a servir al hombre."
+                },
+                {
+                    id: 6,
+                    category: "Feminismo Histórico",
+                    question: "Emilia Pardo Bazán propuso durante el Congreso Pedagógico de 1892 una coeducación desarrollada en todos los niveles educativos para superar divisiones funcionales entre hombres y mujeres.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema presenta esta propuesta como una iniciativa relevante dentro del siglo XIX."
+                },
+                {
+                    id: 7,
+                    category: "Deporte e Historia",
+                    question: "Pierre de Coubertain impulsó una participación femenina equivalente a la masculina en los Juegos Olímpicos modernos, defendiendo explícitamente igualdad deportiva entre ambos sexos.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema recoge literalmente que Coubertain afirmaba que la mujer servía únicamente para coronar al hombre vencedor."
+                },
+                {
+                    id: 8,
+                    category: "Evolución de la Escuela",
+                    question: "Benilde Vázquez sitúa el inicio de la escuela coeducativa con la LOGSE de 1990, diferenciándola claramente de la escuela mixta iniciada anteriormente.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema distingue escuela segregada, mixta y coeducativa como modelos diferentes."
+                },
+                {
+                    id: 9,
+                    category: "Antropología Social",
+                    question: "Margaret Mead reforzó el determinismo biológico al demostrar que las diferencias conductuales entre hombres y mujeres dependían principalmente de factores fisiológicos innatos y hereditarios.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Sus investigaciones cuestionaron precisamente el determinismo biológico y reforzaron el peso de factores culturales y sociales."
+                },
+                {
+                    id: 10,
+                    category: "Sexismo Escolar",
+                    question: "Cortés y colaboradores (1994) identificaron entre los indicadores de sexismo escolar elementos como lenguaje masculino genérico, desigual ocupación espacial y diferentes expectativas hacia chicos y chicas.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "Todos esos elementos aparecen expresamente incluidos entre los indicadores descritos por los autores."
+                }
+            ],
+            tema6: [
+                {
+                    id: 1,
+                    category: "Atención a la Diversidad",
+                    question: "El Informe Warnock (1978) introdujo por primera vez el término ACNEAE para sustituir el concepto tradicional de NEE y eliminar referencias asociadas a discapacidad.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El Informe Warnock (1978) introdujo el término NEE, mientras que NEAE/ACNEAE aparece posteriormente en la legislación educativa actual."
+                },
+                {
+                    id: 2,
+                    category: "Atención a la Diversidad",
+                    question: "El Foro de Vida Independiente y Diversidad (FVID, 2005) propuso el concepto de diversidad funcional para sustituir términos con connotaciones peyorativas vinculadas a limitación o deficiencia.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema explica que diversidad funcional ofrece una visión positiva basada en diferentes capacidades y evita etiquetas negativas."
+                },
+                {
+                    id: 3,
+                    category: "Atención a la Diversidad",
+                    question: "La Orden de 10 de julio de 1995 mantuvo la figura del alumnado exento en Educación Física por considerar incompatibles determinados problemas médicos con los principios de integración educativa.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema señala precisamente que desaparece la figura del alumnado exento, al considerarse contraria a los principios de adaptación e integración."
+                },
+                {
+                    id: 4,
+                    category: "Marco Legislativo (LOMLOE)",
+                    question: "El artículo 73 de la LOMLOE entiende que el alumnado con necesidades educativas especiales afronta barreras relacionadas con acceso, presencia, participación y aprendizaje derivadas de discapacidad o trastornos graves.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema reproduce prácticamente esa definición legal de alumnado con NEE."
+                },
+                {
+                    id: 5,
+                    category: "Ámbitos de Diversidad",
+                    question: "Hernández Vázquez clasifica las necesidades educativas especiales únicamente en ámbitos físico y psíquico, excluyendo dimensiones académicas, socioculturales y étnicas por considerarlas factores externos al aprendizaje.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Incluye ámbitos físico, psíquico, socioeconómico, étnico-cultural y académico."
+                },
+                {
+                    id: 6,
+                    category: "Legislación Autonómica",
+                    question: "El Decreto 229/2011 entiende la atención a la diversidad como un conjunto de medidas orientadas a adecuar respuestas educativas según características, potencialidades, ritmos, intereses y situaciones socioculturales del alumnado.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "La definición legal del Decreto 229/2011 de atención a la diversidad se recoge de forma literal con estas premisas en el temario."
+                },
+                {
+                    id: 7,
+                    category: "Medidas Educativas",
+                    question: "Las medidas ordinarias de atención a la diversidad pueden modificar significativamente objetivos, contenidos y criterios de evaluación cuando las adaptaciones metodológicas resulten insuficientes para responder al alumnado.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Es falso porque las medidas ordinarias en ningún caso pueden alterar significativamente los objetivos fundamentales, contenidos o criterios de evaluación comunes."
+                },
+                {
+                    id: 8,
+                    category: "Adaptaciones Curriculares",
+                    question: "Las adaptaciones curriculares constituyen medidas extraordinarias dirigidas principalmente al alumnado con necesidades educativas especiales y requieren informe psicopedagógico previo que justifique su aplicación.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El temario asocia estas adaptaciones con medidas de carácter extraordinario y estipula la obligatoriedad de un informe psicopedagógico previo que avale la medida."
+                },
+                {
+                    id: 9,
+                    category: "Metodología",
+                    question: "Según González Manjón, las adaptaciones metodológicas afectan exclusivamente a estilos de enseñanza y excluyen materiales, organización, información o tipos de actividades propuestas.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema incluye organización, información, materiales, estilos y actividades dentro de las adaptaciones metodológicas."
+                },
+                {
+                    id: 10,
+                    category: "Diseño Universal (DUA)",
+                    question: "El Diseño Universal para el Aprendizaje plantea eliminar barreras desde el diseño inicial mediante múltiples formas de motivación, representación y acción, evitando adaptar posteriormente actividades para una minoría.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "Esa es la base conceptual preventiva del DUA: diseñar espacios de aprendizaje accesibles de origen sin requerir parches curriculares posteriores."
+                }
+            ],
+            tema7: [
+                {
+                    id: 1,
+                    category: "Desarrollo Motor",
+                    question: "Ruiz-Pérez (2008) divide históricamente el estudio del desarrollo motor en cuatro períodos, considerando el enfoque dinámico-ecológico una variante integrada dentro del período cognitivo-procesual.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema recoge cinco períodos, añadiendo Gutiérrez (2008) un quinto período dinámico-ecológico independiente."
+                },
+                {
+                    id: 2,
+                    category: "Control Motor",
+                    question: "Cano de la Cuerda, Martínez-Piédrola y Miangolarra-Page (2017) definen el control motor como el conjunto de procesos relacionados con elaboración, dominio y gobierno del movimiento ya adquirido.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "La definición aparece prácticamente de forma literal en el apartado conceptual del tema."
+                },
+                {
+                    id: 3,
+                    category: "Aprendizaje Motor",
+                    question: "Schmidt y Lee (2011) consideran el aprendizaje motor un proceso exclusivamente madurativo independiente de la práctica y de la experiencia acumulada por el individuo.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema señala que el aprendizaje motor deriva precisamente de procesos asociados a práctica y experiencia."
+                },
+                {
+                    id: 4,
+                    category: "Maduración",
+                    question: "Le Boulch define la maduración como un proceso mediante el cual el individuo alcanza progresivamente la plenitud biológica y hace funcionales estructuras previamente potenciales.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "Es la definición incluida textualmente en el apartado dedicado a maduración."
+                },
+                {
+                    id: 5,
+                    category: "Desarrollo Motor",
+                    question: "Según Oña, la etapa escolar se desarrolla entre los 11 y los 14 años y se caracteriza principalmente por la introducción de habilidades motrices específicas.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "La etapa escolar comprende 7–11 años y se centra en habilidades motrices básicas."
+                },
+                {
+                    id: 6,
+                    category: "Crecimiento",
+                    question: "Gutiérrez (2008) establece la ley próximo-distal indicando que las respuestas motrices se organizan desde zonas corporales próximas al eje hacia las más alejadas.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "La ley aparece formulada literalmente en el tema dentro de las leyes del crecimiento."
+                },
+                {
+                    id: 7,
+                    category: "Crecimiento",
+                    question: "Ferré considera que el crecimiento físico sigue exclusivamente patrones homogéneos, descartando la existencia de ritmos individuales y variaciones personales entre sujetos.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Uno de los principios formulados por Ferré establece precisamente la existencia de patrones individuales de crecimiento."
+                },
+                {
+                    id: 8,
+                    category: "Crecimiento",
+                    question: "Marcos (1989) sostiene que la actividad física constituye un estímulo necesario para favorecer un crecimiento adecuado y una correcta maduración ósea durante el desarrollo.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema recoge explícitamente esta afirmación al abordar crecimiento ponderal y actividad física."
+                },
+                {
+                    id: 9,
+                    category: "Evaluación Motriz",
+                    question: "Malina atribuye una elevada fiabilidad al test sit and reach porque elimina completamente la influencia de las proporciones corporales sobre la flexibilidad.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema señala exactamente lo contrario: considera que las proporciones corporales afectan al resultado y reducen su fiabilidad."
+                },
+                {
+                    id: 10,
+                    category: "Desarrollo Motor",
+                    question: "Hamburger y Meinel indican que durante pubertad y adolescencia puede producirse aumento de la descoordinación asociado a modificaciones corporales y dificultades de control neuromuscular.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema relaciona estas alteraciones con el crecimiento acelerado y el nuevo esquema corporal."
+                }
+            ],
+            tema8: [
+                {
+                    id: 1,
+                    category: "Evaluación del Desarrollo",
+                    question: "Rigal (1979) considera que la utilidad principal de los estudios sobre desarrollo motor consiste en establecer perfiles normativos poblacionales, sin otorgar relevancia específica a la detección de problemas evolutivos individuales.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema señala que Rigal centra específicamente la utilidad en la detección de alumnado con problemas de desarrollo."
+                },
+                {
+                    id: 2,
+                    category: "Evaluación Didáctica",
+                    question: "Fonseca (1988) atribuye a los instrumentos de medición del desarrollo motor una función pedagógica basada en informar continuamente al profesorado y alumnado sobre la evolución alcanzada.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema recoge literalmente esta función educativa de test, escalas y observaciones."
+                },
+                {
+                    id: 3,
+                    category: "Terminología Evaluativa",
+                    question: "Según Rigal, una batería constituye un conjunto de pruebas cuya finalidad exclusiva consiste en determinar la edad real del sujeto respecto a un aspecto concreto evaluado.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Esa definición corresponde al balance; la batería evalúa uno o varios aspectos mediante pruebas complementarias."
+                },
+                {
+                    id: 4,
+                    category: "Instrumentos",
+                    question: "Márquez (1999) afirma que la mayoría de instrumentos de evaluación son descriptivos y establecen estándares de ejecución fundamentados en expectativas relacionadas con la edad cronológica.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema presenta exactamente esta característica como rasgo común de muchos instrumentos evaluativos."
+                },
+                {
+                    id: 5,
+                    category: "Metrología",
+                    question: "Martínez (2002) entiende la objetividad como la capacidad de un instrumento para detectar pequeñas variaciones producidas entre diferentes mediciones del mismo parámetro.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Esa característica corresponde a la sensibilidad; la objetividad implica independencia respecto a apreciaciones personales del observador."
+                },
+                {
+                    id: 6,
+                    category: "Modelos Teóricos",
+                    question: "Roca identifica un modelo madurativo donde el desarrollo motor aparece vinculado principalmente a procesos de maduración del sistema nervioso central.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema atribuye esta perspectiva al modelo madurativo representado por Gessell."
+                },
+                {
+                    id: 7,
+                    category: "Observación",
+                    question: "Menéndez considera irrelevante la influencia de las características personales del observador sobre la evaluación perceptivo-motriz al tratarse de procedimientos completamente estandarizados.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema destaca precisamente la importancia de la actitud y características personales del observador."
+                },
+                {
+                    id: 8,
+                    category: "Escalas de Desarrollo",
+                    question: "La escala de Gessell clasifica conductas representativas de cada edad en cuatro áreas: motriz, adaptativa, social y lenguaje.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "Estas cuatro dimensiones aparecen expresamente recogidas en el desarrollo de la escala."
+                },
+                {
+                    id: 9,
+                    category: "Estadios Evolutivos",
+                    question: "Mc Clenaghan y Gallahue (1985) distinguen únicamente dos estadios evolutivos en los patrones motores básicos: estadio inicial y estadio maduro.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema establece tres estadios: inicial, elemental y maduro."
+                },
+                {
+                    id: 10,
+                    category: "Baterías de Condición Física",
+                    question: "La batería ALPHA-Fitness fue desarrollada para proporcionar un conjunto de pruebas válidas, fiables, seguras y viables dirigidas a valorar condición física relacionada con salud en adolescentes.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema presenta esa finalidad como objetivo principal de la batería ALPHA-Fitness."
+                }
+            ],
+            tema9: [
+                {
+                    id: 1,
+                    category: "Ejercicio Físico",
+                    question: "Muska Mosston Sostendía que cualquier movimiento corporal puede considerarse ejercicio físico siempre que implique gasto energético y participación voluntaria del sujeto durante su realización.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Mosston afirma que no cualquier movimiento constituye ejercicio; además de voluntariedad requiere intencionalidad y control cualitativo y cuantitativo."
+                },
+                {
+                    id: 2,
+                    category: "Ejercicio Físico",
+                    question: "Grosser y colaboradores (1991) consideran que el ejercicio físico implica un movimiento complejo orientado hacia un objetivo y caracterizado por constantes procesos de retroalimentación.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema incluye orientación hacia objetivos, complejidad y procesos continuos de feedback como rasgos esenciales."
+                },
+                {
+                    id: 3,
+                    category: "Evolución Histórica",
+                    question: "Langlade establece que desde el Renacimiento hasta el siglo XIX únicamente existió un período caracterizado por el predominio de escuelas gimnásticas europeas tecnificadas.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "El tema diferencia dos períodos: hasta 1800 juegos populares y deportes, y desde 1800 nuevas formas de actividad física."
+                },
+                {
+                    id: 4,
+                    category: "Corrientes Pedagógicas",
+                    question: "Domingo Blázquez sitúa una etapa pedagógica entre los años setenta y ochenta y otra posterior vinculada al tiempo libre entre los noventa y dos mil.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema presenta exactamente esta periodización derivada de la evolución de los contenidos de Educación Física."
+                },
+                {
+                    id: 5,
+                    category: "Movimiento",
+                    question: "Según Bode, los movimientos construidos representan formas naturales de motricidad global mientras que los orgánicos responden a investigaciones anatómicas y fisiológicas analíticas.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Bode sostiene exactamente lo contrario: los movimientos orgánicos son globales y naturales; los artificiales son construidos analíticamente."
+                },
+                {
+                    id: 6,
+                    category: "Escuela Sueca",
+                    question: "La estructura analítica procedente de la Escuela Sueca de Pehr Henrik Ling se caracteriza por movilizar segmentos corporales aisladamente siguiendo recorridos previamente definidos.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema identifica aislamiento segmentario y recorridos determinados como rasgos esenciales de dicha estructura."
+                },
+                {
+                    id: 7,
+                    category: "Estructuras de Ejercicios",
+                    question: "Según Langlade, los ejercicios de estructura global proceden exclusivamente de la Escuela Sueca y mantienen como rasgo principal la localización anatómica extremadamente precisa.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "Proceden de escuelas francesa, alemana y natural austríaca, destacando libertad, ritmo y globalidad."
+                },
+                {
+                    id: 8,
+                    category: "Teoría de la Forma",
+                    question: "La teoría de la forma desarrollada por la Gestalt con Wertheimer, Koffka y Köhler entiende que la noción de forma incluye organización interna además de apariencia externa.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema indica expresamente que la Gestalt supera la consideración exclusivamente externa de la forma."
+                },
+                {
+                    id: 9,
+                    category: "Biomecánica",
+                    question: "Dentro de la biomecánica, la cinética se ocupa exclusivamente de describir desplazamientos y aceleraciones sin considerar fuerzas causantes del movimiento corporal.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 1, // Falso
+                    explanation: "La descripción del movimiento corresponde a la cinemática; la cinética analiza las causas y fuerzas implicadas."
+                },
+                {
+                    id: 10,
+                    category: "Sistemas Funcionales",
+                    question: "Fidelus y Kocjasz (1989) comparan el organismo humano con una biomáquina integrada por sistemas de dirección, motor y alimentación cuyo perfeccionamiento influye sobre capacidades y técnica.",
+                    options: ["Verdadero", "Falso"],
+                    correctIndex: 0, // Verdadero
+                    explanation: "El tema presenta exactamente esta organización funcional y sus efectos sobre capacidades físicas y técnica motriz."
+                }
+            ]
+        };
+
+        // Audio synthesis setup
+        let audioEnabled = true;
+
+        function playSynthSound(type) {
+            if (!audioEnabled) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                if (type === 'select') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(440, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.15);
+                } else if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08); // E5
+                    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(180, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                } else if (type === 'complete') {
+                    osc.type = 'triangle';
+                    const scale = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                    scale.forEach((freq, idx) => {
+                        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.12);
+                    });
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.6);
+                }
+            } catch (err) {
+                console.log("Audio contexts can only play on user gesture:", err);
+            }
+        }
+
+        // State management
+        let currentTopic = 'tema1'; // active topic ('tema1' to 'tema9')
+        let currentQuestionIdx = 0;
+        let userAnswers = Array(10).fill(null);
+
+        // DOM elements
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        const btnStart = document.getElementById('btn-start');
+        const startBtnText = document.getElementById('start-btn-text');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        const nextText = document.getElementById('next-text');
+        const btnRestart = document.getElementById('btn-restart');
+        const btnSound = document.getElementById('btn-sound');
+        const soundIconOn = document.getElementById('sound-icon-on');
+        const soundIconOff = document.getElementById('sound-icon-off');
+
+        const headerBadge = document.getElementById('header-badge');
+        const quizActiveBadge = document.getElementById('quiz-active-badge');
+        const questionCounter = document.getElementById('question-counter');
+        const progressBar = document.getElementById('progress-bar');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+
+        const scoreText = document.getElementById('score-text');
+        const scoreRadialProgress = document.getElementById('score-radial-progress');
+        const performanceBadge = document.getElementById('performance-badge');
+        const performanceDesc = document.getElementById('performance-desc');
+        const explanationsContainer = document.getElementById('explanations-container');
+        const resultsWelcome = document.getElementById('results-welcome');
+
+        // Tab elements
+        const tabTema1 = document.getElementById('tab-tema1');
+        const tabTema2 = document.getElementById('tab-tema2');
+        const tabTema3 = document.getElementById('tab-tema3');
+        const tabTema4 = document.getElementById('tab-tema4');
+        const tabTema5 = document.getElementById('tab-tema5');
+        const tabTema6 = document.getElementById('tab-tema6');
+        const tabTema7 = document.getElementById('tab-tema7');
+        const tabTema8 = document.getElementById('tab-tema8');
+        const tabTema9 = document.getElementById('tab-tema9');
+        const topicInfoTitle = document.getElementById('topic-info-title');
+        const topicInfoDesc = document.getElementById('topic-info-desc');
+
+        // Tab Selection Events
+        tabTema1.addEventListener('click', () => {
+            if (currentTopic === 'tema1') return;
+            playSynthSound('select');
+            switchTopic('tema1');
+        });
+
+        tabTema2.addEventListener('click', () => {
+            if (currentTopic === 'tema2') return;
+            playSynthSound('select');
+            switchTopic('tema2');
+        });
+
+        tabTema3.addEventListener('click', () => {
+            if (currentTopic === 'tema3') return;
+            playSynthSound('select');
+            switchTopic('tema3');
+        });
+
+        tabTema4.addEventListener('click', () => {
+            if (currentTopic === 'tema4') return;
+            playSynthSound('select');
+            switchTopic('tema4');
+        });
+
+        tabTema5.addEventListener('click', () => {
+            if (currentTopic === 'tema5') return;
+            playSynthSound('select');
+            switchTopic('tema5');
+        });
+
+        tabTema6.addEventListener('click', () => {
+            if (currentTopic === 'tema6') return;
+            playSynthSound('select');
+            switchTopic('tema6');
+        });
+
+        tabTema7.addEventListener('click', () => {
+            if (currentTopic === 'tema7') return;
+            playSynthSound('select');
+            switchTopic('tema7');
+        });
+
+        tabTema8.addEventListener('click', () => {
+            if (currentTopic === 'tema8') return;
+            playSynthSound('select');
+            switchTopic('tema8');
+        });
+
+        tabTema9.addEventListener('click', () => {
+            if (currentTopic === 'tema9') return;
+            playSynthSound('select');
+            switchTopic('tema9');
+        });
+
+        // Audio Toggle
+        btnSound.addEventListener('click', () => {
+            audioEnabled = !audioEnabled;
+            if (audioEnabled) {
+                soundIconOn.classList.remove('hidden');
+                soundIconOff.classList.add('hidden');
+            } else {
+                soundIconOn.classList.add('hidden');
+                soundIconOff.classList.remove('hidden');
+            }
+        });
+
+        // Switch topic layout elements
+        function switchTopic(topicKey) {
+            currentTopic = topicKey;
+            
+            // Set reset state classes
+            const idleTabClass = "py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 text-slate-500 hover:text-slate-800 hover:bg-white/50";
+            
+            if (topicKey === 'tema1') {
+                tabTema1.className = "py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-indigo-900 shadow-sm";
+                tabTema2.className = idleTabClass;
+                tabTema3.className = idleTabClass;
+                tabTema4.className = idleTabClass;
+                tabTema5.className = idleTabClass;
+                tabTema6.className = idleTabClass;
+                tabTema7.className = idleTabClass;
+                tabTema8.className = idleTabClass;
+                tabTema9.className = idleTabClass;
+                
+                topicInfoTitle.textContent = "Tema 1: Epistemología y Educación Física";
+                topicInfoDesc.textContent = "Analiza las bases conceptuales, autores clave (Bunge, Cagigal, Simri, etc.), herencias teóricas y la transición metodológica del área hacia una disciplina integral.";
+                
+                startBtnText.textContent = "Iniciar Tema 1";
+                headerBadge.textContent = "Tema Seleccionado: Tema 1";
+                headerBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 transition-all duration-300";
+                btnStart.className = btnStart.className.replace(/from-[a-z0-9-]+ to-[a-z0-9-]+|bg-[a-z0-9-]+/g, 'bg-indigo-600 hover:bg-indigo-700');
+            } else if (topicKey === 'tema2') {
+                tabTema2.className = "py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-purple-900 shadow-sm";
+                tabTema1.className = idleTabClass;
+                tabTema3.className = idleTabClass;
+                tabTema4.className = idleTabClass;
+                tabTema5.className = idleTabClass;
+                tabTema6.className = idleTabClass;
+                tabTema7.className = idleTabClass;
+                tabTema8.className = idleTabClass;
+                tabTema9.className = idleTabClass;
+                
+                topicInfoTitle.textContent = "Tema 2: Historia y Escuelas Gimnásticas";
+                topicInfoDesc.textContent = "Descubre la evolución física humana desde la prehistoria y Grecia, hasta el Renacimiento, el naturalismo de Rousseau, los sistemas de GutsMuths, Ling, Jahn, Taylor y las etapas históricas de España.";
+                
+                startBtnText.textContent = "Iniciar Tema 2";
+                headerBadge.textContent = "Tema Seleccionado: Tema 2";
+                headerBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 transition-all duration-300";
+                btnStart.className = btnStart.className.replace(/from-[a-z0-9-]+ to-[a-z0-9-]+|bg-[a-z0-9-]+/g, 'bg-purple-600 hover:bg-purple-700');
+            } else if (topicKey === 'tema3') {
+                tabTema3.className = "py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-blue-900 shadow-sm";
+                tabTema1.className = idleTabClass;
+                tabTema2.className = idleTabClass;
+                tabTema4.className = idleTabClass;
+                tabTema5.className = idleTabClass;
+                tabTema6.className = idleTabClass;
+                tabTema7.className = idleTabClass;
+                tabTema8.className = idleTabClass;
+                tabTema9.className = idleTabClass;
+                
+                topicInfoTitle.textContent = "Tema 3: Objetivos y Taxonomías en Educación Física";
+                topicInfoDesc.textContent = "Explora la conceptualización histórica de objetivos, la influencia de taxonomías (Bloom, Harrow, Jewett, Mager), la evolución legislativa estatal y los procesos de selección curricular didáctica.";
+                
+                startBtnText.textContent = "Iniciar Tema 3";
+                headerBadge.textContent = "Tema Seleccionado: Tema 3";
+                headerBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 transition-all duration-300";
+                btnStart.className = btnStart.className.replace(/from-[a-z0-9-]+ to-[a-z0-9-]+|bg-[a-z0-9-]+/g, 'bg-blue-600 hover:bg-blue-700');
+            } else if (topicKey === 'tema4') {
+                tabTema4.className = "py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-teal-900 shadow-sm";
+                tabTema1.className = idleTabClass;
+                tabTema2.className = idleTabClass;
+                tabTema3.className = idleTabClass;
+                tabTema5.className = idleTabClass;
+                tabTema6.className = idleTabClass;
+                tabTema7.className = idleTabClass;
+                tabTema8.className = idleTabClass;
+                tabTema9.className = idleTabClass;
+                
+                topicInfoTitle.textContent = "Tema 4: Integración Escolar y Tendencias Curriculares";
+                topicInfoDesc.textContent = "Comprende la evolución de los contenidos curriculares bajo normativas (LOE, LOMLOE, Decreto 156/2022), las corrientes de Domingo Blázquez y la proyección tecnológica de Delgado Noguera.";
+                
+                startBtnText.textContent = "Iniciar Tema 4";
+                headerBadge.textContent = "Tema Seleccionado: Tema 4";
+                headerBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-teal-50 text-teal-700 transition-all duration-300";
+                btnStart.className = btnStart.className.replace(/from-[a-z0-9-]+ to-[a-z0-9-]+|bg-[a-z0-9-]+/g, 'bg-teal-600 hover:bg-teal-700');
+            } else if (topicKey === 'tema5') {
+                tabTema5.className = "py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-rose-900 shadow-sm";
+                tabTema1.className = idleTabClass;
+                tabTema2.className = idleTabClass;
+                tabTema3.className = idleTabClass;
+                tabTema4.className = idleTabClass;
+                tabTema6.className = idleTabClass;
+                tabTema7.className = idleTabClass;
+                tabTema8.className = idleTabClass;
+                tabTema9.className = idleTabClass;
+                
+                topicInfoTitle.textContent = "Tema 5: Coeducación e Igualdad de Género (Oposición Alta)";
+                topicInfoDesc.textContent = "Analiza el sexismo, el currículo oculto, teorías feministas y planteamientos socio-educativos esenciales con un alto nivel de detalle técnico (Mead, Coubertin, Vázquez, Cervelló).";
+                
+                startBtnText.textContent = "Iniciar Tema 5";
+                headerBadge.textContent = "Tema Seleccionado: Tema 5";
+                headerBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 transition-all duration-300";
+                btnStart.className = btnStart.className.replace(/from-[a-z0-9-]+ to-[a-z0-9-]+|bg-[a-z0-9-]+/g, 'bg-rose-600 hover:bg-rose-700');
+            } else if (topicKey === 'tema6') {
+                tabTema6.className = "py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-emerald-900 shadow-sm";
+                tabTema1.className = idleTabClass;
+                tabTema2.className = idleTabClass;
+                tabTema3.className = idleTabClass;
+                tabTema4.className = idleTabClass;
+                tabTema5.className = idleTabClass;
+                tabTema7.className = idleTabClass;
+                tabTema8.className = idleTabClass;
+                tabTema9.className = idleTabClass;
+                
+                topicInfoTitle.textContent = "Tema 6: Inclusión y Atención a la Diversidad (Oposición Alta)";
+                topicInfoDesc.textContent = "Domina el marco legal y pedagógico de la inclusión (Informe Warnock, LOMLOE, DUA, ACNEAE, adaptaciones metodológicas de González Manjón y la desaparición de las exenciones).";
+                
+                startBtnText.textContent = "Iniciar Tema 6";
+                headerBadge.textContent = "Tema Seleccionado: Tema 6";
+                headerBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 transition-all duration-300";
+                btnStart.className = btnStart.className.replace(/from-[a-z0-9-]+ to-[a-z0-9-]+|bg-[a-z0-9-]+/g, 'bg-emerald-600 hover:bg-emerald-700');
+            } else if (topicKey === 'tema7') {
+                tabTema7.className = "py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-amber-900 shadow-sm";
+                tabTema1.className = idleTabClass;
+                tabTema2.className = idleTabClass;
+                tabTema3.className = idleTabClass;
+                tabTema4.className = idleTabClass;
+                tabTema5.className = idleTabClass;
+                tabTema6.className = idleTabClass;
+                tabTema8.className = idleTabClass;
+                tabTema9.className = idleTabClass;
+                
+                topicInfoTitle.textContent = "Tema 7: Desarrollo Motor, Crecimiento y Maduración";
+                topicInfoDesc.textContent = "Examina el desarrollo motor y sus periodos (Ruiz-Pérez, Gutiérrez), el control y aprendizaje neuromuscular, leyes del crecimiento biológico, maduración y los efectos de la actividad física.";
+                
+                startBtnText.textContent = "Iniciar Tema 7";
+                headerBadge.textContent = "Tema Seleccionado: Tema 7";
+                headerBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 transition-all duration-300";
+                btnStart.className = btnStart.className.replace(/from-[a-z0-9-]+ to-[a-z0-9-]+|bg-[a-z0-9-]+/g, 'bg-amber-600 hover:bg-amber-700');
+            } else if (topicKey === 'tema8') {
+                tabTema8.className = "py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-sky-900 shadow-sm";
+                tabTema1.className = idleTabClass;
+                tabTema2.className = idleTabClass;
+                tabTema3.className = idleTabClass;
+                tabTema4.className = idleTabClass;
+                tabTema5.className = idleTabClass;
+                tabTema6.className = idleTabClass;
+                tabTema7.className = idleTabClass;
+                tabTema9.className = idleTabClass;
+                
+                topicInfoTitle.textContent = "Tema 8: Instrumentos de Evaluación y Patrones Motores";
+                topicInfoDesc.textContent = "Domina el análisis metrológico del desarrollo motor (Rigal, Fonseca, Márquez), escalas diagnósticas, estadios evolutivos del movimiento (Gallahue) y la batería ALPHA-Fitness.";
+                
+                startBtnText.textContent = "Iniciar Tema 8";
+                headerBadge.textContent = "Tema Seleccionado: Tema 8";
+                headerBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 transition-all duration-300";
+                btnStart.className = btnStart.className.replace(/from-[a-z0-9-]+ to-[a-z0-9-]+|bg-[a-z0-9-]+/g, 'bg-sky-600 hover:bg-sky-700');
+            } else {
+                tabTema9.className = "py-3 px-2 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-orange-900 shadow-sm";
+                tabTema1.className = idleTabClass;
+                tabTema2.className = idleTabClass;
+                tabTema3.className = idleTabClass;
+                tabTema4.className = idleTabClass;
+                tabTema5.className = idleTabClass;
+                tabTema6.className = idleTabClass;
+                tabTema7.className = idleTabClass;
+                tabTema8.className = idleTabClass;
+                
+                topicInfoTitle.textContent = "Tema 9: El Ejercicio Físico y Análisis del Movimiento";
+                topicInfoDesc.textContent = "Profundiza en la concepción del ejercicio (Mosston, Grosser), periodizaciones de Langlade, clasificaciones de Bode, estructuras analíticas y globales, y biomecánica (cinemática/cinética).";
+                
+                startBtnText.textContent = "Iniciar Tema 9";
+                headerBadge.textContent = "Tema Seleccionado: Tema 9";
+                headerBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 transition-all duration-300";
+                btnStart.className = btnStart.className.replace(/from-[a-z0-9-]+ to-[a-z0-9-]+|bg-[a-z0-9-]+/g, 'bg-orange-600 hover:bg-orange-700');
+            }
+            
+            // Clear user answers array (10 items)
+            userAnswers = Array(10).fill(null);
+        }
+
+        // Navigation Logic
+        btnStart.addEventListener('click', () => {
+            playSynthSound('select');
+            welcomeScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Adjust Active Badge in exam
+            let niceTopicName = "Tema 1: Epistemología";
+            if (currentTopic === 'tema2') niceTopicName = "Tema 2: Historia";
+            if (currentTopic === 'tema3') niceTopicName = "Tema 3: Objetivos";
+            if (currentTopic === 'tema4') niceTopicName = "Tema 4: Integración";
+            if (currentTopic === 'tema5') niceTopicName = "Tema 5: Coeducación";
+            if (currentTopic === 'tema6') niceTopicName = "Tema 6: Inclusión";
+            if (currentTopic === 'tema7') niceTopicName = "Tema 7: Desarrollo";
+            if (currentTopic === 'tema8') niceTopicName = "Tema 8: Evaluación";
+            if (currentTopic === 'tema9') niceTopicName = "Tema 9: Ejercicio Físico";
+            
+            quizActiveBadge.textContent = `${niceTopicName} en progreso`;
+            
+            if (currentTopic === 'tema1') {
+                quizActiveBadge.className = "text-xs font-bold uppercase tracking-wider text-indigo-500";
+            } else if (currentTopic === 'tema2') {
+                quizActiveBadge.className = "text-xs font-bold uppercase tracking-wider text-purple-500";
+            } else if (currentTopic === 'tema3') {
+                quizActiveBadge.className = "text-xs font-bold uppercase tracking-wider text-blue-500";
+            } else if (currentTopic === 'tema4') {
+                quizActiveBadge.className = "text-xs font-bold uppercase tracking-wider text-teal-500";
+            } else if (currentTopic === 'tema5') {
+                quizActiveBadge.className = "text-xs font-bold uppercase tracking-wider text-rose-500";
+            } else if (currentTopic === 'tema6') {
+                quizActiveBadge.className = "text-xs font-bold uppercase tracking-wider text-emerald-500";
+            } else if (currentTopic === 'tema7') {
+                quizActiveBadge.className = "text-xs font-bold uppercase tracking-wider text-amber-500";
+            } else if (currentTopic === 'tema8') {
+                quizActiveBadge.className = "text-xs font-bold uppercase tracking-wider text-sky-500";
+            } else {
+                quizActiveBadge.className = "text-xs font-bold uppercase tracking-wider text-orange-500";
+            }
+            
+            currentQuestionIdx = 0;
+            loadQuestion(0);
+        });
+
+        btnPrev.addEventListener('click', () => {
+            if (currentQuestionIdx > 0) {
+                playSynthSound('select');
+                currentQuestionIdx--;
+                loadQuestion(currentQuestionIdx);
+            }
+        });
+
+        btnNext.addEventListener('click', () => {
+            const activeQuestions = quizData[currentTopic];
+            if (userAnswers[currentQuestionIdx] !== null) {
+                playSynthSound('select');
+                if (currentQuestionIdx < activeQuestions.length - 1) {
+                    currentQuestionIdx++;
+                    loadQuestion(currentQuestionIdx);
+                } else {
+                    finishQuiz();
+                }
+            }
+        });
+
+        // Load Question details to the UI
+        function loadQuestion(index) {
+            const activeQuestions = quizData[currentTopic];
+            const currentQuestion = activeQuestions[index];
+            
+            // Back navigation visibility
+            if (index === 0) {
+                btnPrev.classList.add('invisible');
+            } else {
+                btnPrev.classList.remove('invisible');
+            }
+
+            // Adjust CTA button text for the last question
+            if (index === activeQuestions.length - 1) {
+                nextText.textContent = "Finalizar Examen";
+            } else {
+                nextText.textContent = "Siguiente";
+            }
+
+            // Update Progress Bar & Counter
+            questionCounter.textContent = `Pregunta ${index + 1} de ${activeQuestions.length}`;
+            const progressPct = ((index + 1) / activeQuestions.length) * 100;
+            progressBar.style.width = `${progressPct}%`;
+            
+            // Customize progress bar colors matching active topic
+            if (currentTopic === 'tema1') {
+                progressBar.className = "bg-gradient-to-r from-indigo-500 to-indigo-700 h-full rounded-full transition-all duration-300";
+            } else if (currentTopic === 'tema2') {
+                progressBar.className = "bg-gradient-to-r from-purple-500 to-purple-700 h-full rounded-full transition-all duration-300";
+            } else if (currentTopic === 'tema3') {
+                progressBar.className = "bg-gradient-to-r from-blue-500 to-blue-700 h-full rounded-full transition-all duration-300";
+            } else if (currentTopic === 'tema4') {
+                progressBar.className = "bg-gradient-to-r from-teal-500 to-teal-700 h-full rounded-full transition-all duration-300";
+            } else if (currentTopic === 'tema5') {
+                progressBar.className = "bg-gradient-to-r from-rose-500 to-rose-700 h-full rounded-full transition-all duration-300";
+            } else if (currentTopic === 'tema6') {
+                progressBar.className = "bg-gradient-to-r from-emerald-500 to-emerald-700 h-full rounded-full transition-all duration-300";
+            } else if (currentTopic === 'tema7') {
+                progressBar.className = "bg-gradient-to-r from-amber-500 to-amber-700 h-full rounded-full transition-all duration-300";
+            } else if (currentTopic === 'tema8') {
+                progressBar.className = "bg-gradient-to-r from-sky-500 to-sky-700 h-full rounded-full transition-all duration-300";
+            } else {
+                progressBar.className = "bg-gradient-to-r from-orange-500 to-orange-700 h-full rounded-full transition-all duration-300";
+            }
+
+            // Set question text with dynamic tag
+            let tagBg = 'bg-indigo-50 text-indigo-600 border-indigo-100';
+            if (currentTopic === 'tema2') tagBg = 'bg-purple-50 text-purple-600 border-purple-100';
+            if (currentTopic === 'tema3') tagBg = 'bg-blue-50 text-blue-600 border-blue-100';
+            if (currentTopic === 'tema4') tagBg = 'bg-teal-50 text-teal-600 border-teal-100';
+            if (currentTopic === 'tema5') tagBg = 'bg-rose-50 text-rose-600 border-rose-100';
+            if (currentTopic === 'tema6') tagBg = 'bg-emerald-50 text-emerald-600 border-emerald-100';
+            if (currentTopic === 'tema7') tagBg = 'bg-amber-50 text-amber-600 border-amber-100';
+            if (currentTopic === 'tema8') tagBg = 'bg-sky-50 text-sky-600 border-sky-100';
+            if (currentTopic === 'tema9') tagBg = 'bg-orange-50 text-orange-600 border-orange-100';
+
+            questionText.innerHTML = `
+                <div class="mb-3">
+                    <span class="text-xs font-semibold px-3 py-1 rounded-full border uppercase tracking-wider ${tagBg}">
+                        ${currentQuestion.category}
+                    </span>
+                </div>
+                ${currentQuestion.question}
+            `;
+
+            // Clean & Populate Options (Verdadero / Falso)
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach((option, optionIdx) => {
+                const isSelected = userAnswers[index] === optionIdx;
+                
+                const optionBtn = document.createElement('button');
+                
+                // Color selection depends on active topic
+                let activeClasses = 'border-indigo-600 bg-indigo-50/70 text-indigo-900 font-medium ring-2 ring-indigo-600/10';
+                if (currentTopic === 'tema2') {
+                    activeClasses = 'border-purple-600 bg-purple-50/70 text-purple-900 font-medium ring-2 ring-purple-600/10';
+                } else if (currentTopic === 'tema3') {
+                    activeClasses = 'border-blue-600 bg-blue-50/70 text-blue-900 font-medium ring-2 ring-blue-600/10';
+                } else if (currentTopic === 'tema4') {
+                    activeClasses = 'border-teal-600 bg-teal-50/70 text-teal-900 font-medium ring-2 ring-teal-600/10';
+                } else if (currentTopic === 'tema5') {
+                    activeClasses = 'border-rose-600 bg-rose-50/70 text-rose-900 font-medium ring-2 ring-rose-600/10';
+                } else if (currentTopic === 'tema6') {
+                    activeClasses = 'border-emerald-600 bg-emerald-50/70 text-emerald-900 font-medium ring-2 ring-emerald-600/10';
+                } else if (currentTopic === 'tema7') {
+                    activeClasses = 'border-amber-600 bg-amber-50/70 text-amber-900 font-medium ring-2 ring-amber-600/10';
+                } else if (currentTopic === 'tema8') {
+                    activeClasses = 'border-sky-600 bg-sky-50/70 text-sky-900 font-medium ring-2 ring-sky-600/10';
+                } else if (currentTopic === 'tema9') {
+                    activeClasses = 'border-orange-600 bg-orange-50/70 text-orange-900 font-medium ring-2 ring-orange-600/10';
+                }
+                
+                optionBtn.className = `w-full text-left p-5 rounded-2xl border transition-all duration-200 flex items-center justify-between group ${
+                    isSelected 
+                    ? activeClasses 
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                }`;
+
+                // Simbología visual para Verdadero (✓) y Falso (✗)
+                const symbol = optionIdx === 0 ? '✓' : '✗';
+                const symbolBg = optionIdx === 0 
+                    ? (isSelected ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100')
+                    : (isSelected ? 'bg-rose-500 text-white' : 'bg-rose-50 text-rose-600 group-hover:bg-rose-100');
+                
+                let activeDotBg = 'bg-indigo-600 border-indigo-600';
+                if (currentTopic === 'tema2') activeDotBg = 'bg-purple-600 border-purple-600';
+                if (currentTopic === 'tema3') activeDotBg = 'bg-blue-600 border-blue-600';
+                if (currentTopic === 'tema4') activeDotBg = 'bg-teal-600 border-teal-600';
+                if (currentTopic === 'tema5') activeDotBg = 'bg-rose-600 border-rose-600';
+                if (currentTopic === 'tema6') activeDotBg = 'bg-emerald-600 border-emerald-600';
+                if (currentTopic === 'tema7') activeDotBg = 'bg-amber-600 border-amber-600';
+                if (currentTopic === 'tema8') activeDotBg = 'bg-sky-600 border-sky-600';
+                if (currentTopic === 'tema9') activeDotBg = 'bg-orange-600 border-orange-600';
+                
+                optionBtn.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <span class="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold transition-colors ${symbolBg}">
+                            ${symbol}
+                        </span>
+                        <span class="text-base font-semibold">${option}</span>
+                    </div>
+                    <div class="w-6 h-6 rounded-full border flex items-center justify-center transition-all ${
+                        isSelected 
+                        ? activeDotBg 
+                        : 'border-slate-300'
+                    }">
+                        ${isSelected ? '<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>' : ''}
+                    </div>
+                `;
+
+                optionBtn.addEventListener('click', () => {
+                    selectOption(index, optionIdx);
+                });
+
+                optionsContainer.appendChild(optionBtn);
+            });
+
+            // Handle Next Button validation state
+            updateNextBtnState();
+        }
+
+        // Save selected option and render feedback UI state
+        function selectOption(questionIndex, optionIndex) {
+            playSynthSound('select');
+            userAnswers[questionIndex] = optionIndex;
+            
+            // Re-render immediately to show visually active state
+            loadQuestion(questionIndex);
+        }
+
+        function updateNextBtnState() {
+            let activeColor = 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-100';
+            if (currentTopic === 'tema2') activeColor = 'bg-purple-600 hover:bg-purple-700 shadow-purple-100';
+            if (currentTopic === 'tema3') activeColor = 'bg-blue-600 hover:bg-blue-700 shadow-blue-100';
+            if (currentTopic === 'tema4') activeColor = 'bg-teal-600 hover:bg-teal-700 shadow-teal-100';
+            if (currentTopic === 'tema5') activeColor = 'bg-rose-600 hover:bg-rose-700 shadow-rose-100';
+            if (currentTopic === 'tema6') activeColor = 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-100';
+            if (currentTopic === 'tema7') activeColor = 'bg-amber-600 hover:bg-amber-700 shadow-amber-100';
+            if (currentTopic === 'tema8') activeColor = 'bg-sky-600 hover:bg-sky-700 shadow-sky-100';
+            if (currentTopic === 'tema9') activeColor = 'bg-orange-600 hover:bg-orange-700 shadow-orange-100';
+                
+            if (userAnswers[currentQuestionIdx] !== null) {
+                btnNext.removeAttribute('disabled');
+                btnNext.className = `px-8 py-3 text-white font-semibold rounded-2xl shadow-lg active:scale-95 transition-all flex items-center space-x-2 cursor-pointer ${activeColor}`;
+            } else {
+                btnNext.setAttribute('disabled', 'true');
+                btnNext.className = "px-8 py-3 bg-slate-200 text-slate-400 font-semibold rounded-2xl transition-all flex items-center space-x-2 cursor-not-allowed";
+            }
+        }
+
+        // Compute Results & Display explanations
+        function finishQuiz() {
+            const activeQuestions = quizData[currentTopic];
+            playSynthSound('complete');
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+
+            // Count scores
+            let score = 0;
+            activeQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correctIndex) {
+                    score++;
+                }
+            });
+
+            // Set raw score text
+            scoreText.textContent = `${score}/${activeQuestions.length}`;
+            
+            // Compute percentage for radial animation
+            const pct = (score / activeQuestions.length) * 100;
+            scoreRadialProgress.setAttribute('stroke-dasharray', `${pct}, 100`);
+
+            // Apply different branding for radial circle
+            if (currentTopic === 'tema1') {
+                scoreRadialProgress.className = "text-indigo-600 transition-all duration-1000";
+            } else if (currentTopic === 'tema2') {
+                scoreRadialProgress.className = "text-purple-600 transition-all duration-1000";
+            } else if (currentTopic === 'tema3') {
+                scoreRadialProgress.className = "text-blue-600 transition-all duration-1000";
+            } else if (currentTopic === 'tema4') {
+                scoreRadialProgress.className = "text-teal-600 transition-all duration-1000";
+            } else if (currentTopic === 'tema5') {
+                scoreRadialProgress.className = "text-rose-600 transition-all duration-1000";
+            } else if (currentTopic === 'tema6') {
+                scoreRadialProgress.className = "text-emerald-600 transition-all duration-1000";
+            } else if (currentTopic === 'tema7') {
+                scoreRadialProgress.className = "text-amber-600 transition-all duration-1000";
+            } else if (currentTopic === 'tema8') {
+                scoreRadialProgress.className = "text-sky-600 transition-all duration-1000";
+            } else {
+                scoreRadialProgress.className = "text-orange-600 transition-all duration-1000";
+            }
+
+            // Customize header and restart labels for selected topic
+            let topicLabel = "Tema 1: Epistemología y EF";
+            if (currentTopic === 'tema2') topicLabel = "Tema 2: Historia y Escuelas";
+            if (currentTopic === 'tema3') topicLabel = "Tema 3: Objetivos y Taxonomías";
+            if (currentTopic === 'tema4') topicLabel = "Tema 4: Integración Escolar y Tendencias";
+            if (currentTopic === 'tema5') topicLabel = "Tema 5: Coeducación e Igualdad de Género";
+            if (currentTopic === 'tema6') topicLabel = "Tema 6: Inclusión y Atención a la Diversidad";
+            if (currentTopic === 'tema7') topicLabel = "Tema 7: Desarrollo Motor, Crecimiento y Maduración";
+            if (currentTopic === 'tema8') topicLabel = "Tema 8: Instrumentos de Evaluación y Patrones Motores";
+            if (currentTopic === 'tema9') topicLabel = "Tema 9: El Ejercicio Físico y Análisis del Movimiento";
+            
+            resultsWelcome.textContent = `Aquí tienes el desglose de tu rendimiento para el "${topicLabel}" y las justificaciones correspondientes.`;
+
+            // Adapt descriptive badges depending on performance
+            if (score === activeQuestions.length) {
+                performanceBadge.textContent = "🥇 ¡Puntuación Perfecta!";
+                performanceDesc.textContent = `¡Increíble dominio del ${currentTopic === 'tema1' ? 'Tema 1' : currentTopic === 'tema2' ? 'Tema 2' : currentTopic === 'tema3' ? 'Tema 3' : currentTopic === 'tema4' ? 'Tema 4' : currentTopic === 'tema5' ? 'Tema 5' : currentTopic === 'tema6' ? 'Tema 6' : currentTopic === 'tema7' ? 'Tema 7' : currentTopic === 'tema8' ? 'Tema 8' : 'Tema 9'}! Conoces a la perfección las corrientes de estudio, definiciones teóricas, bases evolutivas de autores y marcos educativos oficiales del temario. ¡Excelente trabajo!`;
+                performanceBadge.className = "text-2xl font-extrabold text-emerald-600 mb-2";
+            } else if (score >= 8) {
+                performanceBadge.textContent = "✨ ¡Trabajo Sobresaliente!";
+                performanceDesc.textContent = `¡Muy bien! Tienes un conocimiento muy robusto y preciso sobre los autores de Educación Física, taxonomías, coeducación, inclusión, desarrollo motor y análisis de instrumentos de evaluación. Has rozado la perfección en este bloque.`;
+                performanceBadge.className = "text-2xl font-extrabold text-indigo-600 mb-2";
+            } else if (score >= 5) {
+                performanceBadge.textContent = "👍 ¡Buen Esfuerzo!";
+                performanceDesc.textContent = "¡Has aprobado! Tienes una buena base sobre el temario de esta sección, aunque te sugerimos revisar las justificaciones detalladas para pulir los pequeños errores y fijar bien todos los conceptos.";
+                performanceBadge.className = "text-2xl font-extrabold text-amber-600 mb-2";
+            } else {
+                performanceBadge.textContent = "📚 ¡Sigue Practicando!";
+                performanceDesc.textContent = "La terminología pedagógica, autores, corrientes, coeducación, atención a la diversidad, teorías del desarrollo y análisis de movimiento pueden ser complejos al principio. Aprovecha las justificaciones de abajo para asimilar y repasar mejor las claves de esta unidad.";
+                performanceBadge.className = "text-2xl font-extrabold text-rose-600 mb-2";
+            }
+
+            // Render explanations and correct/incorrect mark for all questions
+            explanationsContainer.innerHTML = '';
+            
+            activeQuestions.forEach((q, idx) => {
+                const userAnsIdx = userAnswers[idx];
+                const isCorrect = userAnsIdx === q.correctIndex;
+                const correctText = q.options[q.correctIndex];
+                const userText = q.options[userAnsIdx];
+
+                const explanationCard = document.createElement('div');
+                explanationCard.className = `rounded-2xl p-5 md:p-6 border transition-all ${
+                    isCorrect 
+                    ? 'border-emerald-100 bg-emerald-50/30' 
+                    : 'border-rose-100 bg-rose-50/20'
+                }`;
+
+                let tagColor = 'text-indigo-500';
+                if (currentTopic === 'tema2') tagColor = 'text-purple-500';
+                if (currentTopic === 'tema3') tagColor = 'text-blue-500';
+                if (currentTopic === 'tema4') tagColor = 'text-teal-500';
+                if (currentTopic === 'tema5') tagColor = 'text-rose-500';
+                if (currentTopic === 'tema6') tagColor = 'text-emerald-500';
+                if (currentTopic === 'tema7') tagColor = 'text-amber-500';
+                if (currentTopic === 'tema8') tagColor = 'text-sky-500';
+                if (currentTopic === 'tema9') tagColor = 'text-orange-500';
+
+                explanationCard.innerHTML = `
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="pr-4">
+                            <span class="text-xs font-bold uppercase tracking-wider block mb-1 ${tagColor}">
+                                Pregunta ${idx + 1} • ${q.category}
+                            </span>
+                            <h4 class="font-bold text-slate-800 text-base md:text-lg">
+                                ${q.question}
+                            </h4>
+                        </div>
+                        <span class="flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                            isCorrect 
+                            ? 'bg-emerald-100 text-emerald-600' 
+                            : 'bg-rose-100 text-rose-600'
+                        }">
+                            ${
+                                isCorrect 
+                                ? '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M5 13l4 4L19 7"/></svg>' 
+                                : '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/></svg>'
+                            }
+                        </span>
+                    </div>
+
+                    <div class="space-y-2 mb-4">
+                        <div class="text-sm">
+                            <span class="font-semibold text-slate-500">Tu respuesta:</span>
+                            <span class="${isCorrect ? 'text-emerald-700 font-medium' : 'text-rose-700 font-medium'}">
+                                ${userText} ${isCorrect ? '✓' : '✗'}
+                            </span>
+                        </div>
+                        ${
+                            !isCorrect 
+                            ? `
+                            <div class="text-sm">
+                                <span class="font-semibold text-slate-500">Respuesta correcta:</span>
+                                <span class="text-emerald-700 font-semibold">${correctText}</span>
+                            </div>
+                            ` 
+                            : ''
+                        }
+                    </div>
+
+                    <!-- Explanation Segment -->
+                    <div class="bg-indigo-50/50 border border-indigo-100/50 rounded-xl p-4 flex items-start space-x-3">
+                        <span class="text-lg flex-shrink-0">💡</span>
+                        <div class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                            <strong class="text-indigo-900 block mb-1">Justificación:</strong>
+                            ${q.explanation}
+                        </div>
+                    </div>
+                `;
+
+                explanationsContainer.appendChild(explanationCard);
+            });
+        }
+
+        // Reset state and return to welcome/start screen
+        btnRestart.addEventListener('click', () => {
+            playSynthSound('select');
+            currentQuestionIdx = 0;
+            userAnswers = Array(10).fill(null);
+            resultsScreen.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+        });
+
+    </script>
+</body>
+</html>

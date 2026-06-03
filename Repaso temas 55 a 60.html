@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Interactivo DUA - Oposición EF (Temas 55-60)</title>
+    
+    <!-- Tailwind CSS para el diseño profesional y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React y ReactDOM para la reactividad de la aplicación -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    
+    <!-- Babel para compilar JSX en caliente en el navegador -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Estilos personalizados para animaciones y scrollbars fluidas -->
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+        /* Ocultar barra de scroll pero mantener funcionalidad */
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-none {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="root"></div>
+
+    <!-- Script principal de React con JSX -->
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Base de datos completa con todos los temas del 55 al 60 (10 preguntas por tema con justificaciones)
+        const DATASETS = {
+          tema55: {
+            title: "Tema 55: Procesamiento de Información y Control Motor",
+            shortTitle: "Tema 55",
+            questions: [
+              {
+                id: 1,
+                question: "Schmidt (1975) plantea un modelo de procesamiento compuesto por identificación del estímulo, selección de respuesta, programación de respuesta y un cuarto mecanismo independiente denominado control neuromuscular.",
+                correct: false,
+                justification: "El modelo de Schmidt incluye únicamente tres etapas esenciales de procesamiento: identificación del estímulo, selección de respuesta y programación de respuesta. El control neuromuscular no figura como un mecanismo independiente en esta propuesta."
+              },
+              {
+                id: 2,
+                question: "Simonet (1985), siguiendo a Gagné, define sistema como un conjunto de elementos interrelacionados orientados teleonómicamente hacia la consecución de una finalidad concreta.",
+                correct: true,
+                justification: "La definición destaca de manera precisa los dos pilares esenciales de la noción de sistema: la interrelación activa entre sus componentes y su orientación teleonómica (dirigida hacia un fin o propósito específico)."
+              },
+              {
+                id: 3,
+                question: "El concepto cibernético de “caja negra” implica conocer exhaustivamente todos los procesos internos del sistema, aunque permanezcan desconocidas las entradas y salidas.",
+                correct: false,
+                justification: "El enfoque de 'caja negra' plantea justamente el escenario inverso: se conocen con precisión las entradas (inputs) y las salidas (outputs) del sistema, mientras que el procesamiento interno se simplifica, se desconoce o se trata como inaccesible."
+              },
+              {
+                id: 4,
+                question: "Welford (1968) propone cuatro circuitos principales de feedback: decisión-memoria, control neuromuscular, conocimiento de ejecución y conocimiento de resultados externos.",
+                correct: true,
+                justification: "Welford incluye de forma literal estos cuatro bucles de retroalimentación dentro de su modelo de procesamiento de información para explicar la regulación y el control de la acción motriz."
+              },
+              {
+                id: 5,
+                question: "Según Schmidt (1993), la atención humana permite tratar simultáneamente múltiples estímulos complejos sin interferencia significativa entre tareas principales y secundarias.",
+                correct: false,
+                justification: "La teoría clásica de la atención señala que los recursos humanos son limitados y funcionan predominantemente en serie. Procesar múltiples tareas concurrentes con alta demanda cognitiva genera interferencia y un cuello de botella."
+              },
+              {
+                id: 6,
+                question: "La Ley de Hick establece una relación lineal entre el tiempo de reacción y el logaritmo en base dos del número de posibilidades estímulo-respuesta.",
+                correct: true,
+                justification: "La ley determina que el tiempo de reacción (TR) se incrementa de manera logarítmica (relación lineal con el logaritmo de las alternativas, es decir, según la cantidad de información en bits) a medida que aumentan las opciones de respuesta."
+              },
+              {
+                id: 7,
+                question: "El estrechamiento perceptivo descrito por Schmidt aparece exclusivamente con bajos niveles de activación, ampliando progresivamente la captación de estímulos periféricos irrelevantes.",
+                correct: false,
+                justification: "El estrechamiento perceptivo se manifiesta ante niveles sumamente elevados de activación (estrés o hiperalerta). Esto reduce el foco atencional de forma severa, eliminando estímulos periféricos e irrelevantes para concentrarse en la señal central."
+              },
+              {
+                id: 8,
+                question: "La memoria sensorial inmediata interviene durante la identificación del estímulo almacenando temporalmente información procedente simultáneamente de múltiples canales sensoriales.",
+                correct: true,
+                justification: "Este almacén ultracorto retiene trazas de información visual, auditiva y propioceptiva de manera simultánea para permitir que el sistema central las integre antes de que decaigan."
+              },
+              {
+                id: 9,
+                question: "Ross (1976) sostiene que la atención selectiva aparece aproximadamente antes de los seis años, mientras la atención sobreinclusiva caracteriza edades posteriores a la adolescencia.",
+                correct: false,
+                justification: "La atención selectiva madura y se consolida a partir de los 12 años de edad. Las etapas anteriores se caracterizan por ser sobreexclusivas (atención muy rígida a un solo foco) o sobreinclusivas (incapaces de filtrar distractores, común en la infancia)."
+              },
+              {
+                id: 10,
+                question: "Schmidt afirma que la programación simultánea de múltiples respuestas motoras queda limitada por un “estrangulamiento” que obliga a tratar secuencialmente la información motriz.",
+                correct: true,
+                justification: "Esta limitación en la programación de respuestas se conoce como el periodo refractario psicológico o 'cuello de botella', el cual impide la salida paralela de comandos motores y obliga a un procesamiento en serie."
+              }
+            ]
+          },
+          tema56: {
+            title: "Tema 56: El Control Motor: Sistemas Abiertos y Cerrados, Retroalimentación y Representación del Movimiento",
+            shortTitle: "Tema 56",
+            questions: [
+              {
+                id: 1,
+                question: "El control motor en bucle cerrado se caracteriza por funcionar independientemente de la información sensorial, basándose exclusivamente en órdenes motoras previamente programadas antes del inicio del movimiento.",
+                correct: false,
+                justification: "El tema señala que el control en bucle cerrado depende de una comparación constante y en tiempo real entre el objetivo previsto y la retroinformación sensorial (feedback) recibida durante la acción."
+              },
+              {
+                id: 2,
+                question: "Entre las fuentes de información propioceptiva descritas en el tema, los órganos tendinosos de Golgi informan principalmente sobre el grado de tensión muscular desarrollado.",
+                correct: true,
+                justification: "El tema establece con precisión que los órganos tendinosos de Golgi captan la tensión o fuerza generada por la contracción muscular, mientras que los husos neuromusculares registran la velocidad y cambios de longitud."
+              },
+              {
+                id: 3,
+                question: "Los husos neuromusculares, localizados en la inserción músculo-tendinosa, aportan información específica sobre tensión muscular y estabilidad gravitatoria corporal.",
+                correct: false,
+                justification: "Los husos neuromusculares se localizan paralelos a las fibras musculares e informan sobre la longitud y estiramiento del músculo. La información de tensión muscular corresponde a los órganos de Golgi, y la estabilidad gravitatoria es procesada por el aparato vestibular."
+              },
+              {
+                id: 4,
+                question: "Corraze (1988) describe el control motor en bucle cerrado mediante objetivo inicial, retroalimentación, recepción de información, comparación con la prevista y corrección cuando aparecen discrepancias.",
+                correct: true,
+                justification: "El tema recoge exactamente estos elementos para conformar la estructura funcional del control por retroacción o bucle cerrado."
+              },
+              {
+                id: 5,
+                question: "Adams (1971) identificó la huella perceptiva como mecanismo desencadenante de la respuesta motora y atribuyó a la huella mnésica funciones de regulación posterior.",
+                correct: false,
+                justification: "La propuesta de Adams establece lo contrario: la huella mnésica es la encargada de iniciar y desencadenar el movimiento (bucle abierto), mientras que la huella perceptiva actúa como marco de referencia para guiar, comparar y corregir la ejecución (bucle cerrado)."
+              },
+              {
+                id: 6,
+                question: "Entre las limitaciones del control motor en bucle cerrado, el tema destaca costes temporales y atencionales derivados del análisis permanente y corrección continua de la ejecución.",
+                correct: true,
+                justification: "Al requerir un procesamiento consciente y comparaciones constantes entre el feedback sensorial y el objetivo, este sistema exige un mayor tiempo de reacción y consume valiosos recursos atencionales."
+              },
+              {
+                id: 7,
+                question: "Schmidt (1986) sostiene que actividades rápidas como lanzamiento de dardo o salto de vallas dependen exclusivamente de mecanismos conscientes de control durante toda la ejecución.",
+                correct: false,
+                justification: "Estas acciones balísticas son extremadamente rápidas y se ejecutan en un tiempo menor del que tarda el sistema nervioso en procesar el feedback sensorial (bucle cerrado). Por ello, dependen de programas motores estructurados de antemano (bucle abierto)."
+              },
+              {
+                id: 8,
+                question: "Glencross propone un modelo de dos niveles donde el sistema ejecutivo funciona mediante bucle cerrado y los procesos programadores mediante bucle abierto.",
+                correct: true,
+                justification: "El tema presenta esta síntesis integradora de Glencross como una forma óptima de coordinar la rigidez planificada del bucle abierto con la flexibilidad correctora del bucle cerrado."
+              },
+              {
+                id: 9,
+                question: "Holding (1965) clasifica el conocimiento de resultados distinguiendo únicamente modalidades intrínseca y extrínseca, excluyendo categorías relacionadas con tiempo o forma de transmisión.",
+                correct: false,
+                justification: "La clasificación de Holding es amplia e incorpora múltiples taxonomías adicionales, incluyendo las dimensiones concomitante-terminal, inmediato-diferido, verbal-no verbal y acumulado-separado."
+              },
+              {
+                id: 10,
+                question: "Newell (1976) plantea que conforme aumenta la pericia del ejecutante disminuye progresivamente la función informativa del conocimiento extrínseco y adquiere mayor relevancia su función motivacional.",
+                correct: true,
+                justification: "Con el entrenamiento y la pericia, el ejecutante aprende a utilizar su propia retroalimentación intrínseca (aprende a detectar sus errores), de modo que el conocimiento de resultados externo (extrínseco) pierde peso formativo pero sigue estimulando la motivación."
+              }
+            ]
+          },
+          tema57: {
+            title: "Tema 57: Tareas y Habilidades Motrices: Análisis, Eficacia y Clasificación (Oposición Muy Alta)",
+            shortTitle: "Tema 57",
+            questions: [
+              {
+                id: 1,
+                question: "Parlebás (1981) define tarea motriz como un conjunto de condiciones y obligaciones organizadas donde necesariamente intervienen conductas motrices desarrolladas por uno o varios participantes.",
+                correct: true,
+                justification: "El tema recoge literalmente esta definición vinculando la tarea motriz a objetivos y conductas motrices necesarias para alcanzarlos."
+              },
+              {
+                id: 2,
+                question: "Famose considera que el objetivo de una tarea posee únicamente una función orientadora posterior, sin intervenir directamente en el desencadenamiento inicial de la acción motriz.",
+                correct: false,
+                justification: "El tema indica que el objetivo tiene una doble función: desencadenar la acción motriz en una fase inicial y orientar de manera teleonómica su desarrollo."
+              },
+              {
+                id: 3,
+                question: "Según Famose, las condiciones bioinformacionales del entorno hacen referencia fundamentalmente a la variabilidad ambiental y a la necesidad de obtener información para alcanzar objetivos.",
+                correct: true,
+                justification: "El tema establece con precisión que estas condiciones engloban la previsibilidad o incertidumbre espacial del entorno y los canales sensoriales que el sujeto debe activar para percibir y solucionar la tarea."
+              },
+              {
+                id: 4,
+                question: "Guthrie (1957) identifica habilidad motriz y movimiento, considerando ambos conceptos equivalentes al describir cualquier conducta motora aprendida y observable.",
+                correct: false,
+                justification: "El marco conceptual insiste en que la habilidad motriz y el movimiento no son equivalentes. El movimiento es el elemento formal del que se sirve la habilidad para estructurar y optimizar la respuesta orientada a un fin."
+              },
+              {
+                id: 5,
+                question: "La eficiencia motriz hace referencia al coste energético o cognitivo necesario para alcanzar objetivos, mientras la eficacia expresa el grado de consecución de los resultados previstos.",
+                correct: true,
+                justification: "Distingue de forma nítida la consecución del objetivo programado (eficacia) frente al coste biológico, temporal, de atención o de gasto energético invertido por el sujeto (eficiencia)."
+              },
+              {
+                id: 6,
+                question: "Famose entiende taxonomía como producto final del proceso clasificatorio y reserva el concepto sistema de clasificación para la ciencia que estudia clasificaciones.",
+                correct: false,
+                justification: "Ocurre lo opuesto según el autor: la taxonomía es la ciencia teórica que investiga las leyes, principios y metodologías de las clasificaciones, mientras que el sistema de clasificación es la estructura práctica resultante de dicho proceso."
+              },
+              {
+                id: 7,
+                question: "Poulton (1957) clasifica las habilidades según estabilidad ambiental, diferenciando habilidades cerradas desarrolladas en entornos previsibles y habilidades abiertas desarrolladas bajo incertidumbre espacial elevada.",
+                correct: true,
+                justification: "La base de este sistema clasificatorio pionero es el grado de certidumbre del entorno físico; las habilidades abiertas se ejecutan en medios inestables donde el input sensorial es continuamente variable."
+              },
+              {
+                id: 8,
+                question: "Knapp (1963) mantuvo una clasificación estrictamente dicotómica entre habilidades abiertas y cerradas, rechazando cualquier posibilidad de niveles intermedios entre ambas categorías.",
+                correct: false,
+                justification: "La gran contribución de Knapp fue precisamente romper el esquema dicotómico rígido de Poulton, proponiendo en su lugar un continuum o escala gradual donde las tareas se sitúan entre los extremos de apertura y cierre absoluto."
+              },
+              {
+                id: 9,
+                question: "Parlebás (1986) establece un sistema cualitativo basado en incertidumbre ambiental, interacción con compañeros e interacción práxica con adversarios, obteniendo ocho categorías situacionales posibles.",
+                correct: true,
+                justification: "Combina dicotómicamente la presencia (+) o ausencia (-) de la naturaleza (I), los compañeros (C) y los adversarios (A). La interacción combinada de estos factores (ICA) da lugar a los ocho dominios de acción motriz."
+              },
+              {
+                id: 10,
+                question: "Famose (1982) considera que las tareas definidas tipo II representan el máximo grado de libertad del alumnado, al quedar abiertos objetivos, operaciones y organización material.",
+                correct: false,
+                justification: "Las tareas tipo II son definidas en su grado más restrictivo; tanto el objetivo (qué hacer) como las operaciones (cómo hacerlo) están pautadas rígidamente por el docente, confiriendo el menor margen de variabilidad y autodeterminación."
+              }
+            ]
+          },
+          tema58: {
+            title: "Tema 58: Teorías del Aprendizaje y Modelos de Enseñanza en Educación Física",
+            shortTitle: "Tema 58",
+            questions: [
+              {
+                id: 1,
+                question: "Ausubel (1983) sostiene que el aprendizaje receptivo obliga necesariamente al alumnado a descubrir autónomamente los contenidos antes de poder asimilarlos y reproducirlos posteriormente.",
+                correct: false,
+                justification: "En el aprendizaje receptivo el alumnado recibe los contenidos ya estructurados y organizados por el docente; no requiere un proceso de descubrimiento autónomo para asimilarlos de forma significativa."
+              },
+              {
+                id: 2,
+                question: "La concepción constructivista desarrollada desde la LOGSE (1990), influida por Piaget, Vigotsky y Ausubel, plantea que el conocimiento debe ser construido activamente por el alumnado.",
+                correct: true,
+                justification: "El constructivismo postula que el conocimiento no es una copia pasiva de la realidad transmitida por el maestro, sino el resultado de una estructuración y elaboración cognitiva y motriz activa por parte de la persona que aprende."
+              },
+              {
+                id: 3,
+                question: "Según Festinger, las tareas no definidas generan un estado de consonancia cognitiva que disminuye la necesidad de búsqueda y reduce los procesos exploratorios del alumnado.",
+                correct: false,
+                justification: "Las tareas no definidas generan justamente una 'disonancia cognitiva'. Este estado de desequilibrio mental de la persona que aprende estimula su curiosidad, el análisis y promueve procesos activos de exploración, investigación y descubrimiento."
+              },
+              {
+                id: 4,
+                question: "Ruiz-Omeñaca y colaboradores (2013) consideran que los métodos de enseñanza en Educación Física están condicionados por la participación global y vivencial del alumnado.",
+                correct: true,
+                justification: "Destacan que las características de la materia imponen una fuerte implicación global (corporal, cognitiva, social) y vivencial, que condiciona directamente la selección y el desarrollo de las metodologías didácticas."
+              },
+              {
+                id: 5,
+                question: "En Educación Física la interacción verbal constituye prácticamente el único instrumento relevante para el intercambio de información entre profesorado y alumnado durante las sesiones.",
+                correct: false,
+                justification: "En Educación Física el canal de interacción no verbal (ademanes, gestos, demostraciones prácticas, posicionamientos espaciales, contacto físico seguro) ostenta un peso pedagógico y comunicativo tan crucial como la palabra hablada."
+              },
+              {
+                id: 6,
+                question: "Desde una perspectiva didáctica, estrategia de enseñanza y estilo de enseñanza aparecen necesariamente unidos, de modo que una determinada estrategia exige siempre un único estilo.",
+                correct: false,
+                justification: "Las estrategias de enseñanza (global, analítica) y los estilos de enseñanza (mando directo, resolución de problemas) son constructos diferenciados que el docente puede combinar de forma flexible atendiendo al contexto didáctico."
+              },
+              {
+                id: 7,
+                question: "García Hoz (1968) entiende la educación personalizada no solo como un método más eficaz, sino como un elemento de formación personal y responsabilidad.",
+                correct: true,
+                justification: "El enfoque de García Hoz promueve la autonomía individual al dota al estudiante de elecciones en sus trabajos y exigir la aceptación de responsabilidades sobre su propio proceso formativo."
+              },
+              {
+                id: 8,
+                question: "Siedentop (1976) identifica tres categorías metodológicas básicas: enseñanza centrada exclusivamente en el profesorado, enseñanza socializadora y enseñanza cooperativa.",
+                correct: false,
+                justification: "Siedentop categoriza los estilos en tres áreas esenciales: los basados en el profesor (mando y asignación), los de enseñanza individualizada y aquellos enfocados en la búsqueda, indagación y descubrimiento del alumnado."
+              },
+              {
+                id: 9,
+                question: "Mosston describe la denominada barrera cognitiva como el paso desde metodologías basadas en reproducción motriz hacia propuestas que exigen procesos de descubrimiento.",
+                correct: true,
+                justification: "Mosston define este hito como el límite cognitivo entre los estilos reproductores (mando directo, asignación de tareas, grupos recíprocos) y los estilos productores que exigen indagación (descubrimiento guiado y resolución de problemas)."
+              },
+              {
+                id: 10,
+                question: "Las tareas definidas tipo II especifican exclusivamente las operaciones motrices, dejando abiertos los objetivos y el acondicionamiento material para aumentar la autonomía del alumnado.",
+                correct: false,
+                justification: "Según la clasificación clásica de Famose, en las tareas de Tipo II todas las condiciones —objetivo final (qué hacer), operaciones (cómo hacerlo) y acondicionamiento del material— están completamente especificadas por el docente."
+              }
+            ]
+          },
+          tema59: {
+            title: "Tema 59: Estilos de Enseñanza Basados en la Recepción",
+            shortTitle: "Tema 59",
+            questions: [
+              {
+                id: 1,
+                question: "Los estilos de enseñanza basados en la recepción pretenden prioritariamente desarrollar autonomía decisional, creatividad y búsqueda autónoma de soluciones mediante procesos de descubrimiento motor.",
+                correct: false,
+                justification: "El tema establece que estos estilos tradicionales persiguen la reproducción de modelos, la obediencia y la dependencia del alumnado respecto al profesorado, en lugar de la búsqueda autónoma."
+              },
+              {
+                id: 2,
+                question: "Muska Mosston considera que los métodos que no atraviesan la barrera cognitiva se caracterizan por la instrucción directa y la reproducción de modelos motrices definidos.",
+                correct: true,
+                justification: "El tema explica que estos métodos proporcionan directamente la solución motriz o el modelo de ejecución técnica sin exigir un proceso de descubrimiento de problemas por parte del alumnado."
+              },
+              {
+                id: 3,
+                question: "La utilización de métodos reproductores de modelos se justifica especialmente cuando existen múltiples soluciones motrices igualmente eficaces y se pretende estimular pensamiento divergente.",
+                correct: false,
+                justification: "El tema indica que se justifican cuando existe una única solución eficaz, probada y bien definida (pensamiento convergente), no para buscar divergencias."
+              },
+              {
+                id: 4,
+                question: "Dentro de los principios fundamentales de los estilos basados en la recepción, el profesorado adopta todas las decisiones preactivas, interactivas y postactivas del proceso educativo.",
+                correct: true,
+                justification: "El tema señala que en el enfoque tradicional de recepción de información, el rol del estudiante se limita a atender, obedecer y responder exactamente a las propuestas del docente."
+              },
+              {
+                id: 5,
+                question: "En el Mando Directo clásico, las correcciones individualizadas durante la ejecución constituyen un elemento esencial facilitado por la liberación del profesorado respecto al conteo rítmico.",
+                correct: false,
+                justification: "El tema señala que las correcciones en el mando clásico son masivas, generales y retardadas, debido a que el docente permanece permanentemente ocupado dirigiendo el ritmo del grupo de forma centralizada."
+              },
+              {
+                id: 6,
+                question: "La Modificación del Mando Directo elimina o flexibiliza el conteo rítmico y permite al profesorado introducir correcciones durante la ejecución motriz del alumnado.",
+                correct: true,
+                justification: "El tema indica que al desaparecer o flexibilizarse el conteo rítmico continuo, el docente queda liberado de esa tarea mecánica para interactuar e intervenir de manera correctora de forma individual."
+              },
+              {
+                id: 7,
+                question: "Dentro del sistema social del Mando Directo, las relaciones afectivas profesor-alumno y alumno-alumno adquieren protagonismo y favorecen liderazgo compartido entre participantes.",
+                correct: false,
+                justification: "El tema afirma que las relaciones afectivas quedan prácticamente ocluidas y el liderazgo corresponde de manera exclusiva al profesorado mediante una estructura jerárquica vertical."
+              },
+              {
+                id: 8,
+                question: "En la Asignación de Tareas, las decisiones interactivas relativas al ritmo de ejecución y posición espacial pasan parcialmente a depender del alumnado participante.",
+                correct: true,
+                justification: "El tema señala que, en comparación con el mando directo, el alumnado adquiere cierta autonomía y responsabilidad respecto a su propio ritmo de trabajo y su ubicación en el espacio de práctica."
+              },
+              {
+                id: 9,
+                question: "La Asignación de Tareas constituye una metodología plenamente individualizada porque cada alumno realiza actividades distintas adaptadas específicamente a sus necesidades personales.",
+                correct: false,
+                justification: "El tema insiste en que continúa siendo una enseñanza de carácter masivo (las tareas propuestas suelen ser las mismas para todo el grupo), aunque se flexibilice el ritmo de ejecución individual."
+              },
+              {
+                id: 10,
+                question: "Según la evolución didáctica descrita por Mosston, el paso desde Mando Directo hacia Asignación de Tareas incrementa capacidad decisional, motivación y ciertos procesos iniciales de individualización.",
+                correct: true,
+                justification: "El tema destaca un aumento en la autonomía del estudiante, una ejecución automotivada y mayor libertad en el ritmo y la secuenciación de las tareas asignadas."
+              }
+            ]
+          },
+          tema60: {
+            title: "Tema 60: Estilos de Enseñanza Basados en la Indagación y el Descubrimiento",
+            shortTitle: "Tema 60",
+            questions: [
+              {
+                id: 1,
+                question: "Muska Mosston (1978) considera que la denominada barrera cognitiva se atraviesa cuando el alumnado deja de reproducir modelos y participa activamente en la búsqueda de soluciones motrices.",
+                correct: true,
+                justification: "El tema señala que atravesar la barrera cognitiva implica pasar de la instrucción directa y puramente reproductiva a la implicación cognitiva y productiva activa del alumnado."
+              },
+              {
+                id: 2,
+                question: "Dentro de los estilos basados en el descubrimiento, la prioridad principal consiste en garantizar rapidez de ejecución y repetición exacta de patrones motrices previamente definidos por el profesorado.",
+                correct: false,
+                justification: "El objetivo central de la enseñanza por descubrimiento no es la velocidad ni la reproducción exacta del patrón motor del docente, sino implicar cognitivamente al alumnado a través de la exploración, la curiosidad, el análisis y la toma de decisiones."
+              },
+              {
+                id: 3,
+                question: "Nulhall y Snook sitúan la fundamentación científica de estos estilos en psicología cognitiva, pedagogía evolutiva y psicología de la creatividad.",
+                correct: true,
+                justification: "El marco teórico del tema añade además aportaciones de autores insignes como Guilford, Piaget y el aprendizaje por descubrimiento de Bruner, justificando científicamente estas metodologías activas."
+              },
+              {
+                id: 4,
+                question: "Herman (1967) sostiene que el aprendizaje por descubrimiento debe asociarse exclusivamente a procesos inductivos y nunca puede desarrollarse mediante razonamientos deductivos.",
+                correct: false,
+                justification: "Herman rechaza esa visión limitada, explicando que el aprendizaje por descubrimiento puede ser tanto de naturaleza inductiva (de lo particular a lo general) como deductiva (aplicar leyes generales para solventar retos concretos)."
+              },
+              {
+                id: 5,
+                question: "Entre los principios fundamentales de la enseñanza por descubrimiento se establece que la Educación Física debe superar planteamientos centrados únicamente en el acondicionamiento muscular.",
+                correct: true,
+                justification: "La disciplina busca favorecer una adaptación perceptivo-motriz, la asimilación conceptual y la comprensión compleja de las acciones corporales, superando la antigua concepción del ejercicio físico puramente mecánico."
+              },
+              {
+                id: 6,
+                question: "Para provocar disonancia cognitiva, el profesorado debe proporcionar toda la información disponible inicialmente con el objetivo de reducir incertidumbre y facilitar respuestas inmediatas.",
+                correct: false,
+                justification: "Para generar el desequilibrio cognitivo que despierte la indagación, el docente debe restringir u ocultar inicialmente parte de la información, planteando un reto que empuje al estudiante a investigar y reconstruir la solución."
+              },
+              {
+                id: 7,
+                question: "En el Descubrimiento Guiado, el profesorado debe reforzar respuestas correctas, evitar proporcionar soluciones directas y esperar siempre la respuesta inicial del alumnado.",
+                correct: true,
+                justification: "Estas premisas constituyen los pilares interactivos del Descubrimiento Guiado: el docente orienta mediante indicios sin dar la respuesta final, permitiendo que el alumno sea el verdadero descubridor."
+              },
+              {
+                id: 8,
+                question: "La Resolución de Problemas constituye un proceso heurístico incompleto donde el profesorado limita significativamente las alternativas y controla estrechamente la producción motriz del alumnado.",
+                correct: false,
+                justification: "La Resolución de Problemas es, en esencia, un proceso heurístico completo. El docente define el problema pero deja total libertad para que el alumno explore, diseñe y ejecute múltiples soluciones válidas."
+              },
+              {
+                id: 9,
+                question: "Thorndike aparece relacionado con el diseño de problemas mediante la denominada ley de disposición, vinculada al interest y predisposición para aprender.",
+                correct: true,
+                justification: "La ley de disposición de Thorndike argumenta que el aprendizaje se optimiza si existe una motivación, interés interno y predisposición de la persona hacia el objeto de estudio, lo cual se fomenta mediante problemas atractivos."
+              },
+              {
+                id: 10,
+                question: "Entre los inconvenientes de los estilos basados en descubrimiento, el tema señala resistencia docente al cambio, lentitud del proceso y dificultades con grupos numerosos o tareas de riesgo.",
+                correct: true,
+                justification: "A pesar de sus innegables ventajas pedagógicas, su aplicación real conlleva retos prácticos bien definidos como la lentitud en la adquisición del modelo motriz, la gestión de la seguridad física y la resistencia del profesorado tradicional."
+              }
+            ]
+          }
+        };
+
+        function App() {
+          const [activeTopic, setActiveTopic] = useState('tema55');
+          const [currentIdx, setCurrentIdx] = useState(0);
+          const [answers, setAnswers] = useState(Array(DATASETS['tema55'].questions.length).fill(null));
+          const [mode, setMode] = useState('practice'); // 'practice' o 'exam'
+          const [isSubmitted, setIsSubmitted] = useState(false);
+          
+          // DUA Ajustes de Accesibilidad
+          const [textSize, setTextSize] = useState('md'); // 'sm', 'md', 'lg', 'xl'
+          const [theme, setTheme] = useState('professional'); // 'professional', 'dark', 'highcontrast'
+          const [isPlayingText, setIsPlayingText] = useState(false);
+          const [voiceNotification, setVoiceNotification] = useState('');
+
+          // Temporizador para Modo Examen
+          const [timer, setTimer] = useState(0);
+          const [timerActive, setTimerActive] = useState(false);
+
+          // Referencia para síntesis de voz
+          const speechUtteranceRef = useRef(null);
+
+          // Atajos para leer las preguntas actuales
+          const QUESTIONS = DATASETS[activeTopic].questions;
+          const currentQuestion = QUESTIONS[currentIdx];
+          const totalQuestions = QUESTIONS.length;
+          const isCurrentAnswered = answers[currentIdx] !== null;
+          const isCurrentCorrect = answers[currentIdx] === currentQuestion.correct;
+
+          // --- Manejo del cambio de tema ---
+          const handleTopicChange = (topicKey) => {
+            stopSpeech();
+            setActiveTopic(topicKey);
+            setCurrentIdx(0);
+            setAnswers(Array(DATASETS[topicKey].questions.length).fill(null));
+            setIsSubmitted(false);
+            setTimer(0);
+            if (mode === 'exam') {
+              setTimerActive(true);
+            } else {
+              setTimerActive(false);
+            }
+          };
+
+          // --- Efecto para el Temporizador ---
+          useEffect(() => {
+            let interval = null;
+            if (timerActive && !isSubmitted) {
+              interval = setInterval(() => {
+                setTimer((prev) => prev + 1);
+              }, 1000);
+            } else {
+              clearInterval(interval);
+            }
+            return () => clearInterval(interval);
+          }, [timerActive, isSubmitted]);
+
+          // Activar temporizador al cambiar a modo examen si no está enviado
+          useEffect(() => {
+            if (mode === 'exam' && !isSubmitted) {
+              setTimerActive(true);
+            } else {
+              setTimerActive(false);
+            }
+          }, [mode, isSubmitted]);
+
+          // Cancelar voz al cambiar de pregunta o tema
+          useEffect(() => {
+            stopSpeech();
+          }, [currentIdx, activeTopic]);
+
+          // --- Funciones del Sintetizador de Voz (DUA Representación) ---
+          const speakText = (text) => {
+            if ('speechSynthesis' in window) {
+              window.speechSynthesis.cancel(); // Cancelar cualquier reproducción previa
+              
+              if (isPlayingText) {
+                setIsPlayingText(false);
+                return;
+              }
+
+              const utterance = new SpeechSynthesisUtterance(text);
+              utterance.lang = 'es-ES';
+              utterance.rate = 1.0;
+              
+              utterance.onend = () => {
+                setIsPlayingText(false);
+              };
+
+              utterance.onerror = () => {
+                setIsPlayingText(false);
+              };
+
+              speechUtteranceRef.current = utterance;
+              setIsPlayingText(true);
+              window.speechSynthesis.speak(utterance);
+            } else {
+              setVoiceNotification("Lo siento, tu navegador no soporta lectura de voz automatizada.");
+              setTimeout(() => setVoiceNotification(''), 4000);
+            }
+          };
+
+          const stopSpeech = () => {
+            if ('speechSynthesis' in window) {
+              window.speechSynthesis.cancel();
+              setIsPlayingText(false);
+            }
+          };
+
+          // --- Atajos de Teclado (DUA Acción y Expresión) ---
+          useEffect(() => {
+            const handleKeyDown = (e) => {
+              if (isSubmitted) return;
+
+              const key = e.key.toLowerCase();
+              if (key === 'v') {
+                handleSelectAnswer(true);
+              } else if (key === 'f') {
+                handleSelectAnswer(false);
+              } else if (e.key === 'ArrowRight') {
+                handleNext();
+              } else if (e.key === 'ArrowLeft') {
+                handlePrev();
+              }
+            };
+
+            window.addEventListener('keydown', handleKeyDown);
+            return () => window.removeEventListener('keydown', handleKeyDown);
+          }, [currentIdx, answers, isSubmitted, mode, activeTopic]);
+
+          // --- Lógica del Examen ---
+          const handleSelectAnswer = (userChoice) => {
+            if (isSubmitted && mode === 'exam') return;
+            
+            const newAnswers = [...answers];
+            newAnswers[currentIdx] = userChoice;
+            setAnswers(newAnswers);
+          };
+
+          const handleNext = () => {
+            if (currentIdx < totalQuestions - 1) {
+              setCurrentIdx(currentIdx + 1);
+            }
+          };
+
+          const handlePrev = () => {
+            if (currentIdx > 0) {
+              setCurrentIdx(currentIdx - 1);
+            }
+          };
+
+          const handleReset = () => {
+            setAnswers(Array(QUESTIONS.length).fill(null));
+            setCurrentIdx(0);
+            setIsSubmitted(false);
+            setTimer(0);
+            stopSpeech();
+            if (mode === 'exam') setTimerActive(true);
+          };
+
+          const handleSubmitExam = () => {
+            setTimerActive(false);
+            setIsSubmitted(true);
+            stopSpeech();
+          };
+
+          const getScore = () => {
+            let correctCount = 0;
+            answers.forEach((ans, idx) => {
+              if (ans === QUESTIONS[idx].correct) {
+                correctCount++;
+              }
+            });
+            return correctCount;
+          };
+
+          // --- Formateadores de Estilo (DUA Diseño y Accesibilidad) ---
+          const getTextSizeClass = () => {
+            switch (textSize) {
+              case 'sm': return 'text-sm md:text-base leading-relaxed';
+              case 'lg': return 'text-lg md:text-xl leading-relaxed';
+              case 'xl': return 'text-xl md:text-2xl leading-loose font-medium';
+              default: return 'text-base md:text-lg leading-relaxed';
+            }
+          };
+
+          const getHeadingSizeClass = () => {
+            switch (textSize) {
+              case 'sm': return 'text-lg font-bold';
+              case 'lg': return 'text-2xl font-bold';
+              case 'xl': return 'text-3xl font-extrabold';
+              default: return 'text-xl font-bold';
+            }
+          };
+
+          const getThemeClasses = () => {
+            switch (theme) {
+              case 'dark':
+                return {
+                  bg: 'bg-gray-950 text-gray-100',
+                  card: 'bg-gray-900 border-gray-800 shadow-2xl',
+                  header: 'bg-gray-900 border-b border-gray-800',
+                  tabActive: 'bg-indigo-600 text-white border-indigo-500',
+                  tabInactive: 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white',
+                  buttonActive: 'bg-indigo-600 hover:bg-indigo-500 text-white',
+                  buttonSec: 'bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700',
+                  accentText: 'text-indigo-400',
+                  selectedAnswer: 'border-indigo-500 bg-indigo-950 text-indigo-200',
+                  correctCard: 'bg-green-950/40 border-green-800 text-green-200',
+                  incorrectCard: 'bg-red-950/40 border-red-800 text-red-200',
+                  btnTrue: 'border-emerald-600/50 hover:bg-emerald-950/30 text-emerald-400',
+                  btnFalse: 'border-rose-600/50 hover:bg-rose-950/30 text-rose-400',
+                  btnTrueActive: 'bg-emerald-700 text-white border-emerald-500',
+                  btnFalseActive: 'bg-rose-700 text-white border-rose-500',
+                  activeStep: 'ring-2 ring-indigo-500 bg-indigo-900 text-indigo-100',
+                  unansweredStep: 'bg-gray-800 text-gray-400',
+                  answeredStep: 'bg-indigo-950 text-indigo-300 border border-indigo-800',
+                };
+              case 'highcontrast':
+                return {
+                  bg: 'bg-black text-yellow-300 font-mono',
+                  card: 'bg-black border-4 border-yellow-300 shadow-none',
+                  header: 'bg-black border-b-4 border-yellow-300',
+                  tabActive: 'bg-yellow-300 text-black font-extrabold border-2 border-white',
+                  tabInactive: 'bg-black text-yellow-300 border border-yellow-300 hover:bg-yellow-300 hover:text-black',
+                  buttonActive: 'bg-yellow-300 text-black font-extrabold hover:bg-yellow-400',
+                  buttonSec: 'bg-black text-yellow-300 border-2 border-yellow-300 hover:bg-yellow-300 hover:text-black',
+                  accentText: 'text-yellow-300 underline',
+                  selectedAnswer: 'border-dashed border-4 border-yellow-300 bg-yellow-300 text-black font-bold',
+                  correctCard: 'border-4 border-green-500 bg-black text-green-400 font-bold',
+                  incorrectCard: 'border-4 border-red-500 bg-black text-red-400 font-bold',
+                  btnTrue: 'border-2 border-yellow-300 text-yellow-300 hover:bg-yellow-300 hover:text-black',
+                  btnFalse: 'border-2 border-yellow-300 text-yellow-300 hover:bg-yellow-300 hover:text-black',
+                  btnTrueActive: 'bg-green-500 text-black border-4 border-white font-black',
+                  btnFalseActive: 'bg-red-500 text-black border-4 border-white font-black',
+                  activeStep: 'border-4 border-white bg-yellow-300 text-black',
+                  unansweredStep: 'border border-yellow-300 text-yellow-300',
+                  answeredStep: 'bg-yellow-950 text-yellow-300 border-2 border-yellow-300',
+                };
+              default: // 'professional' (Claro sofisticado)
+                return {
+                  bg: 'bg-slate-50 text-slate-800',
+                  card: 'bg-white border border-slate-200/80 shadow-xl shadow-slate-100/40 rounded-2xl',
+                  header: 'bg-white border-b border-slate-200/80 shadow-sm',
+                  tabActive: 'bg-indigo-600 text-white shadow-md shadow-indigo-100',
+                  tabInactive: 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-800',
+                  buttonActive: 'bg-indigo-600 hover:bg-indigo-700 text-white transition-all',
+                  buttonSec: 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 transition-all',
+                  accentText: 'text-indigo-600 font-semibold',
+                  selectedAnswer: 'border-indigo-600 bg-indigo-50 text-indigo-900',
+                  correctCard: 'bg-emerald-50 border-emerald-200 text-emerald-900 rounded-xl',
+                  incorrectCard: 'bg-rose-50 border-rose-200 text-rose-900 rounded-xl',
+                  btnTrue: 'border-2 border-emerald-100 hover:bg-emerald-50/50 text-emerald-700 hover:border-emerald-300',
+                  btnFalse: 'border-2 border-rose-100 hover:bg-rose-50/50 text-rose-700 hover:border-rose-300',
+                  btnTrueActive: 'bg-emerald-600 text-white border-emerald-600 shadow-lg shadow-emerald-100',
+                  btnFalseActive: 'bg-rose-600 text-white border-rose-600 shadow-lg shadow-rose-100',
+                  activeStep: 'ring-2 ring-indigo-600 bg-indigo-600 text-white font-semibold',
+                  unansweredStep: 'bg-slate-100 text-slate-500 hover:bg-slate-200',
+                  answeredStep: 'bg-indigo-50 text-indigo-700 border border-indigo-100 hover:bg-indigo-100/70',
+                };
+            }
+          };
+
+          const style = getThemeClasses();
+
+          const formatTime = (seconds) => {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+          };
+
+          return (
+            <div className={`min-h-screen ${style.bg} font-sans flex flex-col transition-colors duration-200`}>
+              
+              {/* Mensajes flotantes de ayuda auditiva */}
+              {voiceNotification && (
+                <div className="fixed bottom-4 right-4 z-50 bg-amber-500 text-white px-4 py-2 rounded-xl shadow-lg font-bold text-sm animate-bounce">
+                  {voiceNotification}
+                </div>
+              )}
+
+              {/* --- CABECERA --- */}
+              <header className={`${style.header} py-4 px-4 sm:px-6 sticky top-0 z-50`}>
+                <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  
+                  {/* Título y Logos */}
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-indigo-100 rounded-xl text-indigo-700">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h1 className="text-lg md:text-xl font-extrabold tracking-tight">EVALUACIÓN INTERACTIVA</h1>
+                      <p className="text-xs opacity-80 font-medium">Diseño Universal para el Aprendizaje (DUA)</p>
+                    </div>
+                  </div>
+
+                  {/* Caja de herramientas DUA */}
+                  <div className="flex flex-wrap items-center gap-3 border-t border-slate-200/60 pt-3 md:border-t-0 md:pt-0">
+                    
+                    {/* Lector de Voz */}
+                    <button
+                      onClick={() => speakText(`Pregunta ${currentIdx + 1}. ${currentQuestion.question} ${
+                        answers[currentIdx] !== null && mode === 'practice' ? `. Tu respuesta ha sido guardada. Justificación: ${currentQuestion.justification}` : ''
+                      }`)}
+                      className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 text-xs font-bold transition-all ${
+                        isPlayingText 
+                          ? 'bg-amber-500 text-white animate-pulse' 
+                          : style.buttonSec
+                      }`}
+                      title="Escuchar pregunta en voz alta"
+                      aria-label="Escuchar pregunta en voz alta"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        {isPlayingText ? (
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-3-13.5v13.5m-3-10.5v7.5M4.5 12h.008v.008H4.5V12zm15 0h.008v.008H19.5V12z" />
+                        ) : (
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+                        )}
+                      </svg>
+                      <span>{isPlayingText ? 'Detener Voz' : 'Escuchar Pregunta'}</span>
+                    </button>
+
+                    {/* Ajuste de Texto */}
+                    <div className="flex items-center rounded-lg overflow-hidden border border-slate-300 dark:border-gray-700" role="group" aria-label="Ajuste de Tamaño de Texto">
+                      <button
+                        onClick={() => setTextSize('sm')}
+                        className={`px-2.5 py-1 text-xs font-bold ${textSize === 'sm' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-700 dark:bg-gray-800 dark:text-gray-200'}`}
+                        title="Texto Pequeño"
+                      >
+                        A-
+                      </button>
+                      <button
+                        onClick={() => setTextSize('md')}
+                        className={`px-2.5 py-1 text-xs font-bold ${textSize === 'md' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-700 dark:bg-gray-800 dark:text-gray-200'}`}
+                        title="Texto Normal"
+                      >
+                        A
+                      </button>
+                      <button
+                        onClick={() => setTextSize('lg')}
+                        className={`px-2.5 py-1 text-xs font-bold ${textSize === 'lg' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-700 dark:bg-gray-800 dark:text-gray-200'}`}
+                        title="Texto Grande"
+                      >
+                        A+
+                      </button>
+                      <button
+                        onClick={() => setTextSize('xl')}
+                        className={`px-2.5 py-1 text-xs font-bold ${textSize === 'xl' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-700 dark:bg-gray-800 dark:text-gray-200'}`}
+                        title="Texto Extra Grande"
+                      >
+                        A++
+                      </button>
+                    </div>
+
+                    {/* Selector de Contraste (Tema) */}
+                    <div className="flex items-center rounded-lg overflow-hidden border border-slate-300 dark:border-gray-700" role="group" aria-label="Selector de Tema">
+                      <button
+                        onClick={() => setTheme('professional')}
+                        className={`px-2 py-1 text-xs font-bold ${theme === 'professional' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-700 dark:bg-gray-800'}`}
+                        title="Tema Profesional Claro"
+                      >
+                        Claro
+                      </button>
+                      <button
+                        onClick={() => setTheme('dark')}
+                        className={`px-2 py-1 text-xs font-bold ${theme === 'dark' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-700 dark:bg-gray-800 dark:text-gray-200'}`}
+                        title="Tema Modo Oscuro"
+                      >
+                        Oscuro
+                      </button>
+                      <button
+                        onClick={() => setTheme('highcontrast')}
+                        className={`px-2 py-1 text-xs font-bold ${theme === 'highcontrast' ? 'bg-yellow-300 text-black font-black' : 'bg-white text-slate-700 dark:bg-gray-800 dark:text-gray-200'}`}
+                        title="Tema de Alto Contraste"
+                      >
+                        A.C.
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+              </header>
+
+              {/* --- CONTENIDO PRINCIPAL --- */}
+              <main className="flex-grow max-w-5xl w-full mx-auto p-4 sm:p-6 flex flex-col gap-6">
+
+                {/* --- PESTAÑAS DE CAMBIO DE TEMA --- */}
+                {}
+                <div className="flex flex-col sm:flex-row gap-2 items-center justify-between border-b border-slate-200/60 dark:border-gray-800 pb-3">
+                  <div className="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 scrollbar-none">
+                    {Object.keys(DATASETS).map((key) => {
+                      const active = activeTopic === key;
+                      return (
+                        <button
+                          key={key}
+                          onClick={() => handleTopicChange(key)}
+                          className={`flex-1 sm:flex-none px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all uppercase whitespace-nowrap ${
+                            active ? style.tabActive : style.tabInactive
+                          }`}
+                          aria-selected={active}
+                          role="tab"
+                        >
+                          {DATASETS[key].shortTitle}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  
+                  <div className="text-right w-full sm:w-auto mt-2 sm:mt-0">
+                    <span className="text-xs font-bold opacity-70 block uppercase tracking-wider">Materia Activa:</span>
+                    <span className="text-xs font-extrabold text-indigo-500 dark:text-indigo-400">
+                      {DATASETS[activeTopic].title}
+                    </span>
+                  </div>
+                </div>
+
+                {/* --- SELECTOR DE MODALIDAD Y ESTADO --- */}
+                {!isSubmitted && (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center bg-indigo-50/60 dark:bg-gray-900/40 p-3 sm:p-4 rounded-2xl border border-indigo-100/70 dark:border-gray-800">
+                    
+                    {/* Modo de Examen */}
+                    <div className="flex items-center gap-2 md:col-span-2">
+                      <span className="text-xs font-bold uppercase tracking-wider text-indigo-500 dark:text-indigo-400">Modalidad:</span>
+                      <div className="flex bg-slate-200/75 dark:bg-gray-800 p-1 rounded-xl w-full sm:w-auto">
+                        <button
+                          onClick={() => { setMode('practice'); handleReset(); }}
+                          className={`flex-1 sm:flex-initial px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                            mode === 'practice' ? 'bg-white dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 shadow-sm' : 'text-slate-600 dark:text-gray-400'
+                          }`}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                          </svg>
+                          Modo Práctica
+                        </button>
+                        <button
+                          onClick={() => { setMode('exam'); handleReset(); }}
+                          className={`flex-1 sm:flex-initial px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                            mode === 'exam' ? 'bg-white dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 shadow-sm' : 'text-slate-600 dark:text-gray-400'
+                          }`}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          Modo Examen (Real)
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Temporizador o Información de Modo */}
+                    <div className="flex justify-start md:justify-end items-center gap-2">
+                      {mode === 'exam' ? (
+                        <div className="flex items-center gap-1.5 bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400 px-3 py-1.5 rounded-xl border border-rose-100 dark:border-rose-900/50 w-full md:w-auto justify-center">
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                          </span>
+                          <span className="text-xs font-bold tracking-wider">TIEMPO TRANSCURRIDO:</span>
+                          <span className="font-mono text-sm font-black">{formatTime(timer)}</span>
+                        </div>
+                      ) : (
+                        <div className="text-xs text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1.5 rounded-xl border border-emerald-100 dark:border-emerald-900/50 w-full md:w-auto text-center font-bold flex items-center gap-1.5 justify-center">
+                          <span className="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                          Feedback inmediato activo
+                        </div>
+                      )}
+                    </div>
+
+                  </div>
+                )}
+
+                {/* --- DESARROLLO DEL EXAMEN --- */}
+                {!isSubmitted ? (
+                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+                    
+                    {/* Columna Izquierda: Panel de Navegación (DUA Acción y Expresión) */}
+                    <div className={`${style.card} p-4 lg:col-span-1`}>
+                      <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">Navegación de Preguntas</h2>
+                      <div className="grid grid-cols-5 gap-2 lg:grid-cols-3">
+                        {QUESTIONS.map((q, idx) => {
+                          const isCurrent = idx === currentIdx;
+                          const isAnswered = answers[idx] !== null;
+                          
+                          let btnStyle = style.unansweredStep;
+                          if (isCurrent) {
+                            btnStyle = style.activeStep;
+                          } else if (isAnswered) {
+                            btnStyle = style.answeredStep;
+                          }
+
+                          return (
+                            <button
+                              key={q.id}
+                              onClick={() => setCurrentIdx(idx)}
+                              className={`h-10 rounded-xl text-xs font-bold flex items-center justify-center transition-all ${btnStyle}`}
+                              title={`Ir a pregunta ${idx + 1}`}
+                              aria-label={`Pregunta ${idx + 1}`}
+                            >
+                              {idx + 1}
+                              {isAnswered && !isCurrent && (
+                                <span className="ml-1 w-1.5 h-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400"></span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Información de Ayuda Teclado */}
+                      <div className="mt-5 pt-4 border-t border-slate-200/60 dark:border-gray-800 text-xxs text-slate-400 dark:text-gray-500 hidden sm:block">
+                        <p className="font-bold uppercase tracking-wider mb-1">Accesos Rápidos:</p>
+                        <ul className="space-y-1">
+                          <li>• <kbd className="px-1 bg-slate-200 dark:bg-gray-800 rounded">Teclas ← / →</kbd> : Navegar</li>
+                          <li>• <kbd className="px-1 bg-slate-200 dark:bg-gray-800 rounded">Tecla V</kbd> : Verdadero</li>
+                          <li>• <kbd className="px-1 bg-slate-200 dark:bg-gray-800 rounded">Tecla F</kbd> : Falso</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Columna Derecha: Tarjeta de Pregunta */}
+                    <div className="lg:col-span-3 flex flex-col gap-6">
+                      
+                      <div className={`${style.card} p-6 sm:p-8 flex flex-col gap-6 relative overflow-hidden`}>
+                        
+                        {/* Indicador superior de progreso */}
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full">
+                            PREGUNTA {currentIdx + 1} DE {totalQuestions}
+                          </span>
+                          
+                          {/* Barra de progreso visual */}
+                          <div className="w-1/3 bg-slate-200 dark:bg-gray-800 rounded-full h-2">
+                            <div 
+                              className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
+                              style={{ width: `${((currentIdx + 1) / totalQuestions) * 100}%` }}
+                            ></div>
+                          </div>
+                        </div>
+
+                        {/* Enunciado de la Pregunta */}
+                        <div className="py-4">
+                          <p className={getTextSizeClass()}>
+                            {currentQuestion.question}
+                          </p>
+                        </div>
+
+                        {/* Botones de Selección de Respuesta */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          
+                          {/* Botón VERDADERO */}
+                          <button
+                            onClick={() => handleSelectAnswer(true)}
+                            className={`p-5 rounded-2xl flex items-center justify-between transition-all border-2 text-left ${
+                              answers[currentIdx] === true 
+                                ? style.btnTrueActive 
+                                : style.btnTrue
+                            }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className={`p-2 rounded-xl ${answers[currentIdx] === true ? 'bg-white/20' : 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600'}`}>
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                              </div>
+                              <div>
+                                <span className="block text-xs font-bold uppercase tracking-wider opacity-80">OPCIÓN A</span>
+                                <span className="text-lg font-bold">VERDADERO</span>
+                              </div>
+                            </div>
+                            {answers[currentIdx] === true && (
+                              <span className="w-3 h-3 rounded-full bg-white ring-4 ring-emerald-300/50"></span>
+                            )}
+                          </button>
+
+                          {/* Botón FALSO */}
+                          <button
+                            onClick={() => handleSelectAnswer(false)}
+                            className={`p-5 rounded-2xl flex items-center justify-between transition-all border-2 text-left ${
+                              answers[currentIdx] === false 
+                                ? style.btnFalseActive 
+                                : style.btnFalse
+                            }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className={`p-2 rounded-xl ${answers[currentIdx] === false ? 'bg-white/20' : 'bg-rose-50 dark:bg-rose-950/50 text-rose-600'}`}>
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                              </div>
+                              <div>
+                                <span className="block text-xs font-bold uppercase tracking-wider opacity-80">OPCIÓN B</span>
+                                <span className="text-lg font-bold">FALSO</span>
+                              </div>
+                            </div>
+                            {answers[currentIdx] === false && (
+                              <span className="w-3 h-3 rounded-full bg-white ring-4 ring-rose-300/50"></span>
+                            )}
+                          </button>
+
+                        </div>
+
+                        {/* FEEDBACK INMEDIATO (DUA: Múltiples medios de representación/Compromiso en Modo Práctica) */}
+                        {mode === 'practice' && isCurrentAnswered && (
+                          <div className={`mt-4 p-5 border transition-all duration-300 rounded-xl ${
+                            isCurrentCorrect ? style.correctCard : style.incorrectCard
+                          }`}>
+                            <div className="flex items-start gap-3">
+                              <div className="mt-0.5">
+                                {isCurrentCorrect ? (
+                                  <div className="p-1 bg-emerald-500 text-white rounded-full">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                  </div>
+                                ) : (
+                                  <div className="p-1 bg-rose-500 text-white rounded-full">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center justify-between mb-2">
+                                  <h4 className="text-sm font-bold uppercase tracking-wider">
+                                    {isCurrentCorrect ? '¡Excelente! Respuesta Correcta' : 'Respuesta Incorrecta'}
+                                  </h4>
+                                  {/* Botón Voz para Justificación */}
+                                  <button
+                                    onClick={() => speakText(`Justificación. ${currentQuestion.justification}`)}
+                                    className="p-1 hover:bg-slate-200 dark:hover:bg-gray-800 rounded"
+                                    title="Escuchar justificación"
+                                  >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+                                    </svg>
+                                  </button>
+                                </div>
+                                <p className={`text-sm ${theme === 'highcontrast' ? 'text-yellow-300' : 'text-slate-700 dark:text-slate-300'}`}>
+                                  <strong>Justificación:</strong> {currentQuestion.justification}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                      </div>
+
+                      {/* Botones de Navegación Inferior */}
+                      <div className="flex items-center justify-between gap-4">
+                        
+                        <button
+                          onClick={handlePrev}
+                          disabled={currentIdx === 0}
+                          className={`px-5 py-3 rounded-xl flex items-center gap-2 font-bold transition-all ${
+                            currentIdx === 0 
+                              ? 'opacity-40 cursor-not-allowed bg-slate-200 text-slate-400 dark:bg-gray-800 dark:text-gray-600' 
+                              : style.buttonSec
+                          }`}
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"></path>
+                          </svg>
+                          Anterior
+                        </button>
+
+                        {currentIdx < totalQuestions - 1 ? (
+                          <button
+                            onClick={handleNext}
+                            className={`px-5 py-3 rounded-xl flex items-center gap-2 font-bold transition-all ${style.buttonActive}`}
+                          >
+                            Siguiente
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                          </button>
+                        ) : (
+                          <button
+                            onClick={handleSubmitExam}
+                            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-indigo-100 dark:shadow-none transition-all"
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Finalizar Examen
+                          </button>
+                        )}
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                ) : (
+                  
+                  /* --- PÁGINA DE RESULTADOS (DUA: Metacognición y Evaluación Formativa) --- */
+                  <div className="flex flex-col gap-6 animate-fadeIn">
+                    
+                    {/* Tarjeta de Resumen General */}
+                    <div className={`${style.card} p-6 sm:p-10 text-center flex flex-col items-center gap-4`}>
+                      <div className="p-4 bg-indigo-50 dark:bg-indigo-950/40 rounded-full text-indigo-600 dark:text-indigo-400">
+                        <svg className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                        </svg>
+                      </div>
+
+                      <div>
+                        <h2 className={getHeadingSizeClass()}>¡Has completado el examen de {DATASETS[activeTopic].shortTitle}!</h2>
+                        <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">Revisa detalladamente tu desempeño a continuación</p>
+                      </div>
+
+                      {/* Puntuación */}
+                      <div className="my-2">
+                        <div className="inline-block relative">
+                          <span className="text-6xl font-black text-indigo-600 dark:text-indigo-400">{getScore()}</span>
+                          <span className="text-3xl font-bold text-slate-400"> / {totalQuestions}</span>
+                        </div>
+                        <div className="mt-2 text-sm font-bold uppercase tracking-wider text-indigo-500 dark:text-indigo-400">
+                          Nota Final: {(getScore() / totalQuestions * 10).toFixed(1)} / 10.0
+                        </div>
+                      </div>
+
+                      {/* Retroalimentación Motivadora DUA */}
+                      <div className="max-w-md bg-slate-50 dark:bg-gray-950 p-4 rounded-xl border border-slate-200/60 dark:border-gray-800 text-sm">
+                        {getScore() === totalQuestions ? (
+                          <p className="text-emerald-600 font-bold">¡Excelente puntuación! Dominas a la perfección todos los conceptos teóricos de este tema.</p>
+                        ) : getScore() >= 7 ? (
+                          <p className="text-indigo-600 dark:text-indigo-400 font-bold">¡Muy bien hecho! Has demostrado una comprensión sólida del temario de {DATASETS[activeTopic].shortTitle}.</p>
+                        ) : (
+                          <p className="text-amber-600 font-bold">Buen intento. Utiliza las justificaciones de la revisión de abajo para reforzar los conceptos y volver a intentarlo.</p>
+                        )}
+                      </div>
+
+                      {/* Acciones de Resultados */}
+                      <div className="flex flex-wrap items-center justify-center gap-4 mt-2">
+                        <button
+                          onClick={handleReset}
+                          className={`px-5 py-3 rounded-xl font-bold flex items-center gap-2 ${style.buttonActive}`}
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.2"></path>
+                          </svg>
+                          Volver a Realizar Examen
+                        </button>
+                        <button
+                          onClick={() => window.print()}
+                          className={`px-5 py-3 rounded-xl font-bold flex items-center gap-2 ${style.buttonSec}`}
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-3a2 2 0 00-2-2H9a2 2 0 00-2 2v3a2 2 0 002 2zm5-12V5a3 3 0 00-3-3H9a3 3 0 00-3 3v4h10z"></path>
+                          </svg>
+                          Imprimir / Guardar PDF
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Revisión Interactiva de Preguntas */}
+                    <h3 className="text-lg font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mt-4">Análisis Pregunta por Pregunta ({DATASETS[activeTopic].shortTitle})</h3>
+                    
+                    <div className="flex flex-col gap-4">
+                      {QUESTIONS.map((q, idx) => {
+                        const userAns = answers[idx];
+                        const isCorrect = userAns === q.correct;
+
+                        return (
+                          <div key={q.id} className={`${style.card} p-5 flex flex-col gap-4 relative`}>
+                            
+                            {/* Encabezado de Pregunta en Revisión */}
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-gray-800 pb-3">
+                              <span className="text-xs font-bold text-slate-400 dark:text-slate-500">
+                                PREGUNTA {idx + 1}
+                              </span>
+                              <div className="flex flex-wrap gap-2">
+                                <span className={`px-2.5 py-1 text-xs font-bold rounded-lg ${
+                                  userAns === q.correct 
+                                    ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300' 
+                                    : 'bg-rose-100 text-rose-800 dark:bg-rose-950/50 dark:text-rose-300'
+                                }`}>
+                                  {isCorrect ? 'Correcta ✓' : 'Incorrecta ✗'}
+                                </span>
+                                <span className="px-2.5 py-1 text-xs font-bold rounded-lg bg-indigo-50 text-indigo-800 dark:bg-indigo-950/50 dark:text-indigo-300">
+                                  Respuesta correcta: {q.correct ? 'Verdadero' : 'Falso'}
+                                </span>
+                                <span className="px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-gray-300">
+                                  Tu respuesta: {userAns === null ? 'No contestada' : userAns ? 'Verdadero' : 'Falso'}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Enunciado */}
+                            <p className={getTextSizeClass()}>{q.question}</p>
+
+                            {/* Justificación */}
+                            <div className="p-4 bg-slate-50 dark:bg-gray-950/60 rounded-xl border border-slate-200/60 dark:border-gray-800 text-sm">
+                              <div className="flex items-center gap-1.5 mb-1.5">
+                                <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                </svg>
+                                <strong className="text-xs font-bold uppercase tracking-wider text-slate-400">Justificación Teórica:</strong>
+                              </div>
+                              <p className="text-slate-600 dark:text-slate-300">{q.justification}</p>
+                            </div>
+
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                  </div>
+
+                )}
+
+              </main>
+
+              {/* --- PIE DE PÁGINA --- */}
+              <footer className="py-6 mt-12 text-center text-xs opacity-60 border-t border-slate-200/50 dark:border-gray-900">
+                <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <p>© {new Date().getFullYear()} - Examen Interactivo de Procesamiento y Control Motor (DUA)</p>
+                  <div className="flex gap-4">
+                    <span className="font-semibold">Accesibilidad Integrada</span>
+                    <span>•</span>
+                    <span className="font-semibold">Diseño Universal para el Aprendizaje</span>
+                  </div>
+                </div>
+              </footer>
+
+            </div>
+          );
+        }
+
+        // Renderizado del componente App en el DOM
+        const rootElement = document.getElementById('root');
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(<App />);
+    </script>
+</body>
+</html>

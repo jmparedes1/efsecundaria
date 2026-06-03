@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examen Autoevaluación DUA - Temas 50-54</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            contrastBg: '#000000',
+            contrastText: '#FFFF00',
+            contrastBtn: '#1A1A1A',
+            contrastAccent: '#FFFF00'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .font-dyslexic {
+      font-family: 'Comic Sans MS', 'Andika', sans-serif !important;
+      letter-spacing: 0.12em !important;
+      word-spacing: 0.25em !important;
+      line-height: 1.8 !important;
+    }
+    button:focus, a:focus {
+      outline: 4px solid #3b82f6 !important;
+      outline-offset: 2px;
+    }
+    .theme-high-contrast {
+      background-color: #000000 !important;
+      color: #FFFF00 !important;
+    }
+    .theme-high-contrast .accessible-card {
+      background-color: #111111 !important;
+      border: 2px solid #FFFF00 !important;
+      color: #FFFF00 !important;
+    }
+    .theme-high-contrast button {
+      background-color: #000000 !important;
+      color: #FFFF00 !important;
+      border: 2px solid #FFFF00 !important;
+    }
+    .theme-high-contrast button:hover {
+      background-color: #FFFF00 !important;
+      color: #000000 !important;
+    }
+    .theme-high-contrast .text-muted {
+      color: #FFFF99 !important;
+    }
+  </style>
+</head>
+<body class="h-full transition-colors duration-200 bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 flex flex-col">
+
+  <header class="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-3 shadow-sm sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto flex flex-wrap justify-between items-center gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-xl" aria-hidden="true">🧠</span>
+        <h1 id="headerTitle" class="font-bold text-sm sm:text-lg tracking-tight">DUA Quiz: Tema 50</h1>
+      </div>
+      
+      <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm" aria-label="Controles de accesibilidad">
+        <!-- Control de Tamaño de Letra -->
+        <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5 border border-slate-200 dark:border-slate-700">
+          <button onclick="changeFontSize(-1)" class="px-2 py-1 rounded hover:bg-white dark:hover:bg-slate-700 font-bold" title="Disminuir tamaño de letra" aria-label="Disminuir letra">A-</button>
+          <button onclick="changeFontSize(0)" class="px-2 py-1 rounded hover:bg-white dark:hover:bg-slate-700 font-medium" title="Tamaño de letra por defecto" aria-label="Letra normal">A</button>
+          <button onclick="changeFontSize(1)" class="px-2 py-1 rounded hover:bg-white dark:hover:bg-slate-700 font-bold" title="Aumentar tamaño de letra" aria-label="Aumentar letra">A+</button>
+        </div>
+
+        <!-- Fuente para Dislexia -->
+        <button id="dyslexiaBtn" onclick="toggleDyslexia()" class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 flex items-center gap-1" title="Activar tipografía de alta legibilidad para dislexia" aria-pressed="false">
+          <span>📖</span> <span class="hidden sm:inline">Dislexia</span>
+        </button>
+
+        <!-- Selección de Contraste -->
+        <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5 border border-slate-200 dark:border-slate-700">
+          <button onclick="setTheme('light')" class="p-1 px-2 rounded hover:bg-white dark:hover:bg-slate-700" title="Modo Claro" aria-label="Modo Claro">☀️</button>
+          <button onclick="setTheme('dark')" class="p-1 px-2 rounded hover:bg-white dark:hover:bg-slate-700" title="Modo Oscuro" aria-label="Modo Oscuro">🌙</button>
+          <button onclick="setTheme('contrast')" class="p-1 px-2 rounded hover:bg-white dark:hover:bg-slate-700 font-bold text-yellow-500" title="Alto Contraste" aria-label="Alto Contraste">👁️</button>
+        </div>
+
+        <!-- Control de Sonidos -->
+        <button id="soundBtn" onclick="toggleSound()" class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 flex items-center gap-1" title="Activar/Desactivar sonido" aria-pressed="true">
+          <span id="soundIcon">🔊</span> <span class="hidden sm:inline" id="soundText">Sonido: Sí</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6 md:py-10 flex flex-col justify-center">
+    
+    <!-- PANTALLA DE INICIO -->
+    <div id="startScreen" class="bg-white dark:bg-slate-800 p-6 md:p-10 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 text-center space-y-6 transition-all duration-300 transform translate-y-0 accessible-card">
+      <div class="inline-flex p-4 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full text-4xl mb-2" aria-hidden="true">
+        🏃‍♂️⚡
+      </div>
+      <h2 class="text-3xl font-extrabold tracking-tight">Examen Autoevaluación</h2>
+      <p class="text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto text-muted">
+        Comprueba tus conocimientos sobre fisiología, prevención, anatomía, salud y aprendizaje motor con este test interactivo de 10 preguntas por tema.
+      </p>
+
+      <!-- Selector de Temas Optimizado (Responsive Grid para 5 Elementos) -->
+      <div class="max-w-3xl mx-auto bg-slate-100 dark:bg-slate-900 p-1.5 rounded-xl border border-slate-200 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-1.5" role="tablist" aria-label="Selección de tema de examen">
+        <button id="tabTema50" onclick="selectTopic(50)" role="tab" aria-selected="true" aria-controls="tabpanel-info" class="py-3 px-1 text-xs font-bold rounded-lg transition-all duration-200 bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow" title="Seleccionar examen del Tema 50">
+          Tema 50
+        </button>
+        <button id="tabTema51" onclick="selectTopic(51)" role="tab" aria-selected="false" aria-controls="tabpanel-info" class="py-3 px-1 text-xs font-bold rounded-lg transition-all duration-200 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100">
+          Tema 51
+        </button>
+        <button id="tabTema52" onclick="selectTopic(52)" role="tab" aria-selected="false" aria-controls="tabpanel-info" class="py-3 px-1 text-xs font-bold rounded-lg transition-all duration-200 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100">
+          Tema 52
+        </button>
+        <button id="tabTema53" onclick="selectTopic(53)" role="tab" aria-selected="false" aria-controls="tabpanel-info" class="py-3 px-1 text-xs font-bold rounded-lg transition-all duration-200 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100">
+          Tema 53
+        </button>
+        <button id="tabTema54" onclick="selectTopic(54)" role="tab" aria-selected="false" aria-controls="tabpanel-info" class="py-3 px-1 text-xs font-bold rounded-lg transition-all duration-200 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 col-span-2 sm:col-span-1">
+          Tema 54
+        </button>
+      </div>
+
+      <!-- Detalle descriptivo de cada tema -->
+      <div id="tabpanel-info" class="bg-slate-50 dark:bg-slate-900 p-5 rounded-xl border border-slate-150 dark:border-slate-800 text-left space-y-2">
+        <h3 id="topicDescriptionTitle" class="text-lg font-bold text-slate-900 dark:text-white">Tema 50: Prevención de lesiones deportivas</h3>
+        <p id="topicDescriptionBody" class="text-sm text-slate-600 dark:text-slate-400 text-muted">Abarca factores de tolerancia músculo-esquelética, clasificaciones de prevención, tipos de lesiones (agudas/crónicas), deshidratación, complicaciones térmicas y soporte vital básico (RCP).</p>
+      </div>
+
+      <!-- Características DUA -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto pt-4 text-xs text-left">
+        <div class="p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl flex items-start gap-2 border border-slate-100 dark:border-slate-800">
+          <span class="text-lg" aria-hidden="true">⌨️</span>
+          <div>
+            <strong class="block mb-0.5">Teclado Accesible</strong>
+            Usa 'V' para Verdadero, 'F' para Falso y 'Enter' para continuar.
+          </div>
+        </div>
+        <div class="p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl flex items-start gap-2 border border-slate-100 dark:border-slate-800">
+          <span class="text-lg" aria-hidden="true">🔊</span>
+          <div>
+            <strong class="block mb-0.5">Soporte Auditivo</strong>
+            Sonidos de confirmación interactiva y lectura de textos con voz artificial.
+          </div>
+        </div>
+        <div class="p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl flex items-start gap-2 border border-slate-100 dark:border-slate-800">
+          <span class="text-lg" aria-hidden="true">🎯</span>
+          <div>
+            <strong class="block mb-0.5">Evaluación Formativa</strong>
+            Explicación didáctica y justificaciones de forma inmediata.
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4">
+        <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 transform hover:-translate-y-0.5 transition duration-150 text-lg flex items-center justify-center gap-2 mx-auto">
+          Comenzar el Examen <span aria-hidden="true">🚀</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PANTALLA DEL EXAMEN -->
+    <div id="quizScreen" class="hidden bg-white dark:bg-slate-800 p-5 md:p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 space-y-6 relative accessible-card">
+      
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-4">
+        <div>
+          <span class="text-xs uppercase font-semibold text-blue-600 dark:text-blue-400 tracking-wider">Progreso del Test</span>
+          <div class="text-lg font-bold">Pregunta <span id="currentQuestionNum">1</span> de 10</div>
+        </div>
+        <div class="w-full sm:w-48 bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden mt-1 sm:mt-0" aria-label="Progreso de resolución">
+          <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style="width: 10%;"></div>
+        </div>
+      </div>
+
+      <!-- TEXT-TO-SPEECH CONTROL -->
+      <div class="flex justify-end">
+        <button onclick="speakCurrentQuestion()" class="text-sm px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-lg flex items-center gap-2 font-medium transition" aria-label="Escuchar la pregunta en voz alta">
+          🗣️ Escuchar Pregunta
+        </button>
+      </div>
+
+      <!-- Pregunta Activa -->
+      <div class="space-y-4">
+        <div id="questionText" class="text-xl md:text-2xl font-semibold leading-relaxed transition-all duration-150">
+          Cargando pregunta...
+        </div>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div id="actionButtonsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+        <button id="btnTrue" onclick="submitAnswer(true)" class="group flex flex-col items-center justify-center p-6 bg-emerald-50 dark:bg-emerald-950/20 hover:bg-emerald-100 dark:hover:bg-emerald-950/40 border-2 border-emerald-200 dark:border-emerald-800/60 rounded-xl transition duration-150 transform active:scale-95 text-center">
+          <span class="text-3xl sm:text-4xl mb-2" aria-hidden="true">✔️</span>
+          <span class="text-xl font-bold text-emerald-800 dark:text-emerald-300">VERDADERO</span>
+          <span class="text-xs text-emerald-600 dark:text-emerald-400 mt-1">[Teclado: V]</span>
+        </button>
+        <button id="btnFalse" onclick="submitAnswer(false)" class="group flex flex-col items-center justify-center p-6 bg-rose-50 dark:bg-rose-950/20 hover:bg-rose-100 dark:hover:bg-rose-950/40 border-2 border-rose-200 dark:border-rose-800/60 rounded-xl transition duration-150 transform active:scale-95 text-center">
+          <span class="text-3xl sm:text-4xl mb-2" aria-hidden="true">❌</span>
+          <span class="text-xl font-bold text-rose-800 dark:text-rose-300">FALSO</span>
+          <span class="text-xs text-rose-600 dark:text-rose-400 mt-1">[Teclado: F]</span>
+        </button>
+      </div>
+
+      <!-- PANEL DE FEEDBACK INMEDIATO -->
+      <div id="feedbackPanel" class="hidden border-t border-slate-100 dark:border-slate-700 pt-6 space-y-4">
+        <div id="feedbackTitleBanner" class="flex items-center gap-3 p-4 rounded-xl">
+          <span id="feedbackIcon" class="text-3xl" aria-hidden="true"></span>
+          <div>
+            <h4 id="feedbackTitleText" class="text-lg font-bold"></h4>
+            <p id="feedbackSubText" class="text-sm"></p>
+          </div>
+        </div>
+        
+        <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+          <h5 class="text-xs uppercase font-semibold text-slate-500 tracking-wider mb-2">Justificación y Explicación</h5>
+          <p id="feedbackJustification" class="text-base leading-relaxed text-slate-700 dark:text-slate-300"></p>
+        </div>
+
+        <div class="flex justify-end pt-2">
+          <button id="btnNext" onclick="nextQuestion()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition flex items-center gap-2">
+            Siguiente Pregunta <span aria-hidden="true">➡️</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANTALLA DE RESULTADOS -->
+    <div id="resultsScreen" class="hidden bg-white dark:bg-slate-800 p-5 md:p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 space-y-8 accessible-card">
+      <div class="text-center space-y-3">
+        <div id="trophyIcon" class="text-5xl" aria-hidden="true">🏆</div>
+        <h2 class="text-3xl font-black tracking-tight">¡Examen Terminado!</h2>
+        <p class="text-slate-600 dark:text-slate-300 max-w-md mx-auto text-muted">Aquí tienes un resumen accesible de tu rendimiento. ¡Buen trabajo por finalizar la autoevaluación!</p>
+      </div>
+
+      <!-- Marcador de Calificaciones -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto text-center">
+        <div class="p-4 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800 rounded-xl">
+          <span class="block text-3xl font-bold text-emerald-600 dark:text-emerald-400" id="scoreAciertos">0</span>
+          <span class="text-xs uppercase tracking-wider text-slate-500 font-bold">Respuestas Correctas</span>
+        </div>
+        <div class="p-4 bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800 rounded-xl">
+          <span class="block text-3xl font-bold text-rose-600 dark:text-rose-400" id="scoreFallos">0</span>
+          <span class="text-xs uppercase tracking-wider text-slate-500 font-bold">Respuestas Incorrectas</span>
+        </div>
+        <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-xl">
+          <span class="block text-3xl font-bold text-blue-600 dark:text-blue-400" id="scorePorcentaje">0%</span>
+          <span class="text-xs uppercase tracking-wider text-slate-500 font-bold">Porcentaje de Éxito</span>
+        </div>
+      </div>
+
+      <!-- Banner de Logro Adaptativo -->
+      <div id="achievementBanner" class="p-4 rounded-xl text-center font-bold text-lg max-w-lg mx-auto bg-slate-100 dark:bg-slate-900">
+        <!-- Rango de superación asignado por JS -->
+      </div>
+
+      <!-- Filtros de revisión de respuestas -->
+      <div class="space-y-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 dark:border-slate-700 pb-2 gap-2">
+          <h3 class="text-xl font-bold">Revisión de respuestas</h3>
+          
+          <div class="flex gap-1" role="group" aria-label="Filtro de respuestas">
+            <button onclick="filterReview('all')" id="filterAll" class="px-3 py-1 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition">Todas</button>
+            <button onclick="filterReview('correct')" id="filterCorrect" class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-600 transition">Correctas</button>
+            <button onclick="filterReview('incorrect')" id="filterIncorrect" class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-600 transition">Errores</button>
+          </div>
+        </div>
+
+        <div id="reviewList" class="space-y-4 divide-y divide-slate-100 dark:divide-slate-800">
+          <!-- Las respuestas revisadas se renderizan aquí -->
+        </div>
+      </div>
+
+      <!-- Botón de Reiniciar -->
+      <div class="pt-6 border-t border-slate-200 dark:border-slate-700 text-center">
+        <button onclick="restartQuiz()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition">
+          Volver a realizar el examen
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-4 text-center text-xs text-slate-500">
+    <div class="max-w-5xl mx-auto px-4">
+      <p>Material de autoevaluación adaptado al Diseño Universal para el Aprendizaje (DUA).</p>
+      <p class="mt-1">Atajos del teclado: <kbd class="px-1 bg-white dark:bg-slate-800 border rounded text-slate-700 dark:text-slate-300">V</kbd> verdadero / <kbd class="px-1 bg-white dark:bg-slate-800 border rounded text-slate-700 dark:text-slate-300">F</kbd> falso / <kbd class="px-1 bg-white dark:bg-slate-800 border rounded text-slate-700 dark:text-slate-300">Enter</kbd> continuar.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT DE JUEGO Y ACCESIBILIDAD -->
+  <script>
+    const questionsDatabase = {
+      50: [
+        {
+          id: 1,
+          question: "J. F. Fetto (1994) sostiene que la tolerancia del sistema músculo-esquelético depende exclusivamente de factores mecánicos, permaneciendo independiente del funcionamiento global de otros sistemas orgánicos.",
+          correctAnswer: false,
+          justification: "El tema señala que la tolerancia también depende del funcionamiento de otros sistemas encargados de mantener la homeostasis orgánica."
+        },
+        {
+          id: 2,
+          question: "Casell (2001) clasifica las medidas preventivas en primarias, secundarias y terciarias, situando el uso de protecciones específicas como ejemplo de prevención secundaria.",
+          correctAnswer: true,
+          justification: "El tema identifica coderas, rodilleras y otros elementos protectores como medidas destinadas a reducir riesgo o gravedad de lesión."
+        },
+        {
+          id: 3,
+          question: "Las lesiones crónicas deportivas aparecen normalmente cuando una colisión intensa supera de forma brusca la resistencia tisular provocando un traumatismo accidental agudo.",
+          correctAnswer: false,
+          justification: "El tema establece que las lesiones crónicas derivan de microtraumatismos repetidos acumulados o lesiones por sobrecarga."
+        },
+        {
+          id: 4,
+          question: "La deshidratación intensa altera la homeostasis interna y la estructura tisular, incrementando especialmente la probabilidad de lesiones músculo-tendinosas y patologías asociadas al calor.",
+          correctAnswer: true,
+          justification: "El tema recoge expresamente esta relación fisiológica entre deshidratación y aumento del riesgo lesional."
+        },
+        {
+          id: 5,
+          question: "Dentro de las complicaciones térmicas por calor, los calambres representan la forma más grave, alterando intensamente el estado de conciencia y provocando situaciones próximas al coma.",
+          correctAnswer: false,
+          justification: "Los calambres por calor constituyen la forma más leve y frecuente, sin alteración importante del estado general."
+        },
+        {
+          id: 6,
+          question: "Las fracturas por sobrecarga se asocian a cargas repetidas mantenidas durante largos períodos y afectan frecuentemente a tibia, peroné y huesos metatarsianos.",
+          correctAnswer: true,
+          justification: "El tema señala además que suelen ir precedidas por inflamación del periostio o periostitis."
+        },
+        {
+          id: 7,
+          question: "Las entesitis presentan una rápida cicatrización por localizarse en zonas ampliamente vascularizadas y muestran una reducida tendencia hacia la cronificación clínica.",
+          correctAnswer: false,
+          justification: "El tema indica justamente lo contrario: son zonas poco irrigadas, con lenta cicatrización y tendencia a cronificarse."
+        },
+        {
+          id: 8,
+          question: "El menisco medial o interno de la rodilla posee forma de “C”, se lesiona con mayor frecuencia y suele afectarse mediante torsiones o sobrecargas articulares.",
+          correctAnswer: true,
+          justification: "El tema diferencia al menisco interno con forma de C y al externo con forma de O, siendo más frecuente la lesión del primero."
+        },
+        {
+          id: 9,
+          question: "Según el protocolo RICE, la aplicación continua e ininterrumpida de hielo durante treinta minutos minimiza el riesgo de vasodilatación refleja y mejora el control inflamatorio inicial.",
+          correctAnswer: false,
+          justification: "El tema recomienda retirar el hielo aproximadamente a los 10 minutos para evitar vasodilatación refleja."
+        },
+        {
+          id: 10,
+          question: "Las recomendaciones del European Resuscitation Council desde 2005 establecen un algoritmo universal donde no resulta imprescindible tomar el pulso y la RCP utiliza treinta compresiones torácicas.",
+          correctAnswer: true,
+          justification: "El tema recoge expresamente este cambio en el algoritmo de Soporte Vital Básico."
+        }
+      ],
+      51: [
+        {
+          id: 1,
+          question: "Lapierre considera normal una actitud postural donde cada segmento corporal se aleja deliberadamente de su equilibrio mecánico para aumentar las exigencias propioceptivas y la disponibilidad motriz.",
+          correctAnswer: false,
+          justification: "Lapierre define una actitud normal como aquella donde cada segmento ocupa una posición próxima a su equilibrio mecánico."
+        },
+        {
+          id: 2,
+          question: "Fucci y Benigni (1988) describen mecánicamente el cuerpo humano como dos bloques cilíndricos unidos por la columna vertebral y estabilizados mediante tensiones musculares equilibradas.",
+          correctAnswer: true,
+          justification: "El tema presenta exactamente este modelo mecánico simplificado, formado por pelvis, tórax y musculatura entendida como sistema de cables tensionales."
+        },
+        {
+          id: 3,
+          question: "La columna vertebral humana presenta treinta y tres vértebras distribuidas en siete dorsales, doce cervicales, cinco lumbares, cinco sacras y cuatro coccígeas.",
+          correctAnswer: false,
+          justification: "La distribución correcta es 7 cervicales, 12 dorsales o torácicas, 5 lumbares, 5 sacras y 4 coccígeas."
+        },
+        {
+          id: 4,
+          question: "Las curvas no estructuradas de la columna desaparecen habitualmente mediante suspensión, decúbito o autoestiramiento vertebral, pudiendo evolucionar hacia alteraciones estructuradas si persisten los factores etiológicos.",
+          correctAnswer: true,
+          justification: "El tema señala que la permanencia de los factores causales puede transformar una alteración no estructurada (actitud) en estructurada."
+        },
+        {
+          id: 5,
+          question: "El método de Cobb, descrito en 1948, constituye un procedimiento radiográfico utilizado habitualmente para cuantificar el grado de curvatura lateral existente en la escoliosis.",
+          correctAnswer: true,
+          justification: "El tema lo presenta como el método estándar indispensable de diagnóstico y seguimiento cuantitativo de la escoliosis."
+        },
+        {
+          id: 6,
+          question: "Las actitudes cifóticas mejoran especialmente mediante natación estilo mariposa, ya que favorece la alineación dorsal y disminuye la convexidad posterior vertebral.",
+          correctAnswer: false,
+          justification: "El tema afirma que la natación espalda y crol son favorables, mientras que la natación mariposa agrava la cifosis debido al patrón de hiperflexión dorsal y extensión forzada."
+        },
+        {
+          id: 7,
+          question: "Aproximadamente el ochenta por ciento de las escoliosis estructuradas poseen origen idiopático, mientras gran parte de las cifosis estructuradas adolescentes se asocian a distrofia de Scheuermann.",
+          correctAnswer: true,
+          justification: "El tema señala que el 80% de las escoliosis estructuradas son idiopáticas y hasta un 75% de las cifosis estructuradas juveniles se relacionan con la enfermedad de Scheuermann."
+        },
+        {
+          id: 8,
+          question: "El síndrome denominado “text neck syndrome” describe una degeneración lumbar asociada principalmente a posturas mantenidas de hiperextensión durante el uso continuado de ordenadores.",
+          correctAnswer: false,
+          justification: "El tema lo define como un síndrome de fatiga y degeneración cervical provocado por la inclinación mantenida de la cabeza hacia abajo para observar smartphones u otros dispositivos móviles."
+        },
+        {
+          id: 9,
+          question: "Durante el estirón puberal el crecimiento proporcional del tronco supera al de las piernas y los cartílagos de crecimiento reducen progresivamente su elasticidad inicial.",
+          correctAnswer: true,
+          justification: "El tema explica que en esta fase de aceleración puberal el tronco crece proporcionalmente más rápido y los cartílagos de crecimiento se vuelven más frágiles y menos elásticos."
+        },
+        {
+          id: 10,
+          question: "El fortalecimiento abdominal con pies sujetos y elevación completa del tronco activa prioritariamente la musculatura abdominal, minimizando la participación del psoas ilíaco durante la flexión.",
+          correctAnswer: false,
+          justification: "Al fijar los pies y elevar completamente el tronco se activa de forma preponderante el psoas ilíaco y los flexores de la cadera, mientras que los abdominales actúan mayoritariamente como fijadores estáticos."
+        }
+      ],
+      52: [
+        {
+          id: 1,
+          question: "Morris, en 1953, publicó estudios epidemiológicos que establecieron relaciones entre sedentarismo y disminución significativa del riesgo de padecer patologías cardiovasculares en poblaciones trabajadoras urbanas.",
+          correctAnswer: false,
+          justification: "Morris estableció exactamente lo contrario: una relación directa entre el sedentarismo y el aumento significativo del riesgo de sufrir patologías cardiovasculares."
+        },
+        {
+          id: 2,
+          question: "Paffenbarger (1984), estudiando alumnado de Harvard, relacionó positivamente la continuidad del ejercicio físico escolar y adulto con longevidad y salud cardiovascular.",
+          correctAnswer: true,
+          justification: "El tema destaca expresamente esta relación, concluyendo que mantener la práctica de actividad física a lo largo de las etapas escolares y de la vida adulta influye de forma positiva en la longevidad y en la prevención cardiovascular."
+        },
+        {
+          id: 3,
+          question: "La fisiología mórbida del reposo descrita en el tema señala disminución de resistencias periféricas, presión arterial sistólica y grasa corporal junto al incremento del VO₂ máximo.",
+          correctAnswer: false,
+          justification: "El tema indica precisamente lo contrario: el reposo prolongado depara un aumento de las resistencias periféricas, de la grasa corporal y de la presión arterial, con una caída manifiesta del VO₂ máximo."
+        },
+        {
+          id: 4,
+          question: "Para que los efectos del ejercicio físico sobre la salud sean positivos, el tema establece que debe ser moderado, continuado, progresivo y controlado por especialistas.",
+          correctAnswer: true,
+          justification: "El texto especifica que para asegurar beneficios saludables consistentes se requiere regularidad (mínimo 3–5 sesiones semanales de 30 minutos) de intensidad moderada sin superar el 85% de la frecuencia cardíaca máxima."
+        },
+        {
+          id: 5,
+          question: "Entre las adaptaciones endocrinas positivas derivadas del ejercicio físico, el tema incluye disminución de hormona del crecimiento, reducción de betaendorfinas y aumento de necesidades insulínicas en personas diabéticas.",
+          correctAnswer: false,
+          justification: "El ejercicio físico estimula la secreción de GH (hormona del crecimiento) y de betaendorfinas, y en personas con diabetes incrementa la sensibilidad a la insulina, logrando en muchos casos disminuir las dosis externas necesarias."
+        },
+        {
+          id: 6,
+          question: "Los programas orientados al efecto entrenamiento se basan fundamentalmente en resistencia aeróbica, fuerza resistencia y flexibilidad como capacidades directamente relacionadas con la salud.",
+          correctAnswer: true,
+          justification: "El tema agrupa la resistencia aeróbica, la fuerza resistencia y el rango de flexibilidad activa como los pilares de la condición física que inciden de forma directa sobre el estado general de salud y bienestar corporal."
+        },
+        {
+          id: 7,
+          question: "Sintetizando diferentes propuestas, el tema afirma que el efecto entrenamiento se optimiza exclusivamente mediante trabajos superiores al noventa por ciento del VO₂ máximo.",
+          correctAnswer: false,
+          justification: "El efecto entrenamiento saludable idóneo se consigue y consolida optimizando los esfuerzos en una franja moderada e intensa de trabajo situada entre el 50 % y el 85 % de la capacidad máxima de oxígeno (VO₂máx)."
+        },
+        {
+          id: 8,
+          question: "La OMS, en el Plan de acción mundial sobre actividad física 2018–2030, recomienda para población de cinco a diecisiete años una media diaria mínima de sesenta minutos.",
+          correctAnswer: true,
+          justification: "Este plan mundial estipula un promedio mínimo de 60 minutos al día de actividades físicas de moderadas a vigorosas, incorporando el fortalecimiento muscular y actividades aeróbicas de alta intensidad tres veces por semana."
+        },
+        {
+          id: 9,
+          question: "El ejercicio físico modifica significativamente las concentraciones de colesterol total, disminuyéndolo, aunque no altera los niveles de HDL ni triglicéridos plasmáticos.",
+          correctAnswer: false,
+          justification: "Las investigaciones demuestran que el ejercicio no genera cambios drásticos en el colesterol total global, pero sí redistribuye positivamente sus fracciones elevando el colesterol HDL ('bueno') y reduciendo triglicéridos y LDL."
+        },
+        {
+          id: 10,
+          question: "Entre las situaciones prácticas que obligan a detener una sesión de Educación Física, el tema incluye dolor torácico, dificultad respiratoria, lipotimia y palpitaciones.",
+          correctAnswer: true,
+          justification: "Se definen explícitamente como síntomas o señales de alarma clínica inmediata que imponen la interrupción del esfuerzo junto a mareos, dolores óseos repentinos o una frecuencia cardiaca desbocada en reposo."
+        }
+      ],
+      53: [
+        {
+          id: 1,
+          question: "Riera (1989) afirma que el aprendizaje motor ha recibido históricamente una consideración prioritaria dentro de la psicología debido a la importancia cotidiana de las tareas motrices humanas.",
+          correctAnswer: false,
+          justification: "El tema indica exactamente lo contrario: Riera señala una escasa consideración histórica del aprendizaje motor dentro de la psicología."
+        },
+        {
+          id: 2,
+          question: "Lawther (1968) define el aprendizaje motor como un cambio relativamente permanente producto de la práctica y la experiencia, excluyendo modificaciones derivadas del crecimiento biológico.",
+          correctAnswer: true,
+          justification: "El autor destaca tres elementos fundamentales: cambio, estabilidad y relación directa con práctica y experiencia."
+        },
+        {
+          id: 3,
+          question: "Schmidt (1993) considera que el aprendizaje motor es directamente observable, identificándose plenamente con las modificaciones conductuales visibles producidas durante la ejecución motriz.",
+          correctAnswer: false,
+          justification: "El tema señala que Schmidt distingue entre procesos internos no observables y productos conductuales observables."
+        },
+        {
+          id: 4,
+          question: "Riera (1989) sostiene que aprender no implica adquirir movimientos nuevos sino establecer relaciones más eficaces, concretas y estables entre individuo y entorno.",
+          correctAnswer: true,
+          justification: "El tema recoge literalmente que el aprendizaje supone nuevas relaciones adaptativas entre sujeto y entorno."
+        },
+        {
+          id: 5,
+          question: "Entre las propiedades del aprendizaje motor descritas por Riera, se afirma que aprender constituye un proceso cerrado, finito y uniforme para todos los sujetos.",
+          correctAnswer: false,
+          justification: "El tema afirma que aprender es un proceso sin fin, personal y específico para cada aprendiz."
+        },
+        {
+          id: 6,
+          question: "Irion sitúa entre 1945 y 1957 una etapa caracterizada por un notable incremento cuantitativo de investigaciones y trabajos relacionados con aprendizaje motor.",
+          correctAnswer: true,
+          justification: "El tema identifica este periodo como una fase de gran aumento en la producción investigadora."
+        },
+        {
+          id: 7,
+          question: "Durante la Segunda Guerra Mundial las investigaciones sobre aprendizaje motor mantuvieron prioritariamente la adaptación del ser humano a las máquinas mediante enfoques industriales tradicionales.",
+          correctAnswer: false,
+          justification: "El tema explica que se produjo una inversión conceptual: la máquina comenzó a adaptarse al hombre mediante estudios ergonómicos."
+        },
+        {
+          id: 8,
+          question: "El modelo TOTE elaborado por Miller, Galanter y Pribram en 1960 introdujo la noción de feedback como mecanismo esencial de comparación entre intención y ejecución.",
+          correctAnswer: true,
+          justification: "El tema señala que el modelo incorpora la retroinformación para comparar resultados obtenidos con los inicialmente previstos."
+        },
+        {
+          id: 9,
+          question: "Adams (1971) considera que la huella perceptiva tiene como función principal iniciar el movimiento, mientras la huella mnésica regula posteriormente la ejecución.",
+          correctAnswer: false,
+          justification: "El tema establece lo contrario: la huella mnésica inicia la respuesta y la huella perceptiva controla y guía la ejecución."
+        },
+        {
+          id: 10,
+          question: "Schmidt (1975) sostiene que almacenamos programas motores generalizados para familias de habilidades y esquemas motores que permiten contextualizar la ejecución específica.",
+          correctAnswer: true,
+          justification: "El tema diferencia entre programa motor generalizado y esquema motor encargado de adaptar la respuesta al contexto concreto."
+        }
+      ],
+      54: [
+        {
+          id: 1,
+          question: "Grosser y Neumaier (1986) definen el aprendizaje motor exclusivamente como la automatización de movimientos reflejos sin participación de procesos conscientes ni coordinación neuromuscular específica.",
+          correctAnswer: false,
+          justification: "El tema señala que lo definen como un proceso de obtención, mejora y automatización de habilidades motrices mediante práctica consciente y mejora coordinativa SNC-sistema muscular."
+        },
+        {
+          id: 2,
+          question: "Schnabel (1988) distingue tres fases en la adquisición motriz: desarrollo de coordinación global, coordinación fina y estabilización de la coordinación fina con disponibilidad variable del movimiento.",
+          correctAnswer: true,
+          justification: "El tema recoge literalmente estas tres fases secuenciales del aprendizaje motor."
+        },
+        {
+          id: 3,
+          question: "Durante la fase de coordinación global, las primeras ejecuciones suelen caracterizarse por fluidez elevada, escasa tensión muscular y adaptación eficaz a entornos cambiantes.",
+          correctAnswer: false,
+          justification: "El tema afirma lo contrario: aparecen exceso de tensión muscular, discontinuidad, rigidez y escasa adaptación a situaciones variables."
+        },
+        {
+          id: 4,
+          question: "Schnabel sostiene que en las primeras etapas del aprendizaje predomina inicialmente la información visual sobre la kinestésica, dificultando un control motor preciso y anticipativo.",
+          correctAnswer: true,
+          justification: "El tema indica que inicialmente la información visual prevalece sobre la kinestésica, afectando al control motor."
+        },
+        {
+          id: 5,
+          question: "Dentro de las aplicaciones prácticas de la coordinación global, se recomienda reducir rápidamente el tono muscular inicial del alumnado para mejorar precisión y control motor.",
+          correctAnswer: false,
+          justification: "El tema afirma que no conviene reducir inicialmente el tono muscular, ya que ayuda al principiante a controlar el movimiento."
+        },
+        {
+          id: 6,
+          question: "En la fase de coordinación fina aparecen las denominadas mesetas del aprendizaje, periodos donde aparentemente no existen mejoras externas pese a mantenerse cambios internos relevantes.",
+          correctAnswer: true,
+          justification: "El tema explica que durante estas fases los procesos internos continúan evolucionando aunque externamente no se aprecien progresos inmediatos."
+        },
+        {
+          id: 7,
+          question: "Sage (1976) denominó “parálisis mental por análisis” al fenómeno mediante el cual la automatización mejora cuando el ejecutante controla conscientemente todos los detalles técnicos.",
+          correctAnswer: false,
+          justification: "El tema indica justamente lo contrario: analizar conscientemente todos los componentes ralentiza la ejecución y disminuye el rendimiento."
+        },
+        {
+          id: 8,
+          question: "Harris y Harris (1983) afirman que la relación entre activación y rendimiento adopta una forma de “U” invertida donde existe un nivel óptimo individual.",
+          correctAnswer: true,
+          justification: "El tema señala que niveles excesivamente bajos o altos de activación reducen la calidad del aprendizaje."
+        },
+        {
+          id: 9,
+          question: "Parlebás considera que la transferencia desempeña un papel secundario dentro de la Educación Física y posee una influencia limitada sobre los aprendizajes motores posteriores.",
+          correctAnswer: false,
+          justification: "El tema recoge literalmente que la transferencia está “en el corazón de los problemas de la Educación Física”."
+        },
+        {
+          id: 10,
+          question: "Sánchez Bañuelos (1984) afirma que la dificultad objetiva de una tarea aumenta cuando crecen los estímulos relevantes e irrelevantes, disminuye el tiempo disponible y aumenta la incertidumbre.",
+          correctAnswer: true,
+          justification: "El tema incluye estos elementos como factores que incrementan la dificultad desde los mecanismos perceptivos y decisionales."
+        }
+      ]
+    };
+
+    // ESTADO GLOBAL DE LA APLICACIÓN
+    let selectedTopic = 50; 
+    let currentQuestionIndex = 0;
+    let answersUser = []; 
+    let appState = 'start'; // 'start', 'quiz', 'answered', 'results'
+    let soundEnabled = true;
+    let autoSpeakText = false;
+    let currentFontSize = 18; // base px
+
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playBeep(freq, type, duration) {
+      if (!soundEnabled) return;
+      initAudio();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type || 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        console.warn('AudioContext bloqueado o no soportado:', e);
+      }
+    }
+
+    function playSound(style) {
+      if (style === 'correct') {
+        playBeep(523.25, 'triangle', 0.12); // C5
+        setTimeout(() => playBeep(659.25, 'triangle', 0.12), 90); // E5
+        setTimeout(() => playBeep(783.99, 'triangle', 0.25), 180); // G5
+      } else if (style === 'incorrect') {
+        playBeep(220.00, 'sawtooth', 0.15); // A3
+        setTimeout(() => playBeep(185.00, 'sawtooth', 0.3), 130); // F#3
+      } else if (style === 'complete') {
+        const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            playBeep(freq, 'sine', 0.25);
+          }, idx * 80);
+        });
+      } else if (style === 'click') {
+        playBeep(750, 'sine', 0.05);
+      }
+    }
+
+    function selectTopic(topicNum) {
+      selectedTopic = topicNum;
+      playSound('click');
+
+      const topics = [50, 51, 52, 53, 54];
+      topics.forEach(t => {
+        const tab = document.getElementById(`tabTema${t}`);
+        if (t === topicNum) {
+          tab.setAttribute('aria-selected', 'true');
+          tab.className = "py-3 px-1 text-xs font-bold rounded-lg transition-all duration-200 bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow col-span-2 sm:col-span-1";
+          if (t !== 54) {
+            tab.className = "py-3 px-1 text-xs font-bold rounded-lg transition-all duration-200 bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow";
+          }
+        } else {
+          tab.setAttribute('aria-selected', 'false');
+          tab.className = "py-3 px-1 text-xs font-bold rounded-lg transition-all duration-200 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 col-span-2 sm:col-span-1";
+          if (t !== 54) {
+            tab.className = "py-3 px-1 text-xs font-bold rounded-lg transition-all duration-200 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100";
+          }
+        }
+      });
+
+      const titleEl = document.getElementById('topicDescriptionTitle');
+      const bodyEl = document.getElementById('topicDescriptionBody');
+      const headerTitle = document.getElementById('headerTitle');
+
+      if (topicNum === 50) {
+        titleEl.textContent = "Tema 50: Lesiones y prevención deportiva";
+        bodyEl.textContent = "Abarca factores de tolerancia músculo-esquelética, clasificaciones de prevención, tipos de lesiones (agudas/crónicas), deshidratación, complicaciones térmicas y soporte vital básico (RCP).";
+        headerTitle.textContent = "DUA Quiz: Tema 50";
+      } else if (topicNum === 51) {
+        titleEl.textContent = "Tema 51: Columna vertebral y actitud postural";
+        bodyEl.textContent = "Estudia la biomecánica corporal, anatomía y curvas vertebrales, diagnóstico por Cobb, escoliosis, actitudes cifóticas, text neck syndrome, el estirón puberal y mitos en el fortalecimiento muscular.";
+        headerTitle.textContent = "DUA Quiz: Tema 51";
+      } else if (topicNum === 52) {
+        titleEl.textContent = "Tema 52: Ejercicio físico y salud";
+        bodyEl.textContent = "Estudia las bases epidemiológicas de la inactividad, adaptaciones crónicas multisistémicas, VO₂máx, prescripción de ejercicio físico saludable, Plan Mundial de la OMS y signos de alarma en el aula.";
+        headerTitle.textContent = "DUA Quiz: Tema 52";
+      } else if (topicNum === 53) {
+        titleEl.textContent = "Tema 53: Aprendizaje motor";
+        bodyEl.textContent = "Estudia el desarrollo histórico de las investigaciones en aprendizaje motor, definiciones y modelos teóricos principales (Adams, Schmidt, TOTE), diferenciaciones entre proceso interno y conducta observable.";
+        headerTitle.textContent = "DUA Quiz: Tema 53";
+      } else if (topicNum === 54) {
+        titleEl.textContent = "Tema 54: Fases del aprendizaje motor y transferencia";
+        bodyEl.textContent = "Analiza las definiciones de aprendizaje motor de Grosser y Schnabel, las tres fases de coordinación, el control perceptivo inicial, el fenómeno de parálisis por análisis, activación óptima y transferencia de aprendizajes.";
+        headerTitle.textContent = "DUA Quiz: Tema 54";
+      }
+    }
+
+    function changeFontSize(action) {
+      const questionEl = document.getElementById('questionText');
+      if (action === 0) {
+        currentFontSize = 18;
+      } else {
+        currentFontSize += action * 2;
+        if (currentFontSize < 14) currentFontSize = 14;
+        if (currentFontSize > 30) currentFontSize = 30;
+      }
+      questionEl.style.fontSize = currentFontSize + 'px';
+      playSound('click');
+    }
+
+    function toggleDyslexia() {
+      const body = document.body;
+      const btn = document.getElementById('dyslexiaBtn');
+      const isPressed = btn.getAttribute('aria-pressed') === 'true';
+      
+      if (isPressed) {
+        body.classList.remove('font-dyslexic');
+        btn.setAttribute('aria-pressed', 'false');
+        btn.classList.remove('bg-blue-200', 'dark:bg-blue-800');
+      } else {
+        body.classList.add('font-dyslexic');
+        btn.setAttribute('aria-pressed', 'true');
+        btn.classList.add('bg-blue-200', 'dark:bg-blue-800');
+      }
+      playSound('click');
+    }
+
+    function setTheme(theme) {
+      const body = document.body;
+      body.classList.remove('dark', 'theme-high-contrast');
+      
+      if (theme === 'dark') {
+        body.classList.add('dark');
+      } else if (theme === 'contrast') {
+        body.classList.add('theme-high-contrast');
+      }
+      playSound('click');
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const soundBtn = document.getElementById('soundBtn');
+      const soundIcon = document.getElementById('soundIcon');
+      const soundText = document.getElementById('soundText');
+      
+      if (soundEnabled) {
+        soundIcon.textContent = '🔊';
+        soundText.textContent = 'Sonido: Sí';
+        soundBtn.setAttribute('aria-pressed', 'true');
+        playSound('click');
+      } else {
+        soundIcon.textContent = '🔇';
+        soundText.textContent = 'Sonido: No';
+        soundBtn.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'es-ES';
+        utterance.rate = 1.0;
+        window.speechSynthesis.speak(utterance);
+      } else {
+        console.warn('Síntesis de voz no disponible.');
+      }
+    }
+
+    function speakCurrentQuestion() {
+      const q = questionsDatabase[selectedTopic][currentQuestionIndex];
+      const text = `Pregunta número ${currentQuestionIndex + 1}. ${q.question}. ¿Es verdadero o falso?`;
+      speakText(text);
+    }
+
+    function startQuiz() {
+      initAudio();
+      appState = 'quiz';
+      currentQuestionIndex = 0;
+      answersUser = [];
+      
+      document.getElementById('startScreen').classList.add('hidden');
+      document.getElementById('quizScreen').classList.remove('hidden');
+      document.getElementById('resultsScreen').classList.add('hidden');
+      
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      appState = 'quiz';
+      const q = questionsDatabase[selectedTopic][currentQuestionIndex];
+      
+      document.getElementById('currentQuestionNum').textContent = currentQuestionIndex + 1;
+      document.getElementById('progressBar').style.width = ((currentQuestionIndex + 1) / questionsDatabase[selectedTopic].length * 100) + '%';
+      
+      const qTextEl = document.getElementById('questionText');
+      qTextEl.textContent = q.question;
+      qTextEl.style.fontSize = currentFontSize + 'px';
+      
+      document.getElementById('feedbackPanel').classList.add('hidden');
+      
+      const btnT = document.getElementById('btnTrue');
+      const btnF = document.getElementById('btnFalse');
+      
+      btnT.disabled = false;
+      btnF.disabled = false;
+      
+      btnT.className = "group flex flex-col items-center justify-center p-6 bg-emerald-50 dark:bg-emerald-950/20 hover:bg-emerald-100 dark:hover:bg-emerald-950/40 border-2 border-emerald-200 dark:border-emerald-800/60 rounded-xl transition duration-150 transform active:scale-95 text-center";
+      btnF.className = "group flex flex-col items-center justify-center p-6 bg-rose-50 dark:bg-rose-950/20 hover:bg-rose-100 dark:hover:bg-rose-950/40 border-2 border-rose-200 dark:border-rose-800/60 rounded-xl transition duration-150 transform active:scale-95 text-center";
+
+      if (autoSpeakText) {
+        speakCurrentQuestion();
+      }
+    }
+
+    function submitAnswer(userChoice) {
+      if (appState !== 'quiz') return;
+      appState = 'answered';
+      
+      const q = questionsDatabase[selectedTopic][currentQuestionIndex];
+      const isCorrect = (userChoice === q.correctAnswer);
+      
+      answersUser.push({
+        questionId: q.id,
+        userAnswer: userChoice,
+        isCorrect: isCorrect
+      });
+
+      const btnT = document.getElementById('btnTrue');
+      const btnF = document.getElementById('btnFalse');
+      btnT.disabled = true;
+      btnF.disabled = true;
+
+      if (userChoice === true) {
+        btnT.className = "flex flex-col items-center justify-center p-6 bg-emerald-500 text-white border-2 border-emerald-600 rounded-xl text-center opacity-100";
+        btnF.className = "flex flex-col items-center justify-center p-6 bg-slate-100 dark:bg-slate-800 border-2 border-transparent text-slate-400 dark:text-slate-600 rounded-xl text-center opacity-40";
+      } else {
+        btnF.className = "flex flex-col items-center justify-center p-6 bg-rose-500 text-white border-2 border-rose-600 rounded-xl text-center opacity-100";
+        btnT.className = "flex flex-col items-center justify-center p-6 bg-slate-100 dark:bg-slate-800 border-2 border-transparent text-slate-400 dark:text-slate-600 rounded-xl text-center opacity-40";
+      }
+
+      const feedbackPanel = document.getElementById('feedbackPanel');
+      const banner = document.getElementById('feedbackTitleBanner');
+      const icon = document.getElementById('feedbackIcon');
+      const title = document.getElementById('feedbackTitleText');
+      const sub = document.getElementById('feedbackSubText');
+      const justification = document.getElementById('feedbackJustification');
+
+      feedbackPanel.classList.remove('hidden');
+      
+      if (isCorrect) {
+        playSound('correct');
+        banner.className = "flex items-center gap-3 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900 text-emerald-800 dark:text-emerald-300";
+        icon.textContent = "✅";
+        title.textContent = "¡Respuesta Correcta!";
+        sub.textContent = `Has marcado correctamente como ${userChoice ? 'Verdadero' : 'Falso'}.`;
+      } else {
+        playSound('incorrect');
+        banner.className = "flex items-center gap-3 p-4 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900 text-rose-800 dark:text-rose-300";
+        icon.textContent = "❌";
+        title.textContent = "Respuesta Incorrecta";
+        sub.textContent = `La respuesta correcta era ${q.correctAnswer ? 'Verdadero' : 'Falso'}.`;
+      }
+
+      justification.textContent = q.justification;
+      
+      if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+        const textToSpeak = `${isCorrect ? '¡Correcto!' : 'Incorrecto.'} ${q.justification}`;
+        speakText(textToSpeak);
+      }
+
+      setTimeout(() => {
+        document.getElementById('btnNext').focus();
+      }, 50);
+    }
+
+    function nextQuestion() {
+      playSound('click');
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+      
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questionsDatabase[selectedTopic].length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      appState = 'results';
+      playSound('complete');
+      
+      document.getElementById('quizScreen').classList.add('hidden');
+      document.getElementById('resultsScreen').classList.remove('hidden');
+
+      const aciertos = answersUser.filter(x => x.isCorrect).length;
+      const fallos = questionsDatabase[selectedTopic].length - aciertos;
+      const porcentaje = Math.round((aciertos / questionsDatabase[selectedTopic].length) * 100);
+
+      document.getElementById('scoreAciertos').textContent = aciertos;
+      document.getElementById('scoreFallos').textContent = fallos;
+      document.getElementById('scorePorcentaje').textContent = porcentaje + '%';
+
+      const achBanner = document.getElementById('achievementBanner');
+      const trophy = document.getElementById('trophyIcon');
+      
+      if (porcentaje === 100) {
+        trophy.textContent = "🏆";
+        achBanner.className = "p-4 rounded-xl text-center font-bold text-lg max-w-lg mx-auto bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-300 border border-amber-200";
+        achBanner.textContent = "¡Excelente! Nivel Maestro. Has respondido con éxito todas las preguntas teóricas.";
+      } else if (porcentaje >= 80) {
+        trophy.textContent = "🥈";
+        achBanner.className = "p-4 rounded-xl text-center font-bold text-lg max-w-lg mx-auto bg-blue-50 dark:bg-blue-950/30 text-blue-800 dark:text-blue-300 border border-blue-200";
+        achBanner.textContent = "¡Muy bien! Tienes un excelente dominio de las bases de este tema.";
+      } else if (porcentaje >= 50) {
+        trophy.textContent = "🥉";
+        achBanner.className = "p-4 rounded-xl text-center font-bold text-lg max-w-lg mx-auto bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-300 border border-slate-200";
+        achBanner.textContent = "Aprobado. Buen intento, pero te recomendamos repasar las justificaciones para consolidar conceptos.";
+      } else {
+        trophy.textContent = "📚";
+        achBanner.className = "p-4 rounded-xl text-center font-bold text-lg max-w-lg mx-auto bg-rose-50 dark:bg-rose-950/30 text-rose-800 dark:text-rose-300 border border-rose-200";
+        achBanner.textContent = "Se requiere refuerzo. ¡No te rindas! Revisa los conceptos abajo explicados y vuelve a intentarlo.";
+      }
+
+      renderReview('all');
+    }
+
+    function renderReview(filter) {
+      const listEl = document.getElementById('reviewList');
+      listEl.innerHTML = '';
+
+      document.getElementById('filterAll').className = filter === 'all' 
+        ? "px-3 py-1 bg-blue-600 text-white rounded-lg text-sm font-semibold" 
+        : "px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-600 transition";
+      
+      document.getElementById('filterCorrect').className = filter === 'correct' 
+        ? "px-3 py-1 bg-emerald-600 text-white rounded-lg text-sm font-semibold" 
+        : "px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-600 transition";
+      
+      document.getElementById('filterIncorrect').className = filter === 'incorrect' 
+        ? "px-3 py-1 bg-rose-600 text-white rounded-lg text-sm font-semibold" 
+        : "px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-600 transition";
+
+      questionsDatabase[selectedTopic].forEach((q, idx) => {
+        const userAnsObj = answersUser.find(x => x.questionId === q.id);
+        const isCorrect = userAnsObj ? userAnsObj.isCorrect : false;
+
+        if (filter === 'correct' && !isCorrect) return;
+        if (filter === 'incorrect' && isCorrect) return;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.className = "pt-4 first:pt-0 flex flex-col gap-2";
+
+        const badgeClass = isCorrect 
+          ? "bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900" 
+          : "bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300 border-rose-200 dark:border-rose-900";
+
+        itemDiv.innerHTML = `
+          <div class="flex items-start gap-2">
+            <span class="font-bold text-slate-400">#${q.id}</span>
+            <div>
+              <p class="font-semibold text-base">${q.question}</p>
+              <div class="flex flex-wrap gap-2 mt-2 text-xs">
+                <span class="px-2.5 py-0.5 rounded-full font-bold border ${badgeClass}">
+                  ${isCorrect ? '✅ Acertada' : '❌ Fallada'}
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                  Respuesta correcta: <strong class="uppercase">${q.correctAnswer ? 'Verdadero' : 'Falso'}</strong>
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                  Tu respuesta: <strong class="uppercase">${userAnsObj.userAnswer ? 'Verdadero' : 'Falso'}</strong>
+                </span>
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 bg-slate-50 dark:bg-slate-900/60 p-3 rounded-lg border border-slate-100 dark:border-slate-800/80">
+                <strong>Justificación:</strong> ${q.justification}
+              </p>
+            </div>
+          </div>
+        `;
+        listEl.appendChild(itemDiv);
+      });
+    }
+
+    function filterReview(type) {
+      playSound('click');
+      renderReview(type);
+    }
+
+    function restartQuiz() {
+      playSound('click');
+      startQuiz();
+    }
+
+    window.addEventListener('keydown', function(event) {
+      if (appState === 'quiz') {
+        if (event.key === 'v' || event.key === 'V') {
+          submitAnswer(true);
+        } else if (event.key === 'f' || event.key === 'F') {
+          submitAnswer(false);
+        }
+      } else if (appState === 'answered') {
+        if (event.key === 'Enter') {
+          nextQuestion();
+        }
+      } else if (appState === 'start') {
+        if (event.key === 'Enter') {
+          startQuiz();
+        }
+      }
+    });
+
+    window.onload = function() {
+      console.log("Aplicación accesible DUA iniciada correctamente.");
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Interactivo - Tema 42 (DUA)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#3b82f6',
+                            dark: '#1d4ed8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos de accesibilidad adicionales */
+        .focus-visible-ring:focus-visible {
+            outline: 4px solid #f59e0b;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col transition-colors duration-200 dark:bg-slate-900 dark:text-slate-100 font-sans">
+
+    <!-- CABECERA Y PANEL DE ACCESIBILIDAD (DUA) -->
+    <header class="bg-white dark:bg-slate-800 shadow-md border-b border-slate-200 dark:border-slate-700 p-4 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl" role="img" aria-label="Libro y trofeo">📖</span>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">Evaluación Interactiva: Tema 42</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Juegos y Deportes Tradicionales · 10 Preguntas V/F</p>
+                </div>
+            </div>
+            
+            <!-- Herramientas DUA -->
+            <div class="flex flex-wrap items-center gap-2 bg-slate-100 dark:bg-slate-700 p-2 rounded-xl" aria-label="Herramientas de accesibilidad">
+                <!-- Lector de voz -->
+                <button id="btn-voice" onclick="toggleVoice()" class="p-2 bg-white dark:bg-slate-600 rounded-lg shadow-sm hover:bg-slate-200 dark:hover:bg-slate-500 transition focus-visible-ring text-sm flex items-center gap-1" title="Activar/Desactivar lectura en voz alta">
+                    <span id="voice-icon">🔇</span>
+                    <span class="hidden sm:inline text-xs font-semibold">Voz</span>
+                </button>
+
+                <!-- Sonidos -->
+                <button id="btn-sound" onclick="toggleSound()" class="p-2 bg-white dark:bg-slate-600 rounded-lg shadow-sm hover:bg-slate-200 dark:hover:bg-slate-500 transition focus-visible-ring text-sm flex items-center gap-1" title="Activar/Desactivar efectos de sonido">
+                    <span id="sound-icon">🔊</span>
+                    <span class="hidden sm:inline text-xs font-semibold">Sonido</span>
+                </button>
+
+                <!-- Tamaño de Texto -->
+                <div class="flex items-center bg-white dark:bg-slate-600 rounded-lg shadow-sm border border-slate-200 dark:border-slate-500">
+                    <button onclick="changeFontSize(-1)" class="px-2 py-1 text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-500 rounded-l-lg transition focus-visible-ring" title="Disminuir tamaño de texto">A-</button>
+                    <span class="px-2 text-xs font-bold border-x border-slate-200 dark:border-slate-500" id="font-scale-indicator">100%</span>
+                    <button onclick="changeFontSize(1)" class="px-2 py-1 text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-500 rounded-r-lg transition focus-visible-ring" title="Aumentar tamaño de texto">A+</button>
+                </div>
+
+                <!-- Modo Oscuro / Contraste -->
+                <button onclick="toggleDarkMode()" class="p-2 bg-white dark:bg-slate-600 rounded-lg shadow-sm hover:bg-slate-200 dark:hover:bg-slate-500 transition focus-visible-ring text-sm" title="Alternar modo oscuro/claro">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:py-8 flex flex-col justify-center" id="main-content">
+        
+        <!-- PANTALLA DE INICIO -->
+        <section id="screen-welcome" class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 text-center space-y-6">
+            <div class="inline-flex p-4 bg-blue-50 dark:bg-blue-900/30 rounded-full text-blue-600 dark:text-blue-400 mb-2">
+                <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold">¡Te damos la bienvenida al Examen Interactivo!</h2>
+            <p class="text-slate-600 dark:text-slate-300 max-w-xl mx-auto leading-relaxed">
+                Pon a prueba tus conocimientos sobre el <strong>Tema 42 (Juegos y Deportes Tradicionales)</strong> con este cuestionario de verdadero o falso adaptado para ofrecer la máxima accesibilidad.
+            </p>
+
+            <!-- Atajos informativos DUA -->
+            <div class="bg-amber-50 dark:bg-amber-950/20 text-amber-800 dark:text-amber-300 p-4 rounded-xl text-left max-w-md mx-auto text-sm border border-amber-100 dark:border-amber-900/30">
+                <p class="font-bold mb-2 flex items-center gap-1">
+                    <span>💡</span> Consejos de accesibilidad y atajos:
+                </p>
+                <ul class="list-disc list-inside space-y-1 text-xs">
+                    <li>Puedes usar el teclado: <kbd class="px-1.5 py-0.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded text-xs shadow-sm">← / V</kbd> para <strong>Verdadero</strong> y <kbd class="px-1.5 py-0.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded text-xs shadow-sm">→ / F</kbd> para <strong>Falso</strong>.</li>
+                    <li>Usa la barra <kbd class="px-1.5 py-0.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded text-xs shadow-sm">Espacio</kbd> para continuar.</li>
+                    <li>Activa la <strong>Voz</strong> en la cabecera si prefieres escuchar las preguntas leídas de forma automática.</li>
+                </ul>
+            </div>
+
+            <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-bold rounded-xl shadow-lg hover:bg-blue-700 transform hover:-translate-y-0.5 transition-all text-lg focus-visible-ring focus:outline-none">
+                Comenzar Cuestionario
+            </button>
+        </section>
+
+        <!-- PANTALLA DE PREGUNTAS -->
+        <section id="screen-quiz" class="hidden bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 space-y-6">
+            <!-- Barra de progreso superior -->
+            <div class="space-y-2">
+                <div class="flex justify-between items-center text-sm font-semibold text-slate-500 dark:text-slate-400">
+                    <span id="quiz-progress-text">Pregunta 1 de 10</span>
+                    <span id="quiz-score-live" class="text-blue-600 dark:text-blue-400">Aciertos: 0/0</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-3 rounded-full overflow-hidden">
+                    <div id="quiz-progress-bar" class="bg-blue-600 h-full transition-all duration-300" style="width: 10%;"></div>
+                </div>
+            </div>
+
+            <!-- Enunciado de la Pregunta -->
+            <div class="py-4 border-b border-slate-100 dark:border-slate-700">
+                <h3 class="text-xl md:text-2xl font-bold leading-relaxed focus:outline-none" id="question-text" tabindex="0">
+                    <!-- El texto de la pregunta se inyectará aquí -->
+                </h3>
+            </div>
+
+            <!-- Opciones de Respuesta -->
+            <div id="quiz-controls" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Botón Verdadero -->
+                <button onclick="handleAnswer(true)" class="relative flex items-center justify-between p-5 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 border-2 border-emerald-200 dark:border-emerald-850 rounded-2xl text-emerald-900 dark:text-emerald-100 font-extrabold text-xl shadow-sm transition hover:scale-[1.02] active:scale-[0.98] focus-visible-ring group">
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500 text-white font-bold shadow group-hover:scale-110 transition text-base">V</span>
+                        <span>Verdadero</span>
+                    </div>
+                    <span class="text-xs font-semibold px-2 py-1 bg-emerald-200/50 dark:bg-emerald-900/50 rounded-md text-emerald-800 dark:text-emerald-300 hidden md:inline">Atajo: V o ←</span>
+                </button>
+
+                <!-- Botón Falso -->
+                <button onclick="handleAnswer(false)" class="relative flex items-center justify-between p-5 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/20 dark:hover:bg-rose-950/40 border-2 border-rose-200 dark:border-rose-850 rounded-2xl text-rose-900 dark:text-rose-100 font-extrabold text-xl shadow-sm transition hover:scale-[1.02] active:scale-[0.98] focus-visible-ring group">
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-rose-500 text-white font-bold shadow group-hover:scale-110 transition text-base">F</span>
+                        <span>Falso</span>
+                    </div>
+                    <span class="text-xs font-semibold px-2 py-1 bg-rose-200/50 dark:bg-rose-900/50 rounded-md text-rose-800 dark:text-rose-300 hidden md:inline">Atajo: F o →</span>
+                </button>
+            </div>
+
+            <!-- Panel de Retroalimentación (Oculto al inicio) -->
+            <div id="feedback-panel" class="hidden p-5 rounded-2xl border transition-all duration-300 space-y-3">
+                <div class="flex items-center gap-3">
+                    <span id="feedback-badge" class="flex items-center justify-center w-10 h-10 rounded-full font-bold text-white text-xl"></span>
+                    <h4 id="feedback-title" class="text-lg font-bold"></h4>
+                </div>
+                <div class="text-sm md:text-base leading-relaxed pl-2 border-l-4" id="feedback-justification-border">
+                    <span class="font-semibold block mb-1">Justificación teórica:</span>
+                    <p id="feedback-justification"></p>
+                </div>
+                <button id="btn-next" onclick="nextQuestion()" class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl shadow-md hover:bg-blue-700 transition focus-visible-ring flex items-center justify-center gap-2">
+                    <span>Siguiente Pregunta</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- PANTALLA DE RESULTADOS -->
+        <section id="screen-results" class="hidden bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 space-y-8">
+            <div class="text-center space-y-4">
+                <div class="inline-flex p-4 bg-amber-50 dark:bg-amber-950/30 rounded-full text-amber-600 dark:text-amber-400">
+                    <svg class="w-16 h-16 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                </div>
+                <h2 class="text-3xl font-extrabold" id="results-headline">¡Examen Completado!</h2>
+                <p class="text-slate-600 dark:text-slate-300 max-w-md mx-auto">Aquí tienes el resultado de tu desempeño basándote en el contenido oficial del tema 42.</p>
+                
+                <!-- Puntuación Gigante -->
+                <div class="inline-block bg-slate-100 dark:bg-slate-700 px-8 py-4 rounded-3xl">
+                    <span class="text-5xl font-black text-blue-600 dark:text-blue-400" id="final-score-text">0 / 10</span>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-wider font-bold">Puntuación Final</p>
+                </div>
+                
+                <p class="text-lg font-bold" id="final-verdict"></p>
+            </div>
+
+            <!-- PANEL DE REVISIÓN ACCESIBLE -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold flex items-center gap-2">
+                    <span>🔍</span> Revisión de Preguntas y Justificaciones:
+                </h3>
+                
+                <div class="space-y-4 max-h-[450px] overflow-y-auto pr-2" id="revision-list">
+                    <!-- Se inyectará la lista detallada de respuestas del usuario -->
+                </div>
+            </div>
+
+            <!-- Acciones Finales -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                <button onclick="restartQuiz()" class="flex-1 py-4 bg-blue-600 text-white font-bold rounded-xl shadow-md hover:bg-blue-700 transition focus-visible-ring text-center">
+                    Intentar de Nuevo
+                </button>
+                <button onclick="window.print()" class="py-4 px-6 bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200 font-bold rounded-xl hover:bg-slate-300 dark:hover:bg-slate-600 transition focus-visible-ring flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    Imprimir o Guardar PDF
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-4 mt-auto">
+        <div class="max-w-4xl mx-auto px-4 text-center text-xs text-slate-500 dark:text-slate-400 space-y-1">
+            <p>Diseño Universal para el Aprendizaje (DUA) aplicado · Sin dependencias externas de audio.</p>
+            <p>Atajos: <kbd class="px-1 bg-slate-100 dark:bg-slate-700 border rounded">←/V</kbd> Verdadero | <kbd class="px-1 bg-slate-100 dark:bg-slate-700 border rounded">→/F</kbd> Falso | <kbd class="px-1 bg-slate-100 dark:bg-slate-700 border rounded">Espacio</kbd> Continuar</p>
+        </div>
+    </footer>
+
+    <!-- SISTEMA LOGICO DE LA APP -->
+    <script>
+        // BANCO DE PREGUNTAS (Basado directamente en el texto provisto)
+        const questions = [
+            {
+                number: 1,
+                question: "Parlebás (1986) define el deporte como una situación motriz competitiva institucionalizada, descartando tanto las actividades libres e improvisadas como los juegos no reconocidos por instancias sociales.",
+                answer: true,
+                justification: "El tema recoge literalmente que el deporte es una motricidad lúdica y competitiva aprobada por instituciones sociales."
+            },
+            {
+                number: 2,
+                question: "Los juegos tradicionales presentan reglamentos rígidos y unificados, delimitación precisa de instrumentos y espacios de juego y supervisión institucional mediante organismos reguladores específicos.",
+                answer: false,
+                justification: "Estas características corresponden a los deportes tradicionales; los juegos tradicionales poseen reglas flexibles y espacios variables."
+            },
+            {
+                number: 3,
+                question: "Según el proceso evolutivo descrito en el tema, un juego puede convertirse en tradicional sin alcanzar necesariamente un elevado número de practicantes o una amplia popularidad social.",
+                answer: true,
+                justification: "El tema señala expresamente que una actividad puede seguir siendo tradicional aunque deje de ser popular."
+            },
+            {
+                number: 4,
+                question: "El término autóctono aplicado a juegos y deportes resulta plenamente objetivo porque permite identificar con absoluta certeza el origen geográfico exacto de cualquier práctica ludomotriz.",
+                answer: false,
+                justification: "El tema insiste en utilizar este término con cautela, ya que muchos juegos poseen orígenes remotos difíciles de determinar."
+            },
+            {
+                number: 5,
+                question: "Moreno Palos define los juegos tradicionales como actividades lúdicas locales y ancestrales transmitidas generacionalmente y dotadas de un marcado valor cultural antropológico comunitario.",
+                answer: true,
+                justification: "Esta definición aparece prácticamente de forma literal dentro del apartado conceptual del tema."
+            },
+            {
+                number: 6,
+                question: "Dentro de la clasificación de Parlebás, los cuasi-juegos deportivos poseen reconocimiento institucional consolidado y reglamentaciones estrictas reguladas por federaciones y organismos oficiales.",
+                answer: false,
+                justification: "Los cuasi-juegos se caracterizan por ausencia de normas rígidas y modificación libre por los participantes."
+            },
+            {
+                number: 7,
+                question: "Moreno Palos sitúa a Galicia junto con Andalucía, Extremadura y Baleares dentro del grupo con nivel escaso respecto a número y práctica de juegos tradicionales.",
+                answer: true,
+                justification: "El tema ubica a Galicia en el Grupo IV, correspondiente a un nivel reducido de práctica y cantidad."
+            },
+            {
+                number: 8,
+                question: "Según Moreno Palos, los juegos de lanzamiento de precisión incluyen actividades cuyo objetivo principal consiste en proyectar objetos pesados alcanzando la máxima distancia posible.",
+                answer: false,
+                justification: "La finalidad es derribar o alcanzar objetivos concretos, mientras la máxima distancia corresponde a lanzamientos de distancia."
+            },
+            {
+                number: 9,
+                question: "El proceso de enculturación supone que generaciones de mayor edad inducen y transmiten comportamientos tradicionales, siendo el juego popular un ejemplo especialmente representativo de dicho fenómeno.",
+                answer: true,
+                justification: "El tema presenta expresamente el juego tradicional como un ejemplo ilustrativo de enculturación cultural."
+            },
+            {
+                number: 10,
+                question: "Moreno Palos sostiene que los juegos tradicionales únicamente deben utilizarse como recursos para objetivos motores y corporales, evitando planteamientos culturales o interdisciplinares complementarios.",
+                answer: false,
+                justification: "El tema defiende exactamente lo contrario: favorecen interdisciplinariedad y conocimiento geográfico, histórico y cultural."
+            }
+        ];
+
+        // VARIABLES DE ESTADO
+        let currentIdx = 0;
+        let score = 0;
+        let answersHistory = []; // Almacena las elecciones del usuario
+        let isQuestionAnswered = false;
+
+        // ACCESIBILIDAD Y PREFERENCIAS (DUA)
+        let settings = {
+            voiceEnabled: false,
+            soundEnabled: true,
+            fontScale: 100, // Porcentaje
+            darkMode: false
+        };
+
+        // AUDIO SIN SINTETIZADOR - Usando API Web Audio
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
+        }
+
+        // Tocar sonido simple sintetizado
+        function playTone(freq, type, duration, startTimeOffset = 0) {
+            if (!settings.soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = type; // 'sine', 'square', 'sawtooth', 'triangle'
+                osc.frequency.setValueAtTime(freq, ctx.currentTime + startTimeOffset);
+                
+                gain.gain.setValueAtTime(0.15, ctx.currentTime + startTimeOffset);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + startTimeOffset + duration - 0.01);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start(ctx.currentTime + startTimeOffset);
+                osc.stop(ctx.currentTime + startTimeOffset + duration);
+            } catch (e) {
+                console.warn("Audio Context bloqueado o no soportado por el navegador.");
+            }
+        }
+
+        // Sonidos específicos
+        function soundSuccess() {
+            playTone(523.25, 'triangle', 0.15, 0); // Do5
+            playTone(659.25, 'triangle', 0.15, 0.12); // Mi5
+            playTone(783.99, 'sine', 0.3, 0.24); // Sol5
+        }
+
+        function soundFailure() {
+            playTone(220.00, 'sawtooth', 0.15, 0); // La3
+            playTone(185.00, 'sawtooth', 0.35, 0.1); // Fa#3
+        }
+
+        function soundVictory() {
+            const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50];
+            notes.forEach((freq, idx) => {
+                playTone(freq, 'sine', 0.2, idx * 0.1);
+            });
+        }
+
+        // SISTEMA DE LECTURA DE VOZ (Speech Synthesis)
+        let speechUtterance = null;
+        function speakText(text) {
+            if (!settings.voiceEnabled) return;
+            window.speechSynthesis.cancel(); // Detener lecturas previas
+            speechUtterance = new SpeechSynthesisUtterance(text);
+            speechUtterance.lang = 'es-ES';
+            speechUtterance.rate = 1.0;
+            window.speechSynthesis.speak(speechUtterance);
+        }
+
+        function stopSpeaking() {
+            window.speechSynthesis.cancel();
+        }
+
+        // FUNCIONES DE CONTROL ACCESIBILIDAD (INTERFAZ)
+        function toggleVoice() {
+            settings.voiceEnabled = !settings.voiceEnabled;
+            const btn = document.getElementById('btn-voice');
+            const icon = document.getElementById('voice-icon');
+            if (settings.voiceEnabled) {
+                icon.innerText = "🗣️";
+                btn.classList.add('bg-blue-100', 'text-blue-700', 'dark:bg-blue-900/40', 'dark:text-blue-300');
+                // Probar voz de inmediato
+                speakText("Voz activada.");
+            } else {
+                icon.innerText = "🔇";
+                btn.classList.remove('bg-blue-100', 'text-blue-700', 'dark:bg-blue-900/40', 'dark:text-blue-300');
+                stopSpeaking();
+            }
+        }
+
+        function toggleSound() {
+            settings.soundEnabled = !settings.soundEnabled;
+            const btn = document.getElementById('btn-sound');
+            const icon = document.getElementById('sound-icon');
+            if (settings.soundEnabled) {
+                icon.innerText = "🔊";
+                btn.classList.remove('bg-red-100', 'text-red-700', 'dark:bg-red-900/40', 'dark:text-red-300');
+                soundSuccess();
+            } else {
+                icon.innerText = "❌";
+                btn.classList.add('bg-red-100', 'text-red-700', 'dark:bg-red-900/40', 'dark:text-red-300');
+            }
+        }
+
+        function changeFontSize(direction) {
+            settings.fontScale = Math.max(80, Math.min(150, settings.fontScale + (direction * 10)));
+            document.getElementById('font-scale-indicator').innerText = `${settings.fontScale}%`;
+            
+            // Aplicar escala a las áreas legibles críticas
+            const textContainers = [
+                document.getElementById('main-content'),
+                document.querySelector('footer')
+            ];
+            textContainers.forEach(el => {
+                if(el) el.style.fontSize = `${settings.fontScale}%`;
+            });
+        }
+
+        function toggleDarkMode() {
+            settings.darkMode = !settings.darkMode;
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (settings.darkMode) {
+                html.classList.add('dark');
+                icon.innerText = "☀️";
+            } else {
+                html.classList.remove('dark');
+                icon.innerText = "🌙";
+            }
+        }
+
+        // CONTROLADORES DE PANTALLAS
+        function showScreen(screenId) {
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-results').classList.add('hidden');
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        // CONTROL DEL JUEGO
+        function startQuiz() {
+            currentIdx = 0;
+            score = 0;
+            answersHistory = [];
+            isQuestionAnswered = false;
+            showScreen('screen-quiz');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            isQuestionAnswered = false;
+            const q = questions[currentIdx];
+            
+            // Restablecer panel de retroalimentación
+            const feedbackPanel = document.getElementById('feedback-panel');
+            feedbackPanel.classList.add('hidden');
+            
+            // Habilitar controles de selección
+            const quizControls = document.getElementById('quiz-controls');
+            Array.from(quizControls.children).forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'ring-4', 'ring-blue-500');
+            });
+
+            // Actualizar textos e interfaces
+            document.getElementById('quiz-progress-text').innerText = `Pregunta ${currentIdx + 1} de ${questions.length}`;
+            document.getElementById('quiz-score-live').innerText = `Aciertos: ${score}/${currentIdx}`;
+            
+            const progressPercent = ((currentIdx + 1) / questions.length) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
+
+            const qTextEl = document.getElementById('question-text');
+            qTextEl.innerText = `${q.number}. ${q.question}`;
+            qTextEl.focus();
+
+            // Leer en voz alta si está habilitado
+            speakText(`Pregunta ${q.number}. ${q.question}`);
+        }
+
+        function handleAnswer(userChoice) {
+            if (isQuestionAnswered) return;
+            isQuestionAnswered = true;
+            stopSpeaking();
+
+            const q = questions[currentIdx];
+            const isCorrect = userChoice === q.answer;
+
+            // Almacenar en el historial
+            answersHistory.push({
+                questionNum: q.number,
+                questionText: q.question,
+                correctAnswer: q.answer,
+                userAnswer: userChoice,
+                isCorrect: isCorrect,
+                justification: q.justification
+            });
+
+            // Actualizar Puntos
+            if (isCorrect) {
+                score++;
+                soundSuccess();
+            } else {
+                soundFailure();
+            }
+
+            // Deshabilitar botones de respuesta para evitar doble pulsación
+            const quizControls = document.getElementById('quiz-controls');
+            Array.from(quizControls.children).forEach((btn, idx) => {
+                btn.disabled = true;
+                // Dejar un poco opaco el no seleccionado
+                const btnType = idx === 0; // True es el primer botón
+                if (btnType !== userChoice) {
+                    btn.classList.add('opacity-50');
+                }
+            });
+
+            // Configurar panel de retroalimentación
+            const feedbackPanel = document.getElementById('feedback-panel');
+            const badge = document.getElementById('feedback-badge');
+            const title = document.getElementById('feedback-title');
+            const justificationText = document.getElementById('feedback-justification');
+            const borderLine = document.getElementById('feedback-justification-border');
+
+            feedbackPanel.classList.remove('hidden');
+
+            if (isCorrect) {
+                badge.innerText = "✓";
+                badge.className = "flex items-center justify-center w-10 h-10 rounded-full font-bold text-white text-xl bg-emerald-500";
+                title.innerText = "¡Excelente, respuesta correcta!";
+                title.className = "text-lg font-bold text-emerald-600 dark:text-emerald-400";
+                
+                feedbackPanel.className = "p-5 rounded-2xl border bg-emerald-50/50 border-emerald-200 dark:bg-emerald-950/10 dark:border-emerald-900/40 space-y-3";
+                borderLine.className = "text-sm md:text-base leading-relaxed pl-3 border-l-4 border-emerald-500 text-emerald-900 dark:text-emerald-200";
+            } else {
+                badge.innerText = "✗";
+                badge.className = "flex items-center justify-center w-10 h-10 rounded-full font-bold text-white text-xl bg-rose-500";
+                title.innerText = "Oh, respuesta incorrecta.";
+                title.className = "text-lg font-bold text-rose-600 dark:text-rose-400";
+                
+                feedbackPanel.className = "p-5 rounded-2xl border bg-rose-50/50 border-rose-200 dark:bg-rose-950/10 dark:border-rose-900/40 space-y-3";
+                borderLine.className = "text-sm md:text-base leading-relaxed pl-3 border-l-4 border-rose-500 text-rose-900 dark:text-rose-200";
+            }
+
+            justificationText.innerText = q.justification;
+
+            // Leer retroalimentación en voz alta si procede
+            const feedbackSpeechText = `${isCorrect ? "Correcto" : "Incorrecto"}. Justificación: ${q.justification}`;
+            speakText(feedbackSpeechText);
+
+            // Enfocar el botón de continuar para accesibilidad por teclado
+            setTimeout(() => {
+                document.getElementById('btn-next').focus();
+            }, 100);
+        }
+
+        function nextQuestion() {
+            stopSpeaking();
+            currentIdx++;
+            if (currentIdx < questions.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            stopSpeaking();
+            soundVictory();
+            showScreen('screen-results');
+
+            // Actualizar texto puntuación
+            document.getElementById('final-score-text').innerText = `${score} / ${questions.length}`;
+
+            // Mensaje de evaluación adaptativa
+            const verdict = document.getElementById('final-verdict');
+            if (score === 10) {
+                verdict.innerText = "¡Excelente desempeño! Tienes un dominio absoluto del Tema 42. 🎉";
+                verdict.className = "text-lg font-bold text-emerald-600 dark:text-emerald-400";
+            } else if (score >= 7) {
+                verdict.innerText = "¡Muy buen trabajo! Tienes bases muy sólidas para la oposición. 👍";
+                verdict.className = "text-lg font-bold text-blue-600 dark:text-blue-400";
+            } else if (score >= 5) {
+                verdict.innerText = "Has aprobado, pero te aconsejamos revisar con atención las justificaciones de los errores. 📖";
+                verdict.className = "text-lg font-bold text-amber-600 dark:text-amber-400";
+            } else {
+                verdict.innerText = "Te recomendamos leer detenidamente el tema completo y volver a intentarlo para reforzar los conceptos. ¡Ánimo, puedes lograrlo! 💪";
+                verdict.className = "text-lg font-bold text-rose-600 dark:text-rose-400";
+            }
+
+            // Inyectar síntesis de voz final
+            speakText(`Examen completado. Puntuación: ${score} de 10. ${verdict.innerText}`);
+
+            // Generar lista de revisión detallada
+            const listContainer = document.getElementById('revision-list');
+            listContainer.innerHTML = '';
+
+            answersHistory.forEach((hist) => {
+                const item = document.createElement('div');
+                
+                // Clases de estilo según acierto o error
+                const stateBg = hist.isCorrect 
+                    ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-100 dark:border-emerald-900/30" 
+                    : "bg-rose-50 dark:bg-rose-950/20 border-rose-100 dark:border-rose-900/30";
+                
+                const badgeState = hist.isCorrect
+                    ? "<span class='px-2 py-1 bg-emerald-500 text-white rounded font-bold text-xs flex items-center gap-1'>✓ Correcto</span>"
+                    : "<span class='px-2 py-1 bg-rose-500 text-white rounded font-bold text-xs flex items-center gap-1'>✗ Incorrecto</span>";
+
+                item.className = `p-4 rounded-xl border-2 ${stateBg} space-y-2`;
+                item.innerHTML = `
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <span class="font-bold text-sm">Pregunta ${hist.questionNum}</span>
+                        ${badgeState}
+                    </div>
+                    <p class="text-sm font-medium leading-relaxed">${hist.questionText}</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs border-t border-slate-200/50 dark:border-slate-750/50 pt-2">
+                        <p>Tu respuesta: <strong class="uppercase">${hist.userAnswer ? "Verdadero" : "Falso"}</strong></p>
+                        <p>Respuesta correcta: <strong class="uppercase text-blue-600 dark:text-blue-400">${hist.correctAnswer ? "Verdadero" : "Falso"}</strong></p>
+                    </div>
+                    <p class="text-xs bg-white dark:bg-slate-900/60 p-2.5 rounded border border-slate-200/50 dark:border-slate-700/50 leading-relaxed">
+                        <span class="font-bold text-slate-500 block mb-0.5">Justificación teórica:</span>
+                        ${hist.justification}
+                    </p>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        function restartQuiz() {
+            startQuiz();
+        }
+
+        // ACCESIBILIDAD POR TECLADO (DUA)
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            
+            // Si está en la pantalla de bienvenida y presiona Espacio o Enter
+            if (document.getElementById('screen-welcome').classList.contains('hidden') === false) {
+                if (key === ' ' || e.key === 'Enter') {
+                    e.preventDefault();
+                    startQuiz();
+                }
+                return;
+            }
+
+            // Atajos en el Quiz
+            if (document.getElementById('screen-quiz').classList.contains('hidden') === false) {
+                if (!isQuestionAnswered) {
+                    // Contestar Verdadero: Flecha izquierda o tecla 'v'
+                    if (e.key === 'ArrowLeft' || key === 'v') {
+                        e.preventDefault();
+                        handleAnswer(true);
+                    }
+                    // Contestar Falso: Flecha derecha o tecla 'f'
+                    if (e.key === 'ArrowRight' || key === 'f') {
+                        e.preventDefault();
+                        handleAnswer(false);
+                    }
+                } else {
+                    // Si ya está contestado, pulsar espacio o enter para ir al siguiente
+                    if (key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        nextQuestion();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

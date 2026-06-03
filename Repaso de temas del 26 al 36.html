@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Temas 26-36</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen py-10 px-4">
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h1 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">Examen de Temas</h1>
+        
+        <!-- Tab Navigation -->
+        <div class="flex flex-wrap gap-2 mb-6">
+            <button id="btn26" onclick="loadExam('tema26')" class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300">Tema 26</button>
+            <button id="btn27" onclick="loadExam('tema27')" class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300">Tema 27</button>
+            <button id="btn28" onclick="loadExam('tema28')" class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300">Tema 28</button>
+            <button id="btn29" onclick="loadExam('tema29')" class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300">Tema 29</button>
+            <button id="btn30" onclick="loadExam('tema30')" class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300">Tema 30</button>
+            <button id="btn31" onclick="loadExam('tema31')" class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300">Tema 31</button>
+            <button id="btn32" onclick="loadExam('tema32')" class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300">Tema 32</button>
+            <button id="btn33" onclick="loadExam('tema33')" class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300">Tema 33</button>
+            <button id="btn34" onclick="loadExam('tema34')" class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300">Tema 34</button>
+            <button id="btn35" onclick="loadExam('tema35')" class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300">Tema 35</button>
+            <button id="btn36" onclick="loadExam('tema36')" class="tab-btn px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold shadow">Tema 36</button>
+        </div>
+
+        <form id="quizForm">
+            <div id="questionsContainer" class="space-y-6"></div>
+            <button type="button" onclick="evaluateQuiz()" class="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Finalizar y Ver Resultados</button>
+        </form>
+
+        <div id="results" class="mt-8 hidden">
+            <h2 class="text-xl font-bold mb-4">Resultados</h2>
+            <div id="score" class="text-lg mb-4 font-bold"></div>
+            <div id="feedbackContainer" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        const data = {
+            tema26: [
+                { q: "1. Zatsiorsky (1978) definió la flexibilidad como la capacidad de alcanzar la máxima extensión posible de un movimiento en una articulación determinada.", a: true, j: "El tema recoge literalmente la definición de Zatsiorsky." },
+                { q: "2. La movilidad articular constituye el componente más entrenable de la flexibilidad, mientras la elasticidad muscular posee principalmente una función de mantenimiento preventivo.", a: false, j: "Es al contrario: la elasticidad muscular es la más entrenable." },
+                { q: "3. Kisner y Colby (2002) relacionan la flexibilidad con la capacidad de mover una articulación a través de un rango libre de dolor y restricciones.", a: true, j: "Definición correcta según el texto." },
+                { q: "4. Alter (1990) y Bird (1979) sostienen que el aumento de la flexibilidad reduce el riesgo de luxaciones y mejora significativamente la estabilidad articular.", a: false, j: "Una laxitud excesiva incrementa el riesgo de lesión." },
+                { q: "5. Álvarez (1987) considera que la flexibilidad depende principalmente de movilidad articular, elasticidad muscular y otros factores biológicos.", a: true, j: "Base fundamental según el tema." },
+                { q: "6. Según los factores biológicos del tema, las fases sensibles más importantes para mejorar flexibilidad se sitúan exclusivamente entre los dieciséis y veinte años.", a: false, j: "Las fases más sensibles son entre 7-11 y 12-15 años." },
+                { q: "7. Grösser, Zimmermann y Starischka (1992) sitúan los momentos de mayor amplitud de movimiento aproximadamente entre las diez-doce y dieciséis-dieciocho horas.", a: true, j: "Relacionado con variaciones biológicas." },
+                { q: "8. Metveiev considera que la flexibilidad residual representa el grado exacto de movilidad utilizado durante la ejecución real.", a: false, j: "Eso es flexibilidad de trabajo; la residual es margen preventivo." },
+                { q: "9. Clarke señala que la flexibilidad comienza a disminuir aproximadamente a los diez años en chicos y a los doce en chicas.", a: true, j: "Evolución involutiva citada en el tema." },
+                { q: "10. La Facilitación Propioceptiva Neuromuscular o PNF presenta como ventaja principal simplicidad técnica, ausencia de ayuda externa y escasa exigencia coordinativa.", a: false, j: "El PNF requiere ayuda externa y es complejo." }
+            ],
+            tema27: [
+                { q: "1. El tejido óseo compacto está formado por laminillas separadas por amplias cavidades medulares.", a: false, j: "Las cavidades son del tejido esponjoso." },
+                { q: "2. Los osteoblastos sintetizan la parte orgánica de la matriz ósea, mientras los osteoclastos participan principalmente en procesos de remodelación.", a: true, j: "Función formadora vs. reabsortiva." },
+                { q: "3. El crecimiento longitudinal de los huesos largos se produce por aposición perióstica.", a: false, j: "El longitudinal es por cartílago epifisario." },
+                { q: "4. Las articulaciones sinartrosis presentan una unión rígida con escasa o nula movilidad.", a: true, j: "Característica de las sinartrosis." },
+                { q: "5. Las articulaciones trocoides permiten movimientos de flexión-extensión mediante un mecanismo semejante a una bisagra.", a: false, j: "Eso son trocleartrosis." },
+                { q: "6. Kapandji (2012) considera el esqueleto funcionalmente organizado mediante eje central, extremidades, dos cinturas y cavidad torácica.", a: true, j: "Organización funcional citada." },
+                { q: "7. La columna vertebral posee dos lordosis y dos cifosis, siendo la lordosis dorsal y la cifosis lumbar sus curvaturas fisiológicas principales.", a: false, j: "Al revés: cifosis dorsal y lordosis lumbar." },
+                { q: "8. La rodilla se clasifica como articulación troclear y presenta meniscos junto con ligamentos cruzados y laterales.", a: true, j: "Estructuras estabilizadoras." },
+                { q: "9. Durante la fase prepuberal desaparecen los problemas coordinativos porque el crecimiento corporal ocurre simultáneamente y de forma proporcional.", a: false, j: "El crecimiento diferencial genera desajustes." },
+                { q: "10. Bar-Or y McArdle indican que las placas de crecimiento muestran elevada vulnerabilidad frente a lesiones traumáticas.", a: true, j: "Susceptibilidad en esta etapa." }
+            ],
+            tema28: [
+                { q: "1. La agilidad es una capacidad condicional independiente determinada exclusivamente por procesos energéticos.", a: false, j: "Depende de velocidad, flexibilidad y coordinación." },
+                { q: "2. Jordi Porta y Álvarez del Villar consideran la agilidad una resultante de velocidad gestual, flexibilidad y capacidades perceptivo-motrices.", a: true, j: "Definición combinada." },
+                { q: "3. Sheppard y Young (2006) definen la agilidad únicamente como cambios de dirección programados.", a: false, j: "Incluye respuesta a estímulos." },
+                { q: "4. Jones y Nimphius (2019) consideran que la agilidad requiere movimientos rápidos y precisos en respuesta a estímulos.", a: true, j: "Definición integradora." },
+                { q: "5. Vinuesa y Coll (1986) consideran el equilibrio una cualidad exclusivamente física independiente de los mecanismos coordinativos.", a: false, j: "Es una cualidad coordinativa." },
+                { q: "6. Aguado clasifica el equilibrio según estabilidad en estados estable, inestable, indiferente e hiperestable.", a: true, j: "Clasificación de Aguado." },
+                { q: "7. Álvarez del Villar (1987) define coordinación como la capacidad cardiovascular de mantener contracciones musculares prolongadas.", a: false, j: "La coordinación es neuromuscular y de precisión." },
+                { q: "8. Le Boulch incluye coordinación dinámica general, específica, intramuscular e intermuscular.", a: true, j: "Clasificación funcional de Le Boulch." },
+                { q: "9. Según el CONI (1982), la movilidad coxo-femoral continúa aumentando intensamente entre los once y catorce años.", a: false, j: "Empieza a decrecer a los 11 años." },
+                { q: "10. Fidelus (1982) considera que la agilidad se apoya principalmente en el sistema de dirección nervioso y en el sistema motor.", a: true, j: "Base funcional de la agilidad." }
+            ],
+            tema29: [
+                { q: "1. La capacidad motriz representa un estado definitivo, mientras la cualidad motriz expresa una potencialidad evolutiva.", a: false, j: "Es al revés." },
+                { q: "2. Manno (1989) considera la capacidad motriz como la combinación de presupuestos funcionales y motrices endógenos.", a: true, j: "Definición de Manno." },
+                { q: "3. Muska Mosston desarrolla una clasificación bidimensional del movimiento humano.", a: false, j: "Es tridimensional." },
+                { q: "4. Castañer y Camerino (1996) consideran que las capacidades perceptivo-motrices dependen específicamente del SNC.", a: true, j: "Atribución neurológica." },
+                { q: "5. La cualidad motriz de funcionalidad depende de fenómenos comunicativos y expresión corporal.", a: false, j: "Eso es cualidad de modulación." },
+                { q: "6. Jiménez y Jiménez (2002) definen coordinación como la capacidad corporal para integrar el trabajo de diversos músculos.", a: true, j: "Definición recogida." },
+                { q: "7. Según Castañer y Camerino (2006), el equilibrio consiste exclusivamente en mantener posiciones estáticas.", a: false, j: "Incluye control ante factores de desestabilización." },
+                { q: "8. Mosston (1983) define la agilidad como la habilidad que posee una persona para mover el cuerpo dentro del espacio disponible.", a: true, j: "Definición de Mosston." },
+                { q: "9. En el desarrollo coordinativo, las capacidades coordinativas alcanzan su máximo nivel definitivo antes de los diez años.", a: false, j: "Se completan entre los 7 y 17 años." },
+                { q: "10. El desarrollo de la agilidad entre los catorce y diecinueve años presenta un incremento paralelo al aumento de fuerza.", a: true, j: "Relación con la fuerza." }
+            ],
+            tema30: [
+                { q: "1. Alonso (2018) considera la destreza motriz como un movimiento natural e innato.", a: false, j: "La destreza es aprendida." },
+                { q: "2. Batalla (2000) afirma que las habilidades motrices básicas constituyen familias amplias y generales.", a: true, j: "Característica de las HMB." },
+                { q: "3. Serrano (2013) establece diferencias absolutas y perfectamente delimitadas entre habilidades y destrezas.", a: false, j: "Señala la dificultad de distinguirlas." },
+                { q: "4. Castañer y Camerino relacionan el concepto de habilidad con procesos de praxia, asimilación, acomodación y equilibración.", a: true, j: "Cuatro procesos asociados." },
+                { q: "5. Serra (1996) excluye el equilibrio de las habilidades motrices básicas.", a: false, j: "Lo incluye explícitamente." },
+                { q: "6. Castañer y Camerino clasifican las habilidades motrices básicas en locomotrices, manipulativas y de estabilidad.", a: true, j: "Clasificación funcional." },
+                { q: "7. Delgado Noguera considera la carrera un desplazamiento eficaz por la utilización del tren superior.", a: true, j: "Justificación funcional." },
+                { q: "8. Williams (1983) clasifica los saltos únicamente según altura, longitud y velocidad de ejecución.", a: false, j: "Incluye el salto sobre un pie." },
+                { q: "9. Los giros transversales poseen gran importancia preventiva en deportes como judo, fútbol o balonmano.", a: true, j: "Función preventiva." },
+                { q: "10. Gallahue sitúa la consolidación de habilidades motrices específicas entre los dos y siete años.", a: false, j: "Las específicas aparecen más tarde, tras los 7 años." }
+            ],
+            tema31: [
+                { q: "1. Comellas y Perpinya (1987) definieron la respiración como una función voluntaria controlada por centros corticales.", a: false, j: "Es automática, regulada por centros bulbares." },
+                { q: "2. Tavoian y Craighead (2023) relacionan la respiración con procesos de ventilación, transporte sanguíneo y reacciones celulares.", a: true, j: "Visión fisiológica completa." },
+                { q: "3. La respiración se integra prioritariamente entre capacidades coordinativas y condicionales.", a: false, j: "Se integra en capacidades perceptivo-motrices." },
+                { q: "4. Lesur afirma que todas las desviaciones del raquis presentan insuficiencia respiratoria.", a: true, j: "Relación bidireccional." },
+                { q: "5. Durante la inspiración, el oxígeno atraviesa la membrana respiratoria mediante transporte activo.", a: false, j: "Ocurre por difusión pasiva." },
+                { q: "6. El oxígeno circula aproximadamente un noventa y siete por ciento unido a hemoglobina.", a: true, j: "Dato técnico de transporte." },
+                { q: "7. El incremento de la ventilación depende principalmente de la disminución de oxígeno sanguíneo.", a: false, j: "Depende del aumento de CO2." },
+                { q: "8. Hernández considera la respiración abdominal o diafragmática la más importante, frecuente en niños.", a: true, j: "Valoración de la técnica diafragmática." },
+                { q: "9. Strand y McArdle sostienen que la respiración nasal presenta menor resistencia al paso del aire que la oral.", a: false, j: "Presenta tres veces más resistencia." },
+                { q: "10. Gerardo Ruiz recomienda inspirar durante la fase excéntrica del ejercicio de fuerza.", a: true, j: "Pauta respiratoria correcta." }
+            ],
+            tema32: [
+                { q: "1. J. L. Hernández define la relajación como una reducción exclusiva de la tensión muscular para descanso.", a: false, j: "Incluye componentes psíquicos y de autoconcepto." },
+                { q: "2. Paillard (1982) define la ATPO como la integración de tonicidad y posturalidad para el mantenimiento sobre el eje vertical.", a: true, j: "Definición de ATPO." },
+                { q: "3. Da Fonseca (1985) sostiene que una mala equilibración mejora la movilidad segmentaria.", a: false, j: "Produce rigidez o paratonía." },
+                { q: "4. El tono muscular de acción acompaña la actividad muscular durante el movimiento.", a: true, j: "Definición del tono de acción." },
+                { q: "5. Los métodos globales de relajación actúan sobre segmentos aislados región por región.", a: false, j: "Eso es método segmentario." },
+                { q: "6. Bernstein y Borkovec (1973) sistematizaron el método de Jacobson reduciendo grupos musculares hasta recuerdo mental.", a: true, j: "Modelo ARP." },
+                { q: "7. Schultz recomendaba aplicar libremente el entrenamiento autógeno sin supervisión.", a: false, j: "Requiere examen médico previo." },
+                { q: "8. La relajación dinámica de Caycedo incluye respiración abdominal y concentración.", a: true, j: "Componentes del primer grado." },
+                { q: "9. Smith (2001) defendió que la relajación debía explicarse exclusivamente mediante procesos fisiológicos.", a: false, j: "Incorpora dimensiones cognitivas y emocionales." },
+                { q: "10. Beltrán (2011) relaciona el mindfulness con contenidos de relajación y respiración.", a: true, j: "Carácter transversal." }
+            ],
+            tema33: [
+                { q: "1. Blanchard y Cheska (1986) sostienen que el concepto deporte permaneció asociado exclusivamente a la competición desde el siglo XII.", a: false, j: "Hasta el siglo XIX era predominantemente recreativo." },
+                { q: "2. La función pedagógica transmite conocimientos útiles para la vida social, mientras la educativa configura la personalidad.", a: true, j: "Diferenciación funcional." },
+                { q: "3. Cagigal y Mandell sostienen que la civilización griega orientó las prácticas exclusivamente hacia objetivos militares.", a: false, j: "Tenía una finalidad educativa y estética." },
+                { q: "4. Thomas Arnold utilizó el deporte para favorecer educación moral y responsabilidad.", a: true, j: "Origen del deporte escolar." },
+                { q: "5. Pierre de Coubertin promovió los Juegos Olímpicos modernos en París durante 1900.", a: false, j: "Fueron en Atenas en 1896." },
+                { q: "6. Smith (1982) cuestionó el paradigma de la pirámide deportiva.", a: true, j: "Crítica al alto rendimiento." },
+                { q: "7. García Ferrando distinguió exclusivamente entre deporte profesional y escolar.", a: false, j: "Incluyó deporte de recreo." },
+                { q: "8. Parlebás clasificó los deportes atendiendo a colaboración, oposición e incertidumbre del medio.", a: true, j: "Clasificación de Parlebás." },
+                { q: "9. Según Bompa, deportes como atletismo y natación poseen estructura acíclica.", a: false, j: "Tienen estructura cíclica." },
+                { q: "10. Seirul-lo afirma que el potencial educativo depende de las condiciones pedagógicas.", a: true, j: "Valor de las experiencias prácticas." }
+            ],
+            tema34: [
+                { q: "1. Sánchez Bañuelos considera que un individuo está iniciado cuando domina técnicamente todos los gestos.", a: false, j: "Basta con operatividad global." },
+                { q: "2. Hernández Moreno define la iniciación como un proceso que culmina con la adecuación a la estructura funcional del deporte.", a: true, j: "Definición de Hernández Moreno." },
+                { q: "3. La teoría asociacionista defiende la transferencia basada en estructuras dinámicas personales.", a: false, j: "Esa es la del fenómeno estructural." },
+                { q: "4. Bayer considera que la transferencia positiva aparece cuando hay elementos estímulo-respuesta semejantes.", a: true, j: "Teoría de elementos iguales." },
+                { q: "5. La teoría globalista prioriza procesos repetitivos de memorización.", a: false, j: "Exige intervención activa y situaciones variadas." },
+                { q: "6. Bayer afirma que aprender supone generalizar experiencias previas.", a: true, j: "Teoría del fenómeno estructural." },
+                { q: "7. Lasierra y Lavega defendieron una progresión lineal basada en fragmentación secuencial.", a: false, j: "Defienden aproximaciones globales." },
+                { q: "8. Pozo recomienda diversificar tareas para favorecer transferencia.", a: true, j: "Estrategia de aprendizaje." },
+                { q: "9. Bunker y Thorpe sitúan la ejecución técnica como fase inicial previa al juego.", a: false, j: "Comienza con juego modificado." },
+                { q: "10. Meinel y Schnabel indican que la automatización permite atender elementos tácticos.", a: true, j: "Disponibilidad variable." }
+            ],
+            tema35: [
+                { q: "1. Parlebás considera los deportes individuales como situaciones sociomotrices con adversarios.", a: false, j: "Son situaciones psicomotrices (sin adversarios)." },
+                { q: "2. Ruiz define los deportes individuales como situaciones motrices donde el participante se enfrenta solo a una marca o distancia.", a: true, j: "Definición de Ruiz." },
+                { q: "3. Sebastián sostiene que los deportes individuales exigen percepción y decisión, siendo la ejecución secundaria.", a: false, j: "Es al contrario." },
+                { q: "4. Fitts clasificó las tareas considerando el estado de movimiento del deportista y del objeto.", a: true, j: "Clasificación de Fitts." },
+                { q: "5. Matveiev clasificó los deportes únicamente en acíclicos, colectivos y combate.", a: false, j: "Incluye resistencia y poliathones." },
+                { q: "6. Weineck define la técnica deportiva como actos motores automatizados que son soluciones óptimas.", a: true, j: "Definición de Weineck." },
+                { q: "7. Meinel sitúa la estabilización técnica en la segunda etapa.", a: false, j: "Corresponde a la tercera etapa." },
+                { q: "8. Naglack define la táctica como la distribución racional de las fuerzas.", a: true, j: "Definición de Naglack." },
+                { q: "9. En velocidad, la técnica de carrera utiliza apoyo inicial de talón.", a: false, j: "El apoyo es de antepié." },
+                { q: "10. En gimnasia, las infracciones producen penalizaciones en lugar de avisos.", a: true, j: "Criterio de puntuación." }
+            ],
+            tema36: [
+                { q: "1. Cagigal afirmaba que la sociedad moderna podía considerarse deportiva porque la práctica real alcanzaba a toda la población.", a: false, j: "Sociedad 'no deportiva pero sí deportivizada'." },
+                { q: "2. Parlebás (1988) definió los deportes individuales como situaciones psicomotrices donde la acción depende de una sola persona.", a: true, j: "Definición de Parlebás." },
+                { q: "3. Sebastián sostiene que los deportes individuales exigen una elevada participación de mecanismos perceptivos y decisionales.", a: false, j: "Exigen gran mecanismo de ejecución." },
+                { q: "4. El primer nivel de concreción curricular posee carácter flexible, orientador y prescriptivo.", a: true, j: "Características del currículo oficial." },
+                { q: "5. Según el currículo, los deportes individuales se ubican exclusivamente en el bloque dos de organización y gestión.", a: false, j: "Se sitúan en bloques 3 y 6." },
+                { q: "6. Sánchez Bañuelos considera que las tareas deportivas en EF escolar deben orientarse hacia finalidades lúdico-recreativas.", a: true, j: "Finalidad educativa de la EF." },
+                { q: "7. Rodríguez Campazas defendía un deporte escolar centrado prioritariamente en resultados competitivos.", a: false, j: "Defendía una orientación inclusiva." },
+                { q: "8. Sánchez Bañuelos sitúa la Fase IV de desarrollo de tareas motrices específicas en ESO y Bachillerato.", a: true, j: "Distribución de la progresión." },
+                { q: "9. El modelo francés de Golf Goriot propone automatizar modelos técnicos mediante repetición constante.", a: false, j: "Busca la adaptación mediante situaciones variadas." },
+                { q: "10. Valero (2007) estructura el modelo ludotécnico en presentación, propuesta, propuestas globales y reflexión.", a: true, j: "Fases del modelo ludotécnico." }
+            ]
+        };
+
+        let activeExam = 'tema26';
+
+        function loadExam(examId) {
+            activeExam = examId;
+            const buttons = ['tema26', 'tema27', 'tema28', 'tema29', 'tema30', 'tema31', 'tema32', 'tema33', 'tema34', 'tema35', 'tema36'];
+            
+            buttons.forEach(id => {
+                const btn = document.getElementById('btn' + id.slice(-2));
+                if(btn) {
+                    if(id === examId) {
+                        btn.className = "tab-btn px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold shadow";
+                    } else {
+                        btn.className = "tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300";
+                    }
+                }
+            });
+
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = "";
+            document.getElementById('results').classList.add('hidden');
+            
+            data[examId].forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="p-4 border rounded-lg bg-gray-50">
+                        <p class="mb-3 font-medium text-gray-700">${item.q}</p>
+                        <div class="flex gap-4">
+                            <label><input type="radio" name="q${index}" value="true" class="mr-1"> Verdadero</label>
+                            <label><input type="radio" name="q${index}" value="false" class="mr-1"> Falso</label>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function evaluateQuiz() {
+            let score = 0;
+            const feedbackContainer = document.getElementById('feedbackContainer');
+            feedbackContainer.innerHTML = "";
+            
+            data[activeExam].forEach((item, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const isCorrect = selected && (selected.value === item.a.toString());
+                if (isCorrect) score++;
+
+                feedbackContainer.innerHTML += `
+                    <div class="p-4 border-l-4 ${isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'}">
+                        <p class="font-bold">Pregunta ${index + 1}: ${isCorrect ? 'Correcto' : 'Incorrecto'}</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Justificación:</strong> ${item.j}</p>
+                    </div>
+                `;
+            });
+
+            document.getElementById('score').innerText = `Tu puntuación: ${score} / 10`;
+            document.getElementById('results').classList.remove('hidden');
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        loadExam('tema26');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50 dark:bg-slate-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oposiciones EF - Examen Interactivo Temas 43 al 49</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar styling for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased h-full text-slate-800 dark:text-slate-100 transition-colors duration-200">
+
+    <div class="min-h-screen flex flex-col justify-between">
+        
+        <!-- Header -->
+        <header class="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-indigo-600 rounded-xl text-white shadow-md shadow-indigo-100 dark:shadow-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Preparación Oposiciones</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Educación Física • Nivel Exigencia Alto</p>
+                    </div>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" aria-label="Cambiar tema">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.46 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            
+            <!-- Tab Navigation Card (Optimized grid for 7 tabs) -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-2 mb-6">
+                <nav class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2" aria-label="Tabs">
+                    <button id="tab-43" onclick="switchTheme(43)" class="w-full py-3 px-2 rounded-xl text-center font-semibold text-xs sm:text-sm transition-all duration-200 flex flex-col sm:flex-row items-center justify-center gap-1.5 bg-indigo-600 text-white shadow-sm shadow-indigo-100 dark:shadow-none">
+                        <span class="flex h-5 w-5 items-center justify-center rounded bg-indigo-500 text-white text-[10px] font-bold">43</span>
+                        Tema 43
+                    </button>
+                    <button id="tab-44" onclick="switchTheme(44)" class="w-full py-3 px-2 rounded-xl text-center font-semibold text-xs sm:text-sm transition-all duration-200 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700">
+                        <span class="flex h-5 w-5 items-center justify-center rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-bold">44</span>
+                        Tema 44
+                    </button>
+                    <button id="tab-45" onclick="switchTheme(45)" class="w-full py-3 px-2 rounded-xl text-center font-semibold text-xs sm:text-sm transition-all duration-200 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700">
+                        <span class="flex h-5 w-5 items-center justify-center rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-bold">45</span>
+                        Tema 45
+                    </button>
+                    <button id="tab-46" onclick="switchTheme(46)" class="w-full py-3 px-2 rounded-xl text-center font-semibold text-xs sm:text-sm transition-all duration-200 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700">
+                        <span class="flex h-5 w-5 items-center justify-center rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-bold">46</span>
+                        Tema 46
+                    </button>
+                    <button id="tab-47" onclick="switchTheme(47)" class="w-full py-3 px-2 rounded-xl text-center font-semibold text-xs sm:text-sm transition-all duration-200 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700">
+                        <span class="flex h-5 w-5 items-center justify-center rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-bold">47</span>
+                        Tema 47
+                    </button>
+                    <button id="tab-48" onclick="switchTheme(48)" class="w-full py-3 px-2 rounded-xl text-center font-semibold text-xs sm:text-sm transition-all duration-200 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700">
+                        <span class="flex h-5 w-5 items-center justify-center rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-bold">48</span>
+                        Tema 48
+                    </button>
+                    <button id="tab-49" onclick="switchTheme(49)" class="w-full py-3 px-2 rounded-xl text-center font-semibold text-xs sm:text-sm transition-all duration-200 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700">
+                        <span class="flex h-5 w-5 items-center justify-center rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-bold">49</span>
+                        Tema 49
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Welcome Info banner -->
+            <div class="mb-6 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-indigo-500/10 dark:from-indigo-500/20 dark:to-purple-500/20 border border-indigo-200/50 dark:border-indigo-500/30 rounded-2xl p-4 flex items-start gap-3">
+                <span class="text-xl">💡</span>
+                <div>
+                    <h3 class="font-semibold text-slate-900 dark:text-white text-sm">Nivel de examen: Oposición Muy Alta</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">Las preguntas incluyen citas de autores clásicos, marcos teóricos y normativas específicas del temario de Educación Física. Responde con cautela.</p>
+                </div>
+            </div>
+
+            <!-- Quiz container card -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md border border-slate-200/80 dark:border-slate-700 overflow-hidden">
+                <!-- Progress Header -->
+                <div class="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center flex-wrap gap-2">
+                    <span class="text-sm font-semibold text-indigo-600 dark:text-indigo-400" id="current-theme-label">Tema 43</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded font-medium text-slate-700 dark:text-slate-300" id="question-counter">Pregunta 1 de 10</span>
+                        <span class="text-xs bg-emerald-100 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 px-2 py-1 rounded font-medium" id="live-score">Aciertos: 0/0</span>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5">
+                    <div id="progress-bar-fill" class="bg-indigo-600 h-1.5 transition-all duration-300" style="width: 10%"></div>
+                </div>
+
+                <!-- Main Quiz Area -->
+                <div class="p-6 sm:p-8" id="quiz-workspace">
+                    
+                    <!-- Question Text -->
+                    <div class="min-h-[110px] flex items-center justify-center mb-8">
+                        <p id="question-text" class="text-lg sm:text-xl font-medium text-slate-800 dark:text-slate-100 text-center leading-relaxed">
+                            Cargando pregunta...
+                        </p>
+                    </div>
+
+                    <!-- Options Area -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8" id="options-container">
+                        <button onclick="submitAnswer(true)" class="group relative flex flex-col items-center justify-center p-5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-500 dark:hover:border-indigo-400 hover:bg-indigo-50/20 dark:hover:bg-indigo-950/20 transition-all active:scale-[0.98]">
+                            <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">🟢</span>
+                            <span class="font-bold text-slate-900 dark:text-white">VERDADERO</span>
+                        </button>
+                        <button onclick="submitAnswer(false)" class="group relative flex flex-col items-center justify-center p-5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-rose-500 dark:hover:border-rose-400 hover:bg-rose-50/20 dark:hover:bg-rose-950/20 transition-all active:scale-[0.98]">
+                            <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">🔴</span>
+                            <span class="font-bold text-slate-900 dark:text-white">FALSO</span>
+                        </button>
+                    </div>
+
+                    <!-- Rationale / Feedback Box (Hidden initially) -->
+                    <div id="feedback-box" class="hidden rounded-xl p-5 mb-8 animate-fade-in border transition-all duration-300">
+                        <div class="flex items-start gap-3">
+                            <div class="p-1.5 rounded-full" id="feedback-icon-container">
+                                <span id="feedback-icon" class="text-lg"></span>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-sm" id="feedback-title">¡Correcto!</h4>
+                                <p class="text-sm mt-1 text-slate-600 dark:text-slate-300" id="feedback-explanation">
+                                    Aquí irá la explicación de por qué es verdadero o falso...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions Panel -->
+                    <div class="flex justify-between items-center gap-4">
+                        <button id="btn-hint" onclick="toggleHint()" class="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1.5 py-2 px-3 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                            <span>🔍 Ver Pista</span>
+                        </button>
+                        <button id="btn-next" onclick="nextQuestion()" class="hidden bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-6 rounded-xl transition-all shadow-md shadow-indigo-100 dark:shadow-none flex items-center gap-2">
+                            <span>Siguiente</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Hint Display (Hidden initially) -->
+                    <div id="hint-box" class="hidden mt-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 rounded-xl p-4 text-sm text-amber-800 dark:text-amber-300">
+                        <strong>Pista:</strong> <span id="hint-text">Cargando sugerencia...</span>
+                    </div>
+
+                </div>
+
+                <!-- Results Workspace (Hidden initially) -->
+                <div class="p-6 sm:p-8 hidden" id="results-workspace">
+                    <div class="text-center max-w-md mx-auto mb-8">
+                        <div class="inline-flex items-center justify-center p-4 bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-full mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">¡Cuestionario Completado!</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Has finalizado el examen interactivo correspondiente a este tema.</p>
+                        
+                        <!-- Big Score Badge -->
+                        <div class="mt-6 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Puntuación Final</span>
+                            <div class="text-4xl font-extrabold text-slate-900 dark:text-white mt-1" id="final-score-badge">8 / 10</div>
+                            <div class="text-sm font-semibold mt-1" id="final-percentage">80% Aciertos</div>
+                            <div class="text-xs text-slate-500 mt-2" id="final-feedback-text">¡Buen trabajo! Vas por buen camino para el examen.</div>
+                        </div>
+                    </div>
+
+                    <!-- Answers Review Section -->
+                    <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-4">Revisión de respuestas del <span id="results-theme-title">Tema 43</span></h3>
+                        
+                        <div class="space-y-4" id="review-cards-container">
+                            <!-- Card list loaded via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                        <button onclick="resetCurrentQuiz()" class="w-full sm:w-1/2 py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <span>🔄 Repetir Examen</span>
+                        </button>
+                        <button onclick="switchTheme(44)" class="w-full sm:w-1/2 py-3 px-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-xl transition-colors flex items-center justify-center gap-2" id="btn-switch-theme-footer">
+                            <span>Estudiar Tema 44</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+            <div class="max-w-4xl mx-auto px-4">
+                <p>© 2026 Preparación Oposiciones EF. El juego, la expresión corporal, la rítmica, la dramatización, el medio natural, la orientación y la nutrición como herramientas pedagógicas.</p>
+                <p class="mt-1">Desarrollado con enfoque de máxima retención pedagógica para opositores de alto nivel.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- DATA STORE ---
+        const quizData = {
+            43: {
+                title: "Tema 43: Teoría del Juego",
+                questions: [
+                    {
+                        id: 1,
+                        q: "Huizinga (1938) define el juego como una acción libre desarrollada fuera de la vida corriente que, pese a carecer de interés material, puede absorber completamente al participant.",
+                        ans: true,
+                        just: "El tema recoge literalmente esta definición y añade que el juego se desarrolla en un espacio y tiempo determinados, sometido a reglas.",
+                        hint: "Piensa en el libro central de este autor: 'Homo Ludens', donde la voluntariedad y las normas delimitadas son críticas."
+                    },
+                    {
+                        id: 2,
+                        q: "Entre las características propuestas por Huizinga, Caillois, Cagigal, Bandet y Sarazanas, el juego se define como una actividad obligatoria cuya finalidad principal es la obtención de beneficios materiales externos.",
+                        ans: false,
+                        just: "El tema establece justamente lo contrario: el juego es libre, gratuito y desinteresado, con finalidad en sí mismo.",
+                        hint: "Reflexiona sobre si el juego perdería su naturaleza fundamental si te obligaran a participar para conseguir bienes."
+                    },
+                    {
+                        id: 3,
+                        q: "Schuerl (1954) considera la infinitud interna como una característica lúdica entendida como círculo cerrado y experiencia delimitada simbólicamente respecto de la realidad cotidiana.",
+                        ans: true,
+                        just: "El tema incorpora la infinitud interna dentro de las seis características del juego formuladas por Schuerl.",
+                        hint: "Esta dimensión de Schuerl alude precisamente a la creación de fronteras lúdicas y la fantasía contenida."
+                    },
+                    {
+                        id: 4,
+                        q: "Stanley Hall (1906), dentro de las teorías fisiológicas, interpreta el juego infantil como una liberación de energía excedente acumulada durante actividades ordinarias cotidianas.",
+                        ans: false,
+                        just: "La teoría del excedente de energía pertenece a Schiller y Spencer; Hall formuló la teoría de la recapitulación.",
+                        hint: "Stanley Hall está ligado a las teorías evolutivas biológicas de corte darwiniano. ¿De quién era la energía sobrante?"
+                    },
+                    {
+                        id: 5,
+                        q: "Karl Groos (1902) considera que durante la infancia el individuo necesita autoejercitarse mediante el juego para desarrollar adaptaciones indispensables para la vida adulta.",
+                        ans: true,
+                        just: "El tema sitúa esta explicación dentro de las teorías biológicas, considerando el juego como autoeducación funcional.",
+                        hint: "Groos defendió la teoría del 'preejercicio' o anticipación funcional del juego en cachorros humanos y animales."
+                    },
+                    {
+                        id: 6,
+                        q: "Piaget (1945) sostiene que las estructuras del juego se subordinan exclusivamente a impulsos afectivos y desvincula completamente el juego del desarrollo cognitivo infantil.",
+                        ans: false,
+                        just: "Piaget relaciona directamente juego y estructuras cognitivas, asociando juego simple, simbólico y reglado con el desarrollo evolutivo.",
+                        hint: "Siendo el padre del constructivismo cognitivo, Piaget asocia estrechamente el juego a las fases de asimilación e inteligencia."
+                    },
+                    {
+                        id: 7,
+                        q: "Caillois clasifica el universo lúdico en categorías denominadas Agon, Alea, Mimicry e Ilinx, agrupando respectivamente competición, azar, simulación y experiencias de vértigo o inestabilidad.",
+                        ans: true,
+                        just: "El tema recoge exactamente estas cuatro categorías sociológicas fundamentales del juego.",
+                        hint: "Traduce estas cuatro palabras griegas y latinas. Competición, dados/suerte, teatro/máscara, vértigo de montaña."
+                    },
+                    {
+                        id: 8,
+                        q: "Durante el periodo de ludoegocentrismo descrito por Piaget, Parlebás y Blázquez, el niño muestra especial interés por reglas complejas y elevada cooperación grupal estructurada.",
+                        ans: false,
+                        just: "El tema señala que entre 2 y 6 años predominan juegos individuales y egocéntricos, rechazándose reglas compartidas complejas.",
+                        hint: "Fíjate en el término 'egocentrismo'. El niño en esta etapa juega de forma paralela y no coopera de manera reglada."
+                    },
+                    {
+                        id: 9,
+                        q: "Terry Orlick fundamentó los nuevos juegos introducidos en Estados Unidos durante los años setenta sobre principios como ausencia de exclusión, libertad creativa y ausencia de agresión.",
+                        ans: true,
+                        just: "El tema incluye explícitamente estas premisas como base educativa de los 'new games'.",
+                        hint: "Terry Orlick es el principal impulsor de los juegos cooperativos libres de eliminación y violencia destructiva."
+                    },
+                    {
+                        id: 10,
+                        q: "Dentro de las modificaciones temporales del juego, el tema recomienda mantener juegos eliminatorios tradicionales porque incrementan significativamente el tiempo real de participación motriz del alumnado.",
+                        ans: false,
+                        just: "El tema propone sustituirlos por acumulación de puntos o prendas, evitando reducir el tiempo real de práctica.",
+                        hint: "Si eliminas a un niño del juego en clase, ¿estará haciendo más ejercicio o estará sentado en la grada?"
+                    }
+                ]
+            },
+            44: {
+                title: "Tema 44: Expresión Corporal",
+                questions: [
+                    {
+                        id: 1,
+                        q: "Arteaga, Viciana y Conde (1997) definen la Expresión Corporal como un proceso de exteriorización de contenidos personales mediante el cuerpo y como técnica interpretativa de sensaciones y sentimientos.",
+                        ans: true,
+                        just: "El tema recoge ambas formulaciones y las utiliza para explicar el carácter ambivalente y polisémico de la Expresión Corporal.",
+                        hint: "Considera la doble vertiente del movimiento expresivo: exteriorizar el yo interno e interpretar las sensaciones físicas."
+                    },
+                    {
+                        id: 2,
+                        q: "Bernard (1976) sostiene que el término expresión corporal posee una definición unívoca y estable, limitada exclusivamente al ámbito pedagógico y ajena a discursos sociológicos o artísticos.",
+                        ans: false,
+                        just: "Bernard afirma precisamente que la expresión corporal es ambivalente y polisémica, apareciendo en múltiples ámbitos.",
+                        hint: "Bernard analizó los discursos de la expresión corporal como un campo de tensión multidisciplinar y cambiante."
+                    },
+                    {
+                        id: 3,
+                        q: "Castañer diferencia imagen corporal, esquema corporal y conciencia corporal, considerando esta última una síntesis continua entre percepción subjetiva y adaptación funcional segmentaria.",
+                        ans: true,
+                        just: "El tema explica que la conciencia corporal surge como combinación de imagen corporal y esquema corporal.",
+                        hint: "Castañer integra lo perceptual-cognitivo (esquema) con lo afectivo-representativo (imagen) en la síntesis de conciencia."
+                    },
+                    {
+                        id: 4,
+                        q: "Quintana (1997) considera que las funciones expresiva, estética y comunicativa del movimiento poseen escasa relación con el conocimiento personal y la dimensión catártica del sujeto.",
+                        ans: false,
+                        just: "El tema incluye también función de conocimiento y función catártica entre las relacionadas con la expresión corporal.",
+                        hint: "La expresión corporal, además de comunicar y ser estética, sirve para autoliberarse emocionalmente (catarsis) y conocerse."
+                    },
+                    {
+                        id: 5,
+                        q: "Levieux y Levieux (1986) sostienen que el dominio pedagógico-artístico supone una evolución desde actividad espontánea hacia producciones basadas en ejecución y creación.",
+                        ans: true,
+                        just: "El tema señala que esta evolución se apoya en capacidades centradas en ejecución y creación.",
+                        hint: "Es el paso de la simple improvisación lúdica inicial a la elaboración formal del gesto estético final."
+                    },
+                    {
+                        id: 6,
+                        q: "Según la ley de concordancia formulada por Carmen Aymerich, el niño emplea exclusivamente recursos corporales aislados evitando combinar procedimientos expresivos durante la comunicación con el entorno.",
+                        ans: false,
+                        just: "Aymerich afirma que el niño utiliza recursos expresivos alternativos y complementarios para comunicarse.",
+                        hint: "Piensa en el concepto de 'concordancia'. Expresa la armonía de combinar voz, gesto, espacio y cuerpo simultáneamente."
+                    },
+                    {
+                        id: 7,
+                        q: "Von Latan (1987) plantea que todo gesto surge de la combinación de segmentos corporales, espacio, duración temporal y energía, pudiendo originar distintas acciones motrices básicas.",
+                        ans: true,
+                        just: "El tema establece estas cuatro dimensiones como elementos constitutivos fundamentales del gesto expresivo.",
+                        hint: "Prueba a realizar un gesto: usas tus articulaciones, te mueves por el espacio, tardas un tiempo y aplicas cierta tensión muscular."
+                    },
+                    {
+                        id: 8,
+                        q: "Guilford (1950) considera la creatividad una capacidad convergente sustentada únicamente en fluidez de respuestas, descartando flexibilidad y originalidad como dimensiones esenciales.",
+                        ans: false,
+                        just: "Guilford define creatividad mediante originalidad, fluidez y flexibilidad, vinculadas al pensamiento divergente.",
+                        hint: "La creatividad según Guilford requiere pensamiento alternativo e innovador (divergencia), no convergencia limitante."
+                    },
+                    {
+                        id: 9,
+                        q: "Serre (1976) sostiene que la improvisación motriz aparece completamente desvinculada de experiencias previas y representa una producción espontánea independiente de informaciones anteriores.",
+                        ans: false,
+                        just: "El tema señala que la improvisación es tributaria de informaciones recogidas previamente y de experiencias anteriores.",
+                        hint: "Para improvisar necesitas un baúl de recuerdos motrices acumulados; nadie crea del vacío absoluto."
+                    },
+                    {
+                        id: 10,
+                        q: "Cadopi y Bonnery (1990) relacionan la evaluación formativa con la recogida reiterada de información útil que permita informar al alumnado sobre su comportamiento presente.",
+                        ans: true,
+                        just: "El tema presenta esta evaluación como un registro continuo y sistemático del proceso de aprendizaje.",
+                        hint: "La evaluación de procesos continuos busca dar feedback (informar) para regular y adaptar el desempeño en tiempo real."
+                    }
+                ]
+            },
+            45: {
+                title: "Tema 45: El Ritmo y la Danza",
+                questions: [
+                    {
+                        id: 1,
+                        q: "Fraisse (1955) define el ritmo como una organización espacial de estructuras perceptivas variables cuya complejidad depende exclusivamente de factores musicales y desvinculados de la periodicidad.",
+                        ans: false,
+                        just: "Fraisse define el ritmo como una organización temporal de la periodicidad percibida, basada en repetición y estructura.",
+                        hint: "El ritmo tiene que ver con la duración y el tiempo, no con la disposición espacial ni elementos exclusivamente sonoros."
+                    },
+                    {
+                        id: 2,
+                        q: "Willems (1979) estableció un paralelismo entre música y ser humano relacionando ritmo, melodía y armonía con dimensiones físicas, afectivas y emocionales.",
+                        ans: true,
+                        just: "El tema recoge literalmente la relación entre ritmo–vida física, melodía–vida afectiva y armonía–vida emocional.",
+                        hint: "Asocia el ritmo a la base biológica/motriz (lo físico), la melodía al sentimiento (afectivo) y la armonía al intelecto (emocional superior)."
+                    },
+                    {
+                        id: 3,
+                        q: "Philippe Tissié sostenía que el ejercicio debía adaptarse completamente a la estructura musical, considerando inadecuado modificar las composiciones sonoras para fines motrices.",
+                        ans: false,
+                        just: "El tema afirma justamente lo contrario: la música debía adaptarse al ejercicio y no a la inversa.",
+                        hint: "Como defensor de la gimnasia racional científica, Tissié no permitía que la métrica musical limitara el diseño anatómico del ejercicio."
+                    },
+                    {
+                        id: 4,
+                        q: "Dalcroze, creador de la euritmia, defendía que la conciencia rítmica únicamente podía desarrollarse mediante experiencias corporales repetidas y movimiento del cuerpo completo.",
+                        ans: true,
+                        just: "Su obra afirma que la percepción y realización del ritmo dependen del movimiento global corporal.",
+                        hint: "La euritmia asume que las fuerzas motrices del cuerpo son el instrumento fundamental para la asimilación del sonido rítmico."
+                    },
+                    {
+                        id: 5,
+                        q: "La evolución histórica propuesta por Baril (1987) sitúa la aparición de la danza jazz en Europa durante el siglo XVIII asociada al virtuosismo teatral clásico.",
+                        ans: false,
+                        just: "El tema ubica la danza-jazz en Estados Unidos, relacionada posteriormente con mezclas culturales afroeuropeas.",
+                        hint: "El origen del jazz no es el clasicismo teatral europeo decimonónico, sino la fusión multicultural del folclore afroamericano."
+                    },
+                    {
+                        id: 6,
+                        q: "Según Viciana y Arteaga, el análisis de la danza se organiza alrededor de dimensiones temporales, espaciales y corporales que integran orientación, estructuración y organización perceptivo-motriz.",
+                        ans: true,
+                        just: "El tema presenta estos tres ejes como estructura fundamental para analizar cualquier danza.",
+                        hint: "Visualiza los componentes del análisis estructural: ¿qué se mueve (Cuerpo), dónde se mueve (Espacio) y cuándo se mueve (Tiempo)?"
+                    },
+                    {
+                        id: 7,
+                        q: "La frase musical se define asumiendo que agrupa seis pulsos consecutivos donde el último pulso adquiere mayor intensidad y determina el inicio del movimiento.",
+                        ans: false,
+                        just: "El tema establece que la frase musical agrupa ocho pulsos y el primero es el acentuado.",
+                        hint: "En el fitness y bailes estructurados, la frase estándar se rige por bloques u 'ochos', acentuando con fuerza el primer pulso."
+                    },
+                    {
+                        id: 8,
+                        q: "La danza clásica, consolidada durante los siglos XVII y XVIII, codificó posiciones, movimientos y nomenclaturas francesas construyendo una técnica corporal altamente precisa y tecnificada.",
+                        ans: true,
+                        just: "El tema señala que esta codificación constituye una de las bases fundamentales de la técnica clásica.",
+                        hint: "Fue en las academias promovidas por la monarquía de Luis XIV donde nació y se redactó el léxico técnico global del ballet."
+                    },
+                    {
+                        id: 9,
+                        q: "La danza contemporánea mantiene el hieratismo postural clásico, el uso predominante del “en dehors” y una organización corporal basada en códigos técnicos rígidos y preestablecidos.",
+                        ans: false,
+                        just: "El tema señala ruptura con la danza clásica mediante contracción-relajación, posiciones paralelas y creatividad personal.",
+                        hint: "La danza contemporánea rompió las ataduras tradicionales del ballet académico buscando el uso natural del peso y el suelo."
+                    },
+                    {
+                        id: 10,
+                        q: "Guerber, Leray y Macouvert (1991) consideran compatibles las pedagogías de modelo y creativa, pudiendo combinarse durante un curso o alternarse entre cursos sucesivos.",
+                        ans: true,
+                        just: "El tema indica expresamente que ambas metodologías no son excluyentes y pueden complementarse pedagógicamente.",
+                        hint: "Considera si la reproducción guiada técnica (modelo) puede coexistir con momentos de libertad compositiva (creación)."
+                    }
+                ]
+            },
+            46: {
+                title: "Tema 46: Actividades Dramáticas en EF",
+                questions: [
+                    {
+                        id: 1,
+                        q: "Motos (2018) limita las actividades dramáticas escolares exclusivamente a dramatizaciones escénicas formales, excluyendo procedimientos como improvisación, escritura colectiva o juego dramático.",
+                        ans: false,
+                        just: "El tema señala que Motos incluye juego dramático, dramatización, role play, improvisación, simulaciones, lectura y escritura individual o grupal, entre otras posibilidades.",
+                        hint: "Motos es uno de los mayores defensores de la expresión dramática amplia en el aula. ¿Tiene sentido que la limite solo al teatro formal de escenario?"
+                    },
+                    {
+                        id: 2,
+                        q: "Wolf (1966) considera que durante las primeras semanas de vida predominan los gestos automáticos condicionados por estados reflejos de bienestar o malestar corporal.",
+                        ans: true,
+                        just: "El tema sitúa los gestos automáticos o reflejos en las primeras fases evolutivas, vinculados al bienestar y malestar.",
+                        hint: "Piensa en el desarrollo sensorio-motor de los bebés en las primeras semanas de vida y la preeminencia de lo biológico sobre lo intencional."
+                    },
+                    {
+                        id: 3,
+                        q: "Stoetzel (1971) sostiene que los gestos autísticos poseen una intencionalidad comunicativa plenamente consciente y se utilizan prioritariamente para reforzar procesos de interacción social estructurada.",
+                        ans: false,
+                        just: "El tema indica que los gestos autísticos comunican sin intención comunicativa consciente, traicionando involuntariamente a la persona.",
+                        hint: "La palabra autístico en comunicación no intencionada se relaciona con comportamientos automáticos involuntarios del propio sujeto."
+                    },
+                    {
+                        id: 4,
+                        q: "Ekman y Friesen (1973) clasifican los reguladores como conductas orientadas a mantener el proceso comunicativo mediante funciones de soporte y complemento conversacional.",
+                        ans: true,
+                        just: "El tema recoge que los reguladores actúan como mecanismos de mantenimiento y apoyo del intercambio comunicativo.",
+                        hint: "Los gestos reguladores sirven para modular los turnos de palabra, el ritmo de conversación y el flujo comunicativo."
+                    },
+                    {
+                        id: 5,
+                        q: "Hall (1987) propuso indicadores proxémicos estructurados únicamente alrededor de distancia íntima y distancia pública, descartando categorías espaciales intermedias.",
+                        ans: false,
+                        just: "Hall establece cuatro niveles espaciales: íntima, personal, social y pública.",
+                        hint: "Acuérdate de la proxémica de Hall y los círculos concéntricos de espacio que nos rodean (desde lo más cercano a lo más lejano)."
+                    },
+                    {
+                        id: 6,
+                        q: "Pavis (1980) considera que el juego dramático pretende desarrollar comprensión de mecanismos teatrales y favorecer cierta liberación corporal y emocional en los participantes.",
+                        ans: true,
+                        just: "El tema señala expresamente que persigue comprensión de personaje, convención, diálogos y dinámica grupal, además de liberación expresiva.",
+                        hint: "Pavis analiza el juego dramático valorando tanto su aprendizaje pedagógico de la técnica dramática como sus bondades expresivas y catárticas."
+                    },
+                    {
+                        id: 7,
+                        q: "La improvisación teatral aparece definida como una conducta completamente espontánea y constituye un objetivo final autónomo independiente de otras técnicas dramáticas posteriores.",
+                        ans: false,
+                        just: "El tema especifica que no equivale a espontaneidad y funciona como una técnica al servicio de otras adaptaciones dramáticas.",
+                        hint: "La improvisación requiere entrenamiento y herramientas técnicas de base. ¿Es un fin en sí mismo o un recurso para estructurar otras creaciones?"
+                    },
+                    {
+                        id: 8,
+                        q: "En la construcción del personaje, las características ideológico-morales y los rasgos básicos de personalidad forman parte de los elementos internos estables.",
+                        ans: true,
+                        just: "El tema clasifica como internas estables las ideas, prejuicios y rasgos básicos del carácter.",
+                        hint: "Los valores, la ideología, la moral y la personalidad básica son elementos estables del carácter interno que guían la conducta del personaje."
+                    },
+                    {
+                        id: 9,
+                        q: "El mimodrama se caracteriza por otorgar supremacía al discurso verbal sobre la expresividad gestual y por utilizar la voz como elemento dominante de comunicación.",
+                        ans: false,
+                        just: "El tema afirma que en el mimodrama el dominio gestual impera sobre el discurso, siendo la voz únicamente soporte sonoro.",
+                        hint: "Recuerda la palabra 'mimo' (silencio, gesto corporal puro). El habla es secundaria o inexistente en esta disciplina expresiva."
+                    },
+                    {
+                        id: 10,
+                        q: "Xavier Fábregas utiliza el concepto de intención previa para referirse al embrión que contiene la experiencia humana que posteriormente será desarrollada escénicamente durante la dramatización.",
+                        ans: true,
+                        just: "El tema define la intención previa como el núcleo inicial que contiene la experiencia a desarrollar en el espectáculo dramático.",
+                        hint: "Piensa en qué concepto representa la semilla o la idea generadora antes de dar forma a una puesta en escena dramática."
+                    }
+                ]
+            },
+            47: {
+                title: "Tema 47: Medio Natural",
+                questions: [
+                    {
+                        id: 1,
+                        q: "Lagardera (1995) y Tierra (1996) definen las Actividades Físicas en el Medio Natural como prácticas interdisciplinares desarrolladas en contacto con la naturaleza con finalidad educativa, recreativa y deportiva bajo cierta incertidumbre ambiental.",
+                        ans: true,
+                        just: "El tema recoge literalmente esta definición y añade el componente de incertidumbre del medio como rasgo esencial.",
+                        hint: "Fíjate en las características clave: contacto con la naturaleza, finalidades y la incertidumbre del medio físico."
+                    },
+                    {
+                        id: 2,
+                        q: "Baena (2003) considera que los deportes de aventura se caracterizan prioritariamente por la utilización reglamentaria y la reducción progresiva del riesgo e incertidumbre ambiental.",
+                        ans: false,
+                        just: "El tema señala que Baena los define por la superación de dificultades naturales y la búsqueda de emociones fuertes, no por reducir incertidumbre.",
+                        hint: "La aventura intrínsecamente busca emociones fuertes y afrontar la incertidumbre del medio salvaje, no eliminarla."
+                    },
+                    {
+                        id: 3,
+                        q: "Según el tema, el hombre apareció durante la era Cuaternaria en Asia, en el Paleolítico Inferior, aproximadamente entre hace cien mil y seiscientos mil años.",
+                        ans: true,
+                        just: "Esta cronología aparece explícitamente dentro del apartado dedicado a los impactos de la actividad humana sobre el entorno natural.",
+                        hint: "Esta es una precisión cronológica e histórica de los apartados introductorios del temario oficial de oposiciones de EF."
+                    },
+                    {
+                        id: 4,
+                        q: "Rousseau, en “Emilio” (1762), defendió una educación física subordinada a estrictos principios de autoridad y rechazó los juegos y actividades desarrolladas al aire libre.",
+                        ans: false,
+                        just: "Rousseau defendió la educación de los sentidos, juegos, deportes al aire libre y un retorno liberador a la naturaleza.",
+                        hint: "Rousseau es considerado el precursor del naturalismo pedagógico. ¿Rechazaría el aire libre y el juego espontáneo?"
+                    },
+                    {
+                        id: 5,
+                        q: "Kurt Hahn (1886–1974) fue un pedagogo pionero en incorporar las actividades físicas en el medio natural como componente esencial del currículo formativo escolar.",
+                        ans: true,
+                        just: "El tema lo presenta como precursor de la pedagogía de la experiencia y programas de aventura (como Outward Bound).",
+                        hint: "Kurt Hahn es famoso por fundar escuelas donde el mar y la montaña se usaban para forjar el carácter y la resiliencia."
+                    },
+                    {
+                        id: 6,
+                        q: "Olivera (1996) considera equivalentes las expresiones actividades deportivas en el medio natural, deportes tecnoecológicos y actividades deslizantes de aventura o de liz.",
+                        ans: true,
+                        just: "El tema recoge estos términos como parte de la gran diversidad terminológica asociada a las AFMN.",
+                        hint: "Olivera analizó la evolución semántica y clasificatoria de estas prácticas en la sociedad postindustrial."
+                    },
+                    {
+                        id: 7,
+                        q: "Las actividades desarrolladas en el medio natural se caracterizan por la abundancia de acciones de oposición directa entre participantes similares a las existentes en deportes colectivos tradicionales.",
+                        ans: false,
+                        just: "El tema afirma que predominan acciones de colaboración y autosuperación, salvo determinadas prácticas individuales.",
+                        hint: "En el medio natural, el adversario no suele ser otra persona directa, sino las dificultades que impone el propio entorno."
+                    },
+                    {
+                        id: 8,
+                        q: "Dentro de la clasificación según fuente energética, el esquí alpino constituye un ejemplo de energía potencial o desnivel donde el cuerpo controla la velocidad generada.",
+                        ans: true,
+                        just: "El tema incluye el esquí alpino como ejemplo de energía generada por el entorno mediante el desnivel del terreno.",
+                        hint: "Piensa si el esquiador genera su propia energía propulsora o si se sirve del desnivel gravitatorio para deslizarse."
+                    },
+                    {
+                        id: 9,
+                        q: "En la técnica de la marcha, el tema recomienda potenciar planteamientos competitivos desde el inicio para aumentar motivación, rendimiento físico y eficacia del desplazamiento grupal.",
+                        ans: false,
+                        just: "El texto señala expresamente que todo intento competitivo debe eliminarse desde el principio para evitar la fatiga y promover la cohesión.",
+                        hint: "Al marchar en grupo por montaña, la competencia suele fragmentar la marcha y provocar accidentes o agotamiento de los rezagados."
+                    },
+                    {
+                        id: 10,
+                        q: "La escalada deportiva busca superar la máxima dificultad con seguridad, intentando completar la vía sin reposos artificiales ni caídas durante su ejecución.",
+                        ans: true,
+                        just: "El tema recoge esta definición literalmente al explicar las características fundamentales de la escalada deportiva.",
+                        hint: "Diferencia entre escalada clásica/artificial (donde te ayudas de anclajes para progresar) y la deportiva (foco en libre encadenamiento)."
+                    }
+                ]
+            },
+            48: {
+                title: "Tema 48: Orientación en el Medio Natural",
+                questions: [
+                    {
+                        id: 1,
+                        q: "H. Freire (2011) sostiene que la tecnología ha favorecido una relación más intensa con el entorno próximo, recuperando progresivamente el contacto directo de los jóvenes con la naturaleza.",
+                        ans: false,
+                        just: "El tema señala exactamente lo contrario: Freire afirma que los jóvenes viven desconectados de la naturaleza cercana, relacionándose con ecosistemas lejanos de manera abstracta mediante la tecnología.",
+                        hint: "Piensa en el 'síndrome de déficit de naturaleza'. ¿La tecnología nos une físicamente a los entornos verdes locales o nos aísla en pantallas?"
+                    },
+                    {
+                        id: 2,
+                        q: "El tema establece que el ser humano actual depende progresivamente de instrumentos externos como GPS, mapas o brújulas, lo que contribuye a la pérdida paulatina de capacidades naturales de orientación.",
+                        ans: true,
+                        just: "Se afirma expresamente que la orientación humana está cada vez más codificada y mediatizada por instrumentos externos, reduciendo paulatinamente la orientación natural o innata.",
+                        hint: "Considera si delegar nuestra ubicación constantemente en mapas satelitales y dispositivos inteligentes debilita nuestro sentido de orientación biológico."
+                    },
+                    {
+                        id: 3,
+                        q: "Según el mecanismo de orientación humana descrito en el tema, los órganos efectores captan información ambiental y la envían mediante vías aferentes para ser procesada cerebralmente.",
+                        ans: false,
+                        just: "Son los receptores (vista, oído, etc.) quienes captan la información; posteriormente esta pasa por vías aferentes al cerebro para ser procesada, y finalmente actúan los órganos efectores (músculos).",
+                        hint: "Recuerda la cadena fisiológica básica: receptores -> vías aferentes -> centros procesadores -> vías eferentes -> efectores."
+                    },
+                    {
+                        id: 4,
+                        q: "El ángulo de declinación se define como la diferencia angular entre Norte Magnético y Norte Geográfico, oscilando generalmente entre cero y seis grados según el lugar considerado.",
+                        ans: true,
+                        just: "El tema explica que el Norte Magnético (señalado por la aguja) y el Norte Geográfico o de la cuadrícula no coinciden, originando el llamado ángulo de declinación magnética.",
+                        hint: "La declinación magnética representa precisamente esta discrepancia angular que varía constantemente a nivel espacial y temporal."
+                    },
+                    {
+                        id: 5,
+                        q: "Los mapas de orientación presentan nombres escritos sobre carreteras y parajes para facilitar la interpretación espacial, a diferencia de los mapas topográficos convencionales.",
+                        ans: false,
+                        just: "El tema indica que los mapas de orientación son mapas mudos, es decir, carecen de elementos de escritura que puedan distraer o facilitar de forma artificial la navegación.",
+                        hint: "En una competición de orientación el mapa no te dice el nombre de los cerros, ríos o pistas. ¿Cómo se denominan estos mapas desprovistos de letras?"
+                    },
+                    {
+                        id: 6,
+                        q: "En la simbología de los mapas de orientación, los elementos hidrográficos aparecen en azul, mientras los controles se representan mediante símbolos de color violeta.",
+                        ans: true,
+                        just: "El tema clasifica la simbología en cinco grandes grupos cromáticos normalizados y atribuye el azul a la hidrografía y el violeta/púrpura a la simbología de los controles e itinerarios.",
+                        hint: "El agua siempre se representa con el tono azul standard en cartografía de orientación, mientras que los círculos de control, salidas y metas usan tonos purpúreos altamente legibles."
+                    },
+                    {
+                        id: 7,
+                        q: "La orientación somera se utiliza cerca del punto de control y exige disminuir considerablemente la velocidad para identificar detalles pequeños y referencias específicas del terreno.",
+                        ans: false,
+                        just: "Esa descripción minuciosa corresponde a la orientación precisa. La orientación somera (o de ataque grueso) permite desplazamientos muy rápidos usando referencias grandes y evidentes.",
+                        hint: "Recuerda que 'somero' significa general, superficial o rápido. ¿Frenarías a fondo si vas haciendo una lectura de macro-referencias?"
+                    },
+                    {
+                        id: 8,
+                        q: "La técnica del “Semáforo” establece que el color verde corresponde a orientación somera rápida, mientras el rojo implica avanzar andando mediante rumbos y medición precisa de distancias.",
+                        ans: true,
+                        just: "El tema describe exactamente esta progresión didáctica y táctica: verde (velocidad, referencias grandes), ámbar (atención, transición) y rojo (precisión absoluta, lectura fina cerca de la baliza).",
+                        hint: "Piensa en un semáforo de tráfico: verde indica vía libre para correr a toda velocidad; rojo te obliga a pararte o ir con el máximo cuidado posible."
+                    },
+                    {
+                        id: 9,
+                        q: "El reglamento resumido de orientación permite seguir a otros corredores cuando exista dificultad para localizar controles, siempre que se mantenga una distancia suficiente entre participantes.",
+                        ans: false,
+                        just: "El tema señala expresamente que está terminantemente prohibido colaborar con otros competidores o seguir a otro corredor para beneficiarse de su capacidad de lectura de mapa.",
+                        hint: "La orientación es un deporte de autosuficiencia y navegación individual autónoma. Aprovecharse de la estela de otro va en contra de sus normas éticas básicas."
+                    },
+                    {
+                        id: 10,
+                        q: "Antón (1983) afirma que la adquisición de la orientación espacial evoluciona paralelamente a la maduración corporal y no puede desarrollarse independientemente de ella.",
+                        ans: true,
+                        just: "El tema recoge literalmente esta afirmación de Antón dentro de las consideraciones evolutivas y de aprendizaje motor de la orientación.",
+                        hint: "Antón correlaciona el desarrollo de las nociones espaciales abstractas con la maduración neurológica y el crecimiento psicofísico del niño."
+                    }
+                ]
+            },
+            49: {
+                title: "Tema 49: Nutrición y Alimentación",
+                questions: [
+                    {
+                        id: 1,
+                        q: "Según el tema, la nutrición constituye un proceso voluntario regulado por hambre y apetito, mientras la alimentación representa un mecanismo orgánico involuntario de aprovechamiento metabólico de nutrientes.",
+                        ans: false,
+                        just: "El tema establece exactamente lo contrario: la nutrición es un conjunto de procesos involuntarios (digestión, absorción, transporte celular y metabolismo), mientras que la alimentación es el acto voluntario, consciente y educable por el cual ingerimos alimentos.",
+                        hint: "Distingue entre el acto social/físico de comer (alimentación) y los procesos bioquímicos internos e involuntarios que ocurren a nivel de las células (nutrición)."
+                    },
+                    {
+                        id: 2,
+                        q: "Las reservas corporales de hidratos de carbono oscilan aproximadamente entre 375 y 475 gramos, distribuyéndose principalmente entre músculo, hígado y sangre en proporciones específicas.",
+                        ans: true,
+                        just: "El tema señala una distribución estándar aproximada del glucógeno corporal total: un 72% en el músculo esquelético, un 25% en el hígado y solo un 3% en forma de glucosa en el torrente sanguíneo.",
+                        hint: "Ten en cuenta que los depósitos musculares y hepáticos concentran casi la totalidad de los carbohidratos, quedando una mínima cantidad libre en circulación."
+                    },
+                    {
+                        id: 3,
+                        q: "Durante ejercicios de intensidad superior al 80–85% del VO₂ máximo, los ácidos grasos libres constituyen el sustrato energético principal por su elevada capacidad de oxidación inmediata.",
+                        ans: false,
+                        just: "El tema indica que a intensidades superiores al 80–85% de la capacidad aeróbica máxima (VO₂máx) el glucógeno muscular y hepático es el sustrato predominante, ya que la tasa de energía de la beta-oxidación de grasas es demasiado lenta.",
+                        hint: "A altas intensidades, el organismo requiere energía de forma rápida. ¿Es metabólicamente más rápido oxidar glucógeno mediante glucólisis o ácidos grasos mediante la vía aeróbica lipolítica?"
+                    },
+                    {
+                        id: 4,
+                        q: "El colesterol HDL actúa como colesterol protector al contrarrestar los efectos aterogénicos del LDL y aparece asociado, entre otros alimentos, al pescado azul y aceite de oliva.",
+                        ans: true,
+                        just: "El tema identifica expresamente al HDL (lipoproteínas de alta densidad) como el colesterol bueno debido a su función protectora vascular (transporte inverso desde los tejidos periféricos al hígado), potenciado por el consumo de ácidos grasos insaturados.",
+                        hint: "Asocia el concepto de 'colesterol bueno' con el aclaramiento del colesterol arterial y con grasas saludables como las monoinsaturadas y poliinsaturadas."
+                    },
+                    {
+                        id: 5,
+                        q: "Ballard y Thomas (1983) afirman que las proteínas musculares representan aproximadamente un tercio del total proteico corporal y adquieren protagonismo energético predominante en ejercicios explosivos breves.",
+                        ans: false,
+                        just: "El tema indica que representan más del 60% del total proteico corporal y su contribución energética aumenta significativamente de forma tardía, especialmente cuando disminuyen las reservas de glucógeno.",
+                        hint: "Las proteínas tienen principalmente una función estructural y plástica en el músculo. ¿Tiene lógica catabolizar proteínas estructurales para ejercicios que duran pocos segundos?"
+                    },
+                    {
+                        id: 6,
+                        q: "Odriozola considera que las vitaminas participan en funciones reguladoras, coenzimáticas y metabólicas, aunque actualmente no está demostrado que los suplementos mejoren el rendimiento físico.",
+                        ans: true,
+                        just: "El tema señala expresamente que una dieta equilibrada aporta la cantidad necesaria de vitaminas y que el exceso de suplementación en deportistas eutróficos no tiene efectos ergogénicos probados.",
+                        hint: "Considera si existe un beneficio comprobado en añadir vitaminas artificiales de forma sistemática cuando la alimentación ya cubre las ingestas recomendadas."
+                    },
+                    {
+                        id: 7,
+                        q: "Costill sostiene que durante la actividad física intensa resulta prácticamente inevitable una pérdida crítica de electrolitos que obliga sistemáticamente a suplementaciones minerales adicionales.",
+                        ans: false,
+                        just: "Costill afirma que la concentración de electrolitos en el sudor es hipotónica en comparación con los fluidos corporales, y que una dieta normal basta para reponer las pérdidas de minerales habituales.",
+                        hint: "Evalúa si un deportista corriente necesita pastillas de sales de manera regular o si la comida sólida tradicional repone el sodio y potasio perdidos."
+                    },
+                    {
+                        id: 8,
+                        q: "El metabolismo basal disminuye progresivamente con la edad y, según el tema, a partir de los veinticinco años puede reducirse aproximadamente un cinco por ciento cada década.",
+                        ans: true,
+                        just: "El tema recoge que el gasto metabólico basal disminuye de media un 5% por década a partir de los 25 años debido a la pérdida de masa magra (sarcopenia) y cambios hormonales, acelerándose a partir de los 60 años con una bajada del 10%.",
+                        hint: "La disminución de la masa celular muscular metabólicamente activa y el envejecimiento celular justifican este descenso paulatino del consumo de energía en reposo."
+                    },
+                    {
+                        id: 9,
+                        q: "Según los factores de conversión de Atwater recogidos por la OMS (1985), proteínas y lípidos aportan idéntico valor energético de cuatro kilocalorías por gramo consumido.",
+                        ans: false,
+                        just: "Los factores de Atwater indican que las proteínas y los carbohidratos aportan un promedio de 4 kcal/g, mientras que los lípidos aportan unas 9 kcal/g debido a su mayor grado de reducción de carbono.",
+                        hint: "Piensa en cuál de los tres macronutrientes principales posee más del doble de densidad energética por unidad de masa."
+                    },
+                    {
+                        id: 10,
+                        q: "McArdle (1990) establece un plan alimentario basado en cuatro grupos donde legumbres, frutas y verduras representan dos sextas partes del total recomendado diario.",
+                        ans: true,
+                        just: "El tema recoge exactamente esta división proporcional propuesta por McArdle en su reconocida obra 'Fisiología del ejercicio', promoviendo un gran aporte de fibra y micronutrientes de origen vegetal.",
+                        hint: "Fíjate en la recomendación de usar proporciones divididas por sextos, en la que la fracción correspondiente al reino vegetal y leguminosas cubre un tercio (dos sextos) del plan."
+                    }
+                ]
+            }
+        };
+
+        // --- State Management ---
+        let currentTheme = 43;
+        let currentIndex = 0;
+        let score = 0;
+        let userAnswers = []; // Holds arrays of { questionId, selectedAnswer, isCorrect }
+
+        // --- THEME / DARK MODE SETUP ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        });
+
+        // --- STREAMING_CHUNK: Updating active tab switcher logic for Tema 49... ---
+        function switchTheme(themeNum) {
+            currentTheme = themeNum;
+            currentIndex = 0;
+            score = 0;
+            userAnswers = [];
+
+            // UI Buttons activation visual states
+            const tab43 = document.getElementById('tab-43');
+            const tab44 = document.getElementById('tab-44');
+            const tab45 = document.getElementById('tab-45');
+            const tab46 = document.getElementById('tab-46');
+            const tab47 = document.getElementById('tab-47');
+            const tab48 = document.getElementById('tab-48');
+            const tab49 = document.getElementById('tab-49');
+
+            const allTabs = [tab43, tab44, tab45, tab46, tab47, tab48, tab49];
+
+            // Reset all tabs
+            allTabs.forEach(tab => {
+                if (tab) {
+                    tab.className = "w-full py-3 px-2 rounded-xl text-center font-semibold text-xs sm:text-sm transition-all duration-200 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700";
+                    const span = tab.querySelector('span');
+                    if (span) {
+                        span.className = "flex h-5 w-5 items-center justify-center rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-bold";
+                    }
+                }
+            });
+
+            // Set current tab as active
+            const activeTab = document.getElementById(`tab-${themeNum}`);
+            if (activeTab) {
+                activeTab.className = "w-full py-3 px-2 rounded-xl text-center font-semibold text-xs sm:text-sm transition-all duration-200 flex flex-col sm:flex-row items-center justify-center gap-1.5 bg-indigo-600 text-white shadow-sm shadow-indigo-100 dark:shadow-none";
+                const activeSpan = activeTab.querySelector('span');
+                if (activeSpan) {
+                    activeSpan.className = "flex h-5 w-5 items-center justify-center rounded bg-indigo-500 text-white text-[10px] font-bold";
+                }
+            }
+
+            // Restore containers
+            document.getElementById('quiz-workspace').classList.remove('hidden');
+            document.getElementById('results-workspace').classList.add('hidden');
+
+            renderQuestion();
+        }
+
+        // --- STREAMING_CHUNK: Formatting question display and refreshing HUD metrics... ---
+        function renderQuestion() {
+            const currentQuestions = quizData[currentTheme].questions;
+            const currentQ = currentQuestions[currentIndex];
+
+            // Update Labels
+            document.getElementById('current-theme-label').innerText = quizData[currentTheme].title;
+            document.getElementById('question-counter').innerText = `Pregunta ${currentIndex + 1} de ${currentQuestions.length}`;
+            document.getElementById('live-score').innerText = `Aciertos: ${score}/${currentIndex}`;
+            
+            // Progress Bar
+            const progressPercent = ((currentIndex) / currentQuestions.length) * 100;
+            document.getElementById('progress-bar-fill').style.width = `${progressPercent || 5}%`;
+
+            // Question text
+            document.getElementById('question-text').innerText = currentQ.q;
+
+            // Reset Options buttons styling and accessibility
+            const options = document.getElementById('options-container').querySelectorAll('button');
+            options.forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'border-indigo-500', 'border-rose-500', 'bg-slate-100', 'dark:bg-slate-800');
+            });
+
+            // Hide Feedback and Hint boxes
+            document.getElementById('feedback-box').classList.add('hidden');
+            document.getElementById('hint-box').classList.add('hidden');
+            document.getElementById('btn-next').classList.add('hidden');
+            document.getElementById('btn-hint').classList.remove('hidden');
+        }
+
+        function toggleHint() {
+            const currentQuestions = quizData[currentTheme].questions;
+            const currentQ = currentQuestions[currentIndex];
+            const hintBox = document.getElementById('hint-box');
+            
+            document.getElementById('hint-text').innerText = currentQ.hint;
+            hintBox.classList.toggle('hidden');
+        }
+
+        // --- STREAMING_CHUNK: Answer evaluation and styling feedback ---
+        function submitAnswer(userChoice) {
+            const currentQuestions = quizData[currentTheme].questions;
+            const currentQ = currentQuestions[currentIndex];
+            const isCorrect = (userChoice === currentQ.ans);
+
+            if (isCorrect) score++;
+
+            // Register answer
+            userAnswers.push({
+                questionId: currentQ.id,
+                selected: userChoice,
+                isCorrect: isCorrect
+            });
+
+            // Disable further choice clicks
+            const options = document.getElementById('options-container').querySelectorAll('button');
+            options.forEach((btn, idx) => {
+                btn.disabled = true;
+                if ((idx === 0 && userChoice === true) || (idx === 1 && userChoice === false)) {
+                    // Highlight selected
+                    btn.classList.add('border-indigo-500', 'dark:border-indigo-400');
+                } else {
+                    btn.classList.add('opacity-50');
+                }
+            });
+
+            // Build Feedback Drawer Info
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackIconContainer = document.getElementById('feedback-icon-container');
+            const feedbackIcon = document.getElementById('feedback-icon');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackExplanation = document.getElementById('feedback-explanation');
+
+            if (isCorrect) {
+                feedbackBox.className = "rounded-xl p-5 mb-8 border border-emerald-200 dark:border-emerald-800/50 bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-900 dark:text-emerald-300 animate-fade-in";
+                feedbackIconContainer.className = "p-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200";
+                feedbackIcon.innerText = "✓";
+                feedbackTitle.innerText = "¡RESPUESTA CORRECTA!";
+            } else {
+                feedbackBox.className = "rounded-xl p-5 mb-8 border border-rose-200 dark:border-rose-800/50 bg-rose-50/50 dark:bg-rose-950/20 text-rose-900 dark:text-rose-300 animate-fade-in";
+                feedbackIconContainer.className = "p-1.5 rounded-full bg-rose-100 dark:bg-rose-900 text-rose-800 dark:text-rose-200";
+                feedbackIcon.innerText = "✗";
+                feedbackTitle.innerText = "¡RESPUESTA INCORRECTA!";
+            }
+
+            // Show justification
+            feedbackExplanation.innerHTML = `<strong>Justificación:</strong> ${currentQ.just}`;
+            feedbackBox.classList.remove('hidden');
+
+            // Hide hint, show Next
+            document.getElementById('btn-hint').classList.add('hidden');
+            document.getElementById('hint-box').classList.add('hidden');
+            document.getElementById('btn-next').classList.remove('hidden');
+
+            // Live score update
+            document.getElementById('live-score').innerText = `Aciertos: ${score}/${currentIndex + 1}`;
+        }
+
+        // --- Navigation and progress control ---
+        function nextQuestion() {
+            const currentQuestions = quizData[currentTheme].questions;
+            currentIndex++;
+
+            if (currentIndex < currentQuestions.length) {
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // --- STREAMING_CHUNK: Updating footer cyclic navigation flow with Tema 49... ---
+        function showResults() {
+            document.getElementById('quiz-workspace').classList.add('hidden');
+            document.getElementById('results-workspace').classList.remove('hidden');
+            document.getElementById('progress-bar-fill').style.width = `100%`;
+
+            const currentQuestions = quizData[currentTheme].questions;
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+
+            // Display badge stats
+            document.getElementById('final-score-badge').innerText = `${score} / ${currentQuestions.length}`;
+            document.getElementById('final-percentage').innerText = `${percentage}% de Aciertos`;
+
+            // Display dynamic advice
+            let advice = "";
+            let colorClass = "";
+            if (percentage >= 90) {
+                advice = "🔥 ¡Excelente! Nivel de plaza garantizado. Dominas perfectamente los autores y matices del tema.";
+                colorClass = "text-emerald-600 dark:text-emerald-400";
+            } else if (percentage >= 70) {
+                advice = "✨ ¡Muy bien! Gran dominio del temario. Repasa los pequeños fallos para asegurar el 10/10 en el examen teórico.";
+                colorClass = "text-indigo-600 dark:text-indigo-400";
+            } else {
+                advice = "📚 Necesitas repasar. Las oposiciones exigen máxima precisión con las clases, autores clásicos y tipologías. ¡Vuelve a intentarlo!";
+                colorClass = "text-amber-600 dark:text-amber-400";
+            }
+            document.getElementById('final-percentage').className = `text-lg font-bold mt-1 ${colorClass}`;
+            document.getElementById('final-feedback-text').innerText = advice;
+
+            // Prepare review card components
+            document.getElementById('results-theme-title').innerText = quizData[currentTheme].title;
+            const container = document.getElementById('review-cards-container');
+            container.innerHTML = ""; // Clear out previous
+
+            // Switch footer action button to cycle through all themes sequentially
+            const nextThemeBtn = document.getElementById('btn-switch-theme-footer');
+            if (currentTheme === 43) {
+                nextThemeBtn.innerText = "Estudiar Tema 44 (Expresión Corporal)";
+                nextThemeBtn.onclick = () => switchTheme(44);
+            } else if (currentTheme === 44) {
+                nextThemeBtn.innerText = "Estudiar Tema 45 (Ritmo y Danza)";
+                nextThemeBtn.onclick = () => switchTheme(45);
+            } else if (currentTheme === 45) {
+                nextThemeBtn.innerText = "Estudiar Tema 46 (Actividades Dramáticas)";
+                nextThemeBtn.onclick = () => switchTheme(46);
+            } else if (currentTheme === 46) {
+                nextThemeBtn.innerText = "Estudiar Tema 47 (Medio Natural)";
+                nextThemeBtn.onclick = () => switchTheme(47);
+            } else if (currentTheme === 47) {
+                nextThemeBtn.innerText = "Estudiar Tema 48 (Orientación)";
+                nextThemeBtn.onclick = () => switchTheme(48);
+            } else if (currentTheme === 48) {
+                nextThemeBtn.innerText = "Estudiar Tema 49 (Nutrición y Alimentación)";
+                nextThemeBtn.onclick = () => switchTheme(49);
+            } else {
+                nextThemeBtn.innerText = "Volver al Tema 43 (Teoría del Juego)";
+                nextThemeBtn.onclick = () => switchTheme(43);
+            }
+
+            // Populate cards
+            currentQuestions.forEach((qObj, index) => {
+                const userAnsObj = userAnswers.find(ua => ua.questionId === qObj.id);
+                const userIsCorrect = userAnsObj ? userAnsObj.isCorrect : false;
+                const userChoiceText = userAnsObj ? (userAnsObj.selected ? "Verdadero" : "Falso") : "No contestada";
+
+                const card = document.createElement('div');
+                card.className = `p-5 rounded-xl border transition-all duration-150 ${
+                    userIsCorrect 
+                    ? 'border-emerald-100 bg-emerald-50/20 dark:border-emerald-950/40 dark:bg-emerald-950/10' 
+                    : 'border-rose-100 bg-rose-50/20 dark:border-rose-950/40 dark:bg-rose-950/10'
+                }`;
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3 flex-wrap">
+                        <span class="flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
+                            userIsCorrect 
+                            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200' 
+                            : 'bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200'
+                        }">
+                            ${index + 1}
+                        </span>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded ${
+                                qObj.ans 
+                                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200' 
+                                : 'bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200'
+                            }">Correcta: ${qObj.ans ? "Verdadero" : "Falso"}</span>
+                            
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-150 text-slate-700 dark:bg-slate-700 dark:text-slate-300">
+                                Tu respuesta: ${userChoiceText}
+                            </span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-800 dark:text-slate-200 font-medium mt-3 leading-relaxed">${qObj.q}</p>
+                    <div class="mt-3 text-xs text-slate-600 dark:text-slate-400 bg-white/60 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-200/50 dark:border-slate-800">
+                        <strong>Justificación académica:</strong> ${qObj.just}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function resetCurrentQuiz() {
+            currentIndex = 0;
+            score = 0;
+            userAnswers = [];
+            document.getElementById('quiz-workspace').classList.remove('hidden');
+            document.getElementById('results-workspace').classList.add('hidden');
+            renderQuestion();
+        }
+
+        // --- ONLOAD SETUP ---
+        window.onload = function() {
+            renderQuestion();
+        };
+    </script>
+</body>
+</html>
