@@ -3920,7 +3920,6 @@ body.laguna-style .side-item .side-link[title="Repaso Tema 37"]::after{
 </div>
 </div>
 </div>
-
 </section>
 <section aria-label="Buscador y filtros" class="toolbar">
 <div class="searchbox">
@@ -3959,37 +3958,6 @@ body.laguna-style .side-item .side-link[title="Repaso Tema 37"]::after{
 </div>
 <section aria-label="Visor de fichas" class="reader-layout">
 <aside class="sidebar" id="sidebar">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="side-item" data-title="☆ 10–25 repaso repaso temas 10 a 25">
 <button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20temas%2010%20a%2025.html" type="button">☆</button>
 <a class="side-link" data-src="Repaso%20temas%2010%20a%2025.html" href="javascript:void(0)" title="10–25 temas 10 a 25">10–25 temas 10 a 25</a><span class="side-meta">Repaso</span>
@@ -3999,7 +3967,7 @@ body.laguna-style .side-item .side-link[title="Repaso Tema 37"]::after{
 </div><div class="side-item" data-title="☆ 26–36 repaso repaso temas 26 al 36">
 <button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20de%20temas%20del%2026%20al%2036.html" type="button">☆</button>
 <a class="side-link" data-src="Repaso%20de%20temas%20del%2026%20al%2036.html" href="javascript:void(0)" title="26–36 temas 26 al 36">26–36 temas 26 al 36</a><span class="side-meta">Repaso</span>
-</div><div class="side-item" data-title="☆ 38–41 repaso repaso temas 38 a 41">
+</div><div class="side-item" data-title="☆ 37 repaso repaso tema 37"><button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20tema%2037.html" type="button">☆</button><a class="side-link" data-src="Repaso%20tema%2037.html" href="javascript:void(0)" title="37 tema 37">37 tema 37</a><span class="side-meta">Repaso</span></div><div class="side-item" data-title="☆ 38–41 repaso repaso temas 38 a 41">
 <button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20temas%2038%20a%2041.html" type="button">☆</button>
 <a class="side-link" data-src="Repaso%20temas%2038%20a%2041.html" href="javascript:void(0)" title="38–41 temas 38 a 41">38–41 temas 38 a 41</a><span class="side-meta">Repaso</span>
 </div><div class="side-item" data-title="☆ 42 repaso repaso tema 42">
@@ -4065,7 +4033,7 @@ body.laguna-style .side-item .side-link[title="Repaso Tema 37"]::after{
 </div><div class="side-item" data-title="☆ % utilidades porcentaje y sorteo">
 <button aria-label="Marcar favorito" class="fav-side" data-href="Porcentaje%20y%20Sorteo.html" type="button">☆</button>
 <a class="side-link" data-src="Porcentaje%20y%20Sorteo.html" href="javascript:void(0)" title="Porcentaje y sorteo">Porcentaje y sorteo</a><span class="side-meta">Utilidad</span>
-</div><div class="side-item" data-title="Repaso Tema 37"><button aria-label="Marcar Repaso Tema 37 como favorito" class="fav-side" type="button">☆</button><a class="side-link" href="Repaso_tema_37.html" target="visor" title="Repaso Tema 37">Repaso Tema 37</a><span class="side-meta">REPASO</span></div><div class="side-item" data-title="☆ 📋 programación rúbrica pd">
+</div><div class="side-item" data-title="☆ 📋 programación rúbrica pd">
 <button aria-label="Marcar favorito" class="fav-side" data-href="R%C3%BAbrica%20PD.html" type="button">☆</button>
 <a class="side-link" data-src="R%C3%BAbrica%20PD.html" href="javascript:void(0)" title="Rúbrica PD">Rúbrica PD</a><span class="side-meta">Programación</span>
 </div><div class="side-item" data-title="☆ 📝 programación rúbrica ud">
@@ -5712,5 +5680,31 @@ body.laguna-style .side-item .side-link[title="Repaso Tema 37"]::after{
   document.querySelectorAll('.access-modes,.contrast-toggle,.access-mode').forEach(el => el.remove());
 })();
 </script>
+
+<script>
+(function(){
+  const t37 = document.querySelector('.side-link[data-src="Repaso%20tema%2037.html"]');
+  if(t37){
+    t37.setAttribute('href', '?f=Repaso%20tema%2037.html');
+    t37.removeAttribute('target');
+    t37.addEventListener('click', function(e){
+      if(e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+      e.preventDefault();
+      const iframe = document.getElementById('visor');
+      if(iframe) iframe.src = 'Repaso%20tema%2037.html';
+      document.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
+      t37.classList.add('active');
+      const url = new URL(window.location.href);
+      url.searchParams.set('f','Repaso%20tema%2037.html');
+      history.replaceState(null,'',url.toString());
+    });
+  }
+  const metric = document.getElementById('metricResources');
+  if(metric) metric.textContent = '32';
+  const total = document.querySelector('.total-number');
+  if(total) total.textContent = '32';
+})();
+</script>
+
 </body>
 </html>
