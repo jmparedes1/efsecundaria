@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EF Quiz — Tema 37</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #46178f;
+    --purple2: #6b2fa0;
+    --bg: #2d0b5e;
+    --red:    #e21b3c;
+    --blue:   #1368ce;
+    --yellow: #d89e00;
+    --green:  #26890c;
+    --red-h:    #ff3355;
+    --blue-h:   #2f8fff;
+    --yellow-h: #ffc107;
+    --green-h:  #3ecf1b;
+    --white: #fff;
+    --radius: 14px;
+    --radius-lg: 22px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :focus-visible { outline: 3px solid var(--yellow-h); outline-offset: 3px; border-radius: 6px; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Open Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--white);
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(107,47,160,0.6) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(70,23,143,0.8) 0%, transparent 50%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .shell { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* ════════ INTRO ════════ */
+  #screen-intro {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    min-height: 100vh; padding: 40px 24px; text-align: center;
+  }
+
+  .intro-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 800;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 24px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .intro-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(28px, 5.5vw, 56px);
+    font-weight: 900; line-height: 1.1; color: #fff;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    margin-bottom: 12px;
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+
+  .intro-title span {
+    background: linear-gradient(90deg, #ffc107, #ff9800);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .intro-sub {
+    font-size: 16px; color: rgba(255,255,255,0.7);
+    margin-bottom: 48px; line-height: 1.65;
+    animation: fadeUp 0.5s 0.2s ease both;
+    max-width: 500px;
+  }
+
+  .intro-chips {
+    display: flex; gap: 14px; margin-bottom: 48px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+
+  .chip {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 99px; padding: 10px 22px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+    backdrop-filter: blur(8px);
+  }
+
+  .btn-start {
+    background: linear-gradient(135deg, #ffc107, #ff9800);
+    color: #1a0033; border: none; padding: 20px 72px;
+    border-radius: 99px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px; font-weight: 900; cursor: pointer;
+    box-shadow: 0 8px 40px rgba(255,193,7,0.45), inset 0 -4px 0 rgba(0,0,0,0.2);
+    transition: transform 0.15s, box-shadow 0.15s;
+    animation: fadeUp 0.5s 0.4s ease both;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-start:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 52px rgba(255,193,7,0.55), inset 0 -4px 0 rgba(0,0,0,0.2); }
+  .btn-start:active { transform: translateY(1px); }
+
+  .intro-keys {
+    margin-top: 20px; font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    animation: fadeUp 0.5s 0.5s ease both;
+  }
+
+  /* ════════ QUESTION SCREEN ════════ */
+  #screen-question { display: none; flex-direction: column; min-height: 100vh; }
+
+  .top-bar {
+    background: rgba(0,0,0,0.3); backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    display: flex; align-items: center; gap: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .q-counter-badge {
+    background: rgba(255,255,255,0.15); border-radius: 99px;
+    padding: 6px 16px;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800;
+    white-space: nowrap; flex-shrink: 0;
+  }
+
+  .progress-track {
+    flex: 1; height: 10px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 99px; overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffc107, #ff9800);
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+
+  .score-badge {
+    background: rgba(255,255,255,0.15); border-radius: 99px; padding: 6px 16px;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800;
+    white-space: nowrap; flex-shrink: 0; display: flex; align-items: center; gap: 6px;
+  }
+
+  .q-stage {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 32px 20px 12px;
+  }
+
+  .q-bubble {
+    background: rgba(255,255,255,0.13); backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: var(--radius-lg);
+    padding: 36px 40px; width: 100%; max-width: 780px;
+    text-align: center;
+    animation: bubbleIn 0.4s cubic-bezier(0.22,1,0.36,1) both;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+  }
+
+  .q-tag {
+    display: inline-block; background: rgba(255,255,255,0.15);
+    border-radius: 99px; padding: 4px 14px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7); margin-bottom: 18px;
+  }
+
+  .q-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(15px, 2.2vw, 20px);
+    font-weight: 700; line-height: 1.55; color: #fff;
+  }
+
+  .q-text em { font-style: normal; color: #ffd54f; }
+
+  .answer-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px; width: 100%; max-width: 780px;
+    margin-top: 20px;
+    animation: fadeUp 0.4s 0.1s ease both;
+  }
+
+  .btn-answer {
+    padding: 0; border: none; border-radius: var(--radius);
+    cursor: pointer; transition: transform 0.15s, filter 0.15s;
+    overflow: hidden; min-height: 90px;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.25);
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(17px, 2.2vw, 22px); font-weight: 800; color: #fff;
+  }
+
+  .btn-answer:hover:not(:disabled) { transform: translateY(-3px) scale(1.02); filter: brightness(1.1); }
+  .btn-answer:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.3); }
+  .btn-answer:disabled { cursor: default; }
+
+  .btn-answer[data-val="true"]  { background: linear-gradient(160deg, #2f9e44, var(--green)); }
+  .btn-answer[data-val="false"] { background: linear-gradient(160deg, #c0392b, var(--red)); }
+
+  .btn-icon { font-size: 32px; flex-shrink: 0; }
+  .btn-answer.selected { animation: selectedPulse 0.3s ease; }
+  .btn-answer.dim { opacity: 0.32; transform: scale(0.95); }
+
+  .q-map {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    justify-content: center; max-width: 780px; width: 100%;
+    margin: 0 auto; padding: 0 20px 24px;
+  }
+
+  .q-dot {
+    width: 30px; height: 30px; border-radius: 8px;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.5);
+    font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.15s;
+  }
+
+  .q-dot.dot-current { border-color: #ffc107; background: rgba(255,193,7,0.2); color: #ffc107; }
+  .q-dot.dot-answered { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.15); color: #fff; }
+
+  /* ════════ RESULTS ════════ */
+  #screen-results {
+    display: none; flex-direction: column;
+    align-items: center; padding: 48px 20px 80px; min-height: 100vh;
+  }
+
+  .podium-wrap {
+    text-align: center; margin-bottom: 40px;
+    animation: scoreIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+    width: 100%; max-width: 700px;
+  }
+
+  .podium-emoji { font-size: 72px; display: block; margin-bottom: 16px; }
+
+  .score-big {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(72px, 14vw, 110px); font-weight: 900; line-height: 1;
+    background: linear-gradient(135deg, #ffd54f, #ffc107);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .score-denom { font-size: 22px; color: rgba(255,255,255,0.55); font-weight: 600; margin-bottom: 14px; }
+  .score-msg { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 900; margin-bottom: 8px; }
+  .score-sub { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 420px; margin: 0 auto 32px; line-height: 1.6; }
+
+  .stat-row {
+    display: flex; gap: 14px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 48px;
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: var(--radius); padding: 18px 26px; text-align: center; min-width: 110px;
+    backdrop-filter: blur(8px);
+  }
+
+  .stat-n { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 900; line-height: 1; }
+  .stat-n.c { color: #3ecf1b; }
+  .stat-n.i { color: #ff3355; }
+  .stat-n.g { color: #ffc107; }
+  .stat-lbl { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6px; }
+
+  .review-title {
+    font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 900;
+    color: rgba(255,255,255,0.9); margin-bottom: 20px;
+    padding-bottom: 14px; border-bottom: 2px solid rgba(255,255,255,0.1);
+    width: 100%; max-width: 700px;
+    animation: fadeUp 0.5s 0.4s ease both; text-align: left;
+  }
+
+  .review-list { width: 100%; max-width: 700px; }
+
+  .review-card {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+    border-left: 5px solid; border-radius: var(--radius);
+    padding: 20px 22px; margin-bottom: 12px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .review-card.rc-correct { border-left-color: #3ecf1b; }
+  .review-card.rc-incorrect { border-left-color: #ff3355; }
+
+  .rc-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .rc-badge {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-size: 15px; margin-top: 2px;
+  }
+  .rc-correct .rc-badge { background: rgba(62,207,27,0.2); color: #3ecf1b; }
+  .rc-incorrect .rc-badge { background: rgba(255,51,85,0.2); color: #ff3355; }
+  .rc-num { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .rc-q { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.9); }
+
+  .rc-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .rc-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 99px;
+  }
+  .pill-user-ok { background: rgba(62,207,27,0.18); color: #3ecf1b; }
+  .pill-user-bad { background: rgba(255,51,85,0.18); color: #ff3355; }
+  .pill-correct { background: rgba(255,193,7,0.15); color: #ffc107; }
+
+  .rc-exp {
+    font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.6);
+    background: rgba(0,0,0,0.2); border-radius: 8px; padding: 12px 14px;
+  }
+
+  .result-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; animation: fadeUp 0.5s 0.5s ease both; }
+
+  .btn-retry {
+    background: linear-gradient(135deg, #ffc107, #ff9800);
+    color: #1a0033; border: none; padding: 16px 44px; border-radius: 99px;
+    font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 900; cursor: pointer;
+    box-shadow: 0 6px 32px rgba(255,193,7,0.35), inset 0 -3px 0 rgba(0,0,0,0.2);
+    transition: transform 0.15s, box-shadow 0.15s; letter-spacing: 0.02em;
+  }
+  .btn-retry:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(255,193,7,0.45), inset 0 -3px 0 rgba(0,0,0,0.2); }
+
+  .a11y-bar { position: fixed; bottom: 18px; right: 18px; z-index: 100; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  .a11y-toggle {
+    background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px; padding: 9px 14px; font-size: 12px;
+    font-family: 'Open Sans', sans-serif; color: rgba(255,255,255,0.6);
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .a11y-toggle:hover { border-color: #ffc107; color: #ffc107; }
+  .a11y-toggle.active { border-color: #ffc107; color: #ffc107; background: rgba(255,193,7,0.1); }
+
+  body.large-text .q-text { font-size: clamp(18px, 2.8vw, 24px) !important; }
+  body.large-text .btn-answer { font-size: clamp(18px, 2.8vw, 24px) !important; min-height: 108px; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bubbleIn { from { opacity: 0; transform: translateY(28px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes scoreIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  @keyframes selectedPulse { 0% { transform: scale(1); } 40% { transform: scale(1.05); } 70% { transform: scale(0.97); } 100% { transform: scale(1); } }
+
+  @media (max-width: 580px) {
+    .q-bubble { padding: 22px 16px; }
+    .answer-grid { grid-template-columns: 1fr; gap: 12px; }
+    .btn-answer { min-height: 72px; }
+    .stat-card { padding: 14px 16px; min-width: 88px; }
+    .a11y-bar { bottom: 10px; right: 10px; }
+    .intro-chips { flex-direction: column; align-items: center; }
+    .q-stage { padding: 18px 12px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══ INTRO ══ -->
+  <section id="screen-intro" role="main">
+    <p class="intro-logo">EF · Oposición</p>
+    <h1 class="intro-title">Deportes de <span>Adversario</span><br>y Raqueta</h1>
+    <p class="intro-sub">Examen de alta complejidad para oposición. Preguntas técnicas y reglamentarias del Tema 37. Sin pistas: la corrección se muestra al final.</p>
+    <div class="intro-chips">
+      <div class="chip">📋 20 preguntas</div>
+      <div class="chip">⚖️ Verdadero / Falso</div>
+      <div class="chip">🏆 Nota sobre 10</div>
+    </div>
+    <button class="btn-start" id="btn-start">¡Empezar!</button>
+    <p class="intro-keys">Teclas: <kbd>V</kbd> Verdadero · <kbd>F</kbd> Falso</p>
+  </section>
+
+  <!-- ══ QUESTION ══ -->
+  <section id="screen-question" role="main" aria-live="polite">
+    <div class="top-bar">
+      <span class="q-counter-badge" id="q-counter">1 / 20</span>
+      <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="20" id="top-pb">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <span class="score-badge">⭐ <span id="live-score">0</span> pts</span>
+    </div>
+
+    <div class="q-stage">
+      <div class="q-bubble" id="q-bubble">
+        <span class="q-tag" id="q-tag">Pregunta 1 de 20</span>
+        <p class="q-text" id="q-text" tabindex="0"></p>
+      </div>
+
+      <div class="answer-grid" role="group" aria-label="Opciones de respuesta">
+        <button class="btn-answer" id="btn-true" data-val="true" aria-label="Verdadero (tecla V)">
+          <span class="btn-icon" aria-hidden="true">✅</span>
+          <span class="btn-label">Verdadero</span>
+        </button>
+        <button class="btn-answer" id="btn-false" data-val="false" aria-label="Falso (tecla F)">
+          <span class="btn-icon" aria-hidden="true">❌</span>
+          <span class="btn-label">Falso</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="q-map" id="q-map" role="navigation" aria-label="Mapa de preguntas"></div>
+  </section>
+
+  <!-- ══ RESULTS ══ -->
+  <section id="screen-results" role="main" aria-label="Resultados">
+    <div class="podium-wrap">
+      <span class="podium-emoji" id="res-emoji">🏆</span>
+      <div class="score-big" id="res-score">—</div>
+      <div class="score-denom">sobre 10</div>
+      <div class="score-msg" id="res-msg"></div>
+      <p class="score-sub" id="res-sub"></p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-n c" id="stat-c">0</div><div class="stat-lbl">Correctas</div></div>
+      <div class="stat-card"><div class="stat-n i" id="stat-i">0</div><div class="stat-lbl">Incorrectas</div></div>
+      <div class="stat-card"><div class="stat-n g" id="stat-p">0%</div><div class="stat-lbl">Acierto</div></div>
+    </div>
+
+    <h2 class="review-title">📝 Corrección detallada</h2>
+    <div class="review-list" id="review-list" role="list"></div>
+
+    <div class="result-actions">
+      <button class="btn-retry" id="btn-retry">↺ Intentar de nuevo</button>
+    </div>
+  </section>
+
+</div>
+
+<div class="a11y-bar" role="toolbar" aria-label="Accesibilidad">
+  <button class="a11y-toggle" id="toggle-font" aria-pressed="false">🔠 Texto grande</button>
+</div>
+
+<script>
+const questions = [
+  {
+    text: "<em>Hernández Moreno (1994)</em> define el deporte como una actividad placentera donde predomina el esfuerzo físico, participando del juego y del trabajo, con reglamentos e instituciones que pueden transformarse en actividad profesional.",
+    answer: false,
+    explanation: "Esta definición corresponde a Magnate (1994), citada por Hernández Moreno, pero no es la definición propia de este autor."
+  },
+  {
+    text: "En los <em>deportes de adversario</em>, la incertidumbre según <em>Parlebás (1981)</em> puede provenir de compañeros, del medio o de adversarios, desarrollándose estos deportes en un <em>medio inestable</em> donde la incertidumbre es máxima.",
+    answer: false,
+    explanation: "Los deportes de adversario se desarrollan en un medio estable (como una pista de tenis) y la incertidumbre proviene primordialmente de las acciones del rival, no del medio."
+  },
+  {
+    text: "La clasificación de <em>Valladares y Morenite</em> divide los deportes por espacio en <em>común</em> (combate, judo, esgrima) y <em>separado</em> (tenis, bádminton), y por participación en simultánea (lucha) y alternativa (tenis).",
+    answer: true,
+    explanation: "Esta descripción coincide exactamente con la clasificación por espacio y modo de participación detallada en el apartado de clasificaciones del tema."
+  },
+  {
+    text: "Según la clasificación de <em>García</em>, los deportes de combate con armas incluyen la esgrima, el kendo y el <em>boxeo</em>, mientras que los deportes sin armas se subdividen en de agarre y de contacto.",
+    answer: false,
+    explanation: "El boxeo es un ejemplo incorrecto para deportes con armas; es un deporte de combate sin arma y de contacto."
+  },
+  {
+    text: "<em>Parlebás</em> clasifica las situaciones sociomotrices en cuatro grupos, situando en el <em>cuarto grupo</em> a aquellas sin compañero y sin incertidumbre en el medio, como es el caso de los <em>duelos singulares</em>.",
+    answer: true,
+    explanation: "Los duelos singulares (uno contra uno) se encuadran en este cuarto grupo donde el medio no genera incertidumbre y no hay colaboración con compañeros."
+  },
+  {
+    text: "En los deportes de adversario con blanco humano, las artes marciales están influenciadas exclusivamente por el <em>budismo-zen y el cristianismo</em> para proporcionar un método filosófico de las técnicas guerreras.",
+    answer: false,
+    explanation: "El texto menciona la influencia del shintoísmo y el confucionismo, no del cristianismo, como bases filosóficas junto al budismo-zen."
+  },
+  {
+    text: "Las actividades de lucha basadas en el <em>agarre</em> requieren una participación crucial de las <em>sensaciones táctiles y kinestésicas</em> para codificar información, implicando un compromiso continuo del equilibrio.",
+    answer: true,
+    explanation: "Las sensaciones táctiles y kinestésicas y la importancia del equilibrio en las luchas de agarre siguen fielmente el contenido técnico del tema."
+  },
+  {
+    text: "<em>Grösser (1982)</em> define la técnica deportiva como el modelo ideal de un movimiento relativo a una disciplina, subrayando que es necesario descubrir las técnicas idóneas para cada sujeto según sus <em>características individuales</em>.",
+    answer: true,
+    explanation: "Esta es la definición literal y la observación pedagógica que Grösser aporta al apartado de aspectos técnicos del tema."
+  },
+  {
+    text: "<em>Meinel (1987)</em> sostiene que para una técnica eficaz se requiere una división dinámica bien señalada, elasticidad elevada del movimiento y la <em>evitación sistemática de esquemas mentales previos</em> antes de ejecutar el gesto.",
+    answer: false,
+    explanation: "Meinel defiende lo contrario: es fundamental la previsión temprana del movimiento, es decir, hacerse esquemas mentales con antelación del gesto técnico a emplear."
+  },
+  {
+    text: "La táctica es definida por <em>Naglack</em> como la distribución racional de las fuerzas, y en los deportes de adversario implica la elección de técnicas específicas en función de intenciones previas para <em>sorprender al rival</em>.",
+    answer: true,
+    explanation: "La frase recoge tanto la definición general de Naglack como su aplicación específica a la lógica externa de los deportes de oposición."
+  },
+  {
+    text: "Las tres fases de los aspectos tácticos según <em>Rioux, Mahzo y Gibson</em> son: percepción y análisis de la situación, solución mental o pensamiento táctico y, finalmente, solución motriz o ejecución.",
+    answer: true,
+    explanation: "Estas tres etapas constituyen la estructura del proceso táctico descrita por estos autores en el desarrollo del tema."
+  },
+  {
+    text: "En el reglamento del tenis, las medidas para <em>individuales son 23,77 m × 10,97 m</em>, mientras que para dobles el ancho se reduce a <em>8,23 m</em>.",
+    answer: false,
+    explanation: "Las medidas están invertidas: 8,23 m es el ancho para individuales y 10,97 m es el ancho para dobles."
+  },
+  {
+    text: "La raqueta de tenis de mesa puede tener cualquier tamaño, forma o peso, pero su hoja debe ser de <em>madera de una sola pieza, plana, rígida y de espesor uniforme</em>.",
+    answer: true,
+    explanation: "Estas son las especificaciones técnicas exactas del reglamento del tenis de mesa recogidas en el apartado reglamentario."
+  },
+  {
+    text: "En el pádel, el reglamento establece que la pala no debe exceder los <em>50 cm de longitud</em> ni los <em>30 cm de anchura</em> de cabeza, estando formada por láminas de madera pegadas.",
+    answer: false,
+    explanation: "El límite correcto es de 45 cm de longitud y 24 cm de anchura de cabeza. Las cifras de la frase son incorrectas."
+  },
+  {
+    text: "El sistema de puntuación en el judo de competición contempla el <em>ippon</em> como máxima puntuación, seguido por el <em>waza-ari, el koka y el yuko</em> como puntuaciones menores.",
+    answer: true,
+    explanation: "El tema detalla estos cuatro términos de tanteo como los elementos reglamentarios de puntuación en judo."
+  },
+  {
+    text: "Los deportes de raqueta y pala se basan en la <em>contra-comunicación</em>, aunque en dobles existe un sistema de comunicación entre los integrantes de la pareja para cubrir zonas del campo.",
+    answer: true,
+    explanation: "El texto explica la dualidad de comunicación con el compañero y contra-comunicación con el adversario en las situaciones de dobles."
+  },
+  {
+    text: "El principio táctico de las <em>«4 esquinas»</em> en deportes de raqueta consiste en enviar el móvil al <em>centro del terreno de juego</em> para obligar al adversario a golpear desde una posición estática.",
+    answer: false,
+    explanation: "El principio de las 4 esquinas busca precisamente lo contrario: buscar las 4 esquinas del campo contrario para alejar al oponente del centro y dificultar su devolución."
+  },
+  {
+    text: "En el bádminton, un set se disputa a 21 puntos, siendo necesario vencer en <em>tres sets</em> para ganar el partido, y el saque debe realizarse <em>por encima de la cintura</em>.",
+    answer: false,
+    explanation: "Contiene dos errores: gana el partido quien venza en dos sets (no tres) y el saque debe realizarse por debajo de la cintura."
+  },
+  {
+    text: "El reglamento de bádminton estipula que si se produce un empate a <em>29 puntos</em> en un set, el primer jugador o pareja que logre alcanzar el punto <em>número 30</em> ganará dicho set.",
+    answer: true,
+    explanation: "Esta es la regla de desempate final que establece el reglamento cuando no se ha logrado una diferencia de dos puntos antes del tope de 30."
+  },
+  {
+    text: "La <em>LOMLOE (3/2020)</em> está desarrollada en Galicia a través de los <em>Decretos 156/2022</em> para la ESO y el <em>Decreto 157/2022</em> para el Bachillerato.",
+    answer: true,
+    explanation: "Estas son las referencias legislativas vigentes que el tema cita para contextualizar la aplicación didáctica en el marco autonómico gallego."
+  }
+];
+
+let current = 0;
+let userAnswers = new Array(questions.length).fill(null);
+let isAnimating = false;
+
+const screenIntro    = document.getElementById('screen-intro');
+const screenQuestion = document.getElementById('screen-question');
+const screenResults  = document.getElementById('screen-results');
+const progressFill   = document.getElementById('progress-fill');
+const qCounter       = document.getElementById('q-counter');
+const topPB          = document.getElementById('top-pb');
+const qTag           = document.getElementById('q-tag');
+const qText          = document.getElementById('q-text');
+const btnTrue        = document.getElementById('btn-true');
+const btnFalse       = document.getElementById('btn-false');
+const qBubble        = document.getElementById('q-bubble');
+const qMap           = document.getElementById('q-map');
+const liveScore      = document.getElementById('live-score');
+
+function renderQuestion(idx) {
+  current = idx;
+  const q = questions[idx];
+
+  qText.innerHTML = q.text;
+  qTag.textContent = `Pregunta ${idx + 1} de ${questions.length}`;
+  qCounter.textContent = `${idx + 1} / ${questions.length}`;
+
+  const done = userAnswers.filter(a => a !== null).length;
+  progressFill.style.width = (done / questions.length * 100) + '%';
+  topPB.setAttribute('aria-valuenow', done);
+
+  const correct = userAnswers.filter((a, i) => a !== null && a === questions[i].answer).length;
+  liveScore.textContent = correct;
+
+  btnTrue.className  = 'btn-answer';
+  btnFalse.className = 'btn-answer';
+  btnTrue.disabled   = false;
+  btnFalse.disabled  = false;
+
+  qBubble.style.animation = 'none';
+  qBubble.offsetHeight;
+  qBubble.style.animation = 'bubbleIn 0.38s cubic-bezier(0.22,1,0.36,1) both';
+
+  updateMap();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function answer(val) {
+  if (userAnswers[current] !== null || isAnimating) return;
+  isAnimating = true;
+  userAnswers[current] = val;
+
+  const selBtn   = val ? btnTrue : btnFalse;
+  const otherBtn = val ? btnFalse : btnTrue;
+  selBtn.classList.add('selected');
+  otherBtn.classList.add('dim');
+  selBtn.disabled   = true;
+  otherBtn.disabled = true;
+
+  updateMap();
+
+  const correct = userAnswers.filter((a, i) => a !== null && a === questions[i].answer).length;
+  liveScore.textContent = correct;
+
+  setTimeout(() => {
+    isAnimating = false;
+    if (current < questions.length - 1) {
+      renderQuestion(current + 1);
+    } else {
+      showResults();
+    }
+  }, 600);
+}
+
+function buildMap() {
+  qMap.innerHTML = '';
+  questions.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'q-dot';
+    dot.textContent = i + 1;
+    dot.setAttribute('aria-label', `Ir a pregunta ${i + 1}`);
+    dot.id = `dot-${i}`;
+    dot.addEventListener('click', () => { if (!isAnimating) renderQuestion(i); });
+    qMap.appendChild(dot);
+  });
+}
+
+function updateMap() {
+  questions.forEach((_, i) => {
+    const dot = document.getElementById(`dot-${i}`);
+    if (!dot) return;
+    dot.className = 'q-dot';
+    if (i === current) dot.classList.add('dot-current');
+    else if (userAnswers[i] !== null) dot.classList.add('dot-answered');
+  });
+}
+
+function showResults() {
+  let correct = 0;
+  userAnswers.forEach((a, i) => { if (a === questions[i].answer) correct++; });
+  const score = ((correct / questions.length) * 10).toFixed(1);
+  const pct   = Math.round(correct / questions.length * 100);
+
+  document.getElementById('res-score').textContent = score;
+  document.getElementById('stat-c').textContent    = correct;
+  document.getElementById('stat-i').textContent    = questions.length - correct;
+  document.getElementById('stat-p').textContent    = pct + '%';
+
+  const s = parseFloat(score);
+  let emoji, msg, sub;
+  if (s >= 9)      { emoji='🏆'; msg='¡Excelente, opositor/a!'; sub='Dominas el Tema 37 con gran profundidad técnica.'; }
+  else if (s >= 7) { emoji='👏'; msg='¡Muy buen resultado!'; sub='Sólido conocimiento. Repasa los errores para afianzar.'; }
+  else if (s >= 5) { emoji='📚'; msg='Aprobado'; sub='Has superado el mínimo. Profundiza en los puntos fallados.'; }
+  else             { emoji='💪'; msg='Sigue practicando'; sub='El Tema 37 requiere más repaso. ¡Tú puedes superarlo!'; }
+
+  document.getElementById('res-emoji').textContent = emoji;
+  document.getElementById('res-msg').textContent   = msg;
+  document.getElementById('res-sub').textContent   = sub;
+
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+  questions.forEach((q, i) => {
+    const ua = userAnswers[i];
+    const ok = ua === q.answer;
+    const card = document.createElement('div');
+    card.className = `review-card ${ok ? 'rc-correct' : 'rc-incorrect'}`;
+    card.setAttribute('role', 'listitem');
+    card.style.animationDelay = (i * 0.025) + 's';
+    card.innerHTML = `
+      <div class="rc-top">
+        <div class="rc-badge">${ok ? '✓' : '✗'}</div>
+        <div>
+          <div class="rc-num">Pregunta ${i + 1}</div>
+          <p class="rc-q">${q.text}</p>
+        </div>
+      </div>
+      <div class="rc-pills">
+        <span class="rc-pill ${ok ? 'pill-user-ok' : 'pill-user-bad'}">
+          ${ok ? '✓' : '✗'} Tu respuesta: ${ua ? 'Verdadero' : 'Falso'}
+        </span>
+        ${!ok ? `<span class="rc-pill pill-correct">⭐ Correcta: ${q.answer ? 'Verdadero' : 'Falso'}</span>` : ''}
+      </div>
+      <div class="rc-exp">${q.explanation}</div>
+    `;
+    list.appendChild(card);
+  });
+
+  screenQuestion.style.display = 'none';
+  screenResults.style.display  = 'flex';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startExam() {
+  userAnswers  = new Array(questions.length).fill(null);
+  current      = 0;
+  isAnimating  = false;
+  buildMap();
+  screenIntro.style.display    = 'none';
+  screenResults.style.display  = 'none';
+  screenQuestion.style.display = 'flex';
+  renderQuestion(0);
+}
+
+document.getElementById('btn-start').addEventListener('click', startExam);
+btnTrue.addEventListener('click',  () => answer(true));
+btnFalse.addEventListener('click', () => answer(false));
+document.getElementById('btn-retry').addEventListener('click', () => {
+  screenResults.style.display = 'none';
+  screenIntro.style.display   = 'flex';
+});
+
+document.addEventListener('keydown', e => {
+  if (screenQuestion.style.display !== 'flex') return;
+  if (e.key.toLowerCase() === 'v') answer(true);
+  if (e.key.toLowerCase() === 'f') answer(false);
+});
+
+document.getElementById('toggle-font').addEventListener('click', function() {
+  document.body.classList.toggle('large-text');
+  const on = document.body.classList.contains('large-text');
+  this.classList.toggle('active', on);
+  this.setAttribute('aria-pressed', on);
+});
+</script>
+</body>
+</html>

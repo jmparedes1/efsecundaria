@@ -1,14 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PREMIR · Panel de recursos</title>
-  <meta name="description" content="Índice moderno para acceder a herramientas, comparadores, objetivos, perfiles y recursos de repaso PREMIR." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>PREMIR · Panel de recursos</title>
+<meta content="Índice moderno para acceder a herramientas, comparadores, objetivos, perfiles y recursos de repaso PREMIR." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
 
     :root{
       --bg:#46178f;
@@ -2256,288 +2257,1840 @@ input:focus{
   letter-spacing:.15em !important;
 }
 
+
+/* --- Panel de estadísticas en pantalla inicial --- */
+.premir-access-stats{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:10px;
+  margin:14px 0 18px;
+}
+.premir-stat-card{
+  min-height:78px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#ffffff,#f8fbfe);
+  border:1px solid #d7e2ef;
+  box-shadow:0 8px 18px rgba(0,56,101,.08);
+  display:grid;
+  grid-template-columns:30px 1fr;
+  grid-template-areas:"icon number" "icon label";
+  align-items:center;
+  column-gap:8px;
+  padding:10px 12px;
+  text-align:left;
+}
+.premir-stat-icon{grid-area:icon;font-size:1.28rem;}
+.premir-stat-number{grid-area:number;color:#003865;font-size:1.08rem;font-weight:850;line-height:1;}
+.premir-stat-label{grid-area:label;color:#617187;font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-top:4px;}
+@media (max-width:420px){.premir-access-stats{grid-template-columns:1fr;}}
+
+
+/* --- Contadores profesionales y discretos --- */
+.total-inline{
+  padding:4px 8px !important;
+  gap:5px !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.12) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  box-shadow:none !important;
+  backdrop-filter:blur(8px) !important;
+}
+.total-number{
+  font-size:.74rem !important;
+  font-weight:600 !important;
+  line-height:1 !important;
+}
+.total-label{
+  font-size:.55rem !important;
+  font-weight:500 !important;
+  letter-spacing:.045em !important;
+  text-transform:uppercase !important;
+  opacity:.78 !important;
+}
+.count{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:5px !important;
+  padding:4px 8px !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.72) !important;
+  border:1px solid rgba(203,213,225,.9) !important;
+  color:#64748b !important;
+  font-size:.68rem !important;
+  font-weight:500 !important;
+  line-height:1 !important;
+  box-shadow:none !important;
+}
+#visibleCount{
+  font-size:.72rem !important;
+  font-weight:600 !important;
+  color:#334155 !important;
+}
+#favCount{
+  font-size:.65rem !important;
+  font-weight:500 !important;
+  opacity:.75 !important;
+}
+body[data-theme-style="darkpro"] .count,
+body.neo-dashboard .count{
+  background:rgba(255,255,255,.08) !important;
+  border-color:rgba(255,255,255,.14) !important;
+  color:#cbd5e1 !important;
+}
+body[data-theme-style="darkpro"] #visibleCount,
+body.neo-dashboard #visibleCount{
+  color:#e5e7eb !important;
+}
+body[data-theme-style="minimal"] .total-inline,
+body[data-theme-style="google"] .total-inline,
+body[data-theme-style="apple"] .total-inline{
+  background:#f8fafc !important;
+  border-color:#e2e8f0 !important;
+}
+body[data-theme-style="minimal"] .total-number,
+body[data-theme-style="google"] .total-number,
+body[data-theme-style="apple"] .total-number{
+  color:#334155 !important;
+}
+body[data-theme-style="minimal"] .total-label,
+body[data-theme-style="google"] .total-label,
+body[data-theme-style="apple"] .total-label{
+  color:#64748b !important;
+}
+
+
+/* === CONTADORES MINIMALISTAS PREMIUM === */
+.total-inline{
+  padding:2px 7px !important;
+  gap:4px !important;
+  min-height:auto !important;
+  background:rgba(255,255,255,.08) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  box-shadow:none !important;
+}
+.total-number{
+  font-size:.66rem !important;
+  font-weight:600 !important;
+  letter-spacing:0 !important;
+}
+.total-label{
+  font-size:.48rem !important;
+  font-weight:500 !important;
+  letter-spacing:.08em !important;
+  opacity:.72 !important;
+}
+
+.count{
+  padding:2px 7px !important;
+  min-height:auto !important;
+  font-size:.60rem !important;
+  font-weight:500 !important;
+  border-radius:999px !important;
+  background:rgba(148,163,184,.08) !important;
+  border:1px solid rgba(148,163,184,.18) !important;
+  color:#64748b !important;
+  box-shadow:none !important;
+}
+#visibleCount,
+#favCount{
+  font-size:.60rem !important;
+  font-weight:600 !important;
+}
+
+.hero-panel{
+  padding:8px 10px !important;
+  border-radius:12px !important;
+  background:rgba(255,255,255,.08) !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  box-shadow:none !important;
+}
+.hero-panel .big{
+  font-size:1rem !important;
+  font-weight:600 !important;
+  line-height:1 !important;
+}
+.hero-panel .small{
+  font-size:.52rem !important;
+  letter-spacing:.08em !important;
+  margin-top:3px !important;
+  opacity:.75 !important;
+}
+
+
+/* =========================================================
+   MEJORAS UX/UI PREMIR PREMIUM
+   Jerarquía visual, dashboard compacto, favoritos,
+   últimos accesos, iconografía homogénea y tarjetas premium
+   ========================================================= */
+:root{
+  --premir-blue:#003865;
+  --premir-blue-2:#0062a8;
+  --premir-gold:#d4a017;
+  --premir-gold-soft:#fff7db;
+  --premir-ink:#102033;
+  --premir-muted:#64748b;
+  --premir-line:#d7e2ef;
+}
+
+body[data-theme-style="premir"],
+body.premir-premium{
+  background:
+    radial-gradient(900px 420px at 8% -12%, rgba(0,98,168,.16), transparent 58%),
+    radial-gradient(800px 420px at 92% 0%, rgba(212,160,23,.16), transparent 58%),
+    linear-gradient(180deg,#eef5fb 0%,#ffffff 86%) !important;
+  color:var(--premir-ink) !important;
+}
+
+body[data-theme-style="premir"] .hero,
+body.premir-premium .hero{
+  background:linear-gradient(135deg,#003865 0%,#00588d 58%,#0062a8 100%) !important;
+  border:1px solid rgba(255,255,255,.22) !important;
+  color:#ffffff !important;
+  box-shadow:0 18px 46px rgba(0,56,101,.22) !important;
+}
+
+body[data-theme-style="premir"] .hero::before,
+body.premir-premium .hero::before{
+  background:linear-gradient(90deg,var(--premir-gold),#ffffff,#38bdf8) !important;
+  height:5px !important;
+}
+
+body[data-theme-style="premir"] #titulo,
+body.premir-premium #titulo{
+  color:#ffffff !important;
+  background:none !important;
+  -webkit-background-clip:initial !important;
+  font-weight:700 !important;
+  text-shadow:none !important;
+  letter-spacing:-.025em !important;
+}
+
+body[data-theme-style="premir"] .eyebrow,
+body.premir-premium .eyebrow{
+  background:rgba(255,255,255,.16) !important;
+  border-color:rgba(255,255,255,.25) !important;
+  color:#ffffff !important;
+}
+
+.premir-dashboard{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin:14px 0 16px;
+}
+.metric-card{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:54px;
+  padding:10px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.88);
+  border:1px solid var(--premir-line);
+  box-shadow:0 8px 22px rgba(15,23,42,.07);
+}
+.metric-icon{
+  width:30px;
+  height:30px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  font-size:15px;
+}
+.metric-card strong{
+  display:block;
+  font-size:.95rem;
+  line-height:1;
+  font-weight:750;
+  color:var(--premir-blue);
+}
+.metric-card span:not(.metric-icon){
+  display:block;
+  margin-top:3px;
+  font-size:.58rem;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--premir-muted);
+  font-weight:650;
+}
+
+.quick-section{
+  margin:12px 0 16px;
+  display:none;
+}
+.quick-section.show{
+  display:block;
+}
+.quick-title{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:12px;
+  margin:0 0 8px;
+  color:var(--premir-ink);
+}
+.quick-title span{
+  font-size:.85rem;
+  font-weight:760;
+  letter-spacing:.02em;
+}
+.quick-title small{
+  color:var(--premir-muted);
+  font-size:.7rem;
+}
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:10px;
+}
+.quick-card{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:48px;
+  padding:9px 10px;
+  border-radius:14px;
+  background:#ffffff;
+  border:1px solid var(--premir-line);
+  box-shadow:0 6px 16px rgba(15,23,42,.06);
+  cursor:pointer;
+  transition:.15s ease;
+}
+.quick-card:hover{
+  transform:translateY(-2px);
+  border-color:#93c5fd;
+  box-shadow:0 12px 24px rgba(15,23,42,.10);
+}
+.quick-card .qicon{
+  width:26px;
+  height:26px;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  background:#eff6ff;
+  color:var(--premir-blue);
+  font-size:13px;
+}
+.quick-card .qtext{
+  min-width:0;
+  font-size:.72rem;
+  font-weight:650;
+  color:var(--premir-ink);
+  line-height:1.15;
+}
+
+/* Tarjetas modernas */
+.grid .card{
+  border-radius:16px !important;
+  min-height:112px !important;
+  padding:12px !important;
+  border:1px solid var(--premir-line) !important;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%) !important;
+  box-shadow:0 8px 18px rgba(15,23,42,.065) !important;
+}
+.grid .card:hover{
+  transform:translateY(-3px) !important;
+  border-color:#93c5fd !important;
+  box-shadow:0 16px 30px rgba(15,23,42,.12) !important;
+}
+.grid .card::after{
+  display:none !important;
+}
+.card-top{
+  align-items:center !important;
+}
+.icon{
+  width:34px !important;
+  height:34px !important;
+  border-radius:12px !important;
+  background:linear-gradient(180deg,#f8fafc,#eef4fb) !important;
+  border:1px solid #e2e8f0 !important;
+  color:var(--premir-blue) !important;
+  font-size:0 !important;
+  position:relative;
+}
+.icon::before{
+  content:"📘";
+  font-size:16px;
+}
+.card[data-cat="repaso"] .icon::before{content:"🧠";}
+.card[data-cat="curriculo"] .icon::before{content:"📚";}
+.card[data-cat="utilidades"] .icon::before{content:"🛠️";}
+.card[data-cat="programacion"] .icon::before{content:"📝";}
+.card h2{
+  font-size:.82rem !important;
+  line-height:1.16 !important;
+  font-weight:650 !important;
+  color:var(--premir-ink) !important;
+  margin-top:10px !important;
+}
+.open{
+  font-size:.68rem !important;
+  color:var(--premir-blue-2) !important;
+}
+.arrow{
+  width:22px !important;
+  height:22px !important;
+  border-radius:8px !important;
+}
+
+/* Oculta contadores antiguos si quedan arriba: se sustituyen por dashboard */
+.total-inline{
+  display:none !important;
+}
+
+/* Responsive */
+@media (max-width:1100px){
+  .premir-dashboard,
+  .quick-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:640px){
+  .premir-dashboard,
+  .quick-grid{grid-template-columns:1fr;}
+  .metric-card{min-height:48px;}
+}
+
+/* Modo oscuro: respetar visibilidad */
+body[data-theme-style="darkpro"] .metric-card,
+body[data-theme-style="darkpro"] .quick-card{
+  background:rgba(15,23,42,.92) !important;
+  border-color:rgba(255,255,255,.12) !important;
+}
+body[data-theme-style="darkpro"] .metric-card strong,
+body[data-theme-style="darkpro"] .quick-card .qtext,
+body[data-theme-style="darkpro"] .quick-title{
+  color:#e5e7eb !important;
+}
+body[data-theme-style="darkpro"] .metric-card span:not(.metric-icon),
+body[data-theme-style="darkpro"] .quick-title small{
+  color:#94a3b8 !important;
+}
+
+
+/* =========================================================
+   Animación elegante de acceso: halos, líneas y partículas
+   Sustituye los cubos 3D por un fondo premium más discreto
+   ========================================================= */
+.cube-scene,
+.cube,
+.cube span{
+  display:none !important;
+}
+
+.access-screen{
+  overflow:hidden !important;
+  background:
+    radial-gradient(750px 420px at 18% 12%, rgba(255,255,255,.18), transparent 58%),
+    radial-gradient(700px 420px at 88% 82%, rgba(212,160,23,.18), transparent 55%),
+    linear-gradient(135deg,#003865 0%,#00588d 52%,#0f172a 100%) !important;
+}
+
+.access-card{
+  position:relative !important;
+  z-index:4 !important;
+}
+
+.elegant-scene{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.orb{
+  position:absolute;
+  display:block;
+  border-radius:999px;
+  filter:blur(2px);
+  opacity:.52;
+  animation:orbFloat 14s ease-in-out infinite;
+}
+.orb-1{
+  width:360px;
+  height:360px;
+  left:-90px;
+  top:8%;
+  background:radial-gradient(circle, rgba(56,189,248,.28), rgba(56,189,248,.08) 45%, transparent 70%);
+}
+.orb-2{
+  width:300px;
+  height:300px;
+  right:-80px;
+  bottom:8%;
+  background:radial-gradient(circle, rgba(212,160,23,.24), rgba(212,160,23,.08) 46%, transparent 72%);
+  animation-delay:-5s;
+}
+.orb-3{
+  width:220px;
+  height:220px;
+  left:62%;
+  top:4%;
+  background:radial-gradient(circle, rgba(255,255,255,.16), rgba(255,255,255,.05) 50%, transparent 72%);
+  animation-delay:-8s;
+}
+
+.line{
+  position:absolute;
+  height:1px;
+  width:42%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.36), transparent);
+  opacity:.46;
+  transform-origin:center;
+  animation:lineDrift 12s ease-in-out infinite;
+}
+.line-1{left:6%;top:24%;--r:-10deg;transform:rotate(-10deg);}
+.line-2{right:4%;top:58%;--r:12deg;transform:rotate(12deg);animation-delay:-4s;}
+.line-3{left:30%;bottom:18%;--r:-4deg;transform:rotate(-4deg);animation-delay:-7s;}
+
+.particle{
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:rgba(255,255,255,.78);
+  box-shadow:0 0 18px rgba(255,255,255,.45);
+  animation:particleFloat 9s ease-in-out infinite;
+}
+.p1{left:16%;top:62%;}
+.p2{left:76%;top:22%;animation-delay:-2s;}
+.p3{left:82%;top:70%;animation-delay:-5s;}
+.p4{left:28%;top:18%;animation-delay:-7s;}
+
+@keyframes orbFloat{
+  0%,100%{transform:translate3d(0,0,0) scale(1);}
+  50%{transform:translate3d(26px,-22px,0) scale(1.05);}
+}
+@keyframes lineDrift{
+  0%,100%{opacity:.24; transform:translateX(0) rotate(var(--r,0deg));}
+  50%{opacity:.58; transform:translateX(22px) rotate(var(--r,0deg));}
+}
+@keyframes particleFloat{
+  0%,100%{transform:translate3d(0,0,0) scale(.9);opacity:.35;}
+  50%{transform:translate3d(18px,-28px,0) scale(1.2);opacity:.9;}
+}
+
+@media (max-width:700px){
+  .orb-1{width:260px;height:260px;left:-120px;}
+  .orb-2{width:240px;height:240px;right:-130px;}
+  .line{width:70%;opacity:.30;}
+  .particle{opacity:.45;}
+}
+
+
+/* =========================================================
+   ESTILO CONTRASTE + MULTIACCESO A RECURSOS
+   ========================================================= */
+body.high-contrast-premir{
+  --contrast-bg:#050816;
+  --contrast-panel:#0b1220;
+  --contrast-card:#111827;
+  --contrast-text:#f8fafc;
+  --contrast-muted:#cbd5e1;
+  --contrast-yellow:#facc15;
+  --contrast-cyan:#22d3ee;
+  --contrast-blue:#60a5fa;
+  --contrast-line:rgba(255,255,255,.20);
+  background:
+    radial-gradient(900px 520px at 8% -10%, rgba(34,211,238,.18), transparent 58%),
+    radial-gradient(850px 520px at 92% 0%, rgba(250,204,21,.15), transparent 55%),
+    linear-gradient(135deg,#050816 0%,#0f172a 60%,#111827 100%) !important;
+  color:var(--contrast-text) !important;
+}
+body.high-contrast-premir .hero{
+  background:linear-gradient(135deg,#020617 0%,#0f172a 52%,#1e3a8a 100%) !important;
+  border:1px solid var(--contrast-line) !important;
+  color:var(--contrast-text) !important;
+  box-shadow:0 22px 60px rgba(0,0,0,.35) !important;
+}
+body.high-contrast-premir .hero::before{
+  background:linear-gradient(90deg,var(--contrast-yellow),var(--contrast-cyan),var(--contrast-blue)) !important;
+}
+body.high-contrast-premir #titulo{
+  color:#ffffff !important;
+}
+body.high-contrast-premir .eyebrow{
+  background:rgba(34,211,238,.10) !important;
+  border-color:rgba(34,211,238,.38) !important;
+  color:#e0faff !important;
+}
+body.high-contrast-premir .toolbar,
+body.high-contrast-premir .metric-card,
+body.high-contrast-premir .quick-card,
+body.high-contrast-premir .card{
+  background:rgba(15,23,42,.92) !important;
+  border-color:var(--contrast-line) !important;
+  color:var(--contrast-text) !important;
+}
+body.high-contrast-premir .card h2,
+body.high-contrast-premir .quick-card .qtext,
+body.high-contrast-premir .metric-card strong,
+body.high-contrast-premir .section-title h3,
+body.high-contrast-premir .quick-title{
+  color:#ffffff !important;
+}
+body.high-contrast-premir .metric-card span:not(.metric-icon),
+body.high-contrast-premir .quick-title small,
+body.high-contrast-premir .count{
+  color:var(--contrast-muted) !important;
+}
+body.high-contrast-premir input,
+body.high-contrast-premir .filter,
+body.high-contrast-premir .access-mode{
+  background:#020617 !important;
+  border-color:rgba(255,255,255,.22) !important;
+  color:#f8fafc !important;
+}
+body.high-contrast-premir input:focus{
+  border-color:var(--contrast-cyan) !important;
+  box-shadow:0 0 0 4px rgba(34,211,238,.18) !important;
+}
+body.high-contrast-premir .filter.active,
+body.high-contrast-premir .tool-btn.active,
+body.high-contrast-premir .access-mode.active{
+  background:linear-gradient(135deg,var(--contrast-yellow),#f59e0b) !important;
+  color:#111827 !important;
+  border-color:transparent !important;
+}
+body.high-contrast-premir .icon,
+body.high-contrast-premir .metric-icon,
+body.high-contrast-premir .qicon{
+  background:#020617 !important;
+  border-color:rgba(255,255,255,.20) !important;
+  color:var(--contrast-cyan) !important;
+}
+body.high-contrast-premir .open,
+body.high-contrast-premir .arrow{
+  color:var(--contrast-cyan) !important;
+}
+
+/* Botones de acceso */
+.access-modes{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin:8px 0 16px;
+}
+.access-mode{
+  min-height:36px;
+  border:1px solid #d7e2ef;
+  background:#ffffff;
+  color:#334155;
+  border-radius:999px;
+  padding:0 12px;
+  cursor:pointer;
+  font-size:.76rem;
+  font-weight:650;
+  transition:.15s ease;
+}
+.access-mode:hover{
+  transform:translateY(-1px);
+  border-color:#93c5fd;
+  background:#eff6ff;
+  color:#1d4ed8;
+}
+.access-mode.active{
+  background:#003865;
+  color:#ffffff;
+  border-color:#003865;
+}
+
+/* Vista lista compacta */
+body.view-list .grid{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:7px !important;
+}
+body.view-list .grid .card{
+  min-height:48px !important;
+  display:grid !important;
+  grid-template-columns:auto 1fr auto !important;
+  align-items:center !important;
+  gap:10px !important;
+  padding:9px 12px !important;
+  border-radius:12px !important;
+}
+body.view-list .card-top{
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+}
+body.view-list .card h2{
+  margin:0 !important;
+  font-size:.84rem !important;
+}
+body.view-list .open{
+  margin:0 !important;
+}
+body.view-list .arrow{
+  display:none !important;
+}
+
+/* Vista categorías: agrupa visualmente por color */
+body.view-category .grid .card[data-cat="curriculo"]{
+  border-left:5px solid #2563eb !important;
+}
+body.view-category .grid .card[data-cat="repaso"]{
+  border-left:5px solid #7c3aed !important;
+}
+body.view-category .grid .card[data-cat="utilidades"]{
+  border-left:5px solid #f59e0b !important;
+}
+body.view-category .grid .card[data-cat="programacion"]{
+  border-left:5px solid #10b981 !important;
+}
+body.view-category .grid{
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+}
+
+/* Vista enfoque: reduce ruido y destaca recursos */
+body.view-focus .toolbar,
+body.view-focus .quick-section,
+body.view-focus .premir-dashboard{
+  display:none !important;
+}
+body.view-focus .grid{
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:16px !important;
+}
+body.view-focus .grid .card{
+  min-height:145px !important;
+  padding:18px !important;
+}
+body.view-focus .card h2{
+  font-size:1rem !important;
+}
+body.view-focus .icon{
+  width:42px !important;
+  height:42px !important;
+}
+body.view-focus .icon::before{
+  font-size:20px !important;
+}
+
+/* Botón visual para contraste */
+.contrast-toggle{
+  min-height:36px;
+  border:1px solid #d7e2ef;
+  background:#111827;
+  color:#ffffff;
+  border-radius:999px;
+  padding:0 12px;
+  cursor:pointer;
+  font-size:.76rem;
+  font-weight:650;
+}
+@media(max-width:900px){
+  body.view-category .grid,
+  body.view-focus .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+@media(max-width:640px){
+  body.view-category .grid,
+  body.view-focus .grid{
+    grid-template-columns:1fr !important;
+  }
+}
+
+
+/* =========================================================
+   REVISIÓN MULTIACCESO + CONTRASTE — versión corregida
+   Compatible con el diseño real del archivo: .side-item/.side-link/.visor
+   ========================================================= */
+.access-modes{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px;}
+.access-mode,.contrast-toggle{min-height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:#ffffff;color:#334155;font-size:.76rem;font-weight:500;cursor:pointer;box-shadow:0 4px 12px rgba(15,23,42,.055);transition:transform .14s ease, background .14s ease, border-color .14s ease, color .14s ease;}
+.access-mode:hover,.contrast-toggle:hover{transform:translateY(-1px);border-color:#93c5fd;background:#eff6ff;color:#1d4ed8;}
+.access-mode.active,.contrast-toggle.active{background:#003865;border-color:#003865;color:#ffffff;}
+body.view-standard .sidebar{width:230px!important;min-width:230px!important;max-width:230px!important;}
+body.view-compact .reader-layout{gap:10px!important;}
+body.view-compact .sidebar{width:195px!important;min-width:195px!important;max-width:195px!important;padding:6px!important;}
+body.view-compact .side-item{padding:7px 8px!important;margin-bottom:5px!important;border-radius:11px!important;grid-template-columns:24px 1fr!important;}
+body.view-compact .fav-side{width:21px!important;height:21px!important;font-size:12px!important;}
+body.view-compact .side-link{font-size:11px!important;line-height:1.18!important;}
+body.view-compact .side-meta{font-size:8.5px!important;}
+body.view-cards .reader-layout{display:grid!important;grid-template-columns:380px minmax(0,1fr)!important;gap:14px!important;}
+body.view-cards .sidebar{width:auto!important;min-width:0!important;max-width:none!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;align-content:start!important;gap:8px!important;padding:10px!important;}
+body.view-cards .side-item{min-height:86px!important;margin:0!important;padding:11px!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:space-between!important;border-radius:16px!important;}
+body.view-cards .fav-side{position:absolute!important;right:8px!important;top:8px!important;}
+body.view-cards .side-link{font-size:12.5px!important;line-height:1.22!important;padding-right:28px!important;}
+body.view-cards .side-meta{font-size:9px!important;margin-top:6px!important;}
+body.view-focus .reader-layout{gap:0!important;}
+body.view-focus .sidebar{width:0!important;min-width:0!important;max-width:0!important;padding:0!important;border:0!important;opacity:0!important;overflow:hidden!important;}
+body.view-focus .visor{border-radius:20px!important;min-height:calc(100vh - 250px)!important;}
+body.view-focus .layout-actions{display:none!important;}
+body.high-contrast-premir{--line:rgba(255,255,255,.20);background:linear-gradient(135deg,#050816 0%,#0f172a 62%,#111827 100%)!important;color:#f8fafc!important;}
+body.high-contrast-premir .hero,body.high-contrast-premir .toolbar,body.high-contrast-premir .sidebar,body.high-contrast-premir .visor,body.high-contrast-premir .side-item,body.high-contrast-premir .metric-card,body.high-contrast-premir .quick-card{background:rgba(15,23,42,.94)!important;color:#f8fafc!important;border-color:rgba(255,255,255,.20)!important;}
+body.high-contrast-premir #titulo,body.high-contrast-premir .section-title h3,body.high-contrast-premir .side-link,body.high-contrast-premir .metric-card strong{color:#ffffff!important;}
+body.high-contrast-premir .side-meta,body.high-contrast-premir .count,body.high-contrast-premir .metric-card span:not(.metric-icon){color:#cbd5e1!important;}
+body.high-contrast-premir input,body.high-contrast-premir .filter,body.high-contrast-premir .access-mode,body.high-contrast-premir .contrast-toggle{background:#020617!important;border-color:rgba(255,255,255,.22)!important;color:#f8fafc!important;}
+body.high-contrast-premir .filter.active,body.high-contrast-premir .access-mode.active,body.high-contrast-premir .contrast-toggle.active{background:#facc15!important;border-color:#facc15!important;color:#111827!important;}
+body.high-contrast-premir .fav-side.active{color:#facc15!important;border-color:#facc15!important;background:rgba(250,204,21,.10)!important;}
+@media(max-width:900px){body.view-cards .reader-layout{grid-template-columns:1fr!important;}body.view-cards .sidebar{grid-template-columns:repeat(2,minmax(0,1fr))!important;max-height:320px!important;}}
+@media(max-width:620px){body.view-cards .sidebar{grid-template-columns:1fr!important;}}
+
+
+/* =========================================================
+   ESTILO WHATSAPP WEB · PREMIR
+   ========================================================= */
+body.whatsapp-style{
+  --wa-bg:#efeae2;
+  --wa-panel:#ffffff;
+  --wa-header:#f0f2f5;
+  --wa-green:#00a884;
+  --wa-green-dark:#008069;
+  --wa-green-soft:#d9fdd3;
+  --wa-text:#111b21;
+  --wa-muted:#667781;
+  --wa-line:#e9edef;
+  background:linear-gradient(180deg,#00a884 0 118px,#efeae2 118px 100%) !important;
+  color:var(--wa-text) !important;
+}
+body.whatsapp-style .shell{width:min(1500px,calc(100% - 28px)) !important;padding:16px 0 24px !important;}
+body.whatsapp-style .hero{
+  background:#ffffff !important;color:var(--wa-text) !important;
+  border:1px solid rgba(0,0,0,.06) !important;border-radius:18px 18px 0 0 !important;
+  box-shadow:0 6px 24px rgba(0,0,0,.14) !important;padding:14px 18px !important;
+}
+body.whatsapp-style .hero::before{height:4px !important;background:linear-gradient(90deg,#00a884,#25d366,#128c7e) !important;}
+body.whatsapp-style .header-logo{height:48px !important;background:#fff !important;border-radius:50% !important;padding:4px !important;box-shadow:0 2px 8px rgba(0,0,0,.10) !important;}
+body.whatsapp-style .eyebrow{background:#e7f7f2 !important;color:#008069 !important;border-color:#bce8dc !important;border-radius:999px !important;}
+body.whatsapp-style #titulo{color:#111b21 !important;font-weight:650 !important;text-shadow:none !important;}
+body.whatsapp-style .hero-subtitle{color:var(--wa-muted) !important;}
+body.whatsapp-style .toolbar{
+  background:#f0f2f5 !important;border:1px solid rgba(0,0,0,.06) !important;
+  border-radius:0 !important;box-shadow:none !important;margin:0 !important;
+}
+body.whatsapp-style input{background:#ffffff !important;border:1px solid transparent !important;border-radius:999px !important;color:var(--wa-text) !important;}
+body.whatsapp-style input:focus{border-color:#00a884 !important;box-shadow:0 0 0 3px rgba(0,168,132,.14) !important;}
+body.whatsapp-style .filter,
+body.whatsapp-style .tool-btn,
+body.whatsapp-style .access-mode,
+body.whatsapp-style .contrast-toggle,
+body.whatsapp-style .toggle-sidebar{
+  background:#ffffff !important;color:#54656f !important;border:1px solid #d1d7db !important;
+  border-radius:999px !important;box-shadow:none !important;
+}
+body.whatsapp-style .filter.active,
+body.whatsapp-style .tool-btn.active,
+body.whatsapp-style .access-mode.active{
+  background:#00a884 !important;color:#ffffff !important;border-color:#00a884 !important;
+}
+body.whatsapp-style .premir-dashboard{
+  background:#ffffff !important;border-left:1px solid rgba(0,0,0,.06);border-right:1px solid rgba(0,0,0,.06);
+  margin:0 !important;padding:12px !important;gap:8px !important;
+}
+body.whatsapp-style .metric-card{background:#f0f2f5 !important;border:0 !important;border-radius:14px !important;box-shadow:none !important;}
+body.whatsapp-style .metric-icon{background:#ffffff !important;border:0 !important;color:#00a884 !important;}
+body.whatsapp-style .metric-card strong{color:#008069 !important;}
+body.whatsapp-style .access-modes,
+body.whatsapp-style .quick-section,
+body.whatsapp-style .section-title{
+  background:#ffffff !important;margin:0 !important;padding:10px 12px !important;
+  border-left:1px solid rgba(0,0,0,.06);border-right:1px solid rgba(0,0,0,.06);
+}
+body.whatsapp-style .quick-title,
+body.whatsapp-style .section-title h3{color:#008069 !important;font-weight:650 !important;}
+body.whatsapp-style .quick-card{background:#e7f7f2 !important;border:1px solid #cceee4 !important;border-radius:18px !important;box-shadow:none !important;}
+body.whatsapp-style .quick-card .qicon{background:#00a884 !important;color:#fff !important;}
+body.whatsapp-style .quick-card .qtext{color:#111b21 !important;}
+body.whatsapp-style .count{background:#e7f7f2 !important;color:#008069 !important;border-color:#cceee4 !important;}
+
+/* Menú lateral tipo chats */
+body.whatsapp-style .reader-layout{
+  background:#ffffff !important;border:1px solid rgba(0,0,0,.08) !important;
+  border-radius:0 0 18px 18px !important;overflow:hidden !important;gap:0 !important;
+  box-shadow:0 18px 45px rgba(0,0,0,.16) !important;
+}
+body.whatsapp-style .sidebar{
+  background:#ffffff !important;border:0 !important;border-right:1px solid #e9edef !important;
+  border-radius:0 !important;box-shadow:none !important;padding:0 !important;
+}
+body.whatsapp-style .side-item{
+  display:grid !important;grid-template-columns:42px 1fr !important;
+  grid-template-areas:"fav title" "fav meta" !important;gap:2px 10px !important;
+  min-height:62px !important;margin:0 !important;padding:10px 12px !important;
+  border:0 !important;border-bottom:1px solid #f0f2f5 !important;border-radius:0 !important;
+  background:#ffffff !important;box-shadow:none !important;transition:background .14s ease !important;
+}
+body.whatsapp-style .side-item:hover,
+body.whatsapp-style .side-item.active-item{background:#f0f2f5 !important;transform:none !important;box-shadow:none !important;}
+body.whatsapp-style .fav-side{
+  grid-area:fav !important;width:40px !important;height:40px !important;border-radius:50% !important;
+  background:#e7f7f2 !important;border:0 !important;color:#00a884 !important;box-shadow:none !important;font-size:15px !important;
+}
+body.whatsapp-style .fav-side.active{background:#00a884 !important;color:#ffffff !important;}
+body.whatsapp-style .side-link{grid-area:title !important;color:#111b21 !important;font-size:13px !important;font-weight:600 !important;line-height:1.2 !important;}
+body.whatsapp-style .side-meta{grid-area:meta !important;color:#667781 !important;font-size:10px !important;font-weight:500 !important;}
+
+/* Visor tipo conversación */
+body.whatsapp-style .visor{
+  border:0 !important;border-radius:0 !important;box-shadow:none !important;
+  background:
+    linear-gradient(rgba(239,234,226,.88),rgba(239,234,226,.88)),
+    radial-gradient(circle at 20px 20px, rgba(0,0,0,.04) 1px, transparent 1px) !important;
+  background-size:auto,28px 28px !important;
+}
+body.whatsapp-style .grid .card{
+  background:#ffffff !important;border:1px solid #e9edef !important;border-radius:18px !important;box-shadow:0 2px 8px rgba(0,0,0,.06) !important;
+}
+body.whatsapp-style .grid .card:hover{border-color:#00a884 !important;box-shadow:0 6px 16px rgba(0,168,132,.14) !important;}
+body.whatsapp-style .icon{background:#e7f7f2 !important;border:0 !important;color:#00a884 !important;}
+body.whatsapp-style .card h2{color:#111b21 !important;}
+body.whatsapp-style .open{color:#008069 !important;}
+body.whatsapp-style .arrow{background:#e7f7f2 !important;color:#008069 !important;}
+body.whatsapp-style footer{color:#667781 !important;}
+body.whatsapp-style.view-list .grid .card{border-radius:0 !important;border-left:0 !important;border-right:0 !important;box-shadow:none !important;}
+
+
+/* =========================================================
+   ESTILO INSTAGRAM · PREMIR
+   ========================================================= */
+body.instagram-style{
+  --ig-bg:#fafafa;
+  --ig-panel:#ffffff;
+  --ig-text:#262626;
+  --ig-muted:#737373;
+  --ig-line:#dbdbdb;
+  --ig-pink:#e1306c;
+  --ig-purple:#833ab4;
+  --ig-orange:#f77737;
+  --ig-yellow:#fcb045;
+  background:
+    radial-gradient(900px 420px at 8% -10%, rgba(225,48,108,.10), transparent 58%),
+    radial-gradient(900px 420px at 92% 0%, rgba(131,58,180,.10), transparent 58%),
+    #fafafa !important;
+  color:var(--ig-text) !important;
+}
+body.instagram-style .shell{
+  width:min(1380px, calc(100% - 28px)) !important;
+  padding:18px 0 26px !important;
+}
+body.instagram-style .hero{
+  background:#ffffff !important;
+  color:var(--ig-text) !important;
+  border:1px solid var(--ig-line) !important;
+  border-radius:22px !important;
+  box-shadow:0 8px 28px rgba(0,0,0,.08) !important;
+  padding:18px 22px !important;
+}
+body.instagram-style .hero::before{
+  height:5px !important;
+  background:linear-gradient(90deg,#fcb045,#fd1d1d,#833ab4,#405de6) !important;
+}
+body.instagram-style .header-logo{
+  height:54px !important;
+  background:#fff !important;
+  border-radius:18px !important;
+  padding:6px 10px !important;
+  border:2px solid transparent !important;
+  background-image:linear-gradient(#fff,#fff),linear-gradient(135deg,#fcb045,#fd1d1d,#833ab4) !important;
+  background-origin:border-box !important;
+  background-clip:padding-box,border-box !important;
+  box-shadow:0 8px 20px rgba(0,0,0,.08) !important;
+}
+body.instagram-style .eyebrow{
+  background:#ffffff !important;
+  color:#833ab4 !important;
+  border:1px solid #efc7ff !important;
+  border-radius:999px !important;
+  font-weight:700 !important;
+}
+body.instagram-style #titulo{
+  color:#262626 !important;
+  font-weight:750 !important;
+  text-shadow:none !important;
+  background:none !important;
+  -webkit-background-clip:initial !important;
+}
+body.instagram-style .hero-subtitle{
+  color:var(--ig-muted) !important;
+}
+body.instagram-style .toolbar{
+  background:#ffffff !important;
+  border:1px solid var(--ig-line) !important;
+  border-radius:18px !important;
+  box-shadow:0 4px 18px rgba(0,0,0,.05) !important;
+}
+body.instagram-style input{
+  background:#efefef !important;
+  border:1px solid transparent !important;
+  border-radius:12px !important;
+  color:#262626 !important;
+}
+body.instagram-style input:focus{
+  background:#ffffff !important;
+  border-color:#c7c7c7 !important;
+  box-shadow:0 0 0 3px rgba(225,48,108,.10) !important;
+}
+body.instagram-style .filter,
+body.instagram-style .tool-btn,
+body.instagram-style .access-mode,
+body.instagram-style .contrast-toggle,
+body.instagram-style .toggle-sidebar{
+  background:#ffffff !important;
+  color:#262626 !important;
+  border:1px solid var(--ig-line) !important;
+  border-radius:999px !important;
+  box-shadow:none !important;
+}
+body.instagram-style .filter.active,
+body.instagram-style .tool-btn.active,
+body.instagram-style .access-mode.active{
+  color:#ffffff !important;
+  border-color:transparent !important;
+  background:linear-gradient(135deg,#fcb045,#fd1d1d,#833ab4) !important;
+}
+body.instagram-style .premir-dashboard{
+  display:flex !important;
+  overflow-x:auto !important;
+  gap:12px !important;
+  margin:14px 0 !important;
+  padding:4px 2px 8px !important;
+}
+body.instagram-style .metric-card{
+  flex:0 0 150px !important;
+  min-height:74px !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:5px !important;
+  border-radius:18px !important;
+  background:#ffffff !important;
+  border:1px solid var(--ig-line) !important;
+  box-shadow:0 5px 18px rgba(0,0,0,.06) !important;
+}
+body.instagram-style .metric-icon{
+  width:38px !important;
+  height:38px !important;
+  border-radius:50% !important;
+  color:#fff !important;
+  border:2px solid transparent !important;
+  background:linear-gradient(135deg,#fcb045,#fd1d1d,#833ab4) !important;
+}
+body.instagram-style .metric-card strong{
+  color:#262626 !important;
+  font-size:.9rem !important;
+}
+body.instagram-style .metric-card span:not(.metric-icon){
+  color:#737373 !important;
+  font-size:.56rem !important;
+}
+
+/* Accesos rápidos tipo stories */
+body.instagram-style .quick-section{
+  background:#ffffff !important;
+  border:1px solid var(--ig-line) !important;
+  border-radius:18px !important;
+  padding:12px !important;
+  box-shadow:0 4px 18px rgba(0,0,0,.05) !important;
+}
+body.instagram-style .quick-title span{
+  color:#262626 !important;
+  font-weight:750 !important;
+}
+body.instagram-style .quick-title small{
+  color:#737373 !important;
+}
+body.instagram-style .quick-grid{
+  display:flex !important;
+  overflow-x:auto !important;
+  gap:12px !important;
+}
+body.instagram-style .quick-card{
+  flex:0 0 116px !important;
+  min-height:96px !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  border:0 !important;
+  border-radius:18px !important;
+  background:#ffffff !important;
+  box-shadow:none !important;
+}
+body.instagram-style .quick-card .qicon{
+  width:54px !important;
+  height:54px !important;
+  border-radius:50% !important;
+  color:#fff !important;
+  background:linear-gradient(135deg,#fcb045,#fd1d1d,#833ab4) !important;
+  border:3px solid #fff !important;
+  box-shadow:0 0 0 2px #e1306c !important;
+  font-size:20px !important;
+}
+body.instagram-style .quick-card .qtext{
+  text-align:center !important;
+  color:#262626 !important;
+  font-size:.68rem !important;
+  font-weight:650 !important;
+}
+
+/* Cards tipo post */
+body.instagram-style .grid .card{
+  background:#ffffff !important;
+  border:1px solid var(--ig-line) !important;
+  border-radius:18px !important;
+  box-shadow:0 4px 16px rgba(0,0,0,.05) !important;
+  min-height:128px !important;
+}
+body.instagram-style .grid .card:hover{
+  transform:translateY(-3px) !important;
+  border-color:#c7c7c7 !important;
+  box-shadow:0 12px 28px rgba(0,0,0,.10) !important;
+}
+body.instagram-style .card-top{
+  border-bottom:1px solid #f1f1f1 !important;
+  padding-bottom:8px !important;
+}
+body.instagram-style .icon{
+  width:38px !important;
+  height:38px !important;
+  border-radius:50% !important;
+  color:#ffffff !important;
+  border:2px solid transparent !important;
+  background:linear-gradient(135deg,#fcb045,#fd1d1d,#833ab4) !important;
+}
+body.instagram-style .card h2{
+  color:#262626 !important;
+  font-weight:700 !important;
+  font-size:.84rem !important;
+}
+body.instagram-style .open{
+  color:#e1306c !important;
+  font-weight:700 !important;
+}
+body.instagram-style .arrow{
+  background:#fff0f6 !important;
+  color:#e1306c !important;
+}
+
+/* Menú lateral como bandeja de mensajes */
+body.instagram-style .reader-layout{
+  background:#ffffff !important;
+  border:1px solid var(--ig-line) !important;
+  border-radius:22px !important;
+  overflow:hidden !important;
+  gap:0 !important;
+  box-shadow:0 12px 32px rgba(0,0,0,.08) !important;
+}
+body.instagram-style .sidebar{
+  background:#ffffff !important;
+  border:0 !important;
+  border-right:1px solid var(--ig-line) !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+body.instagram-style .side-item{
+  background:#ffffff !important;
+  border:0 !important;
+  border-bottom:1px solid #f1f1f1 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+body.instagram-style .side-item:hover,
+body.instagram-style .side-item.active-item{
+  background:#fafafa !important;
+}
+body.instagram-style .fav-side{
+  border-radius:50% !important;
+  background:linear-gradient(135deg,#fcb045,#fd1d1d,#833ab4) !important;
+  color:#ffffff !important;
+  border:0 !important;
+}
+body.instagram-style .side-link{
+  color:#262626 !important;
+  font-weight:650 !important;
+}
+body.instagram-style .side-meta{
+  color:#737373 !important;
+}
+body.instagram-style .visor{
+  border:0 !important;
+  border-radius:0 !important;
+  background:#fafafa !important;
+  box-shadow:none !important;
+}
+body.instagram-style footer{
+  color:#737373 !important;
+}
+body.instagram-style .section-title h3{
+  color:#262626 !important;
+}
+body.instagram-style .count{
+  background:#ffffff !important;
+  border-color:var(--ig-line) !important;
+  color:#737373 !important;
+}
+
+
+/* =========================================================
+   ESTILO LAGUNA · FRESCO, ORGÁNICO Y PROFESIONAL
+   Inspirado en un universo acuático: azul, blanco, verde suave,
+   ondas, gotas y tarjetas orgánicas.
+   ========================================================= */
+body.laguna-style{
+  --lagoon-deep:#004c97;
+  --lagoon-blue:#0077c8;
+  --lagoon-sky:#5ec8f2;
+  --lagoon-water:#dff7ff;
+  --lagoon-mint:#b9f3d0;
+  --lagoon-green:#35b779;
+  --lagoon-white:#ffffff;
+  --lagoon-ink:#07304f;
+  --lagoon-muted:#5f7e92;
+  --lagoon-line:rgba(0,119,200,.18);
+  background:
+    radial-gradient(900px 460px at 8% -8%, rgba(94,200,242,.34), transparent 58%),
+    radial-gradient(780px 420px at 94% 4%, rgba(185,243,208,.38), transparent 58%),
+    linear-gradient(180deg,#e9faff 0%,#f7fffb 52%,#ffffff 100%) !important;
+  color:var(--lagoon-ink) !important;
+}
+
+/* Fondo con ondas suaves */
+body.laguna-style::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 18%, rgba(255,255,255,.72) 0 10%, transparent 28%),
+    radial-gradient(ellipse at 80% 72%, rgba(94,200,242,.18) 0 12%, transparent 34%);
+  opacity:.85;
+}
+
+body.laguna-style .shell{
+  width:min(1480px, calc(100% - 28px)) !important;
+  padding:18px 0 28px !important;
+}
+
+/* Cabecera como tarjeta de laguna */
+body.laguna-style .hero{
+  position:relative !important;
+  overflow:hidden !important;
+  color:#ffffff !important;
+  border:0 !important;
+  border-radius:34px !important;
+  padding:24px 30px !important;
+  background:
+    radial-gradient(650px 220px at 18% 18%, rgba(255,255,255,.30), transparent 62%),
+    radial-gradient(650px 260px at 88% 85%, rgba(185,243,208,.30), transparent 62%),
+    linear-gradient(135deg,#004c97 0%,#0077c8 56%,#5ec8f2 100%) !important;
+  box-shadow:0 22px 56px rgba(0,76,151,.22) !important;
+}
+
+body.laguna-style .hero::before{
+  content:"";
+  position:absolute;
+  left:-10%;
+  right:-10%;
+  bottom:-38px;
+  height:92px !important;
+  background:
+    radial-gradient(70px 42px at 8% 35%, rgba(255,255,255,.36), transparent 72%),
+    radial-gradient(120px 58px at 28% 40%, rgba(255,255,255,.30), transparent 72%),
+    radial-gradient(140px 68px at 52% 30%, rgba(255,255,255,.24), transparent 74%),
+    radial-gradient(120px 58px at 76% 44%, rgba(255,255,255,.28), transparent 72%),
+    radial-gradient(90px 50px at 94% 34%, rgba(255,255,255,.34), transparent 72%);
+  opacity:.9;
+  pointer-events:none;
+}
+
+/* Logo y profesor */
+body.laguna-style .header-logo{
+  height:60px !important;
+  background:#ffffff !important;
+  border-radius:24px 24px 24px 8px !important;
+  padding:7px 13px !important;
+  box-shadow:0 12px 28px rgba(0,76,151,.20) !important;
+}
+
+body.laguna-style .eyebrow{
+  color:#eaffff !important;
+  background:rgba(255,255,255,.18) !important;
+  border:1px solid rgba(255,255,255,.36) !important;
+  border-radius:999px 999px 999px 14px !important;
+  backdrop-filter:blur(10px);
+}
+
+body.laguna-style .dot{
+  background:#b9f3d0 !important;
+  box-shadow:0 0 0 5px rgba(185,243,208,.22) !important;
+}
+
+body.laguna-style #titulo{
+  color:#ffffff !important;
+  font-weight:760 !important;
+  letter-spacing:-.03em !important;
+  text-shadow:none !important;
+  background:none !important;
+  -webkit-background-clip:initial !important;
+}
+
+body.laguna-style .hero-subtitle{
+  color:rgba(255,255,255,.86) !important;
+}
+
+/* Buscador y controles como gotas/píldoras */
+body.laguna-style .toolbar{
+  margin:14px 0 14px !important;
+  background:rgba(255,255,255,.82) !important;
+  border:1px solid rgba(0,119,200,.14) !important;
+  border-radius:28px !important;
+  box-shadow:0 14px 36px rgba(0,76,151,.10) !important;
+  backdrop-filter:blur(16px);
+}
+
+body.laguna-style input{
+  background:#ffffff !important;
+  border:1px solid rgba(0,119,200,.16) !important;
+  border-radius:999px !important;
+  color:var(--lagoon-ink) !important;
+}
+
+body.laguna-style input:focus{
+  border-color:#5ec8f2 !important;
+  box-shadow:0 0 0 4px rgba(94,200,242,.20) !important;
+}
+
+body.laguna-style .filter,
+body.laguna-style .tool-btn,
+body.laguna-style .access-mode,
+body.laguna-style .contrast-toggle,
+body.laguna-style .toggle-sidebar{
+  background:#ffffff !important;
+  color:#0062a8 !important;
+  border:1px solid rgba(0,119,200,.18) !important;
+  border-radius:999px 999px 999px 12px !important;
+  box-shadow:0 5px 14px rgba(0,76,151,.08) !important;
+}
+
+body.laguna-style .filter:hover,
+body.laguna-style .tool-btn:hover,
+body.laguna-style .access-mode:hover{
+  background:#e9faff !important;
+  border-color:#5ec8f2 !important;
+  color:#004c97 !important;
+}
+
+body.laguna-style .filter.active,
+body.laguna-style .tool-btn.active,
+body.laguna-style .access-mode.active{
+  background:linear-gradient(135deg,#0077c8,#35b779) !important;
+  color:#ffffff !important;
+  border-color:transparent !important;
+}
+
+/* Dashboard como burbujas de laguna */
+body.laguna-style .premir-dashboard{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:12px !important;
+  margin:16px 0 !important;
+}
+
+body.laguna-style .metric-card{
+  min-height:70px !important;
+  background:rgba(255,255,255,.88) !important;
+  border:1px solid rgba(0,119,200,.14) !important;
+  border-radius:30px 30px 30px 12px !important;
+  box-shadow:0 12px 28px rgba(0,76,151,.09) !important;
+}
+
+body.laguna-style .metric-icon{
+  width:38px !important;
+  height:38px !important;
+  border:0 !important;
+  border-radius:50% 50% 50% 14px !important;
+  background:linear-gradient(135deg,#dff7ff,#b9f3d0) !important;
+  color:#004c97 !important;
+}
+
+body.laguna-style .metric-card strong{
+  color:#004c97 !important;
+}
+
+body.laguna-style .metric-card span:not(.metric-icon){
+  color:#5f7e92 !important;
+}
+
+/* Secciones rápidas */
+body.laguna-style .quick-section{
+  background:rgba(255,255,255,.82) !important;
+  border:1px solid rgba(0,119,200,.14) !important;
+  border-radius:30px !important;
+  padding:14px !important;
+  box-shadow:0 12px 28px rgba(0,76,151,.08) !important;
+}
+
+body.laguna-style .quick-title span{
+  color:#004c97 !important;
+}
+
+body.laguna-style .quick-title small{
+  color:#5f7e92 !important;
+}
+
+body.laguna-style .quick-card{
+  background:#ffffff !important;
+  border:1px solid rgba(0,119,200,.14) !important;
+  border-radius:28px 28px 28px 10px !important;
+  box-shadow:0 8px 18px rgba(0,76,151,.07) !important;
+}
+
+body.laguna-style .quick-card .qicon{
+  background:linear-gradient(135deg,#0077c8,#35b779) !important;
+  color:#ffffff !important;
+  border-radius:50% 50% 50% 12px !important;
+}
+
+body.laguna-style .quick-card .qtext{
+  color:#07304f !important;
+}
+
+/* Tarjetas orgánicas */
+body.laguna-style .grid .card{
+  min-height:128px !important;
+  background:
+    radial-gradient(140px 70px at 92% 90%, rgba(185,243,208,.28), transparent 70%),
+    #ffffff !important;
+  border:1px solid rgba(0,119,200,.14) !important;
+  border-radius:32px 32px 32px 12px !important;
+  box-shadow:0 12px 28px rgba(0,76,151,.08) !important;
+}
+
+body.laguna-style .grid .card:hover{
+  transform:translateY(-4px) !important;
+  border-color:#5ec8f2 !important;
+  box-shadow:0 20px 38px rgba(0,76,151,.14) !important;
+}
+
+body.laguna-style .card-top{
+  align-items:center !important;
+}
+
+body.laguna-style .icon{
+  width:42px !important;
+  height:42px !important;
+  border:0 !important;
+  border-radius:50% 50% 50% 14px !important;
+  background:linear-gradient(135deg,#dff7ff,#b9f3d0) !important;
+  color:#004c97 !important;
+}
+
+body.laguna-style .card h2{
+  color:#07304f !important;
+  font-weight:720 !important;
+  font-size:.88rem !important;
+}
+
+body.laguna-style .open{
+  color:#0077c8 !important;
+}
+
+body.laguna-style .arrow{
+  background:#dff7ff !important;
+  color:#0077c8 !important;
+  border-radius:50% 50% 50% 9px !important;
+}
+
+/* Menú lateral como panel de agua */
+body.laguna-style .reader-layout{
+  gap:14px !important;
+  border:0 !important;
+  border-radius:30px !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+body.laguna-style .sidebar{
+  background:rgba(255,255,255,.88) !important;
+  border:1px solid rgba(0,119,200,.14) !important;
+  border-radius:28px !important;
+  box-shadow:0 18px 38px rgba(0,76,151,.10) !important;
+  padding:10px !important;
+}
+
+body.laguna-style .side-item{
+  margin-bottom:8px !important;
+  border:1px solid rgba(0,119,200,.12) !important;
+  border-radius:22px 22px 22px 9px !important;
+  background:#ffffff !important;
+  box-shadow:0 7px 16px rgba(0,76,151,.06) !important;
+}
+
+body.laguna-style .side-item:hover,
+body.laguna-style .side-item.active-item{
+  background:#e9faff !important;
+  border-color:#5ec8f2 !important;
+  box-shadow:0 10px 22px rgba(0,76,151,.10) !important;
+}
+
+body.laguna-style .fav-side{
+  background:linear-gradient(135deg,#dff7ff,#b9f3d0) !important;
+  color:#0077c8 !important;
+  border:0 !important;
+  border-radius:50% 50% 50% 10px !important;
+}
+
+body.laguna-style .fav-side.active{
+  background:linear-gradient(135deg,#0077c8,#35b779) !important;
+  color:#ffffff !important;
+}
+
+body.laguna-style .side-link{
+  color:#07304f !important;
+  font-weight:650 !important;
+}
+
+body.laguna-style .side-meta{
+  color:#5f7e92 !important;
+}
+
+/* Visor central con agua clara */
+body.laguna-style .visor{
+  border:1px solid rgba(0,119,200,.14) !important;
+  border-radius:30px !important;
+  background:
+    radial-gradient(600px 260px at 20% 5%, rgba(94,200,242,.12), transparent 68%),
+    radial-gradient(520px 220px at 88% 100%, rgba(185,243,208,.16), transparent 70%),
+    #ffffff !important;
+  box-shadow:0 18px 38px rgba(0,76,151,.10) !important;
+}
+
+/* Vista lista: fichas de agua */
+body.laguna-style.view-list .grid .card{
+  border-radius:22px 22px 22px 8px !important;
+}
+
+/* Footer */
+body.laguna-style footer{
+  color:#5f7e92 !important;
+}
+
+/* Móvil */
+@media(max-width:900px){
+  body.laguna-style .premir-dashboard{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+@media(max-width:640px){
+  body.laguna-style .premir-dashboard{
+    grid-template-columns:1fr !important;
+  }
+  body.laguna-style .hero,
+  body.laguna-style .toolbar,
+  body.laguna-style .quick-section,
+  body.laguna-style .visor,
+  body.laguna-style .sidebar{
+    border-radius:22px !important;
+  }
+}
+
+
+/* --- Opción A: eliminar botones de vista y contraste --- */
+.access-modes,
+.contrast-toggle,
+.access-mode{
+  display:none !important;
+}
+.premir-dashboard{
+  margin-bottom:18px !important;
+}
+.quick-section{
+  margin-top:14px !important;
+}
+.section-title{
+  margin-top:16px !important;
+}
+body.laguna-style .premir-dashboard{
+  margin:16px 0 18px !important;
+}
+body.laguna-style .toolbar{
+  margin-bottom:16px !important;
+}
+
+
+/* --- Recurso añadido: Repaso Tema 37 y contador actualizado --- */
+.side-item .side-link[title="Repaso Tema 37"]::after{
+  content:"Nuevo";
+  display:inline-flex;
+  margin-left:6px;
+  padding:2px 6px;
+  border-radius:999px;
+  background:rgba(53,183,121,.14);
+  color:#16835a;
+  font-size:8.5px;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  vertical-align:middle;
+}
+body.laguna-style .side-item .side-link[title="Repaso Tema 37"]::after{
+  background:rgba(185,243,208,.55);
+  color:#006b4c;
+}
 </style>
 </head>
-<body data-theme-style="premir-unico">
+<body data-theme-style="premir">
+<section aria-label="Pantalla de acceso" class="access-screen" id="accessScreen">
+<div aria-hidden="true" class="cube-scene">
+<div class="cube cube-a"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="cube cube-b"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="cube cube-c"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="cube cube-d"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+</div>
+<div class="access-card">
+<img alt="Logo" class="access-img-logo" src="https://www.salvour.com/s/cc_images/cache_2491734547.gif?t=1767110894"/>
+<div class="access-profesor">Profesor: José Manuel Paredes</div>
+<div aria-label="Estadísticas de acceso" class="premir-access-stats">
+<div class="premir-stat-card">
+<span class="premir-stat-icon">👁️</span>
+<span class="premir-stat-number" id="statsVisits">—</span>
+<span class="premir-stat-label">Accesos</span>
+</div>
+<div class="premir-stat-card">
+<span class="premir-stat-icon">📚</span>
+<span class="premir-stat-number" id="statsResources">—</span>
+<span class="premir-stat-label">Recursos</span>
+</div>
+<div class="premir-stat-card">
+<span class="premir-stat-icon">⭐</span>
+<span class="premir-stat-number" id="statsFavs">—</span>
+<span class="premir-stat-label">Favoritos</span>
+</div>
+<div class="premir-stat-card">
+<span class="premir-stat-icon">🕒</span>
+<span class="premir-stat-number" id="statsUpdate">2026</span>
+<span class="premir-stat-label">Actualizado</span>
+</div>
+</div>
+<div class="access-logo">🔐</div>
+<h2>Acceso privado</h2>
+<p>Introduce la contraseña para acceder a los recursos de Educación Física de Secundaria.</p>
+<form id="accessForm">
+<input autocomplete="current-password" id="passwordInput" placeholder="Contraseña" type="password"/>
+<button type="submit">Entrar</button>
+</form>
+<div class="access-error" id="accessError" role="alert">Contraseña incorrecta</div>
+</div>
+<div aria-live="polite" class="loading-access" id="loadingAccess">
+<div class="loading-panel">
+<div class="loading-orb"></div>
+<div class="loading-word">CARGANDO</div>
+<div class="loading-subtitle">Preparando recursos PREMIR</div>
+</div>
+</div>
+</section>
+<section aria-label="Licencia caducada" class="expired-screen" id="expiredScreen">
+<div class="expired-card">
+<div class="expired-icon">⏳</div>
+<h2>Acceso caducado</h2>
+<p>La licencia de esta versión ha finalizado. Contacte con José Manuel Paredes para renovar el acceso a los recursos.</p>
+<div class="expired-date">Caducidad anual: 31 de agosto</div>
+</div>
+<div aria-hidden="true" class="elegant-scene">
+<span class="orb orb-1"></span>
+<span class="orb orb-2"></span>
+<span class="orb orb-3"></span>
+<span class="line line-1"></span>
+<span class="line line-2"></span>
+<span class="line line-3"></span>
+<span class="particle p1"></span>
+<span class="particle p2"></span>
+<span class="particle p3"></span>
+<span class="particle p4"></span>
+</div>
+</section>
+<main class="shell">
+<section aria-labelledby="titulo" class="hero">
+<div class="hero-content">
+<div>
+<div class="brand-header">
+<img alt="Logo" class="header-logo" src="https://www.salvour.com/s/cc_images/cache_2491734547.gif?t=1767110894"/>
+<div class="eyebrow"><span class="dot"></span> Profesor: José Manuel Paredes</div></div><div class="title-row">
+<div><h1 id="titulo">PREMIR · Recursos de Educación Física</h1><p class="hero-subtitle">Centro de recursos, herramientas y materiales de preparación para la oposición.</p></div>
+<div aria-label="Total de archivos" class="total-inline">
+<span class="total-number">32</span>
+<span class="total-label">Total archivos</span>
+</div>
+</div>
+</div>
+</div>
 
-  <section id="accessScreen" class="access-screen" aria-label="Pantalla de acceso">
-
-    <div class="cube-scene" aria-hidden="true">
-      <div class="cube cube-a"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-      <div class="cube cube-b"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-      <div class="cube cube-c"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-      <div class="cube cube-d"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-    </div>
-
-    <div class="access-card">
-      <img src="https://www.salvour.com/s/cc_images/cache_2491734547.gif?t=1767110894" alt="Logo" class="access-img-logo">
-      <div class="access-profesor">Profesor: José Manuel Paredes</div>
-      <div class="access-logo">🔐</div>
-      <h2>Acceso privado</h2>
-      <p>Introduce la contraseña para acceder a los recursos de Educación Física de Secundaria.</p>
-      <form id="accessForm">
-        <input id="passwordInput" type="password" placeholder="Contraseña" autocomplete="current-password" />
-        <button type="submit">Entrar</button>
-      </form>
-      <div id="accessError" class="access-error" role="alert">Contraseña incorrecta</div>
-    </div>
-    
-      <div id="loadingAccess" class="loading-access" aria-live="polite">
-        <div class="loading-panel">
-          <div class="loading-orb"></div>
-          <div class="loading-word">CARGANDO</div>
-          <div class="loading-subtitle">Preparando recursos PREMIR</div>
-        </div>
-      </div>
-
-  </section>
-
-  
-  <section id="expiredScreen" class="expired-screen" aria-label="Licencia caducada">
-    <div class="expired-card">
-      <div class="expired-icon">⏳</div>
-      <h2>Acceso caducado</h2>
-      <p>La licencia de esta versión ha finalizado. Contacte con José Manuel Paredes para renovar el acceso a los recursos.</p>
-      <div class="expired-date">Caducidad anual: 31 de agosto</div>
-    </div>
-  </section>
-
-  <main class="shell">
-    <section class="hero" aria-labelledby="titulo">
-      <div class="hero-content">
-        <div>
-          <div class="brand-header">
-            <img src="https://www.salvour.com/s/cc_images/cache_2491734547.gif?t=1767110894" alt="Logo" class="header-logo">
-            <div class="eyebrow"><span class="dot"></span> Profesor: José Manuel Paredes</div></div><div class="title-row">
-                <div><h1 id="titulo">PREMIR · Recursos de Educación Física</h1><p class="hero-subtitle">Centro de recursos, herramientas y materiales de preparación para la oposición.</p></div>
-                <div class="total-inline" aria-label="Total de archivos">
-                  <span class="total-number">31</span>
-                  <span class="total-label">Total archivos</span>
-                </div>
-              </div>
-          </div>
-          
-        </div>
-      </div>
-    </section>
-
-    <section class="toolbar" aria-label="Buscador y filtros">
-      <div class="searchbox">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m21 21-4.35-4.35m1.35-5.65a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <input id="search" type="search" placeholder="Buscar por nombre, categoría o utilidad…" autocomplete="off" />
-      </div>
-      
-      <div class="filters premir-tabs" role="tablist" aria-label="Filtros de recursos">
-        <button class="filter premir-tab active" data-filter="all" type="button">
-          <span class="tab-icon">📚</span><span class="tab-label">Todo</span><span class="tab-count" data-count-for="all">0</span>
-        </button>
-        <button class="filter premir-tab" data-filter="curriculo" type="button">
-          <span class="tab-icon">📖</span><span class="tab-label">Currículo</span><span class="tab-count" data-count-for="curriculo">0</span>
-        </button>
-        <button class="filter premir-tab" data-filter="repaso" type="button">
-          <span class="tab-icon">🎯</span><span class="tab-label">Repaso</span><span class="tab-count" data-count-for="repaso">0</span>
-        </button>
-        <button class="filter premir-tab" data-filter="programacion" type="button">
-          <span class="tab-icon">📝</span><span class="tab-label">Programación</span><span class="tab-count" data-count-for="programacion">0</span>
-        </button>
-        <button class="filter premir-tab" data-filter="utilidades" type="button">
-          <span class="tab-icon">🛠</span><span class="tab-label">Utilidades</span><span class="tab-count" data-count-for="utilidades">0</span>
-        </button>
-        <button class="filter premir-tab tool-btn" id="showFav" type="button">
-          <span class="tab-icon">⭐</span><span class="tab-label">Favoritos</span><span class="tab-count" id="favCount">0</span>
-        </button>
-      </div>
-    </section>
-
-    
-    <div class="section-title">
-      <h3>Fichas disponibles</h3>
-      <span class="count"><span id="visibleCount">31</span> visibles</span>
-    </div>
-
-    
-    <div class="layout-actions">
-      <button id="toggleSidebar" class="toggle-sidebar" type="button" aria-expanded="true">
+</section>
+<section aria-label="Buscador y filtros" class="toolbar">
+<div class="searchbox">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20"><path d="m21 21-4.35-4.35m1.35-5.65a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path></svg>
+<input autocomplete="off" id="search" placeholder="Buscar por nombre, categoría o utilidad…" type="search"/>
+</div>
+<div aria-label="Filtros de recursos" class="filters premir-tabs" role="tablist">
+<button class="filter premir-tab active" data-filter="all" type="button">
+<span class="tab-icon">📚</span><span class="tab-label">Todo</span><span class="tab-count" data-count-for="all">0</span>
+</button>
+<button class="filter premir-tab" data-filter="curriculo" type="button">
+<span class="tab-icon">📖</span><span class="tab-label">Currículo</span><span class="tab-count" data-count-for="curriculo">0</span>
+</button>
+<button class="filter premir-tab" data-filter="repaso" type="button">
+<span class="tab-icon">🎯</span><span class="tab-label">Repaso</span><span class="tab-count" data-count-for="repaso">0</span>
+</button>
+<button class="filter premir-tab" data-filter="programacion" type="button">
+<span class="tab-icon">📝</span><span class="tab-label">Programación</span><span class="tab-count" data-count-for="programacion">0</span>
+</button>
+<button class="filter premir-tab" data-filter="utilidades" type="button">
+<span class="tab-icon">🛠</span><span class="tab-label">Utilidades</span><span class="tab-count" data-count-for="utilidades">0</span>
+</button>
+<button class="filter premir-tab tool-btn" id="showFav" type="button">
+<span class="tab-icon">⭐</span><span class="tab-label">Favoritos</span><span class="tab-count" id="favCount">0</span>
+</button>
+</div>
+</section>
+<div class="section-title">
+<h3>Fichas disponibles</h3>
+<span class="count"><span id="visibleCount">32</span> visibles</span>
+</div>
+<div class="layout-actions">
+<button aria-expanded="true" class="toggle-sidebar" id="toggleSidebar" type="button">
         ☰ Ocultar menú
       </button>
-    </div>
+</div>
+<section aria-label="Visor de fichas" class="reader-layout">
+<aside class="sidebar" id="sidebar">
 
-    <section class="reader-layout" aria-label="Visor de fichas">
 
-      <aside class="sidebar" id="sidebar">
-        
-        <div class="side-item" data-title="☆ 🔗 currículo asociar criterios y objetivos">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Asociar%20cirterios%20%20y%20objetivos.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Asociar%20cirterios%20%20y%20objetivos.html"  title="Asociar criterios y objetivos">Asociar criterios y objetivos</a><span class="side-meta">Currículo</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🎲 utilidades calculadora de probabilidades">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Calculadora%20de%20PROBABILIDADES.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Calculadora%20de%20PROBABILIDADES.html"  title="Calculadora de probabilidades">Calculadora de probabilidades</a><span class="side-meta">Utilidad</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 📚 currículo comparador de contenidos">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Comparador%20de%20CONTENIDOS.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Comparador%20de%20CONTENIDOS.html"  title="Comparador de contenidos">Comparador de contenidos</a><span class="side-meta">Currículo</span>
-        </div>
 
-        <div class="side-item" data-title="☆ ✅ currículo comparador de criterios">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Comparador%20de%20CRITERIOS.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Comparador%20de%20CRITERIOS.html"  title="Comparador de criterios">Comparador de criterios</a><span class="side-meta">Currículo</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 📈 repaso control de estudio de temas">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="CONTROL%20DE%20ESTUDIO%20DE%20TEMAS.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="CONTROL%20DE%20ESTUDIO%20DE%20TEMAS.html"  title="Control de estudio de temas">Control de estudio de temas</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ ⏱️ utilidades cronómetro y cuenta atrás">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Cron%C3%B3metro%20y%20cuenta%20atr%C3%A1s.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Cron%C3%B3metro%20y%20cuenta%20atr%C3%A1s.html"  title="Cronómetro y cuenta atrás">Cronómetro y cuenta atrás</a><span class="side-meta">Utilidad</span>
-        </div>
 
-        <div class="side-item" data-title="☆ ▦ utilidades generador de códigos qr">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Generar%20c%C3%B3digos%20QR.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Generar%20c%C3%B3digos%20QR.html"  title="Generador de códigos QR">Generador de códigos QR</a><span class="side-meta">Utilidad</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🧾 programación lista de control programación">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Lista_Control_Programacion.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Lista_Control_Programacion.html"  title="Lista de control">Lista de control</a><span class="side-meta">Programación</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🎓 currículo objetivos etapa bachillerato">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="OBJETIVOS%20ETAPA%20BACHILLERATO.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="OBJETIVOS%20ETAPA%20BACHILLERATO.html"  title="Objetivos etapa Bachillerato">Objetivos etapa Bachillerato</a><span class="side-meta">Currículo</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🏫 currículo objetivos etapa eso">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="OBJETIVOS%20ETAPA%20ESO.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="OBJETIVOS%20ETAPA%20ESO.html"  title="Objetivos etapa ESO">Objetivos etapa ESO</a><span class="side-meta">Currículo</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🧭 currículo perfil de salida eso">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="PERFIL%20DE%20SALIDA%20ESO.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="PERFIL%20DE%20SALIDA%20ESO.html"  title="Perfil de salida ESO">Perfil de salida ESO</a><span class="side-meta">Currículo</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🧩 currículo perfil salida bachillerato">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="PERFIL%20SALIDA%20BACH.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="PERFIL%20SALIDA%20BACH.html"  title="Perfil salida Bachillerato">Perfil salida Bachillerato</a><span class="side-meta">Currículo</span>
-        </div>
 
-        <div class="side-item" data-title="☆ % utilidades porcentaje y sorteo">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Porcentaje%20y%20Sorteo.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Porcentaje%20y%20Sorteo.html"  title="Porcentaje y sorteo">Porcentaje y sorteo</a><span class="side-meta">Utilidad</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🧠 repaso repaso de 1300 preguntas">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20de%201300%20preguntas%20del%20temario.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20de%201300%20preguntas%20del%20temario.html"  title="de 1300 preguntas">de 1300 preguntas</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ ⚡ repaso repaso de kahoots 2026">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20de%20kahoots2026.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20de%20kahoots2026.html"  title="de Kahoots 2026">de Kahoots 2026</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 1–9 repaso repaso temas 1 al 9">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20de%20temas%20del%201%20al%209.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20de%20temas%20del%201%20al%209.html"  title="1–9 temas 1 al 9">1–9 temas 1 al 9</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 26–36 repaso repaso temas 26 al 36">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20de%20temas%20del%2026%20al%2036.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20de%20temas%20del%2026%20al%2036.html"  title="26–36 temas 26 al 36">26–36 temas 26 al 36</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🔢 repaso repaso de títulos del temario">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20de%20t%C3%ADtulos%20del%20temario.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20de%20t%C3%ADtulos%20del%20temario.html"  title="de títulos del temario">de títulos del temario</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 10–25 repaso repaso temas 10 a 25">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20temas%2010%20a%2025.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20temas%2010%20a%2025.html"  title="10–25 temas 10 a 25">10–25 temas 10 a 25</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 38–41 repaso repaso temas 38 a 41">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20temas%2038%20a%2041.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20temas%2038%20a%2041.html"  title="38–41 temas 38 a 41">38–41 temas 38 a 41</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 42 repaso repaso tema 42">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20tema%2042.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20tema%2042.html"  title="42 tema 42">42 tema 42</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 43–49 repaso repaso temas 43 a 49">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20temas%2043%20a%2049.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20temas%2043%20a%2049.html"  title="43–49 temas 43 a 49">43–49 temas 43 a 49</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 50–54 repaso repaso temas 50 a 54">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20temas%2050%20a%2054.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20temas%2050%20a%2054.html"  title="50–54 temas 50 a 54">50–54 temas 50 a 54</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 55–60 repaso repaso temas 55 a 60">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20temas%2055%20a%2060.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20temas%2055%20a%2060.html"  title="55–60 temas 55 a 60">55–60 temas 55 a 60</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 61–65 repaso repaso temas 61 a 65">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Repaso%20temas%2061%20a%2065.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Repaso%20temas%2061%20a%2065.html"  title="61–65 temas 61 a 65">61–65 temas 61 a 65</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 📋 programación rúbrica pd">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="R%C3%BAbrica%20PD.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="R%C3%BAbrica%20PD.html"  title="Rúbrica PD">Rúbrica PD</a><span class="side-meta">Programación</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 📝 programación rúbrica ud">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="R%C3%BAbrica%20UD.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="R%C3%BAbrica%20UD.html"  title="Rúbrica UD">Rúbrica UD</a><span class="side-meta">Programación</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🎯 sorteos sorteo de temas ef">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Sorteo%20de%20TEMAS%20de%20EF.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Sorteo%20de%20TEMAS%20de%20EF.html"  title="Sorteo de TEMAS EF">Sorteo de TEMAS EF</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🎲 sorteos sorteo de temas">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Sorteo%20de%20TEMAS.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Sorteo%20de%20TEMAS.html"  title="Sorteo de TEMAS">Sorteo de TEMAS</a><span class="side-meta">Repaso</span>
-        </div>
 
-        <div class="side-item" data-title="☆ 🎡 sorteos sorteo ruleta">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Sorteo%20temas%20RULETA.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Sorteo%20temas%20RULETA.html"  title="Sorteo RULETA">Sorteo RULETA</a><span class="side-meta">Utilidad</span>
-        </div>
-
-        <div class="side-item" data-title="☆ 🎲 sorteos sorteo tablero">
-          <button class="fav-side" type="button" aria-label="Marcar favorito" data-href="Sorteo%20temas%20tablero.html">☆</button>
-          <a class="side-link" href="javascript:void(0)" data-src="Sorteo%20temas%20tablero.html"  title="Sorteo TABLERO">Sorteo TABLERO</a><span class="side-meta">Utilidad</span>
-        </div>
-      </aside>
-
-      <iframe
-        name="visor"
-        id="visor"
-        class="visor"
-        src="Asociar%20cirterios%20%20y%20objetivos.html"
-        title="Visor central de fichas"
-        loading="eager">
-      </iframe>
-    </section>
-
-    <div class="empty" id="empty">No hay recursos que coincidan con la búsqueda o el filtro seleccionado.</div>
-    <footer>.</footer>
-
-  </main>
-
-  <script>
+<div class="side-item" data-title="☆ 10–25 repaso repaso temas 10 a 25">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20temas%2010%20a%2025.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20temas%2010%20a%2025.html" href="javascript:void(0)" title="10–25 temas 10 a 25">10–25 temas 10 a 25</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 1–9 repaso repaso temas 1 al 9">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20de%20temas%20del%201%20al%209.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20de%20temas%20del%201%20al%209.html" href="javascript:void(0)" title="1–9 temas 1 al 9">1–9 temas 1 al 9</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 26–36 repaso repaso temas 26 al 36">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20de%20temas%20del%2026%20al%2036.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20de%20temas%20del%2026%20al%2036.html" href="javascript:void(0)" title="26–36 temas 26 al 36">26–36 temas 26 al 36</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 38–41 repaso repaso temas 38 a 41">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20temas%2038%20a%2041.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20temas%2038%20a%2041.html" href="javascript:void(0)" title="38–41 temas 38 a 41">38–41 temas 38 a 41</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 42 repaso repaso tema 42">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20tema%2042.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20tema%2042.html" href="javascript:void(0)" title="42 tema 42">42 tema 42</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 43–49 repaso repaso temas 43 a 49">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20temas%2043%20a%2049.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20temas%2043%20a%2049.html" href="javascript:void(0)" title="43–49 temas 43 a 49">43–49 temas 43 a 49</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 50–54 repaso repaso temas 50 a 54">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20temas%2050%20a%2054.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20temas%2050%20a%2054.html" href="javascript:void(0)" title="50–54 temas 50 a 54">50–54 temas 50 a 54</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 55–60 repaso repaso temas 55 a 60">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20temas%2055%20a%2060.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20temas%2055%20a%2060.html" href="javascript:void(0)" title="55–60 temas 55 a 60">55–60 temas 55 a 60</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 61–65 repaso repaso temas 61 a 65">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20temas%2061%20a%2065.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20temas%2061%20a%2065.html" href="javascript:void(0)" title="61–65 temas 61 a 65">61–65 temas 61 a 65</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 🔗 currículo asociar criterios y objetivos">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Asociar%20cirterios%20%20y%20objetivos.html" type="button">☆</button>
+<a class="side-link" data-src="Asociar%20cirterios%20%20y%20objetivos.html" href="javascript:void(0)" title="Asociar criterios y objetivos">Asociar criterios y objetivos</a><span class="side-meta">Currículo</span>
+</div><div class="side-item" data-title="☆ 🎲 utilidades calculadora de probabilidades">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Calculadora%20de%20PROBABILIDADES.html" type="button">☆</button>
+<a class="side-link" data-src="Calculadora%20de%20PROBABILIDADES.html" href="javascript:void(0)" title="Calculadora de probabilidades">Calculadora de probabilidades</a><span class="side-meta">Utilidad</span>
+</div><div class="side-item" data-title="☆ 📚 currículo comparador de contenidos">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Comparador%20de%20CONTENIDOS.html" type="button">☆</button>
+<a class="side-link" data-src="Comparador%20de%20CONTENIDOS.html" href="javascript:void(0)" title="Comparador de contenidos">Comparador de contenidos</a><span class="side-meta">Currículo</span>
+</div><div class="side-item" data-title="☆ ✅ currículo comparador de criterios">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Comparador%20de%20CRITERIOS.html" type="button">☆</button>
+<a class="side-link" data-src="Comparador%20de%20CRITERIOS.html" href="javascript:void(0)" title="Comparador de criterios">Comparador de criterios</a><span class="side-meta">Currículo</span>
+</div><div class="side-item" data-title="☆ 📈 repaso control de estudio de temas">
+<button aria-label="Marcar favorito" class="fav-side" data-href="CONTROL%20DE%20ESTUDIO%20DE%20TEMAS.html" type="button">☆</button>
+<a class="side-link" data-src="CONTROL%20DE%20ESTUDIO%20DE%20TEMAS.html" href="javascript:void(0)" title="Control de estudio de temas">Control de estudio de temas</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ ⏱️ utilidades cronómetro y cuenta atrás">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Cron%C3%B3metro%20y%20cuenta%20atr%C3%A1s.html" type="button">☆</button>
+<a class="side-link" data-src="Cron%C3%B3metro%20y%20cuenta%20atr%C3%A1s.html" href="javascript:void(0)" title="Cronómetro y cuenta atrás">Cronómetro y cuenta atrás</a><span class="side-meta">Utilidad</span>
+</div><div class="side-item" data-title="☆ 🧠 repaso repaso de 1300 preguntas">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20de%201300%20preguntas%20del%20temario.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20de%201300%20preguntas%20del%20temario.html" href="javascript:void(0)" title="de 1300 preguntas">de 1300 preguntas</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ ⚡ repaso repaso de kahoots 2026">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20de%20kahoots2026.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20de%20kahoots2026.html" href="javascript:void(0)" title="de Kahoots 2026">de Kahoots 2026</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 🔢 repaso repaso de títulos del temario">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Repaso%20de%20t%C3%ADtulos%20del%20temario.html" type="button">☆</button>
+<a class="side-link" data-src="Repaso%20de%20t%C3%ADtulos%20del%20temario.html" href="javascript:void(0)" title="de títulos del temario">de títulos del temario</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ ▦ utilidades generador de códigos qr">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Generar%20c%C3%B3digos%20QR.html" type="button">☆</button>
+<a class="side-link" data-src="Generar%20c%C3%B3digos%20QR.html" href="javascript:void(0)" title="Generador de códigos QR">Generador de códigos QR</a><span class="side-meta">Utilidad</span>
+</div><div class="side-item" data-title="☆ 🧾 programación lista de control programación">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Lista_Control_Programacion.html" type="button">☆</button>
+<a class="side-link" data-src="Lista_Control_Programacion.html" href="javascript:void(0)" title="Lista de control">Lista de control</a><span class="side-meta">Programación</span>
+</div><div class="side-item" data-title="☆ 🎓 currículo objetivos etapa bachillerato">
+<button aria-label="Marcar favorito" class="fav-side" data-href="OBJETIVOS%20ETAPA%20BACHILLERATO.html" type="button">☆</button>
+<a class="side-link" data-src="OBJETIVOS%20ETAPA%20BACHILLERATO.html" href="javascript:void(0)" title="Objetivos etapa Bachillerato">Objetivos etapa Bachillerato</a><span class="side-meta">Currículo</span>
+</div><div class="side-item" data-title="☆ 🏫 currículo objetivos etapa eso">
+<button aria-label="Marcar favorito" class="fav-side" data-href="OBJETIVOS%20ETAPA%20ESO.html" type="button">☆</button>
+<a class="side-link" data-src="OBJETIVOS%20ETAPA%20ESO.html" href="javascript:void(0)" title="Objetivos etapa ESO">Objetivos etapa ESO</a><span class="side-meta">Currículo</span>
+</div><div class="side-item" data-title="☆ 🧭 currículo perfil de salida eso">
+<button aria-label="Marcar favorito" class="fav-side" data-href="PERFIL%20DE%20SALIDA%20ESO.html" type="button">☆</button>
+<a class="side-link" data-src="PERFIL%20DE%20SALIDA%20ESO.html" href="javascript:void(0)" title="Perfil de salida ESO">Perfil de salida ESO</a><span class="side-meta">Currículo</span>
+</div><div class="side-item" data-title="☆ 🧩 currículo perfil salida bachillerato">
+<button aria-label="Marcar favorito" class="fav-side" data-href="PERFIL%20SALIDA%20BACH.html" type="button">☆</button>
+<a class="side-link" data-src="PERFIL%20SALIDA%20BACH.html" href="javascript:void(0)" title="Perfil salida Bachillerato">Perfil salida Bachillerato</a><span class="side-meta">Currículo</span>
+</div><div class="side-item" data-title="☆ % utilidades porcentaje y sorteo">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Porcentaje%20y%20Sorteo.html" type="button">☆</button>
+<a class="side-link" data-src="Porcentaje%20y%20Sorteo.html" href="javascript:void(0)" title="Porcentaje y sorteo">Porcentaje y sorteo</a><span class="side-meta">Utilidad</span>
+</div><div class="side-item" data-title="Repaso Tema 37"><button aria-label="Marcar Repaso Tema 37 como favorito" class="fav-side" type="button">☆</button><a class="side-link" href="Repaso_tema_37.html" target="visor" title="Repaso Tema 37">Repaso Tema 37</a><span class="side-meta">REPASO</span></div><div class="side-item" data-title="☆ 📋 programación rúbrica pd">
+<button aria-label="Marcar favorito" class="fav-side" data-href="R%C3%BAbrica%20PD.html" type="button">☆</button>
+<a class="side-link" data-src="R%C3%BAbrica%20PD.html" href="javascript:void(0)" title="Rúbrica PD">Rúbrica PD</a><span class="side-meta">Programación</span>
+</div><div class="side-item" data-title="☆ 📝 programación rúbrica ud">
+<button aria-label="Marcar favorito" class="fav-side" data-href="R%C3%BAbrica%20UD.html" type="button">☆</button>
+<a class="side-link" data-src="R%C3%BAbrica%20UD.html" href="javascript:void(0)" title="Rúbrica UD">Rúbrica UD</a><span class="side-meta">Programación</span>
+</div><div class="side-item" data-title="☆ 🎲 sorteos sorteo de temas">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Sorteo%20de%20TEMAS.html" type="button">☆</button>
+<a class="side-link" data-src="Sorteo%20de%20TEMAS.html" href="javascript:void(0)" title="Sorteo de TEMAS">Sorteo de TEMAS</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 🎯 sorteos sorteo de temas ef">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Sorteo%20de%20TEMAS%20de%20EF.html" type="button">☆</button>
+<a class="side-link" data-src="Sorteo%20de%20TEMAS%20de%20EF.html" href="javascript:void(0)" title="Sorteo de TEMAS EF">Sorteo de TEMAS EF</a><span class="side-meta">Repaso</span>
+</div><div class="side-item" data-title="☆ 🎡 sorteos sorteo ruleta">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Sorteo%20temas%20RULETA.html" type="button">☆</button>
+<a class="side-link" data-src="Sorteo%20temas%20RULETA.html" href="javascript:void(0)" title="Sorteo RULETA">Sorteo RULETA</a><span class="side-meta">Utilidad</span>
+</div><div class="side-item" data-title="☆ 🎲 sorteos sorteo tablero">
+<button aria-label="Marcar favorito" class="fav-side" data-href="Sorteo%20temas%20tablero.html" type="button">☆</button>
+<a class="side-link" data-src="Sorteo%20temas%20tablero.html" href="javascript:void(0)" title="Sorteo TABLERO">Sorteo TABLERO</a><span class="side-meta">Utilidad</span>
+</div></aside>
+<iframe class="visor" id="visor" loading="eager" name="visor" src="Asociar%20cirterios%20%20y%20objetivos.html" title="Visor central de fichas">
+</iframe>
+</section>
+<div class="empty" id="empty">No hay recursos que coincidan con la búsqueda o el filtro seleccionado.</div>
+<footer>.</footer>
+</main>
+<script>
 
     const ACCESS_HASH = 'd715113f334bd74e73a6296047ecf17e98b92f438792280e22fae1acad9ee88d';
     const MAX_ATTEMPTS = 5;
@@ -2913,7 +4466,6 @@ input:focus{
     updateFavButtons();
     applyFilters();
   </script>
-
 <script>
 (function(){
   const search = document.querySelector('#search');
@@ -3094,11 +4646,6 @@ input:focus{
   applyFilters();
 })();
 </script>
-
-
-
-
-
 <script>
 (function(){
   function adaptarIframe(){
@@ -3152,8 +4699,6 @@ input:focus{
   }
 })();
 </script>
-
-
 <script>
 (function(){
   function getParamFicha(){
@@ -3223,8 +4768,6 @@ input:focus{
   }
 })();
 </script>
-
-
 <script>
 (function(){
   function licenciaCaducada(){
@@ -3280,8 +4823,6 @@ input:focus{
   }
 })();
 </script>
-
-
 <script>
 (function(){
   function activarProteccionBasica(){
@@ -3336,11 +4877,6 @@ input:focus{
   }
 })();
 </script>
-
-
-
-
-
 <script>
 (function(){
   function activarBotonesLateralesCompletos(){
@@ -3398,8 +4934,6 @@ input:focus{
   }
 })();
 </script>
-
-
 <script>
 (function(){
   function initEtiquetas(){
@@ -3486,8 +5020,6 @@ input:focus{
   }
 })();
 </script>
-
-
 <script>
 (function(){
   function initPremirTabs(){
@@ -3606,8 +5138,6 @@ input:focus{
   }
 })();
 </script>
-
-
 <script>
 (function(){
   function initFiltroColumnasDefinitivo(){
@@ -3760,8 +5290,6 @@ input:focus{
   }
 })();
 </script>
-
-
 <script>
 (function(){
   function filtroDefinitivoPremir(){
@@ -3961,9 +5489,228 @@ input:focus{
   }
 })();
 </script>
+<script>
+(function(){
+  function formatNumber(n){
+    const num = Number(n);
+    if(!Number.isFinite(num)) return '—';
+    return num.toLocaleString('es-ES');
+  }
 
+  function contarFavoritosLocales(){
+    let total = 0;
+    try{
+      for(let i=0; i<localStorage.length; i++){
+        const key = localStorage.key(i);
+        if(key && key.startsWith('premir_fav_') && localStorage.getItem(key) === '1'){
+          total++;
+        }
+      }
+    }catch(e){}
+    return total;
+  }
 
+  function initPremirStats(){
+    const resourcesEl = document.getElementById('statsResources');
+    const favsEl = document.getElementById('statsFavs');
+    const visitsEl = document.getElementById('statsVisits');
+    const updateEl = document.getElementById('statsUpdate');
 
+    const totalResources = document.querySelectorAll('.side-item').length || document.querySelectorAll('.side-link').length || 31;
+    if(resourcesEl) resourcesEl.textContent = totalResources;
+    if(favsEl) favsEl.textContent = contarFavoritosLocales();
+    if(updateEl) updateEl.textContent = 'Jun 2026';
 
+    const counterUrl = 'https://countapi.mileshilliard.com/api/v1/hit/premir_efsecundaria_jmparedes1_github_io';
+
+    if(visitsEl){
+      fetch(counterUrl, {cache:'no-store'})
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(data => {
+          const value = data.value ?? data.count ?? data.data;
+          visitsEl.textContent = formatNumber(value);
+        })
+        .catch(() => {
+          let local = 0;
+          try{
+            local = Number(localStorage.getItem('premir_local_visits') || '0') + 1;
+            localStorage.setItem('premir_local_visits', String(local));
+          }catch(e){}
+          visitsEl.textContent = local ? formatNumber(local) : '—';
+        });
+    }
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initPremirStats);
+  }else{
+    initPremirStats();
+  }
+})();
+</script>
+<script>
+(function(){
+  const cards = [...document.querySelectorAll('.card')];
+  const favoritesGrid = document.querySelector('#favoritesGrid');
+  const recentGrid = document.querySelector('#recentGrid');
+  const favoritesSection = document.querySelector('#favoritesSection');
+  const recentSection = document.querySelector('#recentSection');
+  const metricResources = document.querySelector('#metricResources');
+  const metricFavorites = document.querySelector('#metricFavorites');
+  const metricRecent = document.querySelector('#metricRecent');
+
+  if(!cards.length) return;
+
+  function cardId(card){
+    return card.dataset.id || card.getAttribute('href') || card.querySelector('h2')?.textContent || '';
+  }
+  function favKey(card){
+    return 'premir_fav_' + cardId(card);
+  }
+  function isFav(card){
+    return localStorage.getItem(favKey(card)) === '1';
+  }
+  function getRecent(){
+    try{return JSON.parse(localStorage.getItem('premir_recent_resources') || '[]');}
+    catch(e){return [];}
+  }
+  function setRecent(list){
+    localStorage.setItem('premir_recent_resources', JSON.stringify(list.slice(0,6)));
+  }
+  function title(card){
+    return card.querySelector('h2')?.textContent?.trim() || 'Recurso';
+  }
+  function href(card){
+    return card.getAttribute('href') || '#';
+  }
+  function iconFor(card){
+    const cat = card.dataset.cat || '';
+    if(cat === 'repaso') return '🧠';
+    if(cat === 'curriculo') return '📚';
+    if(cat === 'programacion') return '📝';
+    return '🛠️';
+  }
+  function makeQuickCard(cardOrData){
+    const a = document.createElement('a');
+    a.className = 'quick-card';
+    const isData = typeof cardOrData === 'object' && !cardOrData.classList;
+    const text = isData ? cardOrData.title : title(cardOrData);
+    const link = isData ? cardOrData.href : href(cardOrData);
+    const ico = isData ? cardOrData.icon : iconFor(cardOrData);
+    a.href = link;
+    a.innerHTML = `<span class="qicon">${ico}</span><span class="qtext">${text}</span>`;
+    a.addEventListener('click', () => addRecent({title:text, href:link, icon:ico}));
+    return a;
+  }
+  function addRecent(item){
+    const current = getRecent().filter(x => x.href !== item.href);
+    current.unshift(item);
+    setRecent(current);
+    renderEnhancements();
+  }
+  function renderEnhancements(){
+    const favCards = cards.filter(isFav);
+    const recent = getRecent();
+
+    if(metricResources) metricResources.textContent = cards.length;
+    if(metricFavorites) metricFavorites.textContent = favCards.length;
+    if(metricRecent) metricRecent.textContent = recent.length;
+
+    if(favoritesGrid && favoritesSection){
+      favoritesGrid.innerHTML = '';
+      favCards.slice(0,6).forEach(c => favoritesGrid.appendChild(makeQuickCard(c)));
+      favoritesSection.classList.toggle('show', favCards.length > 0);
+    }
+
+    if(recentGrid && recentSection){
+      recentGrid.innerHTML = '';
+      recent.slice(0,6).forEach(r => recentGrid.appendChild(makeQuickCard(r)));
+      recentSection.classList.toggle('show', recent.length > 0);
+    }
+  }
+
+  // Registrar accesos desde tarjetas principales
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      addRecent({title:title(card), href:href(card), icon:iconFor(card)});
+    });
+
+    const fav = card.querySelector('.fav-btn, .fav-side');
+    if(fav){
+      fav.addEventListener('click', () => setTimeout(renderEnhancements, 80));
+    }
+  });
+
+  // Recalcular cuando cambien localStorage desde otros listeners
+  const oldSetItem = localStorage.setItem;
+  localStorage.setItem = function(k,v){
+    oldSetItem.apply(this, arguments);
+    if(String(k).startsWith('premir_fav_')) setTimeout(renderEnhancements, 50);
+  };
+
+  renderEnhancements();
+})();
+</script>
+<script>
+(function(){
+  const modeButtons=[...document.querySelectorAll('.access-mode')];
+  const contrastToggle=document.querySelector('#contrastToggle');
+  function setView(view){
+    const allowed=['standard','compact','cards','focus'];
+    if(!allowed.includes(view)) view='standard';
+    document.body.classList.remove('view-standard','view-compact','view-cards','view-focus');
+    document.body.classList.add('view-'+view);
+    try{localStorage.setItem('premir_access_view',view);}catch(e){}
+    modeButtons.forEach(btn=>btn.classList.toggle('active',btn.dataset.view===view));
+  }
+  modeButtons.forEach(btn=>btn.addEventListener('click',()=>setView(btn.dataset.view)));
+  function setContrast(active){
+    document.body.classList.toggle('high-contrast-premir',active);
+    if(contrastToggle){
+      contrastToggle.classList.toggle('active',active);
+      contrastToggle.textContent=active?'◉ Contraste':'◐ Contraste';
+    }
+    try{localStorage.setItem('premir_high_contrast',active?'1':'0');}catch(e){}
+  }
+  if(contrastToggle){contrastToggle.addEventListener('click',()=>setContrast(!document.body.classList.contains('high-contrast-premir')));}
+  let saved='standard';
+  try{saved=localStorage.getItem('premir_access_view')||'standard';}catch(e){}
+  setView(saved);
+  let contrast=false;
+  try{contrast=localStorage.getItem('premir_high_contrast')==='1';}catch(e){}
+  setContrast(contrast);
+})();
+</script>
+<script>
+(function(){
+  document.body.classList.add('whatsapp-style');
+  document.body.dataset.themeStyle = 'whatsapp';
+  const styleToggle = document.querySelector('#styleToggle');
+  if(styleToggle){ styleToggle.textContent = '💬 WhatsApp'; }
+})();
+</script>
+<script>
+(function(){
+  document.body.classList.add('instagram-style');
+  document.body.classList.remove('whatsapp-style');
+  document.body.dataset.themeStyle = 'instagram';
+  const styleToggle = document.querySelector('#styleToggle');
+  if(styleToggle){ styleToggle.textContent = '📸 Instagram'; }
+})();
+</script>
+<script>
+(function(){
+  document.body.classList.add('laguna-style');
+  document.body.classList.remove('instagram-style','whatsapp-style','high-contrast-premir');
+  document.body.dataset.themeStyle = 'laguna';
+  const styleToggle = document.querySelector('#styleToggle');
+  if(styleToggle){ styleToggle.textContent = '💧 Laguna'; }
+})();
+</script>
+<script>
+(function(){
+  document.querySelectorAll('.access-modes,.contrast-toggle,.access-mode').forEach(el => el.remove());
+})();
+</script>
 </body>
 </html>
