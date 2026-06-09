@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Juego: Botiquín escolar (centro de trabajo) ✅❌</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#121a2b;
+      --card2:#0f172a;
+      --text:#e7eefc;
+      --muted:#a9b6d3;
+      --ok:#22c55e;
+      --bad:#ef4444;
+      --warn:#f59e0b;
+      --line: rgba(255,255,255,.12);
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(99,102,241,.22), transparent 55%),
+                  radial-gradient(900px 500px at 80% 15%, rgba(34,197,94,.16), transparent 55%),
+                  radial-gradient(1000px 600px at 50% 95%, rgba(239,68,68,.14), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      padding: 22px;
+    }
+    header{
+      max-width:1100px;
+      margin: 0 auto 14px auto;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .title{
+      display:flex; flex-direction:column; gap:6px;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(20px, 2.6vw, 34px);
+      line-height:1.1;
+      letter-spacing: -0.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width: 72ch;
+      font-size: 14px;
+      line-height:1.35;
+    }
+    .pillbar{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      padding:10px 12px;
+      border-radius: 999px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      font-size: 13px;
+      color: var(--text);
+      user-select:none;
+    }
+    .pill b{font-variant-numeric: tabular-nums;}
+    main{
+      max-width:1100px;
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+    }
+    @media (max-width: 980px){
+      main{grid-template-columns: 1fr}
+    }
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel-header{
+      padding: 14px 16px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      background: rgba(0,0,0,.14);
+    }
+    .panel-header h2{
+      margin:0;
+      font-size: 15px;
+      letter-spacing: .01em;
+    }
+    .panel-body{
+      padding: 16px;
+    }
+    .note{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      margin: 0 0 12px 0;
+    }
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    button{
+      appearance:none;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      transition: transform .05s ease, background .2s ease, border-color .2s ease;
+      font-weight: 650;
+      font-size: 13px;
+    }
+    button:hover{ background: rgba(255,255,255,.10); }
+    button:active{ transform: translateY(1px); }
+    button.primary{
+      border-color: rgba(34,197,94,.45);
+      background: rgba(34,197,94,.16);
+    }
+    button.danger{
+      border-color: rgba(239,68,68,.45);
+      background: rgba(239,68,68,.16);
+    }
+    button.ghost{
+      background: transparent;
+    }
+    .grid-items{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:10px;
+    }
+    @media (max-width: 520px){
+      .grid-items{ grid-template-columns: 1fr; }
+    }
+    .item{
+      border:1px solid var(--line);
+      background: rgba(18,26,43,.65);
+      border-radius: var(--radius2);
+      padding: 10px 10px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      cursor: grab;
+      user-select:none;
+      position:relative;
+      overflow:hidden;
+    }
+    .item:active{ cursor: grabbing; }
+    .tag{
+      font-size: 11px;
+      color: rgba(255,255,255,.88);
+      padding: 4px 8px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+    .name{
+      font-weight: 750;
+      font-size: 13px;
+      line-height: 1.2;
+      margin:0;
+    }
+    .desc{
+      margin: 6px 0 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+    .dropzones{
+      display:grid;
+      gap:12px;
+    }
+    .zone{
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(255,255,255,.04);
+      border-radius: var(--radius);
+      min-height: 160px;
+      padding: 12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .zone-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom: 6px;
+    }
+    .zone-title h3{
+      margin:0;
+      font-size: 14px;
+    }
+    .zone-title .hint{
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .zone.ok{ border-color: rgba(34,197,94,.45); }
+    .zone.bad{ border-color: rgba(239,68,68,.45); }
+    .zone.over{
+      outline: 3px solid rgba(99,102,241,.28);
+      outline-offset: 2px;
+    }
+    .placed{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .chip{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      padding: 7px 9px;
+      font-size: 12px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      max-width: 100%;
+    }
+    .chip .dot{
+      width:9px; height:9px; border-radius:50%;
+      background: rgba(255,255,255,.25);
+      flex: 0 0 auto;
+    }
+    .chip.ok .dot{ background: rgba(34,197,94,.9); }
+    .chip.bad .dot{ background: rgba(239,68,68,.9); }
+    .chip .txt{
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      max-width: 38ch;
+    }
+    .toast{
+      margin-top: 12px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      border-radius: var(--radius);
+      padding: 12px;
+      min-height: 66px;
+    }
+    .toast strong{ display:block; margin-bottom: 6px; }
+    .toast p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .toast.ok{
+      border-color: rgba(34,197,94,.35);
+      background: rgba(34,197,94,.10);
+    }
+    .toast.bad{
+      border-color: rgba(239,68,68,.35);
+      background: rgba(239,68,68,.10);
+    }
+    .toast.neutral{
+      border-color: rgba(245,158,11,.30);
+      background: rgba(245,158,11,.10);
+    }
+    .footer{
+      max-width:1100px;
+      margin: 16px auto 0 auto;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    details{
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      background: rgba(255,255,255,.04);
+    }
+    summary{
+      cursor:pointer;
+      font-weight: 750;
+    }
+    .mini{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 760px){
+      .mini{ grid-template-columns: 1fr; }
+    }
+    ul{ margin: 8px 0 0 18px; padding:0; }
+    li{ margin: 4px 0; }
+    .kbd{
+      border:1px solid var(--line);
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 12px;
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+    }
+    .sr-only{
+      position:absolute;
+      left:-10000px;
+      width:1px;height:1px;
+      overflow:hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="title">
+      <h1>🧰 Juego del Botiquín Escolar (centro de trabajo) ✅❌</h1>
+      <div class="subtitle">
+        Arrastra cada elemento a <b>✅ Botiquín (Permitido)</b> o <b>❌ No permitido</b>.
+        El objetivo es aprender el contenido mínimo recomendado (RD 486/1997 + criterios INSST)
+        y evitar lo que suele generar no conformidades en inspecciones.
+      </div>
+    </div>
+    <div class="pillbar" aria-live="polite">
+      <div class="pill">🎯 Puntuación: <b id="score">0</b></div>
+      <div class="pill">📦 Restantes: <b id="remaining">0</b></div>
+      <div class="pill">✅ Aciertos: <b id="correct">0</b> · ❌ Fallos: <b id="wrong">0</b></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Panel items -->
+    <section class="panel" aria-label="Elementos del juego">
+      <div class="panel-header">
+        <h2>Elementos para clasificar</h2>
+        <div class="controls">
+          <button class="ghost" id="btnShuffle" title="Mezclar elementos">🔀 Mezclar</button>
+          <button class="danger" id="btnReset" title="Reiniciar partida">↩️ Reiniciar</button>
+          <button class="primary" id="btnNew" title="Nueva partida">✨ Nueva partida</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <p class="note">
+          Consejo: si dudas, piensa en si es <b>material de cura / limpieza / protección / instrumental básico / emergencias leves</b>.
+          En un botiquín laboral <b>no deben</b> incluirse <b>medicamentos</b> ni productos médicos con principio activo, ni material especializado.
+        </p>
+
+        <div class="grid-items" id="items" aria-label="Lista de elementos arrastrables"></div>
+
+        <div class="toast neutral" id="toast" role="status" aria-live="polite">
+          <strong>🧠 Feedback</strong>
+          <p>Arrastra un elemento a una de las cajas de la derecha. Aquí verás la explicación.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel dropzones -->
+    <aside class="panel" aria-label="Zonas de clasificación">
+      <div class="panel-header">
+        <h2>Clasificación</h2>
+        <div class="controls">
+          <button id="btnUndo" class="ghost" title="Deshacer último movimiento (Ctrl+Z)">↶ Deshacer</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="dropzones">
+          <div class="zone ok" id="zoneAllowed" data-zone="allowed" tabindex="0" aria-label="Botiquín permitido">
+            <div class="zone-title">
+              <h3>✅ Botiquín (Permitido)</h3>
+              <div class="hint">Arrastra aquí lo que SÍ puede haber</div>
+            </div>
+            <div class="placed" id="placedAllowed" aria-label="Elementos colocados como permitidos"></div>
+          </div>
+
+          <div class="zone bad" id="zoneForbidden" data-zone="forbidden" tabindex="0" aria-label="No permitido">
+            <div class="zone-title">
+              <h3>❌ No permitido</h3>
+              <div class="hint">Arrastra aquí lo que NO debe haber</div>
+            </div>
+            <div class="placed" id="placedForbidden" aria-label="Elementos colocados como no permitidos"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <details>
+            <summary>📚 “Chuleta” (contenido mínimo recomendado y lo prohibido)</summary>
+            <div class="mini">
+              <div>
+                <b>✅ Recomendado (aceptado por Inspección según criterios INSST)</b>
+                <ul>
+                  <li><b>Material de cura:</b> gasas estériles, apósitos adhesivos (tiritas), vendas, esparadrapo hipoalergénico, compresas estériles.</li>
+                  <li><b>Limpieza/desinfección:</b> suero fisiológico monodosis, antiséptico (clorhexidina o povidona yodada).</li>
+                  <li><b>Protección:</b> guantes desechables (obligatorio), mascarilla de RCP (recomendable según riesgos).</li>
+                  <li><b>Instrumental:</b> tijeras punta roma, pinzas, termómetro.</li>
+                  <li><b>Emergencias leves:</b> venda elástica/compresión, apósitos para hemorragias, bolsa de frío instantáneo.</li>
+                </ul>
+              </div>
+              <div>
+                <b>❌ No debe haber (frecuentes no conformidades)</b>
+                <ul>
+                  <li>Medicamentos (ibuprofeno, paracetamol, etc.).</li>
+                  <li>Pomadas médicas con principio activo.</li>
+                  <li>Inyecciones o material sanitario especializado.</li>
+                  <li>Material caducado.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="note" style="margin-top:10px">
+              Atajo: <span class="kbd">Ctrl</span> + <span class="kbd">Z</span> para deshacer.
+            </p>
+          </details>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="footer">
+    <b>Nota:</b> Este juego es educativo y refleja el contenido estándar recomendado en botiquines de centros de trabajo (aplicable a centros educativos),
+    y ejemplos típicos de “no conformidades”. Ajusta siempre a la evaluación de riesgos del centro.
+  </div>
+
+<script>
+(() => {
+  // --- Banco de elementos (tu lista + algunos "trampa" habituales) ---
+  // allowed: true si puede estar; false si NO debe estar
+  // must: true si es parte del mínimo recomendado (según tu listado)
+  const BANK = [
+    // Material de cura (permitido / recomendado)
+    { id:"gasa", name:"Gasas estériles", group:"Material de cura", allowed:true, must:true,
+      why:"Material de cura básico. Útil para limpiar, cubrir heridas y absorber sangre."},
+    { id:"tiritas", name:"Apósitos adhesivos (tiritas)", group:"Material de cura", allowed:true, must:true,
+      why:"Cobertura de pequeñas heridas. Parte del contenido estándar recomendado."},
+    { id:"vendas", name:"Vendas (distintos tamaños)", group:"Material de cura", allowed:true, must:true,
+      why:"Para sujeción y compresión ligera. Recomendado en botiquines laborales."},
+    { id:"esparadrapo", name:"Esparadrapo hipoalergénico", group:"Material de cura", allowed:true, must:true,
+      why:"Para fijar apósitos/vendas reduciendo irritaciones. Recomendado."},
+    { id:"compresas", name:"Compresas estériles", group:"Material de cura", allowed:true, must:true,
+      why:"Cobertura estéril para heridas. Recomendado como material de cura."},
+
+    // Limpieza y desinfección
+    { id:"suero", name:"Suero fisiológico monodosis", group:"Limpieza y desinfección", allowed:true, must:true,
+      why:"Para limpieza/irrigación (p. ej., ojos o heridas). Formato monodosis reduce contaminación."},
+    { id:"antiseptico", name:"Antiséptico (clorhexidina o povidona yodada)", group:"Limpieza y desinfección", allowed:true, must:true,
+      why:"Desinfección de la piel. Es un elemento estándar recomendado (según riesgos y uso adecuado)."},
+
+    // Protección del interviniente
+    { id:"guantes", name:"Guantes desechables", group:"Protección", allowed:true, must:true,
+      why:"Protegen al interviniente y reducen riesgo biológico. En tu lista: obligatorio."},
+    { id:"mascarilla_rcp", name:"Mascarilla de RCP (barrera)", group:"Protección", allowed:true, must:false,
+      why:"Recomendable según riesgos: barrera para ventilaciones. Útil en emergencias, no siempre mínima obligatoria."},
+
+    // Instrumental
+    { id:"tijeras", name:"Tijeras de punta roma", group:"Instrumental básico", allowed:true, must:true,
+      why:"Corte seguro de vendas/ropa sin puntas peligrosas. Recomendado."},
+    { id:"pinzas", name:"Pinzas", group:"Instrumental básico", allowed:true, must:true,
+      why:"Para manipular gasas o retirar pequeñas astillas con higiene (siempre con criterio)." },
+    { id:"termometro", name:"Termómetro", group:"Instrumental básico", allowed:true, must:true,
+      why:"Control de temperatura en malestar/fiebre. Instrumental básico recomendado."},
+
+    // Emergencias leves
+    { id:"venda_elastica", name:"Venda elástica o de compresión", group:"Emergencias leves", allowed:true, must:true,
+      why:"Para esguinces leves o compresión. Recomendado en emergencias leves."},
+    { id:"aposito_hemo", name:"Apósitos para hemorragias", group:"Emergencias leves", allowed:true, must:true,
+      why:"Ayudan a controlar sangrados. En tu lista como parte de emergencias leves."},
+    { id:"frio", name:"Bolsa de frío instantáneo", group:"Emergencias leves", allowed:true, must:true,
+      why:"Frío local inmediato para golpes/contusiones. Recomendado."},
+
+    // NO debe haber
+    { id:"ibuprofeno", name:"Ibuprofeno", group:"Medicamentos", allowed:false, must:false,
+      why:"Medicamento: en botiquín laboral no debe almacenarse para administración general (no conformidad frecuente)."},
+    { id:"paracetamol", name:"Paracetamol", group:"Medicamentos", allowed:false, must:false,
+      why:"Medicamento: no debe formar parte del botiquín laboral estándar (no conformidad frecuente)."},
+    { id:"pomada_antibiotica", name:"Pomada antibiótica con principio activo", group:"Pomadas médicas", allowed:false, must:false,
+      why:"Pomadas con principio activo: no deben estar en botiquín laboral estándar."},
+    { id:"inyeccion", name:"Jeringuillas/inyecciones", group:"Material especializado", allowed:false, must:false,
+      why:"Material sanitario especializado: no corresponde a botiquín laboral estándar y exige formación/gestión específica."},
+    { id:"caducado", name:"Material caducado", group:"Gestión", allowed:false, must:false,
+      why:"Material caducado: debe retirarse. Es una no conformidad típica en inspecciones."},
+
+    // “Trampas” comunes (para que sea más juego)
+    { id:"alcohol96", name:"Alcohol 96º", group:"Desinfección", allowed:false, must:false,
+      why:"No es el antiséptico recomendado en tu lista (se prioriza clorhexidina o povidona yodada). Además, puede irritar y no es ideal para heridas."},
+    { id:"spray_anestesico", name:"Spray anestésico", group:"Medicamentos", allowed:false, must:false,
+      why:"Producto con acción farmacológica: se considera medicamento/uso sanitario específico, no estándar en botiquín laboral."},
+    { id:"suero_grande", name:"Suero fisiológico (botella grande abierta)", group:"Limpieza", allowed:false, must:false,
+      why:"El formato recomendado es monodosis para evitar contaminación. Botellas abiertas se contaminan con facilidad."}
+  ];
+
+  // --- Estado ---
+  let deck = [];
+  let score = 0, correct = 0, wrong = 0;
+  let answered = new Map(); // id -> {choice, correct}
+  let history = []; // para deshacer
+
+  // --- DOM ---
+  const elItems = document.getElementById('items');
+  const elScore = document.getElementById('score');
+  const elRemaining = document.getElementById('remaining');
+  const elCorrect = document.getElementById('correct');
+  const elWrong = document.getElementById('wrong');
+  const elToast = document.getElementById('toast');
+
+  const zoneAllowed = document.getElementById('zoneAllowed');
+  const zoneForbidden = document.getElementById('zoneForbidden');
+  const placedAllowed = document.getElementById('placedAllowed');
+  const placedForbidden = document.getElementById('placedForbidden');
+
+  const btnShuffle = document.getElementById('btnShuffle');
+  const btnReset = document.getElementById('btnReset');
+  const btnNew = document.getElementById('btnNew');
+  const btnUndo = document.getElementById('btnUndo');
+
+  // --- Util ---
+  const shuffle = (arr) => {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  const setToast = (kind, title, msg) => {
+    elToast.classList.remove('ok','bad','neutral');
+    elToast.classList.add(kind);
+    elToast.innerHTML = `<strong>${title}</strong><p>${msg}</p>`;
+  };
+
+  const updateStats = () => {
+    elScore.textContent = score;
+    elCorrect.textContent = correct;
+    elWrong.textContent = wrong;
+    const remaining = deck.length - answered.size;
+    elRemaining.textContent = remaining;
+
+    if (remaining === 0) showEndScreen();
+  };
+
+  const badgeText = (item) => item.must ? "OBLIGATORIO" : item.allowed ? "PERMITIDO" : "NO PERMITIDO";
+
+  const badgeColorHint = (item) => {
+    if (!item.allowed) return "rgba(239,68,68,.22)";
+    if (item.must) return "rgba(34,197,94,.22)";
+    return "rgba(245,158,11,.20)";
+  };
+
+  const makeItemCard = (item) => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.draggable = true;
+    div.dataset.id = item.id;
+    div.setAttribute('role','listitem');
+    div.style.background = `linear-gradient(180deg, ${badgeColorHint(item)}, rgba(18,26,43,.65))`;
+
+    const tag = document.createElement('div');
+    tag.className = 'tag';
+    tag.textContent = item.group;
+
+    const wrap = document.createElement('div');
+    const name = document.createElement('p');
+    name.className = 'name';
+    name.textContent = item.name;
+
+    const desc = document.createElement('p');
+    desc.className = 'desc';
+    desc.textContent = "Arrástrame a ✅ o ❌";
+
+    wrap.appendChild(name);
+    wrap.appendChild(desc);
+
+    div.appendChild(tag);
+    div.appendChild(wrap);
+
+    div.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', item.id);
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    // accesibilidad: doble click alterna (permitido -> no permitido) si quieren jugar sin arrastrar
+    div.addEventListener('dblclick', () => {
+      if (answered.has(item.id)) return;
+      applyChoice(item.id, item.allowed ? "allowed" : "forbidden"); // "autoclasificar" = modo pista
+      setToast('neutral', '👀 Pista rápida', 'Has usado el doble clic como “pista”. En clase, mejor arrastrar para practicar 😉');
+    });
+
+    return div;
+  };
+
+  const makeChip = (item, ok, choice) => {
+    const chip = document.createElement('div');
+    chip.className = `chip ${ok ? 'ok' : 'bad'}`;
+    chip.title = item.why;
+
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+
+    const txt = document.createElement('div');
+    txt.className = 'txt';
+    txt.textContent = item.name;
+
+    chip.appendChild(dot);
+    chip.appendChild(txt);
+
+    // Click para ver explicación
+    chip.addEventListener('click', () => {
+      const chosen = choice === "allowed" ? "✅ Permitido" : "❌ No permitido";
+      const truth = item.allowed ? "✅ Sí puede estar" : "❌ No debe estar";
+      const must = item.must ? " Además, es parte del mínimo recomendado." : "";
+      setToast(ok ? 'ok' : 'bad',
+        `${ok ? "✅ Correcto" : "❌ Incorrecto"} — Tú: ${chosen} · Real: ${truth}`,
+        item.why + must
+      );
+    });
+
+    return chip;
+  };
+
+  const renderDeck = () => {
+    elItems.innerHTML = '';
+    deck.forEach(item => {
+      if (!answered.has(item.id)) elItems.appendChild(makeItemCard(item));
+    });
+  };
+
+  const applyChoice = (id, zone) => {
+    const item = deck.find(x => x.id === id);
+    if (!item) return;
+    if (answered.has(id)) return;
+
+    const isCorrect = (zone === "allowed") === item.allowed;
+
+    // Scoring: +10 correcto, -5 incorrecto, +5 bonus si es "obligatorio"
+    let delta = isCorrect ? 10 : -5;
+    if (isCorrect && item.must) delta += 5;
+    score += delta;
+    if (isCorrect) correct++; else wrong++;
+
+    answered.set(id, { choice: zone, correct: isCorrect, delta });
+
+    history.push({ id, prev: null }); // prev null porque solo permitimos 1 clasificación por item
+
+    // UI: quitar tarjeta y añadir chip en zona
+    const card = [...elItems.querySelectorAll('.item')].find(n => n.dataset.id === id);
+    if (card) card.remove();
+
+    const chip = makeChip(item, isCorrect, zone);
+    if (zone === "allowed") placedAllowed.appendChild(chip);
+    else placedForbidden.appendChild(chip);
+
+    // Toast explicación
+    const chosen = zone === "allowed" ? "✅ Permitido" : "❌ No permitido";
+    const truth = item.allowed ? "✅ Sí puede estar" : "❌ No debe estar";
+    const must = item.must ? " Además, es parte del mínimo recomendado." : "";
+    setToast(isCorrect ? 'ok' : 'bad',
+      `${isCorrect ? "✅ Correcto" : "❌ Incorrecto"} — Tú: ${chosen} · Real: ${truth}`,
+      `${item.why}${must} (Puntos: ${delta > 0 ? "+" : ""}${delta})`
+    );
+
+    updateStats();
+  };
+
+  const clearZones = () => {
+    placedAllowed.innerHTML = '';
+    placedForbidden.innerHTML = '';
+  };
+
+  const resetGame = (freshDeck = null) => {
+    score = 0; correct = 0; wrong = 0;
+    answered = new Map();
+    history = [];
+    clearZones();
+    if (freshDeck) deck = freshDeck;
+    renderDeck();
+    updateStats();
+    setToast('neutral', '🧠 Feedback', 'Arrastra un elemento a una de las cajas de la derecha. Aquí verás la explicación.');
+  };
+
+  const showEndScreen = () => {
+    // resumen: obligatorios faltantes o mal puestos
+    const mustItems = deck.filter(x => x.must);
+    const missingMust = mustItems.filter(x => !answered.has(x.id));
+    const wrongMust = mustItems.filter(x => answered.has(x.id) && !answered.get(x.id).correct);
+
+    const forbiddenMistakes = deck.filter(x => !x.allowed && answered.has(x.id) && !answered.get(x.id).correct);
+    const allowedMistakes = deck.filter(x => x.allowed && answered.has(x.id) && !answered.get(x.id).correct);
+
+    let msg = `Has terminado. Puntuación final: <b>${score}</b>. Aciertos: <b>${correct}</b>. Fallos: <b>${wrong}</b>.`;
+    msg += `<br><br><b>Recordatorio clave:</b> en botiquín laboral NO deben incluirse medicamentos (p. ej., ibuprofeno/paracetamol), pomadas con principio activo, inyecciones/material especializado ni material caducado.`;
+    if (missingMust.length) msg += `<br><br><b>⚠️ Obligatorios sin clasificar:</b> ${missingMust.map(x=>x.name).join(", ")}.`;
+    if (wrongMust.length) msg += `<br><b>⚠️ Obligatorios mal clasificados:</b> ${wrongMust.map(x=>x.name).join(", ")}.`;
+    if (!missingMust.length && !wrongMust.length) msg += `<br><br><b>✅ Bien:</b> has manejado correctamente todos los elementos del mínimo recomendado.`;
+
+    setToast('neutral', '🏁 Fin de la partida', msg);
+  };
+
+  // --- Drag & Drop zones ---
+  const wireZone = (zoneEl, zoneName) => {
+    zoneEl.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      zoneEl.classList.add('over');
+      e.dataTransfer.dropEffect = 'move';
+    });
+    zoneEl.addEventListener('dragleave', () => zoneEl.classList.remove('over'));
+    zoneEl.addEventListener('drop', (e) => {
+      e.preventDefault();
+      zoneEl.classList.remove('over');
+      const id = e.dataTransfer.getData('text/plain');
+      applyChoice(id, zoneName);
+    });
+  };
+
+  wireZone(zoneAllowed, "allowed");
+  wireZone(zoneForbidden, "forbidden");
+
+  // --- Undo ---
+  const undo = () => {
+    if (!history.length) {
+      setToast('neutral', '↶ Deshacer', 'No hay movimientos para deshacer.');
+      return;
+    }
+    const last = history.pop();
+    const id = last.id;
+    if (!answered.has(id)) return;
+
+    const item = deck.find(x => x.id === id);
+    const ans = answered.get(id);
+
+    // revert stats
+    score -= ans.delta;
+    if (ans.correct) correct--; else wrong--;
+
+    // remove chip from corresponding zone (last chip matching text)
+    const container = ans.choice === "allowed" ? placedAllowed : placedForbidden;
+    const chips = [...container.querySelectorAll('.chip')];
+    const chip = chips.find(c => c.querySelector('.txt')?.textContent === item.name);
+    if (chip) chip.remove();
+
+    answered.delete(id);
+
+    // restore card
+    elItems.appendChild(makeItemCard(item));
+
+    updateStats();
+    setToast('neutral', '↶ Movimiento deshecho', `Se ha devuelto “${item.name}” a la lista. (Atajo: Ctrl+Z)`);
+  };
+
+  btnUndo.addEventListener('click', undo);
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+      e.preventDefault();
+      undo();
+    }
+  });
+
+  // --- Buttons ---
+  btnShuffle.addEventListener('click', () => {
+    // Mezcla SOLO los no respondidos
+    const remaining = deck.filter(x => !answered.has(x.id));
+    const answeredOnes = deck.filter(x => answered.has(x.id));
+    deck = shuffle(remaining).concat(answeredOnes);
+    renderDeck();
+    setToast('neutral', '🔀 Mezclado', 'Se han mezclado los elementos pendientes.');
+  });
+
+  btnReset.addEventListener('click', () => {
+    // Mantener el mismo deck
+    resetGame(deck.slice());
+  });
+
+  btnNew.addEventListener('click', () => {
+    // Nueva partida = barajar todo
+    resetGame(shuffle(BANK));
+  });
+
+  // --- Init ---
+  deck = shuffle(BANK);
+  resetGame(deck);
+
+})();
+</script>
+</body>
+</html>
