@@ -299,6 +299,15 @@ footer { display: flex; justify-content: space-between; gap: 20px; width: min(14
 .checkbox-field input { width: 20px; min-height: 20px; }
 dialog { width: min(680px, calc(100% - 28px)); border: 0; border-radius: 20px; padding: 0; box-shadow: 0 30px 100px rgba(0,0,0,.35); }
 dialog::backdrop { background: rgba(4,22,38,.72); backdrop-filter: blur(4px); }
+.resource-window { width: min(1500px, calc(100% - 24px)); max-width: none; height: min(94vh, 1000px); border-radius: 22px; overflow: hidden; background: #fff; }
+.resource-window::backdrop { background: rgba(4,22,38,.82); }
+.resource-window-shell { display: grid; grid-template-rows: auto 1fr; height: 100%; }
+.resource-window-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 14px 18px; color: #fff; background: linear-gradient(135deg, var(--navy), #0e7490); }
+.resource-window-heading p { margin: 0 0 2px; color: #bae6fd; font-size: .72rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+.resource-window-heading h2 { margin: 0; color: #fff; font-size: 1.15rem; }
+.resource-window-close { display: grid; place-items: center; flex: 0 0 auto; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; color: #fff; background: rgba(255,255,255,.12); font-size: 1.65rem; line-height: 1; cursor: pointer; }
+.resource-window-close:hover { background: rgba(255,255,255,.24); }
+.floating-viewer { width: 100%; height: 100%; min-height: 70vh; border: 0; background: #fff; }
 .dialog-content { padding: 24px; }
 .dialog-heading { display: flex; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
 .dialog-heading h2 { margin: 0; }
@@ -327,6 +336,9 @@ dialog::backdrop { background: rgba(4,22,38,.72); backdrop-filter: blur(4px); }
   .catalog-panel { padding: 13px; }
   .viewer-heading { flex-direction: column; padding: 17px; }
   .viewer { min-height: 72vh; }
+  .resource-window { width: 100%; height: 100dvh; max-height: none; border-radius: 0; }
+  .resource-window-heading { padding: 11px 13px; }
+  .resource-window-heading h2 { font-size: 1rem; }
   footer { display: block; width: calc(100% - 28px); }
   .form-grid { grid-template-columns: 1fr; }
   .field.full { grid-column: auto; }

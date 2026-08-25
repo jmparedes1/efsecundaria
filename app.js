@@ -47,6 +47,10 @@ const elements = {
   viewerDescription: document.querySelector("#viewerDescription"),
   viewerCategory: document.querySelector("#viewerCategory"),
   openNewTab: document.querySelector("#openNewTab"),
+  resourceWindow: document.querySelector("#resourceWindow"),
+  resourceWindowTitle: document.querySelector("#resourceWindowTitle"),
+  closeResourceWindow: document.querySelector("#closeResourceWindow"),
+  floatingViewer: document.querySelector("#floatingViewer"),
   toast: document.querySelector("#toast")
 };
 
@@ -169,9 +173,7 @@ function openResource(resource) {
   elements.viewer.src = resource.url;
   elements.viewer.hidden = false;
   elements.viewerPlaceholder.hidden = true;
-  elements.openNewTab.href = resource.url;
   elements.openNewTab.hidden = false;
-  window.history.replaceState(null, "", `#${encodeURIComponent(resource.id)}`);
   renderCatalog();
   if (window.innerWidth < 980) elements.viewerTitle.scrollIntoView({ behavior: "smooth", block: "start" });
 }
@@ -179,10 +181,55 @@ function openResource(resource) {
 function openResourceFromHash() {
   const id = decodeURIComponent(location.hash.replace(/^#/, ""));
   const resource = state.resources.find((item) => item.id === id && item.active);
-  if (resource) openResource(resource);
+  if (resource) {
+    openResource(resource);
+    window.history.replaceState(null, "", `${location.pathname}${location.search}`);
+  }
+}
+
+function selectedResource() {
+  return state.resources.find((item) => item.id === state.selectedId && item.active);
+}
+
+function openFloatingResource() {
+  const resource = selectedResource();
+  if (!resource) return;
+  elements.resourceWindowTitle.textContent = resource.title;
+  elements.floatingViewer.src = resource.url;
+  if (!elements.resourceWindow.open) elements.resourceWindow.showModal();
+}
+
+function closeFloatingResource() {
+  if (elements.resourceWindow.open) elements.resourceWindow.close();
+  elements.floatingViewer.src = "about:blank";
+}
+
+function preventContextMenu(event) {
+  event.preventDefault();
+}
+
+function protectFrame(frame) {
+  try {
+    frame.contentDocument?.addEventListener("contextmenu", preventContextMenu);
+  } catch {
+    // Los recursos externos conservan sus propias reglas de seguridad del navegador.
+  }
 }
 
 function bindCatalogEvents() {
+  document.addEventListener("contextmenu", preventContextMenu);
+  elements.viewer.addEventListener("load", () => protectFrame(elements.viewer));
+  elements.floatingViewer.addEventListener("load", () => protectFrame(elements.floatingViewer));
+  elements.openNewTab.addEventListener("click", openFloatingResource);
+  elements.closeResourceWindow.addEventListener("click", closeFloatingResource);
+  elements.resourceWindow.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closeFloatingResource();
+  });
+  elements.resourceWindow.addEventListener("click", (event) => {
+    if (event.target === elements.resourceWindow) closeFloatingResource();
+  });
+
   elements.search.addEventListener("input", () => {
     state.query = normalize(elements.search.value);
     renderCatalog();

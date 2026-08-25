@@ -6,7 +6,7 @@
   <meta name="description" content="Recursos y herramientas PREMIR para Educación Física y preparación de oposiciones.">
   <meta name="theme-color" content="#075985">
   <title>PREMIR · Recursos de Educación Física</title>
-  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="app.css?v=20260825-3">
 </head>
 <body>
   <a class="skip-link" href="#catalogo">Saltar al catálogo</a>
@@ -101,7 +101,7 @@
               <h2 id="viewerTitle">Selecciona un recurso</h2>
               <p id="viewerDescription">Aparecerá en este espacio.</p>
             </div>
-            <a class="button secondary small" id="openNewTab" href="#" target="_blank" rel="noopener" hidden>Abrir aparte ↗</a>
+            <button class="button secondary small" id="openNewTab" type="button" hidden>Abrir en ventana flotante</button>
           </div>
           <div class="viewer-placeholder" id="viewerPlaceholder">
             <span aria-hidden="true">🏃</span>
@@ -119,7 +119,20 @@
     </footer>
   </div>
 
+  <dialog class="resource-window" id="resourceWindow" aria-labelledby="resourceWindowTitle">
+    <div class="resource-window-shell">
+      <header class="resource-window-heading">
+        <div>
+          <p>PREMIR · Visor protegido</p>
+          <h2 id="resourceWindowTitle">Recurso</h2>
+        </div>
+        <button class="resource-window-close" id="closeResourceWindow" type="button" aria-label="Cerrar ventana flotante">×</button>
+      </header>
+      <iframe id="floatingViewer" class="floating-viewer" title="Recurso PREMIR en ventana flotante"></iframe>
+    </div>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-  <script type="module" src="app.js?v=20260825-1"></script>
+  <script type="module" src="app.js?v=20260825-3"></script>
 </body>
 </html>
