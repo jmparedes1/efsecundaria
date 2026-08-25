@@ -1,4 +1,4 @@
-import { APP_CONFIG } from "./firebase-config.js";
+import { APP_CONFIG } from "./firebase-config.js?v=20260825-1";
 
 const CATEGORY_LABELS = {
   curriculo: "Currículo",
