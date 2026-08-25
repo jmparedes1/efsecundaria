@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Panel de administración de recursos PREMIR.">
+  <meta name="theme-color" content="#075985">
+  <title>Administración · PREMIR</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <section class="auth-screen" id="adminLogin" hidden aria-labelledby="adminLoginTitle">
+    <div class="auth-card">
+      <img class="auth-logo" src="https://www.salvour.com/s/cc_images/cache_2491734547.gif?t=1767110894" alt="PREMIR">
+      <p class="eyebrow">Zona de administración</p>
+      <h1 id="adminLoginTitle">Entrada del profesor</h1>
+      <p class="muted">Solo una cuenta incluida en la colección “admins” puede entrar.</p>
+      <form id="adminLoginForm" class="stack">
+        <label for="adminEmail">Correo electrónico</label>
+        <input id="adminEmail" type="email" autocomplete="username" required>
+        <label for="adminPassword">Contraseña</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" required minlength="6">
+        <button class="button primary" type="submit">Entrar</button>
+      </form>
+      <p class="message" id="adminLoginMessage" role="status" aria-live="polite"></p>
+      <a class="text-button" href="index.html">← Volver a la web</a>
+    </div>
+  </section>
+
+  <div id="adminApp" hidden>
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <img src="https://www.salvour.com/s/cc_images/cache_2491734547.gif?t=1767110894" alt="">
+        <span><strong>PREMIR</strong><small>Administración</small></span>
+      </a>
+      <div class="account-actions">
+        <span class="mode-badge" id="adminModeBadge">Modo local</span>
+        <span class="user-name" id="adminUserName"></span>
+        <button class="button ghost small" id="adminLogout" type="button" hidden>Salir</button>
+        <a class="button ghost small" href="index.html">Ver la web</a>
+      </div>
+    </header>
+
+    <main class="admin-page">
+      <section class="admin-hero">
+        <div>
+          <p class="eyebrow light">Panel sencillo</p>
+          <h1>Administrar PREMIR</h1>
+          <p>Activa, desactiva y añade recursos sin tocar la portada.</p>
+        </div>
+        <button class="button primary" id="newResource" type="button">+ Añadir recurso</button>
+      </section>
+
+      <div class="notice" id="localNotice">
+        <strong>Modo local:</strong> los cambios solo están en este navegador. Cuando termines, pulsa “Descargar catálogo” y sustituye el archivo <code>resources.json</code> en GitHub.
+      </div>
+      <div class="notice info" id="firebaseNotice" hidden>
+        <strong>Modo Firebase:</strong> los cambios se guardan en línea y aparecen en la web sin volver a publicarla. Los archivos HTML continúan siendo públicos en GitHub Pages.
+      </div>
+
+      <nav class="admin-tabs" aria-label="Secciones del panel">
+        <button class="admin-tab active" type="button" data-admin-tab="resources" aria-pressed="true">Recursos</button>
+        <button class="admin-tab" id="usersTabButton" type="button" data-admin-tab="users" aria-pressed="false" hidden>Alumnado</button>
+      </nav>
+
+      <section class="admin-panel" id="resourcesPanel">
+        <div class="panel-toolbar">
+          <div>
+            <h2>Recursos</h2>
+            <p class="muted"><span id="adminResourceCount">0</span> elementos en el catálogo.</p>
+          </div>
+          <div class="toolbar-buttons">
+            <button class="button secondary small" id="seedCatalog" type="button" hidden>Cargar los 32 recursos</button>
+            <button class="button secondary small" id="resetCatalog" type="button">Recuperar catálogo original</button>
+            <button class="button primary small" id="exportCatalog" type="button">Descargar catálogo</button>
+          </div>
+        </div>
+        <div class="admin-list" id="adminResourceList"></div>
+      </section>
+
+      <section class="admin-panel" id="usersPanel" hidden>
+        <div class="panel-toolbar">
+          <div>
+            <h2>Alumnado</h2>
+            <p class="muted">Activa o pausa el acceso al portal.</p>
+          </div>
+          <button class="button secondary small" id="reloadUsers" type="button">Actualizar lista</button>
+        </div>
+        <div class="admin-list" id="adminUserList"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="resourceDialog" aria-labelledby="dialogTitle">
+    <form class="dialog-content" id="resourceForm" method="dialog">
+      <div class="dialog-heading">
+        <h2 id="dialogTitle">Añadir recurso</h2>
+        <button class="icon-button" id="closeDialog" type="button" aria-label="Cerrar">×</button>
+      </div>
+      <input id="resourceOriginalId" type="hidden">
+      <div class="form-grid">
+        <div class="field">
+          <label for="resourceTitle">Nombre</label>
+          <input id="resourceTitle" required maxlength="100">
+        </div>
+        <div class="field">
+          <label for="resourceId">Identificador corto</label>
+          <input id="resourceId" required pattern="[a-z0-9-]+" placeholder="mi-recurso">
+        </div>
+        <div class="field full">
+          <label for="resourceDescription">Descripción</label>
+          <textarea id="resourceDescription" required maxlength="240"></textarea>
+        </div>
+        <div class="field">
+          <label for="resourceCategory">Categoría</label>
+          <select id="resourceCategory" required>
+            <option value="curriculo">Currículo</option>
+            <option value="repaso">Repaso</option>
+            <option value="programacion">Programación</option>
+            <option value="utilidades">Utilidades</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="resourceIcon">Icono</label>
+          <input id="resourceIcon" maxlength="8" value="📄">
+        </div>
+        <div class="field full">
+          <label for="resourceUrl">Archivo o enlace</label>
+          <input id="resourceUrl" required placeholder="Mi%20recurso.html o https://…">
+        </div>
+        <div class="field">
+          <label for="resourceOrder">Orden</label>
+          <input id="resourceOrder" type="number" min="0" step="10" value="10">
+        </div>
+        <label class="checkbox-field">
+          <input id="resourceActive" type="checkbox" checked>
+          Mostrar este recurso
+        </label>
+      </div>
+      <div class="dialog-actions">
+        <button class="button secondary" id="cancelDialog" type="button">Cancelar</button>
+        <button class="button primary" type="submit">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="adminToast" role="status" aria-live="polite" hidden></div>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

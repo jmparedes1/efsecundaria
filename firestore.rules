@@ -1,0 +1,80 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function isActiveUser() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.active == true;
+    }
+
+    function validResource() {
+      return request.resource.data.keys().hasOnly([
+          'title', 'description', 'category', 'icon', 'url',
+          'active', 'order', 'createdAt', 'updatedAt'
+        ])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 1
+        && request.resource.data.title.size() <= 100
+        && request.resource.data.description is string
+        && request.resource.data.description.size() <= 240
+        && request.resource.data.category in ['curriculo', 'repaso', 'programacion', 'utilidades']
+        && request.resource.data.icon is string
+        && request.resource.data.url is string
+        && request.resource.data.url.size() >= 1
+        && request.resource.data.url.size() <= 500
+        && request.resource.data.active is bool
+        && request.resource.data.order is number;
+    }
+
+    match /admins/{uid} {
+      allow get: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow list: if isAdmin();
+      allow write: if false;
+    }
+
+    match /users/{uid} {
+      allow create: if signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly([
+          'email', 'displayName', 'active', 'role', 'createdAt'
+        ])
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.active == false
+        && request.resource.data.role == 'student';
+
+      allow get: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow list, update: if isAdmin();
+      allow delete: if false;
+    }
+
+    match /resources/{resourceId} {
+      allow read: if isAdmin() || (isActiveUser() && resource.data.active == true);
+      allow create, update: if isAdmin() && validResource();
+      allow delete: if false;
+    }
+
+    match /progress/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow create, update: if signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['favorites', 'updatedAt'])
+        && request.resource.data.favorites is list
+        && request.resource.data.favorites.size() <= 100;
+      allow delete: if signedIn() && request.auth.uid == uid;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
