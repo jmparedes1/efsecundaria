@@ -18,6 +18,7 @@
 - Al abrir un recurso, su dirección no se añade a la barra del navegador.
 - El botón de apertura ampliada usa una ventana flotante dentro de PREMIR, sin mostrar otra barra de direcciones.
 - Se ha bloqueado el menú del botón derecho en el portal y en los recursos alojados dentro de PREMIR.
+- Se ha reservado el dominio gratuito `https://ef-premir.web.app` y se ha añadido la configuración de Firebase Hosting.
 
 ## Límite de la solución gratuita
 

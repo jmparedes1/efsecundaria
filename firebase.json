@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "ef-premir",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
