@@ -43,14 +43,16 @@ service cloud.firestore {
     }
 
     match /users/{uid} {
-      allow create: if signedIn()
+      allow create: if isAdmin() || (
+        signedIn()
         && request.auth.uid == uid
         && request.resource.data.keys().hasOnly([
           'email', 'displayName', 'active', 'role', 'createdAt'
         ])
         && request.resource.data.email == request.auth.token.email
         && request.resource.data.active == false
-        && request.resource.data.role == 'student';
+        && request.resource.data.role == 'student'
+      );
 
       allow get: if signedIn() && (request.auth.uid == uid || isAdmin());
       allow list, update: if isAdmin();

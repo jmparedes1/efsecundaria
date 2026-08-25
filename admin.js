@@ -38,6 +38,15 @@ const elements = {
   resetCatalog: document.querySelector("#resetCatalog"),
   exportCatalog: document.querySelector("#exportCatalog"),
   reloadUsers: document.querySelector("#reloadUsers"),
+  studentRegistrationForm: document.querySelector("#studentRegistrationForm"),
+  singleEmailField: document.querySelector("#singleEmailField"),
+  bulkEmailField: document.querySelector("#bulkEmailField"),
+  studentEmail: document.querySelector("#studentEmail"),
+  studentEmails: document.querySelector("#studentEmails"),
+  studentCommonPassword: document.querySelector("#studentCommonPassword"),
+  showStudentPassword: document.querySelector("#showStudentPassword"),
+  registerStudents: document.querySelector("#registerStudents"),
+  studentRegistrationResults: document.querySelector("#studentRegistrationResults"),
   dialog: document.querySelector("#resourceDialog"),
   dialogTitle: document.querySelector("#dialogTitle"),
   closeDialog: document.querySelector("#closeDialog"),
@@ -271,6 +280,130 @@ async function loadUsers() {
   }
 }
 
+function selectedRegistrationMode() {
+  return document.querySelector('input[name="studentMode"]:checked')?.value || "single";
+}
+
+function updateRegistrationMode() {
+  const bulk = selectedRegistrationMode() === "bulk";
+  elements.singleEmailField.hidden = bulk;
+  elements.bulkEmailField.hidden = !bulk;
+  elements.studentEmail.required = !bulk;
+  elements.studentEmails.required = bulk;
+  elements.studentRegistrationResults.hidden = true;
+}
+
+function parseStudentEmails() {
+  const source = selectedRegistrationMode() === "bulk"
+    ? elements.studentEmails.value
+    : elements.studentEmail.value;
+  return [...new Set(source
+    .split(/[\s,;]+/)
+    .map((email) => email.trim().toLowerCase())
+    .filter(Boolean))];
+}
+
+function validEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function registrationErrorMessage(error) {
+  const messages = {
+    "auth/email-already-in-use": "ya existe y no usa la contraseña común",
+    "auth/invalid-credential": "ya existe y no usa la contraseña común",
+    "auth/wrong-password": "ya existe y no usa la contraseña común",
+    "auth/invalid-email": "el correo no es válido",
+    "auth/weak-password": "la contraseña común es demasiado corta",
+    "auth/too-many-requests": "Firebase ha pedido esperar un poco antes de continuar",
+    "auth/operation-not-allowed": "el acceso por correo no está activado"
+  };
+  return messages[error?.code] || "no se ha podido registrar";
+}
+
+function showRegistrationResults(results) {
+  const errors = results.filter((item) => !item.ok);
+  elements.studentRegistrationResults.classList.toggle("has-errors", errors.length > 0);
+  elements.studentRegistrationResults.textContent = results
+    .map((item) => `${item.ok ? "✓" : "✗"} ${item.email} — ${item.message}`)
+    .join("\n");
+  elements.studentRegistrationResults.hidden = false;
+}
+
+async function registerStudents(event) {
+  event.preventDefault();
+  if (!state.isFirebase || !state.firebase) return;
+
+  const emails = parseStudentEmails();
+  const invalidEmails = emails.filter((email) => !validEmail(email));
+  if (!emails.length || invalidEmails.length) {
+    showRegistrationResults((invalidEmails.length ? invalidEmails : ["Escribe al menos un correo"])
+      .map((email) => ({ email, ok: false, message: invalidEmails.length ? "el correo no es válido" : "falta el correo" })));
+    return;
+  }
+
+  const password = elements.studentCommonPassword.value;
+  if (password.length < 6) {
+    showRegistrationResults([{ email: "Contraseña", ok: false, message: "debe tener al menos 6 caracteres" }]);
+    return;
+  }
+
+  elements.registerStudents.disabled = true;
+  elements.registerStudents.textContent = `Registrando 0 de ${emails.length}…`;
+  elements.studentRegistrationResults.hidden = true;
+
+  const secondaryName = `student-registration-${Date.now()}`;
+  const secondaryApp = state.firebase.appApi.initializeApp(APP_CONFIG.firebase, secondaryName);
+  const secondaryAuth = state.firebase.authApi.getAuth(secondaryApp);
+  const { doc, setDoc, serverTimestamp } = state.firebase.store;
+  const results = [];
+
+  try {
+    for (const [index, email] of emails.entries()) {
+      elements.registerStudents.textContent = `Registrando ${index + 1} de ${emails.length}…`;
+      let credential;
+      let created = true;
+
+      try {
+        try {
+          credential = await state.firebase.authApi.createUserWithEmailAndPassword(secondaryAuth, email, password);
+        } catch (error) {
+          if (error?.code !== "auth/email-already-in-use") throw error;
+          created = false;
+          credential = await state.firebase.authApi.signInWithEmailAndPassword(secondaryAuth, email, password);
+        }
+        const payload = {
+          email,
+          displayName: email.split("@")[0],
+          active: true,
+          role: "student",
+          updatedAt: serverTimestamp()
+        };
+        if (created) payload.createdAt = serverTimestamp();
+        await setDoc(doc(state.firebase.db, "users", credential.user.uid), payload, { merge: true });
+        results.push({ email, ok: true, message: created ? "registrado y con acceso" : "ya existía; acceso activado" });
+      } catch (error) {
+        results.push({ email, ok: false, message: registrationErrorMessage(error) });
+      } finally {
+        await state.firebase.authApi.signOut(secondaryAuth).catch(() => {});
+      }
+    }
+  } finally {
+    await state.firebase.appApi.deleteApp(secondaryApp).catch(() => {});
+    elements.studentCommonPassword.value = "";
+    elements.showStudentPassword.checked = false;
+    elements.studentCommonPassword.type = "password";
+    elements.registerStudents.disabled = false;
+    elements.registerStudents.textContent = "Registrar alumnado";
+  }
+
+  showRegistrationResults(results);
+  if (results.every((item) => item.ok)) {
+    elements.studentEmail.value = "";
+    elements.studentEmails.value = "";
+  }
+  await loadUsers();
+}
+
 async function toggleUser(user) {
   const nextActive = !user.active;
   const { doc, updateDoc, serverTimestamp } = state.firebase.store;
@@ -312,6 +445,7 @@ async function startFirebase() {
   state.firebase = {
     auth: authModule.getAuth(firebaseApp),
     db: storeModule.getFirestore(firebaseApp),
+    appApi: appModule,
     authApi: authModule,
     store: storeModule
   };
@@ -372,6 +506,14 @@ function bindEvents() {
   elements.resetCatalog.addEventListener("click", resetCatalog);
   elements.seedCatalog.addEventListener("click", writeOriginalCatalogToFirebase);
   elements.reloadUsers.addEventListener("click", loadUsers);
+  elements.studentRegistrationForm.addEventListener("submit", registerStudents);
+  document.querySelectorAll('input[name="studentMode"]').forEach((input) => {
+    input.addEventListener("change", updateRegistrationMode);
+  });
+  elements.showStudentPassword.addEventListener("change", () => {
+    elements.studentCommonPassword.type = elements.showStudentPassword.checked ? "text" : "password";
+  });
+  updateRegistrationMode();
 
   document.querySelector(".admin-tabs").addEventListener("click", async (event) => {
     const button = event.target.closest("[data-admin-tab]");

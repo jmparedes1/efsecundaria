@@ -241,32 +241,35 @@ La configuración web de Firebase puede estar en una página pública. La seguri
 
 ---
 
-# PARTE 4 · Dar acceso a un alumno
+# PARTE 4 · Dar acceso al alumnado
 
-## Crear su cuenta
+## Registrar un solo correo
 
-1. Entra en Firebase.
-2. Abre **Authentication → Users**.
-3. Pulsa **Add user**.
-4. Escribe el correo del alumno.
-5. Escribe una contraseña temporal de al menos 6 caracteres.
-6. Pulsa **Add user**.
-7. Entrega al alumno su correo y esa contraseña por un canal adecuado.
+1. Abre `admin.html`.
+2. Pulsa la pestaña **Alumnado**.
+3. Marca **Un correo**.
+4. Escribe el correo del alumno o alumna.
+5. Escribe la contraseña común acordada para el grupo.
+6. Pulsa **Registrar alumnado**.
+7. Cuando aparezca el símbolo ✓, esa persona ya puede entrar.
 
-## El primer acceso del alumno
+## Registrar muchos correos de una vez
+
+1. Abre `admin.html` y pulsa **Alumnado**.
+2. Marca **Varios correos**.
+3. Pega los correos. Puedes poner uno por línea o separarlos con comas.
+4. Escribe una sola vez la contraseña común del grupo.
+5. Pulsa **Registrar alumnado**.
+6. Espera hasta que cada correo tenga un símbolo ✓ o un mensaje que explique el problema.
+
+La contraseña se utiliza para crear las cuentas, pero no se guarda en el código ni en el navegador.
+
+## Entrar en la web
 
 1. El alumno abre la portada.
-2. Escribe su correo y contraseña.
-3. Verá el mensaje **Tu acceso está pendiente**.
-4. Eso es correcto. Al entrar por primera vez se crea su ficha pendiente.
-
-## Activarlo
-
-1. Tú abres `admin.html`.
-2. Pulsa la pestaña **Alumnado**.
-3. Busca al alumno.
-4. Pulsa **Dar acceso**.
-5. El alumno actualiza la página y ya puede entrar.
+2. Escribe el correo que registró el profesor.
+3. Escribe la contraseña común.
+4. Ya puede ver el catálogo.
 
 ---
 
@@ -367,7 +370,7 @@ Firebase tiene límites gratuitos. Para una web pequeña suelen ser suficientes,
 
 ## El alumno no aparece en el panel
 
-El alumno debe entrar una vez. Esa primera entrada crea su ficha pendiente.
+Pulsa **Actualizar lista**. Si todavía no aparece, vuelve a escribir su correo en **Registrar correos** y revisa el mensaje que sale debajo del formulario.
 
 ## Quiero volver atrás
 
@@ -390,7 +393,6 @@ El alumno debe entrar una vez. Esa primera entrada crea su ficha pendiente.
 - [ ] Las reglas de Firestore están publicadas.
 - [ ] Mi UID está dentro de la colección `admins`.
 - [ ] Probé con una cuenta de alumno.
-- [ ] Un alumno pendiente no puede ver el catálogo.
+- [ ] Un correo no registrado no puede ver el catálogo.
 - [ ] Un alumno activo sí puede verlo.
 - [ ] Un alumno no puede abrir `admin.html`.
-

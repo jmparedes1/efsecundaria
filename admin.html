@@ -6,7 +6,7 @@
   <meta name="description" content="Panel de administración de recursos PREMIR.">
   <meta name="theme-color" content="#075985">
   <title>Administración · PREMIR</title>
-  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="app.css?v=20260825-2">
 </head>
 <body>
   <section class="auth-screen" id="adminLogin" hidden aria-labelledby="adminLoginTitle">
@@ -82,9 +82,53 @@
         <div class="panel-toolbar">
           <div>
             <h2>Alumnado</h2>
-            <p class="muted">Activa o pausa el acceso al portal.</p>
+            <p class="muted">Registra correos y activa o pausa el acceso al portal.</p>
           </div>
           <button class="button secondary small" id="reloadUsers" type="button">Actualizar lista</button>
+        </div>
+
+        <section class="student-registration" aria-labelledby="studentRegistrationTitle">
+          <div>
+            <p class="eyebrow">Alta de alumnado</p>
+            <h3 id="studentRegistrationTitle">Registrar correos</h3>
+            <p class="muted">Puedes añadir un correo o pegar una lista completa. Todos usarán la misma contraseña que escribas aquí.</p>
+          </div>
+
+          <form id="studentRegistrationForm" class="student-registration-form">
+            <fieldset class="registration-mode">
+              <legend>¿Cuántos correos vas a registrar?</legend>
+              <label><input type="radio" name="studentMode" value="single" checked> Un correo</label>
+              <label><input type="radio" name="studentMode" value="bulk"> Varios correos</label>
+            </fieldset>
+
+            <div class="field" id="singleEmailField">
+              <label for="studentEmail">Correo del alumno o alumna</label>
+              <input id="studentEmail" type="email" autocomplete="off" placeholder="alumno@centro.es">
+            </div>
+
+            <div class="field" id="bulkEmailField" hidden>
+              <label for="studentEmails">Lista de correos</label>
+              <textarea id="studentEmails" rows="7" placeholder="Un correo por línea. También puedes separarlos con comas o punto y coma."></textarea>
+            </div>
+
+            <div class="field">
+              <label for="studentCommonPassword">Contraseña común para todos</label>
+              <input id="studentCommonPassword" type="password" autocomplete="new-password" required minlength="6">
+              <label class="show-password"><input id="showStudentPassword" type="checkbox"> Mostrar mientras escribo</label>
+            </div>
+
+            <div class="registration-actions">
+              <button class="button primary" id="registerStudents" type="submit">Registrar alumnado</button>
+              <p class="muted">La contraseña no se guarda en el código ni en el navegador.</p>
+            </div>
+          </form>
+
+          <div class="registration-results" id="studentRegistrationResults" role="status" aria-live="polite" hidden></div>
+        </section>
+
+        <div class="student-list-heading">
+          <h3>Correos registrados</h3>
+          <p class="muted">Desde aquí puedes quitar el acceso y volver a darlo.</p>
         </div>
         <div class="admin-list" id="adminUserList"></div>
       </section>
@@ -145,6 +189,6 @@
   </dialog>
 
   <div class="toast" id="adminToast" role="status" aria-live="polite" hidden></div>
-  <script type="module" src="admin.js?v=20260825-1"></script>
+  <script type="module" src="admin.js?v=20260825-2"></script>
 </body>
 </html>
